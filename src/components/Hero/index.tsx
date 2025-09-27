@@ -36,7 +36,7 @@ export function Hero() {
             <div className="mb-8">
               <p className="text-gray-700 mb-2">Popular conversions:</p>
               <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
-                {['PNG → WebP', 'JPG → PNG', 'WebP → PNG', 'JPG → WebP', 'PNG → JPG'].map(format => (
+                {['PNG → WebP', 'JPG → PNG', 'WebP → PNG', 'JPG → WebP', 'PNG → JPG', 'WebP → JPG'].map(format => (
                   <span key={format} className="px-3 py-1 bg-white rounded-full text-sm text-gray-600 shadow-sm border">
                     {format}
                   </span>

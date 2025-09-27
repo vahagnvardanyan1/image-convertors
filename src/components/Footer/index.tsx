@@ -1,4 +1,5 @@
 import { Twitter, Github, Linkedin, Mail } from 'lucide-react';
+import Link from 'next/link';
 
 export function Footer() {
   return (
@@ -30,36 +31,46 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Converters */}
           <div>
-            <h3 className="font-semibold mb-4">Quick Links</h3>
+            <h3 className="font-semibold mb-4">Converters</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  Home
-                </a>
+                <Link href="/png-to-webp" className="text-gray-400 hover:text-white transition-colors">
+                  PNG to WebP
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  Tools
-                </a>
+                <Link href="/jpg-to-png" className="text-gray-400 hover:text-white transition-colors">
+                  JPG to PNG
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  API
-                </a>
+                <Link href="/webp-to-png" className="text-gray-400 hover:text-white transition-colors">
+                  WebP to PNG
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  Blog
-                </a>
+                <Link href="/jpg-to-webp" className="text-gray-400 hover:text-white transition-colors">
+                  JPG to WebP
+                </Link>
+              </li>
+              <li>
+                <Link href="/png-to-jpg" className="text-gray-400 hover:text-white transition-colors">
+                  PNG to JPG
+                </Link>
+              </li>
+              <li>
+                <Link href="/webp-to-jpg" className="text-gray-400 hover:text-white transition-colors">
+                  WebP to JPG
+                </Link>
               </li>
             </ul>
           </div>
 
-          {/* Legal & Support */}
+          {/* Legal */}
           <div>
-            <h3 className="font-semibold mb-4">Legal & Support</h3>
+            <h3 className="font-semibold mb-4">Legal</h3>
             <ul className="space-y-2">
               <li>
                 <a href="#" className="text-gray-400 hover:text-white transition-colors">
@@ -71,23 +82,13 @@ export function Footer() {
                   Terms of Service
                 </a>
               </li>
-              <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  Support
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  Contact Us
-                </a>
-              </li>
             </ul>
           </div>
         </div>
 
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-400 text-sm">© 2024 ImageConverter. All rights reserved.</p>
+          <p className="text-gray-400 text-sm">© 2025 ImageConverter. All rights reserved.</p>
           <div className="flex items-center space-x-4 mt-4 md:mt-0">
             <span className="text-gray-400 text-sm">Made with ❤️ for the web</span>
           </div>
