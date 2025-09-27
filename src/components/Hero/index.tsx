@@ -78,7 +78,7 @@ export function Hero() {
             <div className="relative">
               <div className="w-96 h-96 bg-gradient-to-br from-blue-100 to-purple-100 rounded-3xl flex items-center justify-center shadow-2xl">
                 <div className="grid grid-cols-2 gap-4 p-8">
-                  {['PNG', 'JPG', 'WebP', 'GIF'].map((format, index) => (
+                  {['PNG', 'JPG', 'WebP', 'GIF'].map(format => (
                     <div key={format} className="w-20 h-20 bg-white rounded-2xl flex items-center justify-center shadow-lg transform transition-transform hover:scale-105">
                       <span className="font-bold text-gray-700">{format}</span>
                     </div>

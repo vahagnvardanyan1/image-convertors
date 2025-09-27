@@ -1,11 +1,13 @@
 'use client';
-import { useState } from 'react';
-import { ArrowLeft, Upload, Download, FileImage, Settings, Zap } from 'lucide-react';
+import { useState, useRef } from 'react';
+import { ArrowLeft, Upload, FileImage, Settings, Zap, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '../ui/button';
 import { Card } from '@/components/Card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../Select';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../Accordion';
+import { convertImage, validateImageFile, cleanupImageUrl, type ConversionResult, type SupportedFormat } from '../../lib/imageConverter';
+import { ConversionResultModal } from '../ConversionResultModal';
 
 interface ConverterPageProps {
   from: string;
@@ -17,33 +19,70 @@ export function ConverterPage({ from, to, title }: ConverterPageProps) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [outputFormat, setOutputFormat] = useState(to.toLowerCase());
   const [isConverting, setIsConverting] = useState(false);
-  const [converted, setConverted] = useState(false);
+  const [conversionResult, setConversionResult] = useState<ConversionResult | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [quality, setQuality] = useState(0.9);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      setSelectedFile(file);
-      setConverted(false);
+      handleFileSelection(file);
     }
   };
 
-  const handleConvert = () => {
+  const handleFileSelection = (file: File) => {
+    setError(null);
+    setConversionResult(null);
+
+    if (!validateImageFile(file)) {
+      setError('Please select a valid image file (PNG, JPG, WebP, or GIF)');
+      return;
+    }
+
+    setSelectedFile(file);
+  };
+
+  const handleConvert = async () => {
     if (!selectedFile) return;
 
     setIsConverting(true);
-    // Simulate conversion process
-    setTimeout(() => {
+    setError(null);
+    setConversionResult(null);
+
+    try {
+      const result = await convertImage(selectedFile, outputFormat as SupportedFormat, {
+        quality,
+        maxSizeMB: 10,
+        maxWidthOrHeight: 4096,
+        maintainAspectRatio: true,
+      });
+
+      setConversionResult(result);
+      setIsModalOpen(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Conversion failed');
+    } finally {
       setIsConverting(false);
-      setConverted(true);
-    }, 2000);
+    }
   };
 
-  const handleDownload = () => {
-    // Simulate download
-    const link = document.createElement('a');
-    link.href = '#';
-    link.download = `converted-image.${outputFormat}`;
-    link.click();
+  const handleConvertAnother = () => {
+    if (conversionResult) {
+      cleanupImageUrl(conversionResult.url);
+    }
+    setSelectedFile(null);
+    setConversionResult(null);
+    setError(null);
+    setIsModalOpen(false);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   const formatSteps = [
@@ -128,13 +167,21 @@ export function ConverterPage({ from, to, title }: ConverterPageProps) {
               <h2 className="text-xl font-bold text-gray-900 mb-4">1. Upload Your Image</h2>
 
               <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-blue-400 transition-colors duration-200">
-                <input type="file" accept={`.${from.toLowerCase()}`} onChange={handleFileSelect} className="hidden" id="file-upload" />
+                <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileSelect} className="hidden" id="file-upload" />
                 <label htmlFor="file-upload" className="cursor-pointer">
                   <Upload className="mx-auto text-gray-400 mb-4" size={48} />
                   <p className="text-gray-600 mb-2">Drop your {from} file here or click to browse</p>
-                  <p className="text-sm text-gray-500">Supports {from} files up to 50MB</p>
+                  <p className="text-sm text-gray-500">Supports image files up to 50MB</p>
                 </label>
               </div>
+
+              {/* Error Display */}
+              {error && (
+                <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center space-x-2">
+                  <AlertCircle className="text-red-500" size={20} />
+                  <p className="text-red-700">{error}</p>
+                </div>
+              )}
 
               {selectedFile && (
                 <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
@@ -168,6 +215,26 @@ export function ConverterPage({ from, to, title }: ConverterPageProps) {
                     </SelectContent>
                   </Select>
                 </div>
+
+                {/* Quality Control */}
+                {(outputFormat === 'jpg' || outputFormat === 'webp') && (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Quality: {Math.round(quality * 100)}%</label>
+                    <input
+                      type="range"
+                      min="0.1"
+                      max="1"
+                      step="0.1"
+                      value={quality}
+                      onChange={e => setQuality(parseFloat(e.target.value))}
+                      className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+                    />
+                    <div className="flex justify-between text-xs text-gray-500 mt-1">
+                      <span>Lower quality (smaller file)</span>
+                      <span>Higher quality (larger file)</span>
+                    </div>
+                  </div>
+                )}
               </div>
             </Card>
 
@@ -193,31 +260,6 @@ export function ConverterPage({ from, to, title }: ConverterPageProps) {
                 )}
               </Button>
             </Card>
-
-            {/* Results */}
-            {converted && (
-              <Card className="p-6 border-green-200 bg-green-50">
-                <h2 className="text-xl font-bold text-gray-900 mb-4">4. Download Result</h2>
-
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between p-4 bg-white rounded-lg border">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-                        <FileImage className="text-white" size={20} />
-                      </div>
-                      <div>
-                        <p className="font-medium text-gray-900">converted-image.{outputFormat}</p>
-                        <p className="text-sm text-gray-600">Ready for download</p>
-                      </div>
-                    </div>
-                    <Button onClick={handleDownload} className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
-                      <Download className="mr-2" size={16} />
-                      Download
-                    </Button>
-                  </div>
-                </div>
-              </Card>
-            )}
           </div>
 
           {/* Sidebar */}
@@ -285,6 +327,17 @@ export function ConverterPage({ from, to, title }: ConverterPageProps) {
           </div>
         </div>
       </div>
+
+      {/* Conversion Result Modal */}
+      <ConversionResultModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        result={conversionResult}
+        originalFileName={selectedFile?.name}
+        inputFormat={from}
+        outputFormat={outputFormat}
+        onConvertAnother={handleConvertAnother}
+      />
     </>
   );
 }
