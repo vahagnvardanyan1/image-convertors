@@ -1,9 +1,7 @@
+'use client';
 import { ArrowRight, FileImage, Image as ImageIcon, Globe, Camera } from 'lucide-react';
+import Link from 'next/link';
 import { Card } from '../Card';
-
-interface FormatGridProps {
-  onNavigate: (route: string) => void;
-}
 
 const converters = [
   {
@@ -56,7 +54,7 @@ const converters = [
   },
 ];
 
-export function FormatGrid({ onNavigate }: FormatGridProps) {
+export function FormatGrid() {
   return (
     <section id="format-grid" className="bg-white py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -69,42 +67,40 @@ export function FormatGrid({ onNavigate }: FormatGridProps) {
           {converters.map(converter => {
             const IconComponent = converter.icon;
             return (
-              <Card
-                key={`${converter.from}-${converter.to}`}
-                className="relative p-6 bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-200 cursor-pointer group"
-                onClick={() => onNavigate(converter.route)}
-              >
-                {converter.popular && (
-                  <div className="absolute -top-3 left-6">
-                    <span className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-3 py-1 rounded-full text-xs font-medium">Popular</span>
-                  </div>
-                )}
-
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600 transition-all duration-200">
-                      <IconComponent className="text-gray-600 group-hover:text-white" size={20} />
+              <Link key={`${converter.from}-${converter.to}`} href={converter.route}>
+                <Card className="relative p-6 bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-200 cursor-pointer group">
+                  {converter.popular && (
+                    <div className="absolute -top-3 left-6">
+                      <span className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-3 py-1 rounded-full text-xs font-medium">Popular</span>
                     </div>
-                    <div className="text-left">
-                      <div className="font-bold text-gray-900">
-                        {converter.from} → {converter.to}
+                  )}
+
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600 transition-all duration-200">
+                        <IconComponent className="text-gray-600 group-hover:text-white" size={20} />
+                      </div>
+                      <div className="text-left">
+                        <div className="font-bold text-gray-900">
+                          {converter.from} → {converter.to}
+                        </div>
                       </div>
                     </div>
+                    <ArrowRight className="text-gray-400 group-hover:text-blue-600 transition-colors duration-200" size={20} />
                   </div>
-                  <ArrowRight className="text-gray-400 group-hover:text-blue-600 transition-colors duration-200" size={20} />
-                </div>
 
-                <p className="text-gray-600 text-sm leading-relaxed mb-4">{converter.description}</p>
+                  <p className="text-gray-600 text-sm leading-relaxed mb-4">{converter.description}</p>
 
-                <div className="flex items-center justify-between">
-                  <div className="flex space-x-2">
-                    <span className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs">{converter.from}</span>
-                    <ArrowRight size={12} className="text-gray-400 mt-1" />
-                    <span className="px-2 py-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded text-xs">{converter.to}</span>
+                  <div className="flex items-center justify-between">
+                    <div className="flex space-x-2">
+                      <span className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs">{converter.from}</span>
+                      <ArrowRight size={12} className="text-gray-400 mt-1" />
+                      <span className="px-2 py-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded text-xs">{converter.to}</span>
+                    </div>
+                    <span className="text-xs text-gray-500">Click to convert</span>
                   </div>
-                  <span className="text-xs text-gray-500">Click to convert</span>
-                </div>
-              </Card>
+                </Card>
+              </Link>
             );
           })}
         </div>

@@ -1,5 +1,7 @@
+'use client';
 import { useState } from 'react';
 import { ArrowLeft, Upload, Download, FileImage, Settings, Zap } from 'lucide-react';
+import Link from 'next/link';
 import { Button } from '../ui/button';
 import { Card } from '@/components/Card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../Select';
@@ -9,10 +11,9 @@ interface ConverterPageProps {
   from: string;
   to: string;
   title: string;
-  onNavigate: (route: string) => void;
 }
 
-export function ConverterPage({ from, to, title, onNavigate }: ConverterPageProps) {
+export function ConverterPage({ from, to, title }: ConverterPageProps) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [outputFormat, setOutputFormat] = useState(to.toLowerCase());
   const [isConverting, setIsConverting] = useState(false);
@@ -99,15 +100,17 @@ export function ConverterPage({ from, to, title, onNavigate }: ConverterPageProp
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <>
       {/* Header */}
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center space-x-4">
-            <Button variant="outline" onClick={() => onNavigate('/')} className="flex items-center">
-              <ArrowLeft className="mr-2" size={16} />
-              Back to Home
-            </Button>
+            <Link href="/">
+              <Button variant="outline" className="flex items-center">
+                <ArrowLeft className="mr-2" size={16} />
+                Back to Home
+              </Button>
+            </Link>
             <div>
               <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
               <p className="text-gray-600">Fast, secure, and free online conversion</p>
@@ -282,6 +285,6 @@ export function ConverterPage({ from, to, title, onNavigate }: ConverterPageProp
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

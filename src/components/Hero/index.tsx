@@ -1,12 +1,9 @@
+'use client';
 import { Upload, ArrowRight } from 'lucide-react';
 import { Button } from '../ui/button';
 import { ImageWithFallback } from '../ImageWithFallback';
 
-interface HeroProps {
-  onNavigate: (route: string) => void;
-}
-
-export function Hero({ onNavigate }: HeroProps) {
+export function Hero() {
   const scrollToConverter = () => {
     const element = document.getElementById('format-grid');
     if (element) {
