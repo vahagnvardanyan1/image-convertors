@@ -30,10 +30,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://imageconvertors.com/images-to-pdf',
   },
-  robots: {
-    index: false,
-    follow: true,
-  },
 };
 
 export default function ImagesToPDFPage() {

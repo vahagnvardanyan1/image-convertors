@@ -19,10 +19,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://imageconvertors.com/pdf-to-jpg',
   },
-  robots: {
-    index: false,
-    follow: true,
-  },
 };
 
 export default function PDFToJPGPage() {
