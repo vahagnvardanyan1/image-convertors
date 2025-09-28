@@ -20,16 +20,26 @@ export function ConversionTool() {
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
+    e.stopPropagation();
     setIsDragOver(true);
   };
 
   const handleDragLeave = (e: React.DragEvent) => {
     e.preventDefault();
-    setIsDragOver(false);
+    e.stopPropagation();
+    // Only set dragOver to false if we're leaving the drop zone entirely
+    const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+    const x = e.clientX;
+    const y = e.clientY;
+
+    if (x < rect.left || x > rect.right || y < rect.top || y > rect.bottom) {
+      setIsDragOver(false);
+    }
   };
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
+    e.stopPropagation();
     setIsDragOver(false);
     const files = e.dataTransfer.files;
     if (files.length > 0) {
@@ -114,12 +124,13 @@ export function ConversionTool() {
         <Card className="p-8 bg-white shadow-lg rounded-2xl">
           {/* Drag and Drop Area */}
           <div
-            className={`border-2 border-dashed rounded-xl p-8 mb-6 text-center transition-all duration-200 ${
-              isDragOver ? 'border-blue-500 bg-blue-50' : selectedFile ? 'border-green-500 bg-green-50' : 'border-gray-300 hover:border-gray-400'
+            className={`border-2 border-dashed rounded-xl p-8 mb-6 text-center transition-all duration-200 cursor-pointer ${
+              isDragOver ? 'border-blue-500 bg-blue-50 scale-105' : selectedFile ? 'border-green-500 bg-green-50' : 'border-gray-300 hover:border-gray-400 hover:bg-gray-50'
             }`}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
             onDrop={handleDrop}
+            onClick={() => !selectedFile && fileInputRef.current?.click()}
           >
             {selectedFile ? (
               <div className="flex items-center justify-center space-x-4">
@@ -131,12 +142,25 @@ export function ConversionTool() {
               </div>
             ) : (
               <div>
-                <Upload className="mx-auto mb-4 text-gray-400" size={48} />
-                <p className="text-lg font-medium text-gray-900 mb-2">Drag and drop your image here</p>
-                <p className="text-gray-500 mb-4">or click to browse your files</p>
-                <Button variant="outline" onClick={() => fileInputRef.current?.click()} className="rounded-lg">
-                  Choose File
-                </Button>
+                <Upload className={`mx-auto mb-4 transition-all duration-200 ${isDragOver ? 'text-blue-500 scale-110' : 'text-gray-400'}`} size={48} />
+                <p className={`text-lg font-medium mb-2 transition-colors duration-200 ${isDragOver ? 'text-blue-600' : 'text-gray-900'}`}>
+                  {isDragOver ? 'Drop your image here!' : 'Drag and drop your image here'}
+                </p>
+                <p className={`text-gray-500 mb-4 transition-colors duration-200 ${isDragOver ? 'text-blue-500' : 'text-gray-500'}`}>
+                  {isDragOver ? 'Release to upload' : 'or click anywhere to browse your files'}
+                </p>
+                {!isDragOver && (
+                  <Button
+                    variant="outline"
+                    onClick={e => {
+                      e.stopPropagation();
+                      fileInputRef.current?.click();
+                    }}
+                    className="rounded-lg"
+                  >
+                    Choose File
+                  </Button>
+                )}
               </div>
             )}
 

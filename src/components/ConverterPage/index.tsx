@@ -23,7 +23,37 @@ export function ConverterPage({ from, to, title }: ConverterPageProps) {
   const [error, setError] = useState<string | null>(null);
   const [quality, setQuality] = useState(0.9);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDragOver, setIsDragOver] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragOver(true);
+  };
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    // Only set dragOver to false if we're leaving the drop zone entirely
+    const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+    const x = e.clientX;
+    const y = e.clientY;
+
+    if (x < rect.left || x > rect.right || y < rect.top || y > rect.bottom) {
+      setIsDragOver(false);
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragOver(false);
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+      handleFileSelection(files[0]);
+    }
+  };
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -166,13 +196,61 @@ export function ConverterPage({ from, to, title }: ConverterPageProps) {
             <Card className="p-6">
               <h2 className="text-xl font-bold text-gray-900 mb-4">1. Upload Your Image</h2>
 
-              <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-blue-400 transition-colors duration-200">
-                <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileSelect} className="hidden" id="file-upload" />
-                <label htmlFor="file-upload" className="cursor-pointer">
-                  <Upload className="mx-auto text-gray-400 mb-4" size={48} />
-                  <p className="text-gray-600 mb-2">Drop your {from} file here or click to browse</p>
-                  <p className="text-sm text-gray-500">Supports image files up to 50MB</p>
-                </label>
+              <div
+                className={`border-2 border-dashed rounded-xl p-8 text-center transition-all duration-200 cursor-pointer ${
+                  isDragOver ? 'border-blue-500 bg-blue-50 scale-105' : selectedFile ? 'border-green-500 bg-green-50' : 'border-gray-300 hover:border-blue-400 hover:bg-gray-50'
+                }`}
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
+                onClick={() => !selectedFile && fileInputRef.current?.click()}
+              >
+                <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileSelect} className="hidden" />
+
+                {!selectedFile ? (
+                  <div>
+                    <Upload className={`mx-auto mb-4 transition-all duration-200 ${isDragOver ? 'text-blue-500 scale-110' : 'text-gray-400'}`} size={48} />
+                    <p className={`text-lg font-medium mb-2 transition-colors duration-200 ${isDragOver ? 'text-blue-600' : 'text-gray-900'}`}>
+                      {isDragOver ? `Drop your ${from} file here!` : `Drag and drop your ${from} file here`}
+                    </p>
+                    <p className={`text-sm transition-colors duration-200 ${isDragOver ? 'text-blue-500' : 'text-gray-500'}`}>
+                      {isDragOver ? 'Release to upload' : 'or click anywhere to browse your files'}
+                    </p>
+                    {!isDragOver && (
+                      <Button
+                        variant="outline"
+                        onClick={e => {
+                          e.stopPropagation();
+                          fileInputRef.current?.click();
+                        }}
+                        className="mt-4 rounded-lg"
+                      >
+                        Choose File
+                      </Button>
+                    )}
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-center space-x-4">
+                    <FileImage className="text-green-600" size={48} />
+                    <div className="text-left">
+                      <p className="font-medium text-gray-900">{selectedFile.name}</p>
+                      <p className="text-sm text-gray-500">{(selectedFile.size / 1024 / 1024).toFixed(2)} MB</p>
+                    </div>
+                    <Button
+                      variant="outline"
+                      onClick={e => {
+                        e.stopPropagation();
+                        setSelectedFile(null);
+                        if (fileInputRef.current) {
+                          fileInputRef.current.value = '';
+                        }
+                      }}
+                      className="text-red-600 hover:text-red-700"
+                    >
+                      Remove
+                    </Button>
+                  </div>
+                )}
               </div>
 
               {/* Error Display */}
@@ -180,18 +258,6 @@ export function ConverterPage({ from, to, title }: ConverterPageProps) {
                 <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center space-x-2">
                   <AlertCircle className="text-red-500" size={20} />
                   <p className="text-red-700">{error}</p>
-                </div>
-              )}
-
-              {selectedFile && (
-                <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
-                  <div className="flex items-center space-x-3">
-                    <FileImage className="text-green-600" size={20} />
-                    <div>
-                      <p className="font-medium text-green-800">{selectedFile.name}</p>
-                      <p className="text-sm text-green-600">{(selectedFile.size / 1024 / 1024).toFixed(2)} MB</p>
-                    </div>
-                  </div>
                 </div>
               )}
             </Card>

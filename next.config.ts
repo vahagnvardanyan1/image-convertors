@@ -16,7 +16,6 @@ const nextConfig: NextConfig = {
       ...config.resolve.alias,
       canvas: false,
       encoding: false,
-      'pdfjs-dist': false,
     };
 
     // Add fallbacks for Node.js modules
