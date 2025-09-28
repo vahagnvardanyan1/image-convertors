@@ -6,6 +6,10 @@ import { Card } from '@/components/Card';
 export const metadata = {
   title: 'Cookie Policy - ImageConverter',
   description: 'Cookie policy for ImageConverter - Learn about how we use cookies and similar technologies.',
+  robots: {
+    index: false,
+    follow: true,
+  },
 };
 
 export default function CookiePolicyPage() {

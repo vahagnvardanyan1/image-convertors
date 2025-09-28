@@ -6,6 +6,10 @@ import { Card } from '@/components/Card';
 export const metadata = {
   title: 'Privacy Policy - ImageConverter',
   description: 'Privacy policy for ImageConverter - Learn how we protect your data and privacy.',
+  robots: {
+    index: false,
+    follow: true,
+  },
 };
 
 export default function PrivacyPolicyPage() {

@@ -19,6 +19,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://imageconvertors.com/split-pdf',
   },
+  robots: {
+    index: false,
+    follow: true,
+  },
 };
 
 export default function SplitPDFPage() {

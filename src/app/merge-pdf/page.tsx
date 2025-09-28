@@ -19,6 +19,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://imageconvertors.com/merge-pdf',
   },
+  robots: {
+    index: false,
+    follow: true,
+  },
 };
 
 export default function MergePDFPage() {

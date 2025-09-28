@@ -455,7 +455,46 @@ export function PDFResultModal({ isOpen, onClose, result, mode, onReset }: PDFRe
                   <img src={previewUrl} alt="Preview" className="max-w-full max-h-96 mx-auto rounded-lg shadow-lg" />
                 </>
               ) : (
-                <iframe src={previewUrl} className="w-full h-96 border rounded-lg" title="PDF Preview" />
+                <div className="space-y-4">
+                  <div className="bg-gray-100 rounded-lg p-8 text-center">
+                    <FileText className="mx-auto mb-4 text-gray-400" size={64} />
+                    <h4 className="text-lg font-medium text-gray-900 mb-2">PDF Preview</h4>
+                    <p className="text-gray-600 mb-4">
+                      PDF preview is not available in this browser.
+                      <br />
+                      Please download the file to view it.
+                    </p>
+                    <div className="flex justify-center space-x-4">
+                      <Button
+                        onClick={() => {
+                          const link = document.createElement('a');
+                          link.href = previewUrl;
+                          link.target = '_blank';
+                          link.rel = 'noopener noreferrer';
+                          document.body.appendChild(link);
+                          link.click();
+                          document.body.removeChild(link);
+                        }}
+                        variant="outline"
+                      >
+                        Open in New Tab
+                      </Button>
+                      <Button
+                        onClick={() => {
+                          const link = document.createElement('a');
+                          link.href = previewUrl;
+                          link.download = 'preview.pdf';
+                          document.body.appendChild(link);
+                          link.click();
+                          document.body.removeChild(link);
+                        }}
+                        className="bg-blue-600 hover:bg-blue-700 text-white"
+                      >
+                        Download PDF
+                      </Button>
+                    </div>
+                  </div>
+                </div>
               )}
             </div>
           </div>

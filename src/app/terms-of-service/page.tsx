@@ -6,6 +6,10 @@ import { Card } from '@/components/Card';
 export const metadata = {
   title: 'Terms of Service - ImageConverter',
   description: 'Terms of service for ImageConverter - Rules and guidelines for using our image conversion service.',
+  robots: {
+    index: false,
+    follow: true,
+  },
 };
 
 export default function TermsOfServicePage() {
