@@ -7,13 +7,6 @@ import { Features } from '@/components/Features';
 import { BannerBlocks } from '@/components/BannerBlock';
 import { FAQ } from '@/components/FAQ';
 
-export const metadata: Metadata = {
-  robots: {
-    index: false,
-    follow: true,
-  },
-};
-
 export default function HomePage() {
   return (
     <>
