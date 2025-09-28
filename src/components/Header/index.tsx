@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '../ui/button';
+import { ImageWithFallback } from '../ImageWithFallback';
 
 export function Header() {
   const pathname = usePathname();
@@ -30,9 +31,7 @@ export function Header() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center cursor-pointer">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center">
-              <span className="text-white font-bold text-sm">IC</span>
-            </div>
+            <ImageWithFallback src="/images/logo.png" alt="ImageConverter Logo" className="rounded-lg" height={50} width={50} />
             <span className="ml-2 text-xl font-bold text-gray-900">ImageConverter</span>
           </Link>
 
