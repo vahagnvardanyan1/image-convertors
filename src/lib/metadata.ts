@@ -5,9 +5,9 @@ export const siteConfig = {
   name: 'ImageConverter',
   title: 'ImageConverter - Free Online Image Format Converter & Analyzer',
   description: 'Convert and analyze images between PNG, JPG, WebP, GIF and more formats instantly. Fast, secure, and completely free online image converter and analyzer tool with advanced features.',
-  url: 'https://image-convertors.vercel.app',
-  ogImage: '/images/og-image.jpg',
-  twitterImage: '/images/twitter-card.jpg',
+  url: 'https://imageconvertors.com',
+  ogImage: '/images/og-image.png',
+  twitterImage: '/images/og-image.png',
   keywords: [
     'image converter',
     'image analyzer',
@@ -27,7 +27,7 @@ export const siteConfig = {
   ],
   author: {
     name: 'ImageConverter Team',
-    url: 'https://image-convertors.vercel.app',
+    url: 'https://imageconvertors.com',
     twitter: '@imageconverter',
   },
   verification: {
@@ -163,9 +163,9 @@ export const generateMetadata = (pathname: string): Metadata => {
   const canonicalUrl = `${siteConfig.url}${pathname}`;
 
   // Generate page-specific Open Graph image if needed
-  const ogImage = pathname === '/' ? siteConfig.ogImage : `/images/og${pathname.replace(/\//g, '-') || '-home'}.jpg`;
+  const ogImage = '/images/og-image.png';
 
-  const twitterImage = pathname === '/' ? siteConfig.twitterImage : `/images/twitter${pathname.replace(/\//g, '-') || '-home'}.jpg`;
+  const twitterImage = '/images/og-image.png';
 
   return {
     metadataBase: new URL(siteConfig.url),

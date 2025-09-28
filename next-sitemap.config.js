@@ -1,5 +1,5 @@
 module.exports = {
-  siteUrl: 'https://image-convertors.vercel.app/',
+  siteUrl: 'https://imageconvertors.com',
   generateRobotsTxt: true,
   exclude: ['/api/*', '/404', '/500'],
   robotsTxtOptions: {
