@@ -5,7 +5,7 @@ export function Footer() {
   return (
     <footer className="bg-gray-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-1">
             <div className="flex items-center mb-4">
@@ -14,7 +14,9 @@ export function Footer() {
               </div>
               <span className="ml-2 text-xl font-bold">ImageConverter</span>
             </div>
-            <p className="text-gray-400 mb-6 max-w-md">The fastest and most secure way to convert images online. Built for developers, designers, and everyone who works with images.</p>
+            <p className="text-gray-400 mb-6 max-w-md">
+              The fastest and most secure way to convert images and PDFs online. Built for developers, designers, and everyone who works with digital files.
+            </p>
             <div className="flex items-center space-x-2">
               <Mail className="text-gray-400" size={16} />
               <a href="mailto:cropimage@gmail.com" className="text-gray-400 hover:text-white transition-colors text-sm">
@@ -23,59 +25,106 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Converters */}
+          {/* Image Converters */}
           <div>
-            <h3 className="font-semibold mb-4">Converters</h3>
+            <h3 className="font-semibold mb-4">Image Converters</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/png-to-webp" className="text-gray-400 hover:text-white transition-colors">
+                <Link href="/png-to-webp" className="text-gray-400 hover:text-white transition-colors text-sm">
                   PNG to WebP
                 </Link>
               </li>
               <li>
-                <Link href="/jpg-to-png" className="text-gray-400 hover:text-white transition-colors">
+                <Link href="/jpg-to-png" className="text-gray-400 hover:text-white transition-colors text-sm">
                   JPG to PNG
                 </Link>
               </li>
               <li>
-                <Link href="/webp-to-png" className="text-gray-400 hover:text-white transition-colors">
+                <Link href="/webp-to-png" className="text-gray-400 hover:text-white transition-colors text-sm">
                   WebP to PNG
                 </Link>
               </li>
               <li>
-                <Link href="/jpg-to-webp" className="text-gray-400 hover:text-white transition-colors">
+                <Link href="/jpg-to-webp" className="text-gray-400 hover:text-white transition-colors text-sm">
                   JPG to WebP
                 </Link>
               </li>
               <li>
-                <Link href="/png-to-jpg" className="text-gray-400 hover:text-white transition-colors">
+                <Link href="/png-to-jpg" className="text-gray-400 hover:text-white transition-colors text-sm">
                   PNG to JPG
                 </Link>
               </li>
               <li>
-                <Link href="/webp-to-jpg" className="text-gray-400 hover:text-white transition-colors">
+                <Link href="/webp-to-jpg" className="text-gray-400 hover:text-white transition-colors text-sm">
                   WebP to JPG
+                </Link>
+              </li>
+              <li>
+                <Link href="/analyze" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  Image Analyzer
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Legal */}
+          {/* PDF Tools */}
           <div>
-            <h3 className="font-semibold mb-4">Legal</h3>
+            <h3 className="font-semibold mb-4">PDF Tools</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/privacy-policy" className="text-gray-400 hover:text-white transition-colors">
+                <Link href="/pdf-to-jpg" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  PDF to JPG
+                </Link>
+              </li>
+              <li>
+                <Link href="/pdf-to-png" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  PDF to PNG
+                </Link>
+              </li>
+              <li>
+                <Link href="/images-to-pdf" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  Images to PDF
+                </Link>
+              </li>
+              <li>
+                <Link href="/merge-pdf" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  Merge PDF Files
+                </Link>
+              </li>
+              <li>
+                <Link href="/split-pdf" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  Split PDF Files
+                </Link>
+              </li>
+              <li>
+                <Link href="/pdf-info" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  PDF Information
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Legal & Support */}
+          <div>
+            <h3 className="font-semibold mb-4">Legal & Support</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link href="/privacy-policy" className="text-gray-400 hover:text-white transition-colors text-sm">
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="/terms-of-use" className="text-gray-400 hover:text-white transition-colors">
+                <Link href="/terms-of-use" className="text-gray-400 hover:text-white transition-colors text-sm">
                   Terms of Use
                 </Link>
               </li>
               <li>
-                <Link href="/cookie-policy" className="text-gray-400 hover:text-white transition-colors">
+                <Link href="/terms-of-service" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  Terms of Service
+                </Link>
+              </li>
+              <li>
+                <Link href="/cookie-policy" className="text-gray-400 hover:text-white transition-colors text-sm">
                   Cookie Policy
                 </Link>
               </li>

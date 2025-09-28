@@ -1,6 +1,6 @@
 'use client';
-import { Menu, X } from 'lucide-react';
-import { useState } from 'react';
+import { Menu, X, ChevronDown, FileText, Image as ImageIcon } from 'lucide-react';
+import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '../ui/button';
@@ -9,9 +9,29 @@ import { ImageWithFallback } from '../ImageWithFallback';
 export function Header() {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isImageDropdownOpen, setIsImageDropdownOpen] = useState(false);
+  const [isPDFDropdownOpen, setIsPDFDropdownOpen] = useState(false);
+
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Element;
+      if (!target.closest('.dropdown-container')) {
+        setIsImageDropdownOpen(false);
+        setIsPDFDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const handleMenuClose = () => {
     setIsMenuOpen(false);
+    setIsImageDropdownOpen(false);
+    setIsPDFDropdownOpen(false);
   };
 
   const scrollToSection = (sectionId: string) => {
@@ -25,6 +45,24 @@ export function Header() {
     }
   };
 
+  const imageConverters = [
+    { name: 'PNG to WebP', href: '/png-to-webp', popular: true },
+    { name: 'JPG to PNG', href: '/jpg-to-png', popular: true },
+    { name: 'JPG to WebP', href: '/jpg-to-webp', popular: true },
+    { name: 'WebP to PNG', href: '/webp-to-png', popular: false },
+    { name: 'PNG to JPG', href: '/png-to-jpg', popular: false },
+    { name: 'WebP to JPG', href: '/webp-to-jpg', popular: false },
+  ];
+
+  const pdfTools = [
+    { name: 'PDF to JPG', href: '/pdf-to-jpg', popular: true },
+    { name: 'PDF to PNG', href: '/pdf-to-png', popular: true },
+    { name: 'Images to PDF', href: '/images-to-pdf', popular: true },
+    { name: 'Merge PDF', href: '/merge-pdf', popular: false },
+    { name: 'Split PDF', href: '/split-pdf', popular: false },
+    { name: 'PDF Info', href: '/pdf-info', popular: false },
+  ];
+
   return (
     <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -36,45 +74,91 @@ export function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex overflow-x-auto scrollbar-hide">
-            <div className="flex space-x-4 px-4 min-w-max">
-              <Link
-                href="/png-to-webp"
-                className={`whitespace-nowrap text-sm font-medium transition-colors ${pathname === '/png-to-webp' ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-gray-900'}`}
-              >
-                PNG to WebP
-              </Link>
-              <Link
-                href="/jpg-to-png"
-                className={`whitespace-nowrap text-sm font-medium transition-colors ${pathname === '/jpg-to-png' ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-gray-900'}`}
-              >
-                JPG to PNG
-              </Link>
-              <Link
-                href="/webp-to-png"
-                className={`whitespace-nowrap text-sm font-medium transition-colors ${pathname === '/webp-to-png' ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-gray-900'}`}
-              >
-                WebP to PNG
-              </Link>
-              <Link
-                href="/jpg-to-webp"
-                className={`whitespace-nowrap text-sm font-medium transition-colors ${pathname === '/jpg-to-webp' ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-gray-900'}`}
-              >
-                JPG to WebP
-              </Link>
-              <Link
-                href="/png-to-jpg"
-                className={`whitespace-nowrap text-sm font-medium transition-colors ${pathname === '/png-to-jpg' ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-gray-900'}`}
-              >
-                PNG to JPG
-              </Link>
-              <Link
-                href="/webp-to-jpg"
-                className={`whitespace-nowrap text-sm font-medium transition-colors ${pathname === '/webp-to-jpg' ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-gray-900'}`}
-              >
-                WebP to JPG
-              </Link>
+          <nav className="hidden lg:flex items-center space-x-8">
+            {/* Image Converters Dropdown */}
+            <div className="relative group dropdown-container" onMouseEnter={() => setIsImageDropdownOpen(true)} onMouseLeave={() => setIsImageDropdownOpen(false)}>
+              <button className="flex items-center space-x-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors py-2" onClick={() => setIsImageDropdownOpen(!isImageDropdownOpen)}>
+                <ImageIcon size={16} />
+                <span>Image Tools</span>
+                <ChevronDown size={16} className={`transition-transform ${isImageDropdownOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {isImageDropdownOpen && (
+                <div className="absolute top-full left-0 w-64 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                  <div className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide border-b border-gray-100">Popular Converters</div>
+                  {imageConverters
+                    .filter(tool => tool.popular)
+                    .map(tool => (
+                      <Link
+                        key={tool.href}
+                        href={tool.href}
+                        onClick={() => setIsImageDropdownOpen(false)}
+                        className={`block px-4 py-2 text-sm transition-colors ${pathname === tool.href ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'}`}
+                      >
+                        {tool.name}
+                      </Link>
+                    ))}
+                  <div className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide border-t border-b border-gray-100 mt-2">More Converters</div>
+                  {imageConverters
+                    .filter(tool => !tool.popular)
+                    .map(tool => (
+                      <Link
+                        key={tool.href}
+                        href={tool.href}
+                        onClick={() => setIsImageDropdownOpen(false)}
+                        className={`block px-4 py-2 text-sm transition-colors ${pathname === tool.href ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'}`}
+                      >
+                        {tool.name}
+                      </Link>
+                    ))}
+                </div>
+              )}
             </div>
+
+            {/* PDF Tools Dropdown */}
+            <div className="relative group dropdown-container" onMouseEnter={() => setIsPDFDropdownOpen(true)} onMouseLeave={() => setIsPDFDropdownOpen(false)}>
+              <button className="flex items-center space-x-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors py-2" onClick={() => setIsPDFDropdownOpen(!isPDFDropdownOpen)}>
+                <FileText size={16} />
+                <span>PDF Tools</span>
+                <ChevronDown size={16} className={`transition-transform ${isPDFDropdownOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {isPDFDropdownOpen && (
+                <div className="absolute top-full left-0 w-64 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                  <div className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide border-b border-gray-100">Popular Tools</div>
+                  {pdfTools
+                    .filter(tool => tool.popular)
+                    .map(tool => (
+                      <Link
+                        key={tool.href}
+                        href={tool.href}
+                        onClick={() => setIsPDFDropdownOpen(false)}
+                        className={`block px-4 py-2 text-sm transition-colors ${pathname === tool.href ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'}`}
+                      >
+                        {tool.name}
+                      </Link>
+                    ))}
+                  <div className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide border-t border-b border-gray-100 mt-2">More Tools</div>
+                  {pdfTools
+                    .filter(tool => !tool.popular)
+                    .map(tool => (
+                      <Link
+                        key={tool.href}
+                        href={tool.href}
+                        onClick={() => setIsPDFDropdownOpen(false)}
+                        className={`block px-4 py-2 text-sm transition-colors ${pathname === tool.href ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'}`}
+                      >
+                        {tool.name}
+                      </Link>
+                    ))}
+                </div>
+              )}
+            </div>
+
+            {/* Analyze Link */}
+            <Link href="/analyze" className={`text-sm font-medium transition-colors ${pathname === '/analyze' ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-gray-900'}`}>
+              Analyze
+            </Link>
           </nav>
 
           {/* Desktop CTA */}
@@ -96,49 +180,56 @@ export function Header() {
         {isMenuOpen && (
           <div className="lg:hidden border-t border-gray-100 py-4">
             <nav className="max-h-80 overflow-y-auto scrollbar-hide">
-              <div className="flex flex-col space-y-3 px-4">
-                <Link
-                  href="/png-to-webp"
-                  onClick={handleMenuClose}
-                  className={`text-left text-sm font-medium transition-colors ${pathname === '/png-to-webp' ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-gray-900'}`}
-                >
-                  PNG to WebP
-                </Link>
-                <Link
-                  href="/jpg-to-png"
-                  onClick={handleMenuClose}
-                  className={`text-left text-sm font-medium transition-colors ${pathname === '/jpg-to-png' ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-gray-900'}`}
-                >
-                  JPG to PNG
-                </Link>
-                <Link
-                  href="/webp-to-png"
-                  onClick={handleMenuClose}
-                  className={`text-left text-sm font-medium transition-colors ${pathname === '/webp-to-png' ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-gray-900'}`}
-                >
-                  WebP to PNG
-                </Link>
-                <Link
-                  href="/jpg-to-webp"
-                  onClick={handleMenuClose}
-                  className={`text-left text-sm font-medium transition-colors ${pathname === '/jpg-to-webp' ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-gray-900'}`}
-                >
-                  JPG to WebP
-                </Link>
-                <Link
-                  href="/png-to-jpg"
-                  onClick={handleMenuClose}
-                  className={`text-left text-sm font-medium transition-colors ${pathname === '/png-to-jpg' ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-gray-900'}`}
-                >
-                  PNG to JPG
-                </Link>
-                <Link
-                  href="/webp-to-jpg"
-                  onClick={handleMenuClose}
-                  className={`text-left text-sm font-medium transition-colors ${pathname === '/webp-to-jpg' ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-gray-900'}`}
-                >
-                  WebP to JPG
-                </Link>
+              <div className="flex flex-col space-y-1 px-4">
+                {/* Image Converters Section */}
+                <div className="py-2">
+                  <div className="flex items-center space-x-2 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+                    <ImageIcon size={14} />
+                    <span>Image Converters</span>
+                  </div>
+                  {imageConverters.map(tool => (
+                    <Link
+                      key={tool.href}
+                      href={tool.href}
+                      onClick={handleMenuClose}
+                      className={`block py-2 pl-4 text-sm font-medium transition-colors ${pathname === tool.href ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-gray-900'}`}
+                    >
+                      {tool.name}
+                      {tool.popular && <span className="ml-2 text-xs text-blue-600">Popular</span>}
+                    </Link>
+                  ))}
+                </div>
+
+                {/* PDF Tools Section */}
+                <div className="py-2 border-t border-gray-100">
+                  <div className="flex items-center space-x-2 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+                    <FileText size={14} />
+                    <span>PDF Tools</span>
+                  </div>
+                  {pdfTools.map(tool => (
+                    <Link
+                      key={tool.href}
+                      href={tool.href}
+                      onClick={handleMenuClose}
+                      className={`block py-2 pl-4 text-sm font-medium transition-colors ${pathname === tool.href ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-gray-900'}`}
+                    >
+                      {tool.name}
+                      {tool.popular && <span className="ml-2 text-xs text-blue-600">Popular</span>}
+                    </Link>
+                  ))}
+                </div>
+
+                {/* Other Links */}
+                <div className="py-2 border-t border-gray-100">
+                  <Link
+                    href="/analyze"
+                    onClick={handleMenuClose}
+                    className={`block py-2 text-sm font-medium transition-colors ${pathname === '/analyze' ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-gray-900'}`}
+                  >
+                    Analyze Images
+                  </Link>
+                </div>
+
                 <Button onClick={() => scrollToSection('format-grid')} className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white w-full mt-4">
                   Start Converting
                 </Button>
