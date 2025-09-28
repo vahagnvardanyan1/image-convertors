@@ -16,6 +16,7 @@ export function Hero() {
       {/* Background Image */}
       <div className="absolute inset-0 opacity-10">
         <ImageWithFallback
+          fetchPriority='high'
           src="https://images.unsplash.com/photo-1631375937044-6dd5beac01d2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkaWdpdGFsJTIwdHJhbnNmb3JtYXRpb24lMjB0ZWNobm9sb2d5JTIwYmFja2dyb3VuZHxlbnwxfHx8fDE3NTg5NzgxMzV8MA&ixlib=rb-4.1.0&q=80&w=1080"
           alt="Digital transformation background"
           className="w-full h-full object-cover"

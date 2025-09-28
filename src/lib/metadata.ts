@@ -6,8 +6,8 @@ export const siteConfig = {
   title: 'ImageConverter - Free Online Image Format Converter & Analyzer',
   description: 'Convert and analyze images between PNG, JPG, WebP, GIF and more formats instantly. Fast, secure, and completely free online image converter and analyzer tool with advanced features.',
   url: 'https://imageconvertors.com',
-  ogImage: '/images/og-image.png',
-  twitterImage: '/images/og-image.png',
+  ogImage: '/images/og-image.webp',
+  twitterImage: '/images/og-image.webp',
   keywords: [
     'image converter',
     'image analyzer',
@@ -155,6 +155,78 @@ export const generateStructuredData = (pathname: string) => {
   }
 
   return baseStructuredData;
+};
+
+// Generate dynamic metadata based on pathname
+export const generateMetadata = (pathname: string): Metadata => {
+  const routeData = routeMetadata[pathname] || routeMetadata['/'];
+  const canonicalUrl = `${siteConfig.url}${pathname}`;
+
+  // Generate page-specific Open Graph image if needed
+  const ogImage = '/images/og-image.webp';
+
+  const twitterImage = '/images/og-image.webp';
+
+  return {
+    metadataBase: new URL(siteConfig.url),
+    title: (routeData.title as string) || siteConfig.title,
+    description: routeData.description || siteConfig.description,
+    keywords: routeData.keywords || siteConfig.keywords,
+    authors: [{ name: siteConfig.author.name, url: siteConfig.author.url }],
+    creator: siteConfig.author.name,
+    publisher: siteConfig.name,
+    formatDetection: {
+      email: false,
+      address: false,
+      telephone: false,
+    },
+    openGraph: {
+      type: 'website',
+      locale: 'en_US',
+      url: canonicalUrl,
+      title: (routeData.title as string) || siteConfig.title,
+      description: (routeData.description as string) || siteConfig.description,
+      siteName: siteConfig.name,
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: (routeData.title as string) || siteConfig.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: (routeData.title as string) || siteConfig.title,
+      description: (routeData.description as string) || siteConfig.description,
+      images: [twitterImage],
+      creator: siteConfig.author.twitter,
+    },
+    robots: {
+      index: true,
+      follow: true,
+      nocache: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        noimageindex: false,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    verification: siteConfig.verification,
+    category: 'technology',
+    classification: 'Image Processing Tools',
+    other: {
+      'msapplication-TileColor': '#2563eb',
+      'theme-color': '#ffffff',
+    },
+  };
 };
 
 // Generate breadcrumb structured data
