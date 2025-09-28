@@ -64,6 +64,11 @@ export function Footer() {
                   Image Analyzer
                 </Link>
               </li>
+              <li>
+                <a href="http://cropsimage.com/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  Crop Images
+                </a>
+              </li>
             </ul>
           </div>
 
