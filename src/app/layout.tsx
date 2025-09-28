@@ -58,18 +58,6 @@ export const metadata: Metadata = {
   applicationName: 'ImageConverter',
   generator: 'Next.js',
   referrer: 'origin-when-cross-origin',
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      noimageindex: false,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
   alternates: {
     canonical: 'https://imageconvertors.com',
   },
