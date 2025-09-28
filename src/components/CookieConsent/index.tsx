@@ -41,9 +41,6 @@ export function CookieConsent() {
 
     localStorage.setItem('cookie-consent', JSON.stringify(allAccepted));
     setIsVisible(false);
-
-    // Initialize analytics or other services here if needed
-    console.log('All cookies accepted:', allAccepted);
   };
 
   const handleAcceptSelected = () => {
@@ -54,8 +51,6 @@ export function CookieConsent() {
 
     localStorage.setItem('cookie-consent', JSON.stringify(selectedPreferences));
     setIsVisible(false);
-
-    console.log('Selected cookies accepted:', selectedPreferences);
   };
 
   const handleRejectAll = () => {
@@ -68,8 +63,6 @@ export function CookieConsent() {
 
     localStorage.setItem('cookie-consent', JSON.stringify(essentialOnly));
     setIsVisible(false);
-
-    console.log('Only essential cookies accepted:', essentialOnly);
   };
 
   const togglePreference = (key: keyof CookiePreferences) => {
@@ -228,40 +221,4 @@ export function CookieConsent() {
       </div>
     </>
   );
-}
-
-// Hook to get current cookie preferences
-export function useCookiePreferences() {
-  const [preferences, setPreferences] = useState<CookiePreferences | null>(null);
-
-  useEffect(() => {
-    const stored = localStorage.getItem('cookie-consent');
-    if (stored) {
-      try {
-        const parsed = JSON.parse(stored);
-        setPreferences({
-          essential: parsed.essential ?? true,
-          analytics: parsed.analytics ?? false,
-          preferences: parsed.preferences ?? false,
-        });
-      } catch (error) {
-        console.error('Error parsing cookie preferences:', error);
-      }
-    }
-  }, []);
-
-  return preferences;
-}
-
-// Function to check if specific cookie type is allowed
-export function isCookieAllowed(type: keyof CookiePreferences): boolean {
-  const stored = localStorage.getItem('cookie-consent');
-  if (!stored) return false;
-
-  try {
-    const preferences = JSON.parse(stored);
-    return preferences[type] ?? false;
-  } catch {
-    return false;
-  }
 }

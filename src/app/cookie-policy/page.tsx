@@ -41,44 +41,38 @@ export default function CookiePolicyPage() {
               <p className="text-gray-600">Last updated: {new Date().toLocaleDateString()}</p>
             </div>
           </div>
-          
+
           <p className="text-gray-700 leading-relaxed mb-4">
-            This Cookie Policy explains how ImageConverter uses cookies and similar technologies when you visit our website. 
-            It explains what these technologies are, why we use them, and your rights to control our use of them.
+            This Cookie Policy explains how ImageConverter uses cookies and similar technologies when you visit our website. It explains what these technologies are, why we use them, and your rights
+            to control our use of them.
           </p>
-          
+
           <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
             <div className="flex items-center">
               <Cookie className="text-orange-600 mr-2" size={20} />
               <span className="font-semibold text-orange-800">Minimal Cookie Usage</span>
             </div>
-            <p className="text-orange-700 text-sm mt-1">
-              We use minimal cookies and prioritize your privacy. Most of our functionality works without cookies.
-            </p>
+            <p className="text-orange-700 text-sm mt-1">We use minimal cookies and prioritize your privacy. Most of our functionality works without cookies.</p>
           </div>
         </Card>
 
         {/* What Are Cookies */}
         <Card className="p-8 mb-8">
           <h3 className="text-xl font-bold text-gray-900 mb-4">What Are Cookies?</h3>
-          
+
           <p className="text-gray-700 leading-relaxed mb-4">
-            Cookies are small text files that are placed on your device (computer, smartphone, tablet) when you visit a website. 
-            They are widely used to make websites work more efficiently and provide information to website owners.
+            Cookies are small text files that are placed on your device (computer, smartphone, tablet) when you visit a website. They are widely used to make websites work more efficiently and provide
+            information to website owners.
           </p>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="bg-blue-50 p-4 rounded-lg">
               <h4 className="font-semibold text-blue-900 mb-2">First-Party Cookies</h4>
-              <p className="text-blue-800 text-sm">
-                Cookies set directly by our website. These help us provide basic functionality and remember your preferences.
-              </p>
+              <p className="text-blue-800 text-sm">Cookies set directly by our website. These help us provide basic functionality and remember your preferences.</p>
             </div>
             <div className="bg-purple-50 p-4 rounded-lg">
               <h4 className="font-semibold text-purple-900 mb-2">Third-Party Cookies</h4>
-              <p className="text-purple-800 text-sm">
-                Cookies set by external services we use, such as analytics providers or content delivery networks.
-              </p>
+              <p className="text-purple-800 text-sm">Cookies set by external services we use, such as analytics providers or content delivery networks.</p>
             </div>
           </div>
         </Card>
@@ -86,7 +80,7 @@ export default function CookiePolicyPage() {
         {/* Types of Cookies We Use */}
         <Card className="p-8 mb-8">
           <h3 className="text-xl font-bold text-gray-900 mb-4">Types of Cookies We Use</h3>
-          
+
           <div className="space-y-6">
             {/* Essential Cookies */}
             <div className="border-l-4 border-green-500 pl-4">
@@ -94,9 +88,7 @@ export default function CookiePolicyPage() {
                 <Shield className="text-green-600 mr-2" size={16} />
                 <h4 className="font-semibold text-gray-900">Essential Cookies (Always Active)</h4>
               </div>
-              <p className="text-gray-700 text-sm mb-2">
-                These cookies are necessary for our website to function properly. They cannot be disabled.
-              </p>
+              <p className="text-gray-700 text-sm mb-2">These cookies are necessary for our website to function properly. They cannot be disabled.</p>
               <div className="bg-green-50 p-3 rounded">
                 <div className="text-sm">
                   <div className="font-medium text-green-800">Purpose:</div>
@@ -117,9 +109,7 @@ export default function CookiePolicyPage() {
                 <Eye className="text-blue-600 mr-2" size={16} />
                 <h4 className="font-semibold text-gray-900">Analytics Cookies (Optional)</h4>
               </div>
-              <p className="text-gray-700 text-sm mb-2">
-                These cookies help us understand how visitors interact with our website by collecting anonymous information.
-              </p>
+              <p className="text-gray-700 text-sm mb-2">These cookies help us understand how visitors interact with our website by collecting anonymous information.</p>
               <div className="bg-blue-50 p-3 rounded">
                 <div className="text-sm">
                   <div className="font-medium text-blue-800">Purpose:</div>
@@ -143,9 +133,7 @@ export default function CookiePolicyPage() {
                 <Settings className="text-purple-600 mr-2" size={16} />
                 <h4 className="font-semibold text-gray-900">Preference Cookies (Optional)</h4>
               </div>
-              <p className="text-gray-700 text-sm mb-2">
-                These cookies remember your preferences and settings to provide a personalized experience.
-              </p>
+              <p className="text-gray-700 text-sm mb-2">These cookies remember your preferences and settings to provide a personalized experience.</p>
               <div className="bg-purple-50 p-3 rounded">
                 <div className="text-sm">
                   <div className="font-medium text-purple-800">Purpose:</div>
@@ -166,7 +154,7 @@ export default function CookiePolicyPage() {
         {/* How We Use Cookies */}
         <Card className="p-8 mb-8">
           <h3 className="text-xl font-bold text-gray-900 mb-4">How We Use Cookies</h3>
-          
+
           <div className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-3">
@@ -208,18 +196,15 @@ export default function CookiePolicyPage() {
         {/* Third-Party Services */}
         <Card className="p-8 mb-8">
           <h3 className="text-xl font-bold text-gray-900 mb-4">Third-Party Services</h3>
-          
+
           <p className="text-gray-700 leading-relaxed mb-4">
-            We may use third-party services that set their own cookies. We do not control these cookies, 
-            and you should check the relevant third party's cookie policy for more information.
+            We may use third-party services that set their own cookies. We do not control these cookies, and you should check the relevant third party&apos;s cookie policy for more information.
           </p>
-          
+
           <div className="space-y-4">
             <div className="border border-gray-200 rounded-lg p-4">
               <h4 className="font-semibold text-gray-900 mb-2">Google Analytics (Optional)</h4>
-              <p className="text-gray-700 text-sm mb-2">
-                We may use Google Analytics to understand how visitors use our website.
-              </p>
+              <p className="text-gray-700 text-sm mb-2">We may use Google Analytics to understand how visitors use our website.</p>
               <div className="flex items-center space-x-4 text-sm">
                 <span className="text-gray-600">Purpose: Website analytics</span>
                 <span className="text-gray-600">Duration: Up to 2 years</span>
@@ -228,12 +213,10 @@ export default function CookiePolicyPage() {
                 </a>
               </div>
             </div>
-            
+
             <div className="border border-gray-200 rounded-lg p-4">
               <h4 className="font-semibold text-gray-900 mb-2">Content Delivery Network (CDN)</h4>
-              <p className="text-gray-700 text-sm mb-2">
-                We use CDN services to deliver our website content efficiently.
-              </p>
+              <p className="text-gray-700 text-sm mb-2">We use CDN services to deliver our website content efficiently.</p>
               <div className="flex items-center space-x-4 text-sm">
                 <span className="text-gray-600">Purpose: Performance optimization</span>
                 <span className="text-gray-600">Duration: Session only</span>
@@ -245,17 +228,13 @@ export default function CookiePolicyPage() {
         {/* Your Cookie Choices */}
         <Card className="p-8 mb-8">
           <h3 className="text-xl font-bold text-gray-900 mb-4">Your Cookie Choices</h3>
-          
-          <p className="text-gray-700 leading-relaxed mb-4">
-            You have several options for managing cookies on our website:
-          </p>
-          
+
+          <p className="text-gray-700 leading-relaxed mb-4">You have several options for managing cookies on our website:</p>
+
           <div className="space-y-6">
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
               <h4 className="font-semibold text-blue-900 mb-2">Browser Settings</h4>
-              <p className="text-blue-800 text-sm mb-3">
-                Most web browsers allow you to control cookies through their settings preferences.
-              </p>
+              <p className="text-blue-800 text-sm mb-3">Most web browsers allow you to control cookies through their settings preferences.</p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                 <div>
                   <div className="font-medium text-blue-900">Chrome:</div>
@@ -275,7 +254,7 @@ export default function CookiePolicyPage() {
                 </div>
               </div>
             </div>
-            
+
             <div className="bg-green-50 border border-green-200 rounded-lg p-4">
               <h4 className="font-semibold text-green-900 mb-2">Opt-Out Options</h4>
               <div className="space-y-2 text-sm">
@@ -289,7 +268,8 @@ export default function CookiePolicyPage() {
                 </div>
                 <div className="flex items-center">
                   <div className="w-2 h-2 bg-green-600 rounded-full mr-3"></div>
-                  <span className="text-green-800">Opt out of Google Analytics: 
+                  <span className="text-green-800">
+                    Opt out of Google Analytics:
                     <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 ml-1">
                       Opt-out tool →
                     </a>
@@ -301,12 +281,11 @@ export default function CookiePolicyPage() {
                 </div>
               </div>
             </div>
-            
+
             <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
               <h4 className="font-semibold text-yellow-900 mb-2">Impact of Disabling Cookies</h4>
               <p className="text-yellow-800 text-sm">
-                <strong>Good news:</strong> Our core image conversion functionality works without cookies! 
-                However, disabling cookies may affect:
+                <strong>Good news:</strong> Our core image conversion functionality works without cookies! However, disabling cookies may affect:
               </p>
               <ul className="text-yellow-700 text-sm mt-2 space-y-1">
                 <li>• Remembering your conversion preferences</li>
@@ -320,37 +299,27 @@ export default function CookiePolicyPage() {
         {/* Cookie Consent */}
         <Card className="p-8 mb-8">
           <h3 className="text-xl font-bold text-gray-900 mb-4">Cookie Consent</h3>
-          
+
           <div className="space-y-4">
-            <p className="text-gray-700 leading-relaxed">
-              We believe in transparent cookie practices. Here's how we handle consent:
-            </p>
-            
+            <p className="text-gray-700 leading-relaxed">We believe in transparent cookie practices. Here&apos;s how we handle consent:</p>
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="bg-green-50 p-4 rounded-lg">
                 <h4 className="font-semibold text-green-900 mb-2">Essential Cookies</h4>
-                <p className="text-green-800 text-sm">
-                  These are automatically enabled as they're necessary for the website to function. 
-                  No consent required.
-                </p>
+                <p className="text-green-800 text-sm">These are automatically enabled as they&apos;re necessary for the website to function. No consent required.</p>
               </div>
               <div className="bg-blue-50 p-4 rounded-lg">
                 <h4 className="font-semibold text-blue-900 mb-2">Optional Cookies</h4>
-                <p className="text-blue-800 text-sm">
-                  We'll ask for your consent before enabling analytics or preference cookies. 
-                  You can change your mind anytime.
-                </p>
+                <p className="text-blue-800 text-sm">We&apos;ll ask for your consent before enabling analytics or preference cookies. You can change your mind anytime.</p>
               </div>
             </div>
-            
+
             <div className="bg-gray-50 p-4 rounded-lg">
               <h4 className="font-semibold text-gray-900 mb-2">Managing Your Preferences</h4>
-              <p className="text-gray-700 text-sm">
-                You can update your cookie preferences at any time by:
-              </p>
+              <p className="text-gray-700 text-sm">You can update your cookie preferences at any time by:</p>
               <ul className="text-gray-700 text-sm mt-2 space-y-1">
                 <li>• Using the cookie settings in your browser</li>
-                <li>• Clearing your browser's cookies and local storage</li>
+                <li>• Clearing your browser&apos;s cookies and local storage</li>
                 <li>• Contacting us directly for assistance</li>
               </ul>
             </div>
@@ -360,12 +329,11 @@ export default function CookiePolicyPage() {
         {/* Updates to This Policy */}
         <Card className="p-8 mb-8">
           <h3 className="text-xl font-bold text-gray-900 mb-4">Updates to This Policy</h3>
-          
+
           <p className="text-gray-700 leading-relaxed mb-4">
-            We may update this Cookie Policy from time to time to reflect changes in our practices or legal requirements. 
-            We will notify you of any material changes by:
+            We may update this Cookie Policy from time to time to reflect changes in our practices or legal requirements. We will notify you of any material changes by:
           </p>
-          
+
           <div className="space-y-2">
             <div className="flex items-center">
               <div className="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
@@ -373,7 +341,7 @@ export default function CookiePolicyPage() {
             </div>
             <div className="flex items-center">
               <div className="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
-              <p className="text-gray-700 text-sm">Updating the "Last Updated" date</p>
+              <p className="text-gray-700 text-sm">Updating the &quot;Last Updated&quot; date</p>
             </div>
             <div className="flex items-center">
               <div className="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
@@ -388,11 +356,9 @@ export default function CookiePolicyPage() {
             <Mail className="mr-2 text-blue-600" size={20} />
             Contact Us About Cookies
           </h3>
-          
-          <p className="text-gray-700 leading-relaxed mb-4">
-            If you have questions about our use of cookies or this Cookie Policy, please contact us:
-          </p>
-          
+
+          <p className="text-gray-700 leading-relaxed mb-4">If you have questions about our use of cookies or this Cookie Policy, please contact us:</p>
+
           <div className="bg-gray-50 p-4 rounded-lg">
             <div className="space-y-2">
               <div className="flex items-center">
@@ -402,12 +368,10 @@ export default function CookiePolicyPage() {
                   cropimage@gmail.com
                 </a>
               </div>
-              <div className="text-sm text-gray-600 ml-6">
-                Please include "Cookie Policy" in your subject line for faster response.
-              </div>
+              <div className="text-sm text-gray-600 ml-6">Please include &quot;Cookie Policy&quot; in your subject line for faster response.</div>
             </div>
           </div>
-          
+
           <div className="mt-4 p-4 bg-orange-50 border border-orange-200 rounded-lg">
             <h4 className="font-semibold text-orange-900 mb-2">Related Policies</h4>
             <div className="space-y-1">
