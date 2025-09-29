@@ -10,6 +10,9 @@ export const metadata = {
     index: false,
     follow: true,
   },
+  alternates: {
+    canonical: 'https://imageconvertors.com/cookie-policy',
+  },
 };
 
 export default function CookiePolicyPage() {

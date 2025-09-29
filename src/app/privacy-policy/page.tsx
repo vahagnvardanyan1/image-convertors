@@ -10,6 +10,9 @@ export const metadata = {
     index: false,
     follow: true,
   },
+  alternates: {
+    canonical: 'https://imageconvertors.com/privacy-policy',
+  },
 };
 
 export default function PrivacyPolicyPage() {
