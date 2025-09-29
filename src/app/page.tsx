@@ -8,8 +8,8 @@ import { FAQ } from '@/components/FAQ';
 export default function HomePage() {
   return (
     <>
-      <Hero />
       <FormatGrid />
+      <Hero />
       <HowTo />
       <Features />
       <BannerBlocks />

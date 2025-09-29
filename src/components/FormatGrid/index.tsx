@@ -189,7 +189,7 @@ export function FormatGrid() {
     <section id="format-grid" className="bg-white py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Choose Your Conversion</h2>
+          <h1 className="text-5xl font-bold text-gray-900 mb-4">Choose Your Conversion</h1>
           <p className="text-gray-600 max-w-2xl mx-auto">Select the format conversion you need. Each converter is optimized for the best quality and performance.</p>
         </div>
 

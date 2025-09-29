@@ -27,10 +27,10 @@ export function Hero() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
           <div className="text-center lg:text-left">
-            <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6">
+            <h2 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6">
               Convert Images
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"> Instantly</span>
-            </h1>
+            </h2>
 
             <p className="text-lg lg:text-xl text-gray-600 mb-6 max-w-xl">Transform your images between formats with ease.</p>
 
