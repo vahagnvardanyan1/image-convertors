@@ -156,12 +156,12 @@ export const generateStructuredData = (pathname: string) => {
     url: siteConfig.url,
     logo: {
       '@type': 'ImageObject',
-      url: `${siteConfig.url}/images/logo.webp`,
+      url: `${siteConfig.url}/favicon-512x512.png`,
       width: 512,
       height: 512,
       caption: 'ImageConverter Logo',
     },
-    image: `${siteConfig.url}/images/logo.webp`,
+    image: `${siteConfig.url}/favicon-512x512.png`,
     description: siteConfig.description,
     foundingDate: '2024',
     contactPoint: {
