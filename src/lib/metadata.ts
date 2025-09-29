@@ -122,6 +122,24 @@ export const routeMetadata: Record<string, Partial<Metadata>> = {
     description: 'Learn about how ImageConverter uses cookies to improve your experience. Understand our cookie usage and privacy practices.',
     keywords: 'cookie policy, cookies, website cookies, privacy, data collection',
   },
+  '/png-to-pdf': {
+    title: 'PNG to PDF Converter - Convert PNG Images to PDF Online Free',
+    description:
+      'Convert PNG images to PDF documents instantly. Maintain transparency and high quality. Customize page size, orientation, and margins. Fast, secure, and completely free PNG to PDF conversion tool.',
+    keywords: 'PNG to PDF, convert PNG to PDF, PNG PDF converter, PNG to PDF online, PNG to PDF free, PNG transparency PDF',
+  },
+  '/jpg-to-pdf': {
+    title: 'JPG to PDF Converter - Convert JPEG Images to PDF Online Free',
+    description:
+      'Convert JPG/JPEG images to PDF documents instantly. Maintain high quality and optimize file size. Customize page size, orientation, and margins. Fast, secure, and completely free JPG to PDF conversion tool.',
+    keywords: 'JPG to PDF, JPEG to PDF, convert JPG to PDF, convert JPEG to PDF, JPG PDF converter, JPEG PDF converter',
+  },
+  '/webp-to-pdf': {
+    title: 'WebP to PDF Converter - Convert WebP Images to PDF Online Free',
+    description:
+      'Convert WebP images to PDF documents instantly. Maintain excellent quality and compression. Customize page size, orientation, and margins. Fast, secure, and completely free WebP to PDF conversion tool.',
+    keywords: 'WebP to PDF, convert WebP to PDF, WebP PDF converter, WebP to PDF online, WebP to PDF free, WebP compression PDF',
+  },
 };
 
 // Generate comprehensive structured data (JSON-LD) for different page types
@@ -429,6 +447,15 @@ export const generateStructuredData = (pathname: string) => {
       } else if (pathname.includes('pdf-info')) {
         serviceName = 'PDF Info Analyzer';
         serviceDescription = 'Analyze PDF document properties and metadata.';
+      } else if (pathname.includes('png-to-pdf')) {
+        serviceName = 'PNG to PDF Converter';
+        serviceDescription = 'Convert PNG images to PDF documents with transparency support.';
+      } else if (pathname.includes('jpg-to-pdf')) {
+        serviceName = 'JPG to PDF Converter';
+        serviceDescription = 'Convert JPG/JPEG images to PDF documents with optimized quality.';
+      } else if (pathname.includes('webp-to-pdf')) {
+        serviceName = 'WebP to PDF Converter';
+        serviceDescription = 'Convert WebP images to PDF documents with excellent compression.';
       }
 
       (conversionSchemas[3] as WebApplicationSchema).featureList = ['PDF processing', 'High-quality output', 'Batch processing', 'Secure conversion', 'No watermarks', 'Fast processing'];
@@ -668,38 +695,55 @@ export const generateHowToStructuredData = (pathname: string) => {
         image: `${siteConfig.url}/images/howto/pdf-to-${formatLower}/step-download-images.webp`,
       },
     ];
-  } else if (pathname.includes('images-to-pdf')) {
-    name = 'How to Convert Images to PDF';
-    description = 'Step-by-step guide to combine multiple images into a single PDF document.';
+  } else if (pathname.includes('images-to-pdf') || pathname.includes('-to-pdf')) {
+    let formatName = '';
+    let folderName = '';
+
+    if (pathname.includes('png-to-pdf')) {
+      formatName = 'PNG';
+      folderName = 'png-to-pdf';
+    } else if (pathname.includes('jpg-to-pdf')) {
+      formatName = 'JPG';
+      folderName = 'jpg-to-pdf';
+    } else if (pathname.includes('webp-to-pdf')) {
+      formatName = 'WebP';
+      folderName = 'webp-to-pdf';
+    } else {
+      formatName = 'Images';
+      folderName = 'images-to-pdf';
+    }
+
+    name = `How to Convert ${formatName} to PDF`;
+    description = `Step-by-step guide to convert ${formatName} ${formatName === 'Images' ? 'files' : 'images'} into PDF documents.`;
 
     steps = [
       {
         '@type': 'HowToStep',
         position: 1,
-        name: 'Select Images',
-        text: 'Upload multiple images you want to combine into a PDF document.',
-        image: `${siteConfig.url}/images/howto/images-to-pdf/step-select-images.webp`,
+        name: `Select ${formatName} ${formatName === 'Images' ? 'Files' : 'Images'}`,
+        text: `Upload ${formatName === 'Images' ? 'multiple images' : `your ${formatName} images`} you want to convert to PDF.`,
+        image: `${siteConfig.url}/images/howto/${folderName}/step-select-images.webp`,
       },
       {
         '@type': 'HowToStep',
         position: 2,
         name: 'Arrange Order',
-        text: 'Drag and drop images to arrange them in your preferred order.',
-        image: `${siteConfig.url}/images/howto/images-to-pdf/step-arrange-order.webp`,
+        text: `${formatName === 'Images' ? 'Drag and drop images to arrange them in your preferred order.' : `Arrange your ${formatName} images in the desired order for the PDF.`}`,
+        image: `${siteConfig.url}/images/howto/${folderName}/step-arrange-order.webp`,
       },
       {
         '@type': 'HowToStep',
         position: 3,
         name: 'Create PDF',
-        text: 'Click create to combine all images into a single PDF document.',
-        image: `${siteConfig.url}/images/howto/images-to-pdf/step-create-pdf.webp`,
+        text: `Click create to convert ${formatName === 'Images' ? 'all images' : `your ${formatName} images`} into a PDF document.`,
+        image: `${siteConfig.url}/images/howto/${folderName}/step-create-pdf.webp`,
       },
       {
         '@type': 'HowToStep',
         position: 4,
         name: 'Download PDF',
-        text: 'Download your combined PDF document instantly.',
-        image: `${siteConfig.url}/images/howto/images-to-pdf/step-download-pdf.webp`,
+        text: `Download your ${formatName} to PDF converted document instantly.`,
+        image: `${siteConfig.url}/images/howto/${folderName}/step-download-pdf.webp`,
       },
     ];
   } else if (pathname.includes('merge-pdf')) {

@@ -92,6 +92,21 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/png-to-pdf" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  PNG to PDF
+                </Link>
+              </li>
+              <li>
+                <Link href="/jpg-to-pdf" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  JPG to PDF
+                </Link>
+              </li>
+              <li>
+                <Link href="/webp-to-pdf" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  WebP to PDF
+                </Link>
+              </li>
+              <li>
                 <Link href="/merge-pdf" className="text-gray-400 hover:text-white transition-colors text-sm">
                   Merge PDF Files
                 </Link>
