@@ -1,5 +1,3 @@
-import { Metadata } from 'next';
-
 import { Hero } from '@/components/Hero';
 import { FormatGrid } from '@/components/FormatGrid';
 import { HowTo } from '@/components/HowTo';
