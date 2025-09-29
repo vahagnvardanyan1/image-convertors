@@ -20,7 +20,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'ImageConverter - Free Online Image & PDF Converter Tool',
+  title: 'Image Converter - Free Online Image & PDF Converter Tool',
   description:
     'Convert and analyze images between PNG, JPG, WebP, GIF and more formats instantly. Complete PDF tools for conversion, merging, splitting, and analysis. Fast, secure, and completely free online converter.',
   keywords: [
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     'PDF optimizer',
     'image quality checker',
   ],
-  authors: [{ name: 'ImageConverter Team', url: 'https://imageconvertors.com' }],
+  authors: [{ name: 'Image Converter Team', url: 'https://imageconvertors.com' }],
   creator: 'ImageConverter Team',
   publisher: 'ImageConverter',
   applicationName: 'ImageConverter',
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
   themeColor: '#ffffff',
   metadataBase: new URL('https://imageconvertors.com'),
   openGraph: {
-    title: 'ImageConverter - Free Online Image & PDF Converter Tool',
+    title: 'Image Converter - Free Online Image & PDF Converter Tool',
     description:
       'Convert and analyze images between PNG, JPG, WebP, GIF and more formats instantly. Complete PDF tools for conversion, merging, splitting, and analysis. Fast, secure, and completely free.',
     url: 'https://imageconvertors.com',
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
         url: '/images/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'ImageConverter - Free Online Image & PDF Tool',
+        alt: 'Image Converter - Free Online Image & PDF Tool',
       },
     ],
     type: 'website',
@@ -84,7 +84,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@imageconverter',
     creator: '@imageconverter',
-    title: 'ImageConverter - Free Online Image & PDF Converter Tool',
+    title: 'Image Converter - Free Online Image & PDF Converter Tool',
     description: 'Convert and analyze images between PNG, JPG, WebP, GIF and more formats instantly. Complete PDF tools included. Fast, secure, and completely free.',
     images: ['/images/og-image.png'],
   },
