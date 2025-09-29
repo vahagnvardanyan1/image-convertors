@@ -1,0 +1,13 @@
+# *
+User-agent: *
+Allow: /
+
+# *
+User-agent: *
+Disallow: /api/
+
+# Host
+Host: https://imageconvertors.com
+
+# Sitemaps
+Sitemap: https://imageconvertors.com/sitemap.xml

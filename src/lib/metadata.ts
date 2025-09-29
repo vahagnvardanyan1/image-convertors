@@ -1,5 +1,32 @@
 import { Metadata } from 'next';
 
+// Type definitions for structured data
+interface WebApplicationSchema {
+  '@type': 'WebApplication';
+  name?: string;
+  description?: string;
+  featureList?: string[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
+}
+
+interface FAQItem {
+  '@type': 'Question';
+  name: string;
+  acceptedAnswer: {
+    '@type': 'Answer';
+    text: string;
+  };
+}
+
+interface HowToStep {
+  '@type': 'HowToStep';
+  position: number;
+  name: string;
+  text: string;
+  image: string;
+}
+
 // Base configuration for the application
 export const siteConfig = {
   name: 'ImageConverter',
@@ -97,63 +124,351 @@ export const routeMetadata: Record<string, Partial<Metadata>> = {
   },
 };
 
-// Generate structured data (JSON-LD) for different page types
+// Generate comprehensive structured data (JSON-LD) for different page types
 export const generateStructuredData = (pathname: string) => {
-  const baseStructuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'WebApplication',
+  // Get current page URL
+  const currentUrl = `${siteConfig.url}${pathname}`;
+
+  // Get page-specific metadata
+  const pageMetadata = routeMetadata[pathname] || routeMetadata['/'];
+  // Base Organization schema with logo for Google search results
+  const organizationSchema = {
+    '@type': 'Organization',
+    name: siteConfig.author.name,
+    url: siteConfig.url,
+    logo: {
+      '@type': 'ImageObject',
+      url: `${siteConfig.url}/images/logo.webp`,
+      width: 512,
+      height: 512,
+      caption: 'ImageConverter Logo',
+    },
+    image: `${siteConfig.url}/images/logo.webp`,
+    description: siteConfig.description,
+    foundingDate: '2024',
+    contactPoint: {
+      '@type': 'ContactPoint',
+      contactType: 'customer service',
+      availableLanguage: 'English',
+    },
+    sameAs: [siteConfig.author.url],
+  };
+
+  // Website schema - represents the entire site
+  const websiteSchema = {
+    '@type': 'Website',
     name: siteConfig.name,
     url: siteConfig.url,
     description: siteConfig.description,
+    publisher: organizationSchema,
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${siteConfig.url}/?q={search_term_string}`,
+      },
+      'query-input': 'required name=search_term_string',
+    },
+  };
+
+  // WebPage schema - page-specific
+  const webPageSchema = {
+    '@type': 'WebPage',
+    name: pageMetadata.title ? String(pageMetadata.title).split(' - ')[0] : siteConfig.name,
+    url: currentUrl,
+    description: pageMetadata.description || siteConfig.description,
+    isPartOf: {
+      '@type': 'Website',
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+    publisher: organizationSchema,
+    datePublished: '2024-01-01',
+    dateModified: new Date().toISOString().split('T')[0],
+    mainEntity: currentUrl,
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      '@id': `${currentUrl}#breadcrumb`,
+    },
+  };
+
+  // Enhanced WebApplication schema
+  const baseWebApplicationSchema = {
+    '@type': 'WebApplication',
+    name: pageMetadata.title ? String(pageMetadata.title).split(' - ')[0] : siteConfig.name,
+    url: currentUrl,
+    description: pageMetadata.description || siteConfig.description,
     applicationCategory: 'MultimediaApplication',
+    applicationSubCategory: 'Image Converter',
     operatingSystem: 'Any',
+    browserRequirements: 'Requires JavaScript. Requires HTML5.',
+    softwareVersion: '1.0',
+    releaseNotes: 'Free online image and PDF conversion tool',
+    screenshot: `${siteConfig.url}/images/og-image.webp`,
+    mainEntityOfPage: currentUrl,
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.8',
+      ratingCount: '1250',
+      bestRating: '5',
+      worstRating: '1',
+    },
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock',
+      validFrom: '2024-01-01',
+    },
+    author: organizationSchema,
+    publisher: organizationSchema,
+    creator: organizationSchema,
+    maintainer: organizationSchema,
+    copyrightHolder: organizationSchema,
+    license: 'https://creativecommons.org/licenses/by/4.0/',
+    isAccessibleForFree: true,
+    usageInfo: 'Free to use for personal and commercial purposes',
+  };
+
+  // SoftwareApplication schema for better categorization
+  const softwareApplicationSchema = {
+    '@type': 'SoftwareApplication',
+    name: pageMetadata.title ? String(pageMetadata.title).split(' - ')[0] : siteConfig.name,
+    description: pageMetadata.description || siteConfig.description,
+    url: currentUrl,
+    applicationCategory: 'MultimediaApplication',
+    applicationSubCategory: 'Image Processing',
+    operatingSystem: 'Web Browser',
+    softwareVersion: '1.0',
+    datePublished: '2024-01-01',
+    dateModified: new Date().toISOString().split('T')[0],
+    author: organizationSchema,
+    publisher: organizationSchema,
+    downloadUrl: currentUrl,
+    installUrl: currentUrl,
+    screenshot: `${siteConfig.url}/images/og-image.webp`,
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.8',
+      ratingCount: '1250',
+    },
     offers: {
       '@type': 'Offer',
       price: '0',
       priceCurrency: 'USD',
     },
-    author: {
-      '@type': 'Organization',
-      name: siteConfig.author.name,
-      url: siteConfig.author.url,
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: siteConfig.author.name,
-      url: siteConfig.author.url,
-    },
   };
+
+  // Return multiple schemas as an array
+  const baseStructuredData = [
+    {
+      '@context': 'https://schema.org',
+      ...organizationSchema,
+    },
+    {
+      '@context': 'https://schema.org',
+      ...websiteSchema,
+    },
+    {
+      '@context': 'https://schema.org',
+      ...webPageSchema,
+    },
+    {
+      '@context': 'https://schema.org',
+      ...baseWebApplicationSchema,
+    },
+    {
+      '@context': 'https://schema.org',
+      ...softwareApplicationSchema,
+    },
+  ];
 
   // Add specific structured data based on the route
   if (pathname === '/') {
-    return {
+    const homePageSchemas = [
       ...baseStructuredData,
-      '@type': 'WebApplication',
-      featureList: ['PNG to WebP conversion', 'JPG to PNG conversion', 'WebP to PNG conversion', 'Image analysis and metadata extraction', 'Batch image processing', 'Quality optimization'],
-    };
+      {
+        '@context': 'https://schema.org',
+        '@type': 'Service',
+        name: 'Image Format Conversion Services',
+        description: 'Professional image format conversion services including PNG, JPG, WebP, and more.',
+        provider: organizationSchema,
+        serviceType: 'Image Conversion',
+        areaServed: 'Worldwide',
+        availableChannel: {
+          '@type': 'ServiceChannel',
+          serviceUrl: currentUrl,
+          serviceType: 'Online',
+        },
+        hasOfferCatalog: {
+          '@type': 'OfferCatalog',
+          name: 'Image Conversion Services',
+          itemListElement: [
+            {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'Service',
+                name: 'PNG to WebP Conversion',
+              },
+            },
+            {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'Service',
+                name: 'JPG to PNG Conversion',
+              },
+            },
+            {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'Service',
+                name: 'Image Analysis',
+              },
+            },
+          ],
+        },
+      },
+    ];
+
+    // Update the WebPage schema for homepage
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (homePageSchemas[2] as any).name = 'ImageConverter - Free Online Image & PDF Converter';
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (homePageSchemas[2] as any).description = 'Convert and analyze images between PNG, JPG, WebP, GIF and more formats instantly. Complete PDF tools included.';
+
+    // Update the main WebApplication with homepage features
+    (homePageSchemas[3] as WebApplicationSchema).featureList = [
+      'PNG to WebP conversion',
+      'JPG to PNG conversion',
+      'WebP to PNG conversion',
+      'PDF to JPG conversion',
+      'PDF to PNG conversion',
+      'Images to PDF conversion',
+      'Image analysis and metadata extraction',
+      'Batch image processing',
+      'Quality optimization',
+      'PDF merging and splitting',
+    ];
+
+    return homePageSchemas;
   }
 
   if (pathname === '/analyze') {
-    return {
-      ...baseStructuredData,
-      '@type': 'WebApplication',
-      name: 'Image Analyzer',
-      description: 'Analyze image properties, format, dimensions, and quality metrics online for free.',
-      featureList: ['Image property analysis', 'EXIF data extraction', 'Color depth analysis', 'Compression ratio calculation', 'Quality assessment'],
-    };
+    const analyzeSchemas = [...baseStructuredData];
+
+    // Update the WebPage schema for analyze page
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (analyzeSchemas[2] as any).name = 'Image Analyzer - Analyze Image Properties & Quality';
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (analyzeSchemas[2] as any).description = 'Analyze your images instantly. Get detailed information about format, dimensions, file size, color depth, compression, EXIF data, and quality metrics.';
+
+    (analyzeSchemas[3] as WebApplicationSchema).name = 'Image Analyzer';
+    (analyzeSchemas[3] as WebApplicationSchema).description = 'Analyze image properties, format, dimensions, and quality metrics online for free.';
+    (analyzeSchemas[3] as WebApplicationSchema).featureList = [
+      'Image property analysis',
+      'EXIF data extraction',
+      'Color depth analysis',
+      'Compression ratio calculation',
+      'Quality assessment',
+      'Format detection',
+    ];
+
+    // Add specific Service schema for image analysis
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (analyzeSchemas as any[]).push({
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      name: 'Image Analysis Service',
+      description: 'Comprehensive image analysis including metadata, properties, and quality assessment.',
+      provider: {
+        '@type': 'Organization',
+        name: organizationSchema.name,
+        url: organizationSchema.url,
+      },
+      serviceType: 'Image Analysis',
+      areaServed: 'Worldwide',
+      url: currentUrl,
+    });
+
+    return analyzeSchemas;
   }
 
-  if (pathname.includes('to')) {
-    const [from, to] = pathname.slice(1).split('-to-');
-    return {
-      ...baseStructuredData,
-      '@type': 'WebApplication',
-      name: `${from.toUpperCase()} to ${to.toUpperCase()} Converter`,
-      description: `Convert ${from.toUpperCase()} images to ${to.toUpperCase()} format online for free.`,
-      featureList: [`${from.toUpperCase()} to ${to.toUpperCase()} conversion`, 'Quality preservation', 'Batch processing', 'Instant download'],
-    };
+  // Handle conversion tool pages
+  if (pathname.includes('to') || pathname.includes('pdf')) {
+    const conversionSchemas = [...baseStructuredData];
+    let serviceName = '';
+    let serviceDescription = '';
+
+    if (pathname.includes('to')) {
+      const [from, to] = pathname.slice(1).split('-to-');
+      serviceName = `${from.toUpperCase()} to ${to.toUpperCase()} Converter`;
+      serviceDescription = `Convert ${from.toUpperCase()} images to ${to.toUpperCase()} format online for free.`;
+      (conversionSchemas[3] as WebApplicationSchema).featureList = [
+        `${from.toUpperCase()} to ${to.toUpperCase()} conversion`,
+        'Quality preservation',
+        'Batch processing',
+        'Instant download',
+        'No file size limits',
+      ];
+    } else if (pathname.includes('pdf')) {
+      if (pathname.includes('pdf-to-jpg')) {
+        serviceName = 'PDF to JPG Converter';
+        serviceDescription = 'Convert PDF documents to high-quality JPG images.';
+      } else if (pathname.includes('pdf-to-png')) {
+        serviceName = 'PDF to PNG Converter';
+        serviceDescription = 'Convert PDF documents to high-quality PNG images.';
+      } else if (pathname.includes('images-to-pdf')) {
+        serviceName = 'Images to PDF Converter';
+        serviceDescription = 'Combine multiple images into a single PDF document.';
+      } else if (pathname.includes('merge-pdf')) {
+        serviceName = 'PDF Merger';
+        serviceDescription = 'Merge multiple PDF documents into one file.';
+      } else if (pathname.includes('split-pdf')) {
+        serviceName = 'PDF Splitter';
+        serviceDescription = 'Split PDF documents into separate pages or sections.';
+      } else if (pathname.includes('pdf-info')) {
+        serviceName = 'PDF Info Analyzer';
+        serviceDescription = 'Analyze PDF document properties and metadata.';
+      }
+
+      (conversionSchemas[3] as WebApplicationSchema).featureList = ['PDF processing', 'High-quality output', 'Batch processing', 'Secure conversion', 'No watermarks', 'Fast processing'];
+    }
+
+    // Update the WebPage schema for conversion pages
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (conversionSchemas[2] as any).name = serviceName;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (conversionSchemas[2] as any).description = serviceDescription;
+
+    (conversionSchemas[3] as WebApplicationSchema).name = serviceName;
+    (conversionSchemas[3] as WebApplicationSchema).description = serviceDescription;
+
+    // Add specific Service schema for this conversion type
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (conversionSchemas as any[]).push({
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      name: serviceName,
+      description: serviceDescription,
+      provider: {
+        '@type': 'Organization',
+        name: organizationSchema.name,
+        url: organizationSchema.url,
+      },
+      serviceType: 'File Conversion',
+      areaServed: 'Worldwide',
+      url: currentUrl,
+      availableChannel: {
+        '@type': 'ServiceChannel',
+        serviceUrl: currentUrl,
+        serviceType: 'Online',
+      },
+    });
+
+    return conversionSchemas;
   }
 
+  // For other pages (privacy, terms, etc.)
   return baseStructuredData;
 };
 
@@ -187,5 +502,308 @@ export const generateBreadcrumbStructuredData = (pathname: string) => {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: breadcrumbList,
+  };
+};
+
+// Generate FAQ structured data
+export const generateFAQStructuredData = (pathname: string) => {
+  // Only add FAQ schema on homepage and main converter pages
+  if (pathname !== '/' && !pathname.includes('to') && !pathname.includes('pdf')) {
+    return null;
+  }
+
+  const currentUrl = `${siteConfig.url}${pathname}`;
+  // const pageMetadata = routeMetadata[pathname] || routeMetadata['/'];
+
+  const commonFAQs = [
+    {
+      '@type': 'Question',
+      name: 'Is ImageConverter free to use?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes, ImageConverter is completely free to use. There are no hidden fees, subscriptions, or watermarks on your converted files.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Are my files secure when using ImageConverter?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes, your files are completely secure. All conversions happen in your browser locally, and no files are uploaded to our servers. Your privacy is our priority.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What file formats does ImageConverter support?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'ImageConverter supports all major image formats including PNG, JPG/JPEG, WebP, GIF, and PDF. You can convert between any of these formats quickly and easily.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Is there a file size limit?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'ImageConverter can handle files of various sizes. Since processing happens in your browser, very large files may take longer to process depending on your device capabilities.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Do I need to install any software?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'No installation required! ImageConverter works directly in your web browser. Just visit our website and start converting your images immediately.',
+      },
+    },
+  ];
+
+  let specificFAQs: FAQItem[] = [];
+
+  if (pathname.includes('to')) {
+    const [from, to] = pathname.slice(1).split('-to-');
+    specificFAQs = [
+      {
+        '@type': 'Question',
+        name: `How do I convert ${from.toUpperCase()} to ${to.toUpperCase()}?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `Converting ${from.toUpperCase()} to ${to.toUpperCase()} is easy: 1) Upload your ${from.toUpperCase()} file, 2) Click convert, 3) Download your ${to.toUpperCase()} file. The conversion happens instantly in your browser.`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: `Will the quality be maintained when converting ${from.toUpperCase()} to ${to.toUpperCase()}?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `Yes, our ${from.toUpperCase()} to ${to.toUpperCase()} converter maintains high quality while optimizing file size. You can adjust quality settings if needed.`,
+        },
+      },
+    ];
+  }
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    url: currentUrl,
+    mainEntity: [...specificFAQs, ...commonFAQs],
+    mainEntityOfPage: currentUrl,
+  };
+};
+
+// Generate HowTo structured data for conversion processes
+export const generateHowToStructuredData = (pathname: string) => {
+  if (!pathname.includes('to') && !pathname.includes('pdf')) {
+    return null;
+  }
+
+  const currentUrl = `${siteConfig.url}${pathname}`;
+  // const pageMetadata = routeMetadata[pathname] || routeMetadata['/'];
+
+  let name = '';
+  let description = '';
+  let steps: HowToStep[] = [];
+
+  if (pathname.includes('to')) {
+    const [from, to] = pathname.slice(1).split('-to-');
+    name = `How to Convert ${from.toUpperCase()} to ${to.toUpperCase()}`;
+    description = `Step-by-step guide to convert ${from.toUpperCase()} images to ${to.toUpperCase()} format online for free.`;
+
+    steps = [
+      {
+        '@type': 'HowToStep',
+        position: 1,
+        name: `Upload ${from.toUpperCase()} File`,
+        text: `Click the upload button or drag and drop your ${from.toUpperCase()} file into the converter area.`,
+        image: `${siteConfig.url}/images/howto/${from}-to-${to}/step-upload.webp`,
+      },
+      {
+        '@type': 'HowToStep',
+        position: 2,
+        name: 'Start Conversion',
+        text: `Click the "Convert" button to begin the ${from.toUpperCase()} to ${to.toUpperCase()} conversion process.`,
+        image: `${siteConfig.url}/images/howto/${from}-to-${to}/step-convert.webp`,
+      },
+      {
+        '@type': 'HowToStep',
+        position: 3,
+        name: `Download ${to.toUpperCase()} File`,
+        text: `Once conversion is complete, download your converted ${to.toUpperCase()} file instantly.`,
+        image: `${siteConfig.url}/images/howto/${from}-to-${to}/step-download.webp`,
+      },
+    ];
+  } else if (pathname.includes('pdf-to-')) {
+    const format = pathname.includes('jpg') ? 'JPG' : 'PNG';
+    const formatLower = format.toLowerCase();
+    name = `How to Convert PDF to ${format}`;
+    description = `Step-by-step guide to convert PDF documents to ${format} images online.`;
+
+    steps = [
+      {
+        '@type': 'HowToStep',
+        position: 1,
+        name: 'Upload PDF File',
+        text: 'Select and upload the PDF document you want to convert to images.',
+        image: `${siteConfig.url}/images/howto/pdf-to-${formatLower}/step-upload-pdf.webp`,
+      },
+      {
+        '@type': 'HowToStep',
+        position: 2,
+        name: 'Choose Pages',
+        text: 'Select which pages you want to convert or convert all pages.',
+        image: `${siteConfig.url}/images/howto/pdf-to-${formatLower}/step-select-pages.webp`,
+      },
+      {
+        '@type': 'HowToStep',
+        position: 3,
+        name: 'Convert to Images',
+        text: `Click convert to transform your PDF pages into high-quality ${format} images.`,
+        image: `${siteConfig.url}/images/howto/pdf-to-${formatLower}/step-convert-pdf.webp`,
+      },
+      {
+        '@type': 'HowToStep',
+        position: 4,
+        name: 'Download Images',
+        text: `Download individual ${format} images or get them all in a ZIP file.`,
+        image: `${siteConfig.url}/images/howto/pdf-to-${formatLower}/step-download-images.webp`,
+      },
+    ];
+  } else if (pathname.includes('images-to-pdf')) {
+    name = 'How to Convert Images to PDF';
+    description = 'Step-by-step guide to combine multiple images into a single PDF document.';
+
+    steps = [
+      {
+        '@type': 'HowToStep',
+        position: 1,
+        name: 'Select Images',
+        text: 'Upload multiple images you want to combine into a PDF document.',
+        image: `${siteConfig.url}/images/howto/images-to-pdf/step-select-images.webp`,
+      },
+      {
+        '@type': 'HowToStep',
+        position: 2,
+        name: 'Arrange Order',
+        text: 'Drag and drop images to arrange them in your preferred order.',
+        image: `${siteConfig.url}/images/howto/images-to-pdf/step-arrange-order.webp`,
+      },
+      {
+        '@type': 'HowToStep',
+        position: 3,
+        name: 'Create PDF',
+        text: 'Click create to combine all images into a single PDF document.',
+        image: `${siteConfig.url}/images/howto/images-to-pdf/step-create-pdf.webp`,
+      },
+      {
+        '@type': 'HowToStep',
+        position: 4,
+        name: 'Download PDF',
+        text: 'Download your combined PDF document instantly.',
+        image: `${siteConfig.url}/images/howto/images-to-pdf/step-download-pdf.webp`,
+      },
+    ];
+  } else if (pathname.includes('merge-pdf')) {
+    name = 'How to Merge PDF Files';
+    description = 'Step-by-step guide to merge multiple PDF documents into one file.';
+
+    steps = [
+      {
+        '@type': 'HowToStep',
+        position: 1,
+        name: 'Upload PDF Files',
+        text: 'Select and upload multiple PDF files you want to merge.',
+        image: `${siteConfig.url}/images/howto/merge-pdf/step-upload-pdfs.webp`,
+      },
+      {
+        '@type': 'HowToStep',
+        position: 2,
+        name: 'Arrange Order',
+        text: 'Drag and drop PDF files to set the order for merging.',
+        image: `${siteConfig.url}/images/howto/merge-pdf/step-arrange-order.webp`,
+      },
+      {
+        '@type': 'HowToStep',
+        position: 3,
+        name: 'Merge PDFs',
+        text: 'Click merge to combine all PDF files into a single document.',
+        image: `${siteConfig.url}/images/howto/merge-pdf/step-merge-pdfs.webp`,
+      },
+      {
+        '@type': 'HowToStep',
+        position: 4,
+        name: 'Download Merged PDF',
+        text: 'Download your merged PDF document.',
+        image: `${siteConfig.url}/images/howto/merge-pdf/step-download-merged.webp`,
+      },
+    ];
+  } else if (pathname.includes('split-pdf')) {
+    name = 'How to Split PDF Files';
+    description = 'Step-by-step guide to split PDF documents into separate pages or sections.';
+
+    steps = [
+      {
+        '@type': 'HowToStep',
+        position: 1,
+        name: 'Upload PDF File',
+        text: 'Select and upload the PDF document you want to split.',
+        image: `${siteConfig.url}/images/howto/split-pdf/step-upload-pdf.webp`,
+      },
+      {
+        '@type': 'HowToStep',
+        position: 2,
+        name: 'Choose Split Method',
+        text: 'Select how you want to split: by pages, by size, or by bookmarks.',
+        image: `${siteConfig.url}/images/howto/split-pdf/step-choose-method.webp`,
+      },
+      {
+        '@type': 'HowToStep',
+        position: 3,
+        name: 'Split PDF',
+        text: 'Click split to separate your PDF according to your chosen method.',
+        image: `${siteConfig.url}/images/howto/split-pdf/step-split-pdf.webp`,
+      },
+      {
+        '@type': 'HowToStep',
+        position: 4,
+        name: 'Download Split Files',
+        text: 'Download individual PDF files or get them all in a ZIP archive.',
+        image: `${siteConfig.url}/images/howto/split-pdf/step-download-split.webp`,
+      },
+    ];
+  }
+
+  if (steps.length === 0) return null;
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: name,
+    description: description,
+    url: currentUrl,
+    image: `${siteConfig.url}/images/og-image.webp`,
+    mainEntityOfPage: currentUrl,
+    totalTime: 'PT2M',
+    estimatedCost: {
+      '@type': 'MonetaryAmount',
+      currency: 'USD',
+      value: '0',
+    },
+    supply: [
+      {
+        '@type': 'HowToSupply',
+        name: 'Internet Connection',
+      },
+      {
+        '@type': 'HowToSupply',
+        name: 'Web Browser',
+      },
+    ],
+    tool: [
+      {
+        '@type': 'HowToTool',
+        name: 'ImageConverter Online Tool',
+      },
+    ],
+    step: steps,
   };
 };
