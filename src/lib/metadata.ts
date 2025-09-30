@@ -201,6 +201,7 @@ export const generateStructuredData = (pathname: string) => {
     breadcrumb: {
       '@type': 'BreadcrumbList',
       '@id': `${currentUrl}#breadcrumb`,
+      itemListElement: generateBreadcrumbItems(pathname),
     },
   };
 
@@ -495,8 +496,8 @@ export const generateStructuredData = (pathname: string) => {
 
 // Generate dynamic metadata based on pathname
 
-// Generate breadcrumb structured data
-export const generateBreadcrumbStructuredData = (pathname: string) => {
+// Helper function to generate breadcrumb items
+const generateBreadcrumbItems = (pathname: string) => {
   const pathSegments = pathname.split('/').filter(Boolean);
   const breadcrumbList = [
     {
@@ -519,10 +520,15 @@ export const generateBreadcrumbStructuredData = (pathname: string) => {
     });
   });
 
+  return breadcrumbList;
+};
+
+// Generate breadcrumb structured data
+export const generateBreadcrumbStructuredData = (pathname: string) => {
   return {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
-    itemListElement: breadcrumbList,
+    itemListElement: generateBreadcrumbItems(pathname),
   };
 };
 
