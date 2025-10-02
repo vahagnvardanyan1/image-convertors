@@ -22,10 +22,18 @@ module.exports = {
       await config.transform(config, '/png-to-jpg'),
       await config.transform(config, '/webp-to-jpg'),
 
-      // Legal pages
-      await config.transform(config, '/cookie-policy'),
-      await config.transform(config, '/privacy-policy'),
-      await config.transform(config, '/terms-of-use'),
+      // Blog pages
+      await config.transform(config, '/blog'),
+      await config.transform(config, '/blog/compress-images-guide'),
+      await config.transform(config, '/blog/heic-to-jpg-guide'),
+      await config.transform(config, '/blog/heic-to-webp-guide'),
+      await config.transform(config, '/blog/jpg-to-pdf-guide'),
+      await config.transform(config, '/blog/jpg-to-webp-guide'),
+      await config.transform(config, '/blog/pdf-to-jpg-guide'),
+      await config.transform(config, '/blog/png-to-jpg-guide'),
+      await config.transform(config, '/blog/png-to-pdf-guide'),
+      await config.transform(config, '/blog/png-to-webp-guide'),
+      await config.transform(config, '/blog/webp-to-png-guide'),
     ];
   },
   // Optimize for SEO
