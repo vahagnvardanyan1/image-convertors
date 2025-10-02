@@ -154,8 +154,18 @@ export const generateStructuredData = (pathname: string) => {
     '@type': 'Organization',
     name: siteConfig.author.name,
     url: siteConfig.url,
-    logo: '/favicon-48x48.png',
-    image: '/favicon-48x48.png',
+    logo: {
+      '@type': 'ImageObject',
+      url: `${siteConfig.url}/favicon-192x192.png`,
+      width: 192,
+      height: 192,
+    },
+    image: {
+      '@type': 'ImageObject',
+      url: `${siteConfig.url}/favicon-192x192.png`,
+      width: 192,
+      height: 192,
+    },
     description: siteConfig.description,
     foundingDate: '2024',
     contactPoint: {
@@ -493,6 +503,29 @@ export const generateStructuredData = (pathname: string) => {
   // For other pages (privacy, terms, etc.)
   return baseStructuredData;
 };
+
+// Export standalone Organization schema for use in homepage
+export const getOrganizationSchema = () => ({
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'ImageConverter Team',
+  alternateName: 'ImageConverter',
+  url: siteConfig.url,
+  logo: {
+    '@type': 'ImageObject',
+    url: `${siteConfig.url}/favicon-192x192.png`,
+    width: 192,
+    height: 192,
+  },
+  description: siteConfig.description,
+  foundingDate: '2024',
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'customer service',
+    availableLanguage: 'English',
+  },
+  sameAs: [siteConfig.url],
+});
 
 // Generate dynamic metadata based on pathname
 
