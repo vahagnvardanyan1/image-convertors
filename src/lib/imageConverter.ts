@@ -1,6 +1,5 @@
 import { fileTypeFromBuffer } from 'file-type';
 import imageCompression from 'browser-image-compression';
-import heic2any from 'heic2any';
 
 export type SupportedFormat = 'png' | 'jpg' | 'jpeg' | 'webp' | 'gif' | 'heic' | 'heif';
 
@@ -62,6 +61,8 @@ export async function convertImage(file: File, targetFormat: SupportedFormat, op
     const isHeic = file.name.toLowerCase().endsWith('.heic') || file.name.toLowerCase().endsWith('.heif') || file.type === 'image/heic' || file.type === 'image/heif';
     if (isHeic) {
       try {
+        // Dynamically import heic2any only when needed (client-side only)
+        const heic2any = (await import('heic2any')).default;
         const convertedBlob = await heic2any({
           blob: file,
           toType: 'image/png',

@@ -61,7 +61,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://imageconvertors.com',
   },
-  themeColor: '#ffffff',
   metadataBase: new URL('https://imageconvertors.com'),
   openGraph: {
     title: 'Image Converter - Free Online Image & PDF Converter Tool',
@@ -100,6 +99,10 @@ export const metadata: Metadata = {
     apple: [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
   },
   category: 'utilities',
+};
+
+export const viewport = {
+  themeColor: '#ffffff',
 };
 
 export default function RootLayout({

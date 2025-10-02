@@ -1,6 +1,5 @@
 import { PDFDocument } from 'pdf-lib';
 import { jsPDF } from 'jspdf';
-import heic2any from 'heic2any';
 
 export type PDFConversionFormat = 'jpg' | 'png' | 'webp';
 
@@ -233,6 +232,8 @@ export async function convertImagesToPDF(files: File[], options: ImageToPDFOptio
     const isHeic = file.name.toLowerCase().endsWith('.heic') || file.name.toLowerCase().endsWith('.heif') || file.type === 'image/heic' || file.type === 'image/heif';
     if (isHeic) {
       try {
+        // Dynamically import heic2any only when needed (client-side only)
+        const heic2any = (await import('heic2any')).default;
         const convertedBlob = await heic2any({
           blob: file,
           toType: 'image/png',
