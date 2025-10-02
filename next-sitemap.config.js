@@ -13,14 +13,32 @@ module.exports = {
     return [
       // Main pages
       await config.transform(config, '/'),
+      await config.transform(config, '/analyze'),
 
       // Image converter tools
       await config.transform(config, '/png-to-webp'),
-      await config.transform(config, '/jpg-to-png'),
-      await config.transform(config, '/webp-to-png'),
-      await config.transform(config, '/jpg-to-webp'),
       await config.transform(config, '/png-to-jpg'),
+      await config.transform(config, '/png-to-pdf'),
+      await config.transform(config, '/jpg-to-png'),
+      await config.transform(config, '/jpg-to-webp'),
+      await config.transform(config, '/jpg-to-pdf'),
+      await config.transform(config, '/webp-to-png'),
       await config.transform(config, '/webp-to-jpg'),
+      await config.transform(config, '/webp-to-pdf'),
+
+      // HEIC converter tools
+      await config.transform(config, '/heic-to-jpg'),
+      await config.transform(config, '/heic-to-png'),
+      await config.transform(config, '/heic-to-webp'),
+      await config.transform(config, '/heic-to-pdf'),
+
+      // PDF tools
+      await config.transform(config, '/pdf-to-jpg'),
+      await config.transform(config, '/pdf-to-png'),
+      await config.transform(config, '/images-to-pdf'),
+      await config.transform(config, '/merge-pdf'),
+      await config.transform(config, '/split-pdf'),
+      await config.transform(config, '/pdf-info'),
 
       // Blog pages
       await config.transform(config, '/blog'),
