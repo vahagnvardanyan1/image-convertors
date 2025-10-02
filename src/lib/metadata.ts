@@ -154,8 +154,8 @@ export const generateStructuredData = (pathname: string) => {
     '@type': 'Organization',
     name: siteConfig.author.name,
     url: siteConfig.url,
-    logo: '/images/logo.webp',
-    image: '/images/logo.webp',
+    logo: '/images/logo.png',
+    image: '/images/logo.png',
     description: siteConfig.description,
     foundingDate: '2024',
     contactPoint: {
