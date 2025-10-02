@@ -127,7 +127,7 @@ export default function RootLayout({
             gtag('config', 'AW-17602920334');
           `}
         </Script>
-        
+
         <Header />
         <StructuredData />
         <main>{children}</main>
