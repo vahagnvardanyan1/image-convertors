@@ -5,7 +5,7 @@ export function Footer() {
   return (
     <footer className="bg-gray-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-1">
             <div className="flex items-center mb-4">
@@ -60,6 +60,21 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/heic-to-jpg" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  HEIC to JPG
+                </Link>
+              </li>
+              <li>
+                <Link href="/heic-to-png" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  HEIC to PNG
+                </Link>
+              </li>
+              <li>
+                <Link href="/heic-to-webp" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  HEIC to WebP
+                </Link>
+              </li>
+              <li>
                 <Link href="/analyze" className="text-gray-400 hover:text-white transition-colors text-sm">
                   Image Analyzer
                 </Link>
@@ -102,6 +117,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/heic-to-pdf" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  HEIC to PDF
+                </Link>
+              </li>
+              <li>
                 <Link href="/webp-to-pdf" className="text-gray-400 hover:text-white transition-colors text-sm">
                   WebP to PDF
                 </Link>
@@ -119,6 +139,68 @@ export function Footer() {
               <li>
                 <Link href="/pdf-info" className="text-gray-400 hover:text-white transition-colors text-sm">
                   PDF Information
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Blog & Resources */}
+          <div>
+            <h3 className="font-semibold mb-4">Blog & Resources</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link href="/blog" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  Blog Home
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog/png-to-webp-guide" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  PNG to WebP Guide
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog/png-to-jpg-guide" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  PNG to JPG Guide
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog/webp-to-png-guide" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  WebP to PNG Guide
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog/png-to-pdf-guide" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  PNG to PDF Guide
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog/jpg-to-webp-guide" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  JPG to WebP Guide
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog/jpg-to-pdf-guide" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  JPG to PDF Guide
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog/pdf-to-jpg-guide" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  PDF to JPG Guide
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog/heic-to-jpg-guide" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  HEIC to JPG Guide
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog/heic-to-webp-guide" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  HEIC to WebP Guide
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog/compress-images-guide" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  Compress Images Guide
                 </Link>
               </li>
             </ul>

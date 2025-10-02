@@ -1,5 +1,6 @@
 import { PDFDocument } from 'pdf-lib';
 import { jsPDF } from 'jspdf';
+import heic2any from 'heic2any';
 
 export type PDFConversionFormat = 'jpg' | 'png' | 'webp';
 
@@ -75,8 +76,11 @@ export function validatePDFFile(file: File): boolean {
  * Validates if the file is a supported image format for PDF creation
  */
 export function validateImageForPDF(file: File): boolean {
-  const supportedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'];
-  return supportedTypes.includes(file.type);
+  const supportedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/heic', 'image/heif'];
+  // Check both file.type and file name extension for HEIC files (sometimes HEIC files don't have the correct MIME type)
+  const hasValidType = supportedTypes.includes(file.type);
+  const hasHeicExtension = file.name.toLowerCase().endsWith('.heic') || file.name.toLowerCase().endsWith('.heif');
+  return hasValidType || hasHeicExtension;
 }
 
 /**
@@ -220,7 +224,29 @@ export async function convertImagesToPDF(files: File[], options: ImageToPDFOptio
 
   const invalidFiles = files.filter(file => !validateImageForPDF(file));
   if (invalidFiles.length > 0) {
-    throw new Error('Some files are not supported image formats (PNG, JPG, WebP)');
+    throw new Error('Some files are not supported image formats (PNG, JPG, WebP, HEIC)');
+  }
+
+  // Preprocess HEIC files to PNG
+  const processedFiles: File[] = [];
+  for (const file of files) {
+    const isHeic = file.name.toLowerCase().endsWith('.heic') || file.name.toLowerCase().endsWith('.heif') || file.type === 'image/heic' || file.type === 'image/heif';
+    if (isHeic) {
+      try {
+        const convertedBlob = await heic2any({
+          blob: file,
+          toType: 'image/png',
+          quality: 1,
+        });
+        const blob = Array.isArray(convertedBlob) ? convertedBlob[0] : convertedBlob;
+        const processedFile = new File([blob], file.name.replace(/\.heic$/i, '.png').replace(/\.heif$/i, '.png'), { type: 'image/png' });
+        processedFiles.push(processedFile);
+      } catch (heicError) {
+        throw new Error(`Failed to process HEIC file ${file.name}: ${heicError}`);
+      }
+    } else {
+      processedFiles.push(file);
+    }
   }
 
   const { pageSize = 'A4', orientation = 'portrait', margin = 20, fitToPage = true, customWidth = 210, customHeight = 297 } = options;
@@ -239,9 +265,9 @@ export async function convertImagesToPDF(files: File[], options: ImageToPDFOptio
 
     let totalOriginalSize = 0;
 
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      totalOriginalSize += file.size;
+    for (let i = 0; i < processedFiles.length; i++) {
+      const file = processedFiles[i];
+      totalOriginalSize += files[i].size; // Use original file size for stats
 
       // Add new page for each image except the first
       if (i > 0) {

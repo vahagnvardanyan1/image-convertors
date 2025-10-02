@@ -67,7 +67,7 @@ export function ConverterPage({ from, to, title }: ConverterPageProps) {
     setConversionResult(null);
 
     if (!validateImageFile(file)) {
-      setError('Please select a valid image file (PNG, JPG, WebP, or GIF)');
+      setError('Please select a valid image file (PNG, JPG, WebP, GIF, or HEIC)');
       return;
     }
 

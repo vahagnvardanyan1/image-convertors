@@ -1,7 +1,8 @@
 import { fileTypeFromBuffer } from 'file-type';
 import imageCompression from 'browser-image-compression';
+import heic2any from 'heic2any';
 
-export type SupportedFormat = 'png' | 'jpg' | 'jpeg' | 'webp' | 'gif';
+export type SupportedFormat = 'png' | 'jpg' | 'jpeg' | 'webp' | 'gif' | 'heic' | 'heif';
 
 export interface ConversionOptions {
   quality?: number; // 0-1 for JPEG/WebP quality
@@ -37,8 +38,11 @@ export async function detectImageFormat(file: File): Promise<string | null> {
  * Validates if the file is a supported image format
  */
 export function validateImageFile(file: File): boolean {
-  const supportedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/gif'];
-  return supportedTypes.includes(file.type);
+  const supportedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/gif', 'image/heic', 'image/heif'];
+  // Check both file.type and file name extension for HEIC files (sometimes HEIC files don't have the correct MIME type)
+  const hasValidType = supportedTypes.includes(file.type);
+  const hasHeicExtension = file.name.toLowerCase().endsWith('.heic') || file.name.toLowerCase().endsWith('.heif');
+  return hasValidType || hasHeicExtension;
 }
 
 /**
@@ -46,12 +50,31 @@ export function validateImageFile(file: File): boolean {
  */
 export async function convertImage(file: File, targetFormat: SupportedFormat, options: ConversionOptions = {}): Promise<ConversionResult> {
   if (!validateImageFile(file)) {
-    throw new Error('Unsupported file format. Please upload a PNG, JPG, WebP, or GIF image.');
+    throw new Error('Unsupported file format. Please upload a PNG, JPG, WebP, GIF, or HEIC image.');
   }
 
   const { quality = 0.9, maxSizeMB = 10, maxWidthOrHeight = 4096, maintainAspectRatio = true } = options;
 
   try {
+    let processedFile = file;
+
+    // Convert HEIC to PNG first for processing
+    const isHeic = file.name.toLowerCase().endsWith('.heic') || file.name.toLowerCase().endsWith('.heif') || file.type === 'image/heic' || file.type === 'image/heif';
+    if (isHeic) {
+      try {
+        const convertedBlob = await heic2any({
+          blob: file,
+          toType: 'image/png',
+          quality: 1,
+        });
+        // heic2any can return an array of blobs or a single blob
+        const blob = Array.isArray(convertedBlob) ? convertedBlob[0] : convertedBlob;
+        processedFile = new File([blob], file.name.replace(/\.heic$/i, '.png').replace(/\.heif$/i, '.png'), { type: 'image/png' });
+      } catch (heicError) {
+        throw new Error(`Failed to process HEIC file: ${heicError}`);
+      }
+    }
+
     // Create an image element to load the file
     const img = new Image();
     const canvas = document.createElement('canvas');
@@ -65,7 +88,7 @@ export async function convertImage(file: File, targetFormat: SupportedFormat, op
     await new Promise((resolve, reject) => {
       img.onload = resolve;
       img.onerror = reject;
-      img.src = URL.createObjectURL(file);
+      img.src = URL.createObjectURL(processedFile);
     });
 
     // Calculate dimensions
@@ -180,6 +203,8 @@ function getMimeType(format: SupportedFormat): string {
     jpeg: 'image/jpeg',
     webp: 'image/webp',
     gif: 'image/gif',
+    heic: 'image/heic',
+    heif: 'image/heif',
   };
 
   return mimeTypes[format];
