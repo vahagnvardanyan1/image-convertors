@@ -9,6 +9,7 @@ import { StructuredData } from '@/components/StructuredData';
 
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import Head from 'next/head';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -115,14 +116,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
+      <Head>
         <meta name="google-site-verification" content="mM2oIIAyburPaxGWhln8gTGmHOappiXVfNebcrHusHE" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.webmanifest" />
         <title>Image Converter</title>
-      </head>
+      </Head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {/* Google Analytics */}
         <Script async src="https://www.googletagmanager.com/gtag/js?id=AW-17602920334" strategy="afterInteractive" />
