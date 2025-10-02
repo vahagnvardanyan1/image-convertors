@@ -117,6 +117,10 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta name="google-site-verification" content="mM2oIIAyburPaxGWhln8gTGmHOappiXVfNebcrHusHE" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/manifest.webmanifest" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {/* Google Analytics */}
