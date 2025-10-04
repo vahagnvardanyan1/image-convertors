@@ -51,6 +51,12 @@ export const siteConfig = {
     'batch image converter',
     'image optimizer',
     'image quality checker',
+    'color picker',
+    'color palette generator',
+    'gradient generator',
+    'color converter',
+    'HEX to RGB',
+    'color tools',
   ],
   author: {
     name: 'ImageConverter Team',
@@ -139,6 +145,36 @@ export const routeMetadata: Record<string, Partial<Metadata>> = {
     description:
       'Convert WebP images to PDF documents instantly. Maintain excellent quality and compression. Customize page size, orientation, and margins. Fast, secure, and completely free WebP to PDF conversion tool.',
     keywords: 'WebP to PDF, convert WebP to PDF, WebP PDF converter, WebP to PDF online, WebP to PDF free, WebP compression PDF',
+  },
+  '/colors': {
+    title: 'Color Tools - Free Online Color Picker, Palette Generator & Converter',
+    description:
+      'Professional color tools for designers and developers. Color picker, palette generator, gradient creator, and color format converter. Convert between HEX, RGB, HSL, and more. Free online color utilities.',
+    keywords: 'color tools, color picker, color palette, gradient generator, color converter, HEX to RGB, RGB to HSL, color utilities, design tools, color schemes',
+  },
+  '/colors/picker': {
+    title: 'Color Picker - Interactive Color Selector & Format Converter',
+    description:
+      'Pick colors and get instant format conversions. Interactive color picker with HEX, RGB, RGBA, HSL, HSLA, and HSV outputs. Perfect for web designers and developers. Free online color picker tool.',
+    keywords: 'color picker, pick color, color selector, HEX color picker, RGB color picker, color formats, web colors, design colors, color tool',
+  },
+  '/colors/palettes': {
+    title: 'Color Palette Generator - Create & Save Custom Color Schemes',
+    description:
+      'Generate beautiful color palettes with complementary, analogous, and monochromatic schemes. Save your favorite palettes locally. Browse predefined palettes or create custom color combinations. Free palette generator.',
+    keywords: 'color palette, palette generator, color schemes, complementary colors, analogous colors, monochromatic palette, color combinations, design palette, color harmony',
+  },
+  '/colors/gradients': {
+    title: 'Gradient Generator - Create CSS & Tailwind Gradients Online',
+    description:
+      'Generate stunning gradients between colors with instant CSS and Tailwind code. Customize direction, steps, and colors. Preview gradients in real-time. Copy code directly to your project. Free gradient generator.',
+    keywords: 'gradient generator, CSS gradient, Tailwind gradient, linear gradient, color gradient, gradient maker, web gradient, gradient tool, gradient CSS code',
+  },
+  '/colors/converter': {
+    title: 'Color Converter - Convert Between HEX, RGB, HSL & Color Formats',
+    description:
+      'Convert colors between HEX, RGB, RGBA, HSL, HSLA, and HSV formats instantly. Supports color names and all CSS color formats. Perfect for cross-platform development. Free online color format converter.',
+    keywords: 'color converter, HEX to RGB, RGB to HSL, HSL to HEX, color format converter, convert colors, CSS colors, color transformation, color code converter',
   },
 };
 

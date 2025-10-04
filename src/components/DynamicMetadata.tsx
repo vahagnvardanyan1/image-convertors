@@ -3,7 +3,13 @@
 import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 
-export function DynamicMetadata() {
+interface DynamicMetadataProps {
+  title?: string;
+  description?: string;
+  keywords?: string;
+}
+
+export function DynamicMetadata({ title: customTitle, description, keywords }: DynamicMetadataProps = {}) {
   const pathname = usePathname();
 
   useEffect(() => {
@@ -16,7 +22,7 @@ export function DynamicMetadata() {
     }
     canonicalLink.href = `${window.location.origin}${pathname}`;
 
-    // Update page title based on pathname
+    // Update page title
     const routeTitles: Record<string, string> = {
       '/': 'ImageConverter - Free Online Image Format Converter & Analyzer',
       '/analyze': 'Image Analyzer - Analyze Image Properties, Size, Format & Quality | ImageConverter',
@@ -28,11 +34,33 @@ export function DynamicMetadata() {
       '/webp-to-jpg': 'WebP to JPG Converter - Convert WebP Images to JPEG Format | ImageConverter',
     };
 
-    const title = routeTitles[pathname] || routeTitles['/'];
+    const title = customTitle || routeTitles[pathname] || routeTitles['/'];
     if (title) {
       document.title = title;
     }
-  }, [pathname]);
+
+    // Update meta description
+    if (description) {
+      let metaDescription = document.querySelector('meta[name="description"]') as HTMLMetaElement;
+      if (!metaDescription) {
+        metaDescription = document.createElement('meta');
+        metaDescription.name = 'description';
+        document.head.appendChild(metaDescription);
+      }
+      metaDescription.content = description;
+    }
+
+    // Update meta keywords
+    if (keywords) {
+      let metaKeywords = document.querySelector('meta[name="keywords"]') as HTMLMetaElement;
+      if (!metaKeywords) {
+        metaKeywords = document.createElement('meta');
+        metaKeywords.name = 'keywords';
+        document.head.appendChild(metaKeywords);
+      }
+      metaKeywords.content = keywords;
+    }
+  }, [pathname, customTitle, description, keywords]);
 
   return null; // This component doesn't render anything
 }

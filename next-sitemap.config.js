@@ -52,6 +52,13 @@ module.exports = {
       await config.transform(config, '/blog/png-to-pdf-guide'),
       await config.transform(config, '/blog/png-to-webp-guide'),
       await config.transform(config, '/blog/webp-to-png-guide'),
+
+      // Color tools
+      await config.transform(config, '/colors'),
+      await config.transform(config, '/colors/picker'),
+      await config.transform(config, '/colors/palettes'),
+      await config.transform(config, '/colors/gradients'),
+      await config.transform(config, '/colors/converter'),
     ];
   },
   // Optimize for SEO

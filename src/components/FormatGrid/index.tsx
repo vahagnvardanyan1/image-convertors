@@ -1,5 +1,5 @@
 'use client';
-import { ArrowRight, FileImage, Image as ImageIcon, Globe, Camera, FileText, Merge, Split, Info } from 'lucide-react';
+import { ArrowRight, FileImage, Image as ImageIcon, Globe, Camera, FileText, Merge, Split, Info, Palette, Droplet, Blend, Shuffle } from 'lucide-react';
 import Link from 'next/link';
 import { Card } from '../Card';
 
@@ -139,11 +139,48 @@ const converters = [
     popular: false,
     category: 'pdf',
   },
+  {
+    from: 'Color',
+    to: 'Picker',
+    route: '/colors/picker',
+    icon: Droplet,
+    description: 'Pick colors and get instant HEX, RGB, HSL format conversions',
+    popular: true,
+    category: 'colors',
+  },
+  {
+    from: 'Color',
+    to: 'Palettes',
+    route: '/colors/palettes',
+    icon: Palette,
+    description: 'Generate beautiful color palettes with complementary schemes',
+    popular: true,
+    category: 'colors',
+  },
+  {
+    from: 'Gradient',
+    to: 'Generator',
+    route: '/colors/gradients',
+    icon: Blend,
+    description: 'Create stunning gradients with CSS and Tailwind code',
+    popular: true,
+    category: 'colors',
+  },
+  {
+    from: 'Color',
+    to: 'Converter',
+    route: '/colors/converter',
+    icon: Shuffle,
+    description: 'Convert between HEX, RGB, HSL, and all color formats',
+    popular: false,
+    category: 'colors',
+  },
 ];
 
 export function FormatGrid() {
   const imageConverters = converters.filter(c => c.category === 'image');
   const pdfConverters = converters.filter(c => c.category === 'pdf');
+  const colorTools = converters.filter(c => c.category === 'colors');
 
   const renderConverterCard = (converter: (typeof converters)[0]) => {
     const IconComponent = converter.icon;
@@ -211,20 +248,48 @@ export function FormatGrid() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">{pdfConverters.map(renderConverterCard)}</div>
         </div>
 
-        <div className="mt-12 text-center">
-          <div className="bg-gray-50 rounded-2xl p-8">
-            <h3 className="font-bold text-gray-900 mb-2">Need a different format?</h3>
-            <p className="text-gray-600 mb-4">We support many more image and PDF formats. Upload your files and see all available conversion options.</p>
-            <button
-              onClick={() => {
-                const element = document.getElementById('how-to');
-                if (element) element.scrollIntoView({ behavior: 'smooth' });
-              }}
-              className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium hover:shadow-lg transition-all duration-200"
-            >
-              Learn More
-              <ArrowRight className="ml-2" size={16} />
-            </button>
+        {/* Color Tools */}
+        <div className="mb-12">
+          <h3 className="text-xl font-semibold text-gray-900 mb-6 flex items-center">
+            <Palette className="mr-2" size={24} />
+            Color Tools
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">{colorTools.map(renderConverterCard)}</div>
+        </div>
+
+        <div className="mt-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Explore Color Tools */}
+            <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl p-8 border border-purple-100">
+              <h3 className="font-bold text-gray-900 mb-2 flex items-center">
+                <Palette className="mr-2" size={24} />
+                Explore Color Tools
+              </h3>
+              <p className="text-gray-600 mb-4">Discover our complete suite of color utilities for designers and developers.</p>
+              <Link
+                href="/colors"
+                className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-medium hover:shadow-lg transition-all duration-200"
+              >
+                View All Color Tools
+                <ArrowRight className="ml-2" size={16} />
+              </Link>
+            </div>
+
+            {/* Learn More */}
+            <div className="bg-gray-50 rounded-2xl p-8">
+              <h3 className="font-bold text-gray-900 mb-2">Need a different format?</h3>
+              <p className="text-gray-600 mb-4">We support many more image and PDF formats. Upload your files and see all available conversion options.</p>
+              <button
+                onClick={() => {
+                  const element = document.getElementById('how-to');
+                  if (element) element.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium hover:shadow-lg transition-all duration-200"
+              >
+                Learn More
+                <ArrowRight className="ml-2" size={16} />
+              </button>
+            </div>
           </div>
         </div>
       </div>

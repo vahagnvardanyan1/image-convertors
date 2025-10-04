@@ -1,5 +1,5 @@
 'use client';
-import { Menu, X, ChevronDown, FileText, Image as ImageIcon, BookOpen } from 'lucide-react';
+import { Menu, X, ChevronDown, FileText, Image as ImageIcon, BookOpen, Palette } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
@@ -11,6 +11,7 @@ export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isImageDropdownOpen, setIsImageDropdownOpen] = useState(false);
   const [isPDFDropdownOpen, setIsPDFDropdownOpen] = useState(false);
+  const [isColorDropdownOpen, setIsColorDropdownOpen] = useState(false);
   const [isBlogDropdownOpen, setIsBlogDropdownOpen] = useState(false);
 
   // Close dropdowns when clicking outside
@@ -20,6 +21,7 @@ export function Header() {
       if (!target.closest('.dropdown-container')) {
         setIsImageDropdownOpen(false);
         setIsPDFDropdownOpen(false);
+        setIsColorDropdownOpen(false);
         setIsBlogDropdownOpen(false);
       }
     };
@@ -34,6 +36,7 @@ export function Header() {
     setIsMenuOpen(false);
     setIsImageDropdownOpen(false);
     setIsPDFDropdownOpen(false);
+    setIsColorDropdownOpen(false);
     setIsBlogDropdownOpen(false);
   };
 
@@ -71,6 +74,13 @@ export function Header() {
     { name: 'Merge PDF', href: '/merge-pdf', popular: false },
     { name: 'Split PDF', href: '/split-pdf', popular: false },
     { name: 'PDF Info', href: '/pdf-info', popular: false },
+  ];
+
+  const colorTools = [
+    { name: 'Color Picker', href: '/colors/picker', popular: true },
+    { name: 'Color Palettes', href: '/colors/palettes', popular: true },
+    { name: 'Gradient Generator', href: '/colors/gradients', popular: true },
+    { name: 'Color Converter', href: '/colors/converter', popular: false },
   ];
 
   const blogGuides = [
@@ -178,6 +188,53 @@ export function Header() {
               )}
             </div>
 
+            {/* Color Tools Dropdown */}
+            <div className="relative group dropdown-container" onMouseEnter={() => setIsColorDropdownOpen(true)} onMouseLeave={() => setIsColorDropdownOpen(false)}>
+              <button className="flex items-center space-x-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors py-2" onClick={() => setIsColorDropdownOpen(!isColorDropdownOpen)}>
+                <Palette size={16} />
+                <span>Color Tools</span>
+                <ChevronDown size={16} className={`transition-transform ${isColorDropdownOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {isColorDropdownOpen && (
+                <div className="absolute top-full left-0 w-64 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                  <Link
+                    href="/colors"
+                    onClick={() => setIsColorDropdownOpen(false)}
+                    className="block px-4 py-3 text-sm font-bold text-blue-600 hover:text-blue-700 hover:bg-blue-50 border-b-2 border-blue-100 bg-gradient-to-r from-blue-50 to-purple-50"
+                  >
+                    🎨 View All Color Tools
+                  </Link>
+                  <div className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide border-b border-gray-100">Popular Tools</div>
+                  {colorTools
+                    .filter(tool => tool.popular)
+                    .map(tool => (
+                      <Link
+                        key={tool.href}
+                        href={tool.href}
+                        onClick={() => setIsColorDropdownOpen(false)}
+                        className={`block px-4 py-2 text-sm transition-colors ${pathname === tool.href ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'}`}
+                      >
+                        {tool.name}
+                      </Link>
+                    ))}
+                  <div className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide border-t border-b border-gray-100 mt-2">More Tools</div>
+                  {colorTools
+                    .filter(tool => !tool.popular)
+                    .map(tool => (
+                      <Link
+                        key={tool.href}
+                        href={tool.href}
+                        onClick={() => setIsColorDropdownOpen(false)}
+                        className={`block px-4 py-2 text-sm transition-colors ${pathname === tool.href ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'}`}
+                      >
+                        {tool.name}
+                      </Link>
+                    ))}
+                </div>
+              )}
+            </div>
+
             {/* Analyze Link */}
             <Link href="/analyze" className={`text-sm font-medium transition-colors ${pathname === '/analyze' ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-gray-900'}`}>
               Analyze
@@ -196,9 +253,9 @@ export function Header() {
                   <Link
                     href="/blog"
                     onClick={() => setIsBlogDropdownOpen(false)}
-                    className="block px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 border-b border-gray-100"
+                    className="block px-4 py-3 text-sm font-bold text-purple-600 hover:text-purple-700 hover:bg-purple-50 border-b-2 border-purple-100 bg-gradient-to-r from-purple-50 to-pink-50"
                   >
-                    View All Articles
+                    📚 View All Articles
                   </Link>
                   <div className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide border-b border-gray-100">Popular Guides</div>
                   {blogGuides
@@ -246,91 +303,112 @@ export function Header() {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Navigation - Full Screen Menu */}
         {isMenuOpen && (
-          <div className="lg:hidden border-t border-gray-100 py-4">
-            <nav className="max-h-80 overflow-y-auto scrollbar-hide">
-              <div className="flex flex-col space-y-1 px-4">
-                {/* Image Converters Section */}
-                <div className="py-2">
-                  <div className="flex items-center space-x-2 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
-                    <ImageIcon size={14} />
-                    <span>Image Converters</span>
+          <div className="lg:hidden fixed inset-0 top-16 z-50 bg-white">
+            <div className="h-full overflow-y-auto">
+              <div className="px-4 py-6">
+                <div className="grid grid-cols-2 gap-6">
+                  {/* Image Converters Section */}
+                  <div>
+                    <div className="flex items-center space-x-2 text-xs font-semibold text-gray-700 uppercase tracking-wide mb-3 pb-2 border-b-2 border-blue-200">
+                      <span>🖼️ Image Tools</span>
+                    </div>
+                    <div className="space-y-2">
+                      {imageConverters
+                        .filter(tool => tool.popular)
+                        .map(tool => (
+                          <Link
+                            key={tool.href}
+                            href={tool.href}
+                            onClick={handleMenuClose}
+                            className={`block py-1.5 text-sm font-medium transition-colors ${pathname === tool.href ? 'text-blue-600 font-semibold' : 'text-gray-700 hover:text-blue-600'}`}
+                          >
+                            {tool.name}
+                          </Link>
+                        ))}
+                      <Link href="/analyze" onClick={handleMenuClose} className="block py-1.5 text-sm font-medium text-gray-700 hover:text-blue-600">
+                        Image Analyzer
+                      </Link>
+                    </div>
                   </div>
-                  {imageConverters.map(tool => (
-                    <Link
-                      key={tool.href}
-                      href={tool.href}
-                      onClick={handleMenuClose}
-                      className={`block py-2 pl-4 text-sm font-medium transition-colors ${pathname === tool.href ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-gray-900'}`}
-                    >
-                      {tool.name}
-                      {tool.popular && <span className="ml-2 text-xs text-blue-600">Popular</span>}
-                    </Link>
-                  ))}
-                </div>
 
-                {/* PDF Tools Section */}
-                <div className="py-2 border-t border-gray-100">
-                  <div className="flex items-center space-x-2 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
-                    <FileText size={14} />
-                    <span>PDF Tools</span>
+                  {/* PDF Tools Section */}
+                  <div>
+                    <div className="flex items-center space-x-2 text-xs font-semibold text-gray-700 uppercase tracking-wide mb-3 pb-2 border-b-2 border-red-200">
+                      <span>📄 PDF Tools</span>
+                    </div>
+                    <div className="space-y-2">
+                      {pdfTools
+                        .filter(tool => tool.popular)
+                        .map(tool => (
+                          <Link
+                            key={tool.href}
+                            href={tool.href}
+                            onClick={handleMenuClose}
+                            className={`block py-1.5 text-sm font-medium transition-colors ${pathname === tool.href ? 'text-blue-600 font-semibold' : 'text-gray-700 hover:text-blue-600'}`}
+                          >
+                            {tool.name}
+                          </Link>
+                        ))}
+                    </div>
                   </div>
-                  {pdfTools.map(tool => (
-                    <Link
-                      key={tool.href}
-                      href={tool.href}
-                      onClick={handleMenuClose}
-                      className={`block py-2 pl-4 text-sm font-medium transition-colors ${pathname === tool.href ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-gray-900'}`}
-                    >
-                      {tool.name}
-                      {tool.popular && <span className="ml-2 text-xs text-blue-600">Popular</span>}
-                    </Link>
-                  ))}
-                </div>
 
-                {/* Blog Section */}
-                <div className="py-2 border-t border-gray-100">
-                  <div className="flex items-center space-x-2 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
-                    <BookOpen size={14} />
-                    <span>Blog & Guides</span>
+                  {/* Color Tools Section */}
+                  <div>
+                    <div className="flex items-center space-x-2 text-xs font-semibold text-gray-700 uppercase tracking-wide mb-3 pb-2 border-b-2 border-purple-200">
+                      <span>🎨 Color Tools</span>
+                    </div>
+                    <div className="space-y-2">
+                      <Link href="/colors" onClick={handleMenuClose} className="block py-1.5 text-sm font-bold text-blue-600 hover:text-blue-700">
+                        ✨ All Color Tools
+                      </Link>
+                      {colorTools.map(tool => (
+                        <Link
+                          key={tool.href}
+                          href={tool.href}
+                          onClick={handleMenuClose}
+                          className={`block py-1.5 text-sm font-medium transition-colors ${pathname === tool.href ? 'text-blue-600 font-semibold' : 'text-gray-700 hover:text-blue-600'}`}
+                        >
+                          {tool.name}
+                        </Link>
+                      ))}
+                    </div>
                   </div>
-                  <Link
-                    href="/blog"
-                    onClick={handleMenuClose}
-                    className={`block py-2 pl-4 text-sm font-medium transition-colors ${pathname === '/blog' ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-gray-900'}`}
-                  >
-                    View All Articles
-                  </Link>
-                  {blogGuides.map(guide => (
-                    <Link
-                      key={guide.href}
-                      href={guide.href}
-                      onClick={handleMenuClose}
-                      className={`block py-2 pl-4 text-sm font-medium transition-colors ${pathname === guide.href ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-gray-900'}`}
-                    >
-                      {guide.name}
-                      {guide.popular && <span className="ml-2 text-xs text-blue-600">Popular</span>}
-                    </Link>
-                  ))}
+
+                  {/* Blog Section */}
+                  <div>
+                    <div className="flex items-center space-x-2 text-xs font-semibold text-gray-700 uppercase tracking-wide mb-3 pb-2 border-b-2 border-green-200">
+                      <span>📚 Blog</span>
+                    </div>
+                    <div className="space-y-2">
+                      <Link href="/blog" onClick={handleMenuClose} className="block py-1.5 text-sm font-bold text-purple-600 hover:text-purple-700">
+                        ✍️ All Articles
+                      </Link>
+                      {blogGuides
+                        .filter(guide => guide.popular)
+                        .map(guide => (
+                          <Link
+                            key={guide.href}
+                            href={guide.href}
+                            onClick={handleMenuClose}
+                            className={`block py-1.5 text-sm font-medium transition-colors ${pathname === guide.href ? 'text-blue-600 font-semibold' : 'text-gray-700 hover:text-blue-600'}`}
+                          >
+                            {guide.name}
+                          </Link>
+                        ))}
+                    </div>
+                  </div>
                 </div>
 
-                {/* Other Links */}
-                <div className="py-2 border-t border-gray-100">
-                  <Link
-                    href="/analyze"
-                    onClick={handleMenuClose}
-                    className={`block py-2 text-sm font-medium transition-colors ${pathname === '/analyze' ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-gray-900'}`}
-                  >
-                    Analyze Images
-                  </Link>
+                {/* CTA Button */}
+                <div className="mt-8 pt-6 border-t border-gray-200">
+                  <Button onClick={() => scrollToSection('format-grid')} className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white w-full">
+                    Start Converting
+                  </Button>
                 </div>
-
-                <Button onClick={() => scrollToSection('format-grid')} className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white w-full mt-4">
-                  Start Converting
-                </Button>
               </div>
-            </nav>
+            </div>
           </div>
         )}
       </div>
