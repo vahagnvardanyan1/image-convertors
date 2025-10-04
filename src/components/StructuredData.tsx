@@ -11,8 +11,24 @@ export function StructuredData() {
   const faqData = generateFAQStructuredData(pathname);
   const howToData = generateHowToStructuredData(pathname);
 
+  // Organization schema - appears on all pages
+  const organizationSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    url: 'https://imageconvertors.com',
+    logo: 'https://imageconvertors.com/logo.png',
+  };
+
   return (
     <>
+      {/* Organization structured data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(organizationSchema),
+        }}
+      />
+
       {/* Main structured data - handle both single objects and arrays */}
       {Array.isArray(structuredData) ? (
         structuredData.map((schema, index) => (
