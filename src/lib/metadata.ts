@@ -154,7 +154,7 @@ export const generateStructuredData = (pathname: string) => {
     '@type': 'Organization',
     name: siteConfig.author.name,
     url: siteConfig.url,
-    logo: '/logo.png',
+    logo: 'https://imageconvertors.com/logo.png',
     image: {
       '@type': 'ImageObject',
       url: `${siteConfig.url}/logo.png`,
@@ -506,7 +506,7 @@ export const getOrganizationSchema = () => ({
   name: 'ImageConverter Team',
   alternateName: 'ImageConverter',
   url: siteConfig.url,
-  logo: '/logo.png',
+  logo: 'https://imageconvertors.com/logo.png',
   description: siteConfig.description,
   foundingDate: '2024',
   contactPoint: {
