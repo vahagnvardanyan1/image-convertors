@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     type: 'article',
     images: [
       {
-        url: '/images/og-image.webp',
+        url: '/og-image.webp',
         width: 1200,
         height: 630,
         alt: 'HEIC to WEBP Converter Guide',
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'The Ultimate Guide to Converting HEIC to WEBP',
     description: 'Convert HEIC images to WEBP online for free. Reduce file size, improve compatibility, and optimize for the web.',
-    images: ['/images/og-image.webp'],
+    images: ['/og-image.webp'],
   },
 };
 

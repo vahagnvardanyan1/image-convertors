@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/images/og-image.webp',
+        url: '/og-image.webp',
         width: 1200,
         height: 630,
         alt: 'ImageConverter Blog',
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Blog - Image Conversion Guides & Tips',
     description: 'Learn everything about image conversion, optimization, and best practices.',
-    images: ['/images/og-image.webp'],
+    images: ['/og-image.webp'],
   },
 };
 

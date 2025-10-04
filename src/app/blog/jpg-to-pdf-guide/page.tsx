@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     type: 'article',
     images: [
       {
-        url: '/images/og-image.webp',
+        url: '/og-image.webp',
         width: 1200,
         height: 630,
         alt: 'JPG to PDF Converter Guide',
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Convert JPG to PDF Online Free – Comprehensive Guide',
     description: 'Convert JPG images to PDF documents online for free. Fast, secure, and easy JPG to PDF converter.',
-    images: ['/images/og-image.webp'],
+    images: ['/og-image.webp'],
   },
 };
 

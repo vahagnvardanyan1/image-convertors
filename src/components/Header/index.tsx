@@ -92,7 +92,7 @@ export function Header() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center cursor-pointer">
-            <ImageWithFallback src="/images/logo.png" alt="ImageConverter Logo" className="rounded-lg" height={50} width={50} />
+            <ImageWithFallback src="/logo.png" alt="ImageConverter Logo" className="rounded-lg" height={50} width={50} />
             <span className="ml-2 text-xl font-bold text-gray-900">ImageConverter</span>
           </Link>
 

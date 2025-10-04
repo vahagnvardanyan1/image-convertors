@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     type: 'article',
     images: [
       {
-        url: '/images/og-image.webp',
+        url: '/og-image.webp',
         width: 1200,
         height: 630,
         alt: 'PNG to WEBP Converter Guide',
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Mastering PNG to WEBP Conversion: A Comprehensive Guide',
     description: 'Convert PNG images to WEBP online for free. Reduce file size by 30%+, improve loading speed, and optimize images.',
-    images: ['/images/og-image.webp'],
+    images: ['/og-image.webp'],
   },
 };
 

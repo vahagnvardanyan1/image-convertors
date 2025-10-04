@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     type: 'article',
     images: [
       {
-        url: '/images/og-image.webp',
+        url: '/og-image.webp',
         width: 1200,
         height: 630,
         alt: 'PNG to PDF Converter Guide',
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Unlocking the Benefits of PNG to PDF Conversion – Complete Guide',
     description: 'Convert PNG images to PDF documents online for free. Preserve quality, add security, and manage files easily.',
-    images: ['/images/og-image.webp'],
+    images: ['/og-image.webp'],
   },
 };
 

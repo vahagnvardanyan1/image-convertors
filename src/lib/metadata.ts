@@ -33,8 +33,8 @@ export const siteConfig = {
   title: 'ImageConverter - Free Online Image Format Converter & Analyzer',
   description: 'Convert and analyze images between PNG, JPG, WebP, GIF and more formats instantly. Fast, secure, and completely free online image converter and analyzer tool with advanced features.',
   url: 'https://imageconvertors.com',
-  ogImage: '/images/og-image.webp',
-  twitterImage: '/images/og-image.webp',
+  ogImage: '/og-image.webp',
+  twitterImage: '/og-image.webp',
   keywords: [
     'image converter',
     'image analyzer',
@@ -154,10 +154,10 @@ export const generateStructuredData = (pathname: string) => {
     '@type': 'Organization',
     name: siteConfig.author.name,
     url: siteConfig.url,
-    logo: '/images/logo.png',
+    logo: '/logo.png',
     image: {
       '@type': 'ImageObject',
-      url: `${siteConfig.url}/images/logo.png`,
+      url: `${siteConfig.url}/logo.png`,
       width: 512,
       height: 512,
     },
@@ -222,7 +222,7 @@ export const generateStructuredData = (pathname: string) => {
     browserRequirements: 'Requires JavaScript. Requires HTML5.',
     softwareVersion: '1.0',
     releaseNotes: 'Free online image and PDF conversion tool',
-    screenshot: `${siteConfig.url}/images/og-image.webp`,
+    screenshot: `${siteConfig.url}/og-image.webp`,
     mainEntityOfPage: currentUrl,
     aggregateRating: {
       '@type': 'AggregateRating',
@@ -264,7 +264,7 @@ export const generateStructuredData = (pathname: string) => {
     publisher: organizationSchema,
     downloadUrl: currentUrl,
     installUrl: currentUrl,
-    screenshot: `${siteConfig.url}/images/og-image.webp`,
+    screenshot: `${siteConfig.url}/og-image.webp`,
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: '4.8',
@@ -506,7 +506,7 @@ export const getOrganizationSchema = () => ({
   name: 'ImageConverter Team',
   alternateName: 'ImageConverter',
   url: siteConfig.url,
-  logo: '/images/logo.png',
+  logo: '/logo.png',
   description: siteConfig.description,
   foundingDate: '2024',
   contactPoint: {
@@ -847,7 +847,7 @@ export const generateHowToStructuredData = (pathname: string) => {
     name: name,
     description: description,
     url: currentUrl,
-    image: `${siteConfig.url}/images/og-image.webp`,
+    image: `${siteConfig.url}/og-image.webp`,
     mainEntityOfPage: currentUrl,
     totalTime: 'PT2M',
     estimatedCost: {

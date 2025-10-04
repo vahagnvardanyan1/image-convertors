@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     type: 'article',
     images: [
       {
-        url: '/images/og-image.webp',
+        url: '/og-image.webp',
         width: 1200,
         height: 630,
         alt: 'PNG to JPG Converter Guide',
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'The Ultimate Guide to Converting PNG to JPG Online (Without Losing Quality)',
     description: 'Easily convert PNG images to JPG online without losing quality. Fast, secure, and free PNG to JPG conversion tool.',
-    images: ['/images/og-image.webp'],
+    images: ['/og-image.webp'],
   },
 };
 
