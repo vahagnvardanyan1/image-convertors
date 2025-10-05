@@ -20,12 +20,35 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Image Converter - Free Online Image & PDF Converter Tool',
-  description: 'Convert and analyze images between PNG, JPG, WebP, GIF and more formats instantly...',
+  title: 'Free Online Tools: Image, Fonts & Colors | ImageConvertors',
+  description: 'Free online image converter & font generator. Convert PNG/JPG/WebP images, create fancy text, and design color schemes—all without installing any software.',
   metadataBase: new URL('https://imageconvertors.com'),
   alternates: { canonical: 'https://imageconvertors.com' },
+  keywords: 'free image converter, online image tools, font generator, fancy text, color palette generator, color picker, PNG to JPG, WebP converter, free online tools',
   verification: {
     google: 'mM2oIIAyburPaxGWhln8gTGmHOappiXVfNebcrHusHE',
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://imageconvertors.com',
+    siteName: 'ImageConvertors',
+    title: 'Free Online Tools: Image, Fonts & Colors | ImageConvertors',
+    description: 'Free online image converter & font generator. Convert PNG/JPG/WebP images, create fancy text, and design color schemes—all without installing any software.',
+    images: [
+      {
+        url: '/og-image.webp',
+        width: 1200,
+        height: 630,
+        alt: 'ImageConvertors - Free Online Tools',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Free Online Tools: Image, Fonts & Colors | ImageConvertors',
+    description: 'Free online image converter & font generator. Convert PNG/JPG/WebP images, create fancy text, and design color schemes—all without installing any software.',
+    images: ['/og-image.webp'],
   },
   icons: {
     icon: [

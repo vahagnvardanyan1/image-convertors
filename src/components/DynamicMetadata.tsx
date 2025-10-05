@@ -24,18 +24,23 @@ export function DynamicMetadata({ title: customTitle, description, keywords }: D
 
     // Update page title
     const routeTitles: Record<string, string> = {
-      '/': 'ImageConverter - Free Online Image Format Converter & Analyzer',
-      '/analyze': 'Image Analyzer - Analyze Image Properties, Size, Format & Quality | ImageConverter',
-      '/png-to-webp': 'PNG to WebP Converter - Convert PNG Images to WebP Format | ImageConverter',
-      '/jpg-to-png': 'JPG to PNG Converter - Convert JPEG Images to PNG Format | ImageConverter',
-      '/webp-to-png': 'WebP to PNG Converter - Convert WebP Images to PNG Format | ImageConverter',
-      '/jpg-to-webp': 'JPG to WebP Converter - Convert JPEG Images to WebP Format | ImageConverter',
-      '/png-to-jpg': 'PNG to JPG Converter - Convert PNG Images to JPEG Format | ImageConverter',
-      '/webp-to-jpg': 'WebP to JPG Converter - Convert WebP Images to JPEG Format | ImageConverter',
-      '/fonts': 'Font Tools - Free Typography Playground, Font Pairing & Scale Generator | ImageConverter',
-      '/fonts/preview': 'Font Preview - Interactive Typography Playground with Google Fonts | ImageConverter',
-      '/fonts/pairings': 'Font Pairings - Discover Perfect Typography Combinations | ImageConverter',
-      '/fonts/scales': 'Typographic Scale Generator - Create Harmonious Font Size Systems | ImageConverter',
+      '/': 'Free Online Tools: Image, Fonts & Colors | ImageConvertors',
+      '/analyze': 'Image Analyzer - Analyze Image Properties, Size, Format & Quality | ImageConvertors',
+      '/png-to-webp': 'PNG to WebP Converter - Convert PNG Images to WebP Format | ImageConvertors',
+      '/jpg-to-png': 'JPG to PNG Converter - Convert JPEG Images to PNG Format | ImageConvertors',
+      '/webp-to-png': 'WebP to PNG Converter - Convert WebP Images to PNG Format | ImageConvertors',
+      '/jpg-to-webp': 'JPG to WebP Converter - Convert JPEG Images to WebP Format | ImageConvertors',
+      '/png-to-jpg': 'PNG to JPG Converter - Convert PNG Images to JPEG Format | ImageConvertors',
+      '/webp-to-jpg': 'WebP to JPG Converter - Convert WebP Images to JPEG Format | ImageConvertors',
+      '/colors': 'Free Color Tools: Palette Generator & Picker | ImageConvertors',
+      '/colors/picker': 'Color Picker - Interactive Color Selector & Format Converter | ImageConvertors',
+      '/colors/palettes': 'Color Palette Generator - Create & Save Custom Color Schemes | ImageConvertors',
+      '/colors/gradients': 'Gradient Generator - Create CSS & Tailwind Gradients Online | ImageConvertors',
+      '/colors/converter': 'Color Converter - Convert Between HEX, RGB, HSL & Color Formats | ImageConvertors',
+      '/fonts': 'Font Tools - Free Typography Playground, Font Pairing & Scale Generator | ImageConvertors',
+      '/fonts/preview': 'Font Preview - Interactive Typography Playground with Google Fonts | ImageConvertors',
+      '/fonts/pairings': 'Font Pairings - Discover Perfect Typography Combinations | ImageConvertors',
+      '/fonts/scales': 'Typographic Scale Generator - Create Harmonious Font Size Systems | ImageConvertors',
     };
 
     const title = customTitle || routeTitles[pathname] || routeTitles['/'];

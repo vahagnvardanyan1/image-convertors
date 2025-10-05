@@ -21,8 +21,8 @@ export default function FontsLayout({ children }: { children: React.ReactNode })
         {/* Header */}
         <div className="mb-8">
           <div className="mb-6">
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Font Tools</h1>
-            <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">Explore typography tools to preview fonts, discover pairings, and generate scales</p>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Free Font Tools & Typography Playground</h1>
+            <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">Preview Google Fonts, discover perfect pairings, and generate typographic scales</p>
           </div>
 
           {/* Responsive Navigation */}

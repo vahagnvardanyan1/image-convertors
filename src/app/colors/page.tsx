@@ -4,18 +4,18 @@ import { Palette, Droplet, Blend, ArrowLeftRight } from 'lucide-react';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Color Tools - Free Online Color Picker, Palette Generator & Converter',
-  description:
-    'Professional color tools for designers and developers. Color picker, palette generator, gradient creator, and color format converter. Convert between HEX, RGB, HSL, and more. Free online color utilities.',
-  keywords: 'color tools, color picker, color palette, gradient generator, color converter, HEX to RGB, RGB to HSL, color utilities, design tools, color schemes',
+  title: 'Free Color Tools: Palette Generator & Picker | ImageConvertors',
+  description: 'Create and explore color schemes online. Use our free color palette generator to design custom palettes or easily pick any color code for your projects.',
+  keywords:
+    'color palette generator, color picker, color scheme tool, design color palettes, free online colors, hex color picker, trending color palettes, free color palette, design colors, online color tools',
   alternates: {
     canonical: 'https://imageconvertors.com/colors',
   },
   openGraph: {
-    title: 'Color Tools - Free Online Color Picker, Palette Generator & Converter',
-    description: 'Professional color tools for designers and developers. Color picker, palette generator, gradient creator, and color format converter.',
+    title: 'Free Color Tools: Palette Generator & Picker | ImageConvertors',
+    description: 'Create and explore color schemes online. Use our free color palette generator to design custom palettes or easily pick any color code for your projects.',
     url: 'https://imageconvertors.com/colors',
-    siteName: 'ImageConverter',
+    siteName: 'ImageConvertors',
     type: 'website',
     images: [
       {
@@ -28,8 +28,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Color Tools - Free Online Color Picker, Palette Generator & Converter',
-    description: 'Professional color tools for designers and developers. Color picker, palette generator, gradient creator, and color format converter.',
+    title: 'Free Color Tools: Palette Generator & Picker | ImageConvertors',
+    description: 'Create and explore color schemes online. Use our free color palette generator to design custom palettes or easily pick any color code for your projects.',
     images: ['/color-picker.webp'],
   },
 };

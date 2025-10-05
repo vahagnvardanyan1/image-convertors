@@ -4,13 +4,24 @@ import { Type, Sparkles, Ruler } from 'lucide-react';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Font Tools - Free Typography Playground, Font Pairing & Scale Generator',
+  title: 'Font Tools - Free Typography Playground, Font Pairing & Scale Generator | ImageConvertors',
   description: 'Professional font tools for designers and developers. Preview Google Fonts, discover perfect font pairings, and generate typographic scales. Free online typography utilities.',
-  keywords: 'font tools, typography, font preview, font pairing, typographic scale, Google Fonts, font generator, CSS fonts, web typography, design tools',
+  keywords: 'font tools, typography, font preview, font pairing, typographic scale, Google Fonts, font generator, CSS fonts, web typography, design tools, fancy text, unicode fonts',
+  alternates: {
+    canonical: 'https://imageconvertors.com/fonts',
+  },
   openGraph: {
-    title: 'Font Tools - Free Typography Playground, Font Pairing & Scale Generator',
+    title: 'Font Tools - Free Typography Playground, Font Pairing & Scale Generator | ImageConvertors',
     description: 'Professional font tools for designers and developers. Preview Google Fonts, discover perfect font pairings, and generate typographic scales.',
+    url: 'https://imageconvertors.com/fonts',
+    siteName: 'ImageConvertors',
     type: 'website',
+    images: ['/font-generator.webp'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Font Tools - Free Typography Playground, Font Pairing & Scale Generator | ImageConvertors',
+    description: 'Professional font tools for designers and developers. Preview Google Fonts, discover perfect font pairings, and generate typographic scales.',
     images: ['/font-generator.webp'],
   },
 };

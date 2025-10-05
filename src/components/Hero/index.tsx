@@ -2,7 +2,6 @@
 import Image from 'next/image';
 import { Upload, ArrowRight } from 'lucide-react';
 import { Button } from '../ui/button';
-import { ImageWithFallback } from '../ImageWithFallback';
 
 export function Hero() {
   const scrollToConverter = () => {
@@ -18,12 +17,12 @@ export function Hero() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
           <div className="text-center lg:text-left">
-            <h2 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6">
-              Convert Images
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"> Instantly</span>
-            </h2>
+            <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6">
+              Free Online Image, Font & Color
+              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"> Tools</span>
+            </h1>
 
-            <p className="text-lg lg:text-xl text-gray-600 mb-6 max-w-xl">Transform your images between formats with ease.</p>
+            <p className="text-lg lg:text-xl text-gray-600 mb-6 max-w-xl">Convert images, create fancy text, and pick color palettes instantly—all without installing any software.</p>
 
             <div className="mb-8">
               <p className="text-gray-700 mb-2">Popular conversions:</p>
