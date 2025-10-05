@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     title: 'A Comprehensive Guide to Converting WEBP to PNG',
     description: 'Convert WEBP images to PNG online for free. Maintain quality, ensure compatibility, and preserve transparency with our comprehensive guide.',
     url: 'https://imageconvertors.com/blog/webp-to-png-guide',
-    siteName: 'ImageConverter',
+    siteName: 'ImageConvertors',
     type: 'article',
     images: [
       {

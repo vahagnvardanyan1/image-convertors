@@ -6,7 +6,7 @@ import { Card } from '@/components/Card';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Blog - Image Conversion, Color & Font Tools Guides | ImageConverter',
+  title: 'Blog - Image Conversion, Color & Font Tools Guides | ImageConvertors',
   description: 'Learn everything about image conversion, color tools, typography, and best practices. Guides for PNG, JPG, WebP, HEIC, PDF conversions, Google Fonts, color pickers, and design tools.',
   keywords: [
     'image conversion guides',
@@ -24,17 +24,17 @@ export const metadata: Metadata = {
     canonical: 'https://imageconvertors.com/blog',
   },
   openGraph: {
-    title: 'Blog - Image Conversion, Color & Font Tools Guides | ImageConverter',
+    title: 'Blog - Image Conversion, Color & Font Tools Guides | ImageConvertors',
     description: 'Learn everything about image conversion, color tools, typography, and best practices. Comprehensive guides for designers and developers.',
     url: 'https://imageconvertors.com/blog',
-    siteName: 'ImageConverter',
+    siteName: 'ImageConvertors',
     type: 'website',
     images: [
       {
         url: '/og-image.webp',
         width: 1200,
         height: 630,
-        alt: 'ImageConverter Blog',
+        alt: 'ImageConvertors Blog',
       },
     ],
   },
@@ -232,7 +232,7 @@ export default function BlogPage() {
           </Link>
           <div className="grid gap-8 lg:gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,420px)] items-center">
             <div>
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">ImageConverter Blog</h1>
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">ImageConvertors Blog</h1>
               <p className="text-xl text-blue-100 max-w-3xl">
                 Guides, tutorials, and tips for image conversion, color tools, typography, and design best practices. Everything you need for professional web design.
               </p>

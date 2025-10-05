@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     title: 'The Ultimate Guide to Creating Perfect Color Palettes',
     description: 'Generate stunning color palettes online. Create complementary, analogous, and monochromatic color schemes. Save your palettes and browse curated collections.',
     url: 'https://imageconvertors.com/blog/color-palette-guide',
-    siteName: 'ImageConverter',
+    siteName: 'ImageConvertors',
     type: 'article',
     images: [
       {

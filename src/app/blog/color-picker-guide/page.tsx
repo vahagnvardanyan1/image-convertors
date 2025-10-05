@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     title: 'The Ultimate Guide to Using an Online Color Picker',
     description: 'Pick colors instantly with our free online color picker. Get HEX, RGB, HSL, RGBA, and HSLA codes. Perfect for web designers and developers.',
     url: 'https://imageconvertors.com/blog/color-picker-guide',
-    siteName: 'ImageConverter',
+    siteName: 'ImageConvertors',
     type: 'article',
     images: [
       {

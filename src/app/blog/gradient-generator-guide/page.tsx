@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     title: 'The Ultimate Guide to Creating CSS Gradients',
     description: 'Generate stunning CSS gradients online. Create linear and radial gradients with multiple colors. Get ready-to-use CSS code.',
     url: 'https://imageconvertors.com/blog/gradient-generator-guide',
-    siteName: 'ImageConverter',
+    siteName: 'ImageConvertors',
     type: 'article',
     images: [
       {

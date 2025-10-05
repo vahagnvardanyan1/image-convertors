@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     title: 'The Ultimate Guide to Converting Color Codes',
     description: 'Convert colors between HEX, RGB, HSL, RGBA, HSLA, and HSV formats instantly. Free online color converter for designers and developers.',
     url: 'https://imageconvertors.com/blog/color-converter-guide',
-    siteName: 'ImageConverter',
+    siteName: 'ImageConvertors',
     type: 'article',
     images: [
       {

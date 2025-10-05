@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     title: 'Convert JPG to PDF Online Free – Comprehensive Guide',
     description: 'Convert JPG images to PDF documents online for free. Fast, secure, and easy JPG to PDF converter for portfolios, presentations, and document management.',
     url: 'https://imageconvertors.com/blog/jpg-to-pdf-guide',
-    siteName: 'ImageConverter',
+    siteName: 'ImageConvertors',
     type: 'article',
     images: [
       {

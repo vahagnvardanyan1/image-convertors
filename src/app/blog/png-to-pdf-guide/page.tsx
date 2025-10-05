@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     title: 'Unlocking the Benefits of PNG to PDF Conversion – Complete Guide',
     description: 'Convert PNG images to PDF documents online for free. Preserve quality, add security, and manage files easily with our PNG to PDF converter.',
     url: 'https://imageconvertors.com/blog/png-to-pdf-guide',
-    siteName: 'ImageConverter',
+    siteName: 'ImageConvertors',
     type: 'article',
     images: [
       {

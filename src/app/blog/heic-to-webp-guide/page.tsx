@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     title: 'The Ultimate Guide to Converting HEIC to WEBP',
     description: 'Convert HEIC images to WEBP online for free. Reduce file size, improve compatibility, and optimize for the web.',
     url: 'https://imageconvertors.com/blog/heic-to-webp-guide',
-    siteName: 'ImageConverter',
+    siteName: 'ImageConvertors',
     type: 'article',
     images: [
       {

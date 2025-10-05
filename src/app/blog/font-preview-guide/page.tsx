@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     title: 'The Ultimate Guide to Previewing Google Fonts Online',
     description: 'Preview Google Fonts instantly with our free online font playground. Test typography, compare fonts, and find the perfect typeface for your project.',
     url: 'https://imageconvertors.com/blog/font-preview-guide',
-    siteName: 'ImageConverter',
+    siteName: 'ImageConvertors',
     type: 'article',
     images: [
       {

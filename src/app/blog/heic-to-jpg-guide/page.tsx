@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     title: 'Convert HEIC to JPG Online — Fast & Secure | ImageConvertors',
     description: 'Convert HEIC photos from iPhone to JPG quickly and securely. No signup required. High-quality HEIC to JPG online conversion.',
     url: 'https://imageconvertors.com/blog/heic-to-jpg-guide',
-    siteName: 'ImageConverter',
+    siteName: 'ImageConvertors',
     type: 'article',
     images: [
       {

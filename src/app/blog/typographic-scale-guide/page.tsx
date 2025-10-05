@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     title: 'The Ultimate Guide to Typographic Scales',
     description: 'Generate harmonious typographic scales using musical ratios. Create perfect font size hierarchies for your design system.',
     url: 'https://imageconvertors.com/blog/typographic-scale-guide',
-    siteName: 'ImageConverter',
+    siteName: 'ImageConvertors',
     type: 'article',
     images: [
       {

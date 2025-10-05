@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     title: 'Convert JPG to WebP Online (Free & Fast) - Complete Guide',
     description: 'Convert JPG images to modern WebP format online for free. Reduce file sizes, speed up websites, and maintain image quality with our fast JPG to WebP converter.',
     url: 'https://imageconvertors.com/blog/jpg-to-webp-guide',
-    siteName: 'ImageConverter',
+    siteName: 'ImageConvertors',
     type: 'article',
     images: [
       {

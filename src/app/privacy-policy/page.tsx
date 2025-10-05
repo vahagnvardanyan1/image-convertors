@@ -4,8 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/Card';
 
 export const metadata = {
-  title: 'Privacy Policy - ImageConverter',
-  description: 'Privacy policy for ImageConverter - Learn how we protect your data and privacy.',
+  title: 'Privacy Policy - ImageConvertors',
+  description: 'Privacy policy for ImageConvertors - Learn how we protect your data and privacy.',
   robots: {
     index: false,
     follow: true,
@@ -50,7 +50,7 @@ export default function PrivacyPolicyPage() {
           </div>
 
           <p className="text-gray-700 leading-relaxed mb-4">
-            At ImageConverter, we are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, and safeguard your
+            At ImageConvertors, we are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, and safeguard your
             data when you use our image conversion services.
           </p>
 

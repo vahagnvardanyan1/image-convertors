@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     title: 'Best Way to Compress Images for the Web Without Losing Quality | ImageConvertors',
     description: 'Reduce image file size for faster websites and SEO. Compress JPG, PNG, and WebP images online without losing quality.',
     url: 'https://imageconvertors.com/blog/compress-images-guide',
-    siteName: 'ImageConverter',
+    siteName: 'ImageConvertors',
     type: 'article',
     images: [
       {

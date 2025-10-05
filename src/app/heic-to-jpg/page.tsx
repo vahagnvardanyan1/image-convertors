@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { ConverterPage } from '@/components/ConverterPage';
 
 export const metadata: Metadata = {
-  title: 'Convert HEIC to JPG - Free Online Converter | ImageConverter',
+  title: 'Convert HEIC to JPG - Free Online Converter | ImageConvertors',
   description: 'Convert HEIC/HEIF images to JPG/JPEG format online for free. Transform Apple photos to universal JPG format for easy sharing. Fast, secure, and easy to use.',
   keywords: 'HEIC to JPG, HEIF to JPG, HEIC to JPEG, image converter, HEIC converter, Apple photos converter',
   alternates: {

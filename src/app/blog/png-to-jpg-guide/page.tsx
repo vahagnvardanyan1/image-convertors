@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     title: 'The Ultimate Guide to Converting PNG to JPG Online (Without Losing Quality)',
     description: 'Easily convert PNG images to JPG online without losing quality. Fast, secure, and free PNG to JPG conversion tool for web, social media, and more.',
     url: 'https://imageconvertors.com/blog/png-to-jpg-guide',
-    siteName: 'ImageConverter',
+    siteName: 'ImageConvertors',
     type: 'article',
     images: [
       {

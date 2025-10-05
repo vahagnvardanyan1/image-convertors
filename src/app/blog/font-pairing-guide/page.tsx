@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     title: 'The Ultimate Guide to Google Font Pairings',
     description: 'Discover perfect Google Font pairings for your projects. Browse curated font combinations and create beautiful typography.',
     url: 'https://imageconvertors.com/blog/font-pairing-guide',
-    siteName: 'ImageConverter',
+    siteName: 'ImageConvertors',
     type: 'article',
     images: [
       {

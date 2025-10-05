@@ -4,8 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/Card';
 
 export const metadata = {
-  title: 'Cookie Policy - ImageConverter',
-  description: 'Cookie policy for ImageConverter - Learn about how we use cookies and similar technologies.',
+  title: 'Cookie Policy - ImageConvertors',
+  description: 'Cookie policy for ImageConvertors - Learn about how we use cookies and similar technologies.',
   robots: {
     index: false,
     follow: true,
@@ -50,7 +50,7 @@ export default function CookiePolicyPage() {
           </div>
 
           <p className="text-gray-700 leading-relaxed mb-4">
-            This Cookie Policy explains how ImageConverter uses cookies and similar technologies when you visit our website. It explains what these technologies are, why we use them, and your rights
+            This Cookie Policy explains how ImageConvertors uses cookies and similar technologies when you visit our website. It explains what these technologies are, why we use them, and your rights
             to control our use of them.
           </p>
 
