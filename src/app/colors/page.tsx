@@ -8,10 +8,28 @@ export const metadata: Metadata = {
   description:
     'Professional color tools for designers and developers. Color picker, palette generator, gradient creator, and color format converter. Convert between HEX, RGB, HSL, and more. Free online color utilities.',
   keywords: 'color tools, color picker, color palette, gradient generator, color converter, HEX to RGB, RGB to HSL, color utilities, design tools, color schemes',
+  alternates: {
+    canonical: 'https://imageconvertors.com/colors',
+  },
   openGraph: {
     title: 'Color Tools - Free Online Color Picker, Palette Generator & Converter',
     description: 'Professional color tools for designers and developers. Color picker, palette generator, gradient creator, and color format converter.',
+    url: 'https://imageconvertors.com/colors',
+    siteName: 'ImageConverter',
     type: 'website',
+    images: [
+      {
+        url: '/color-picker.jpg',
+        width: 810,
+        height: 821,
+        alt: 'Color Tools - Color Picker, Palette Generator, Gradient Creator',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Color Tools - Free Online Color Picker, Palette Generator & Converter',
+    description: 'Professional color tools for designers and developers. Color picker, palette generator, gradient creator, and color format converter.',
     images: ['/color-picker.jpg'],
   },
 };
