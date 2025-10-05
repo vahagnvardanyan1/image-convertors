@@ -240,14 +240,206 @@ export const generateStructuredData = (pathname: string) => {
     url: siteConfig.url,
     description: siteConfig.description,
     publisher: organizationSchema,
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: `${siteConfig.url}/?q={search_term_string}`,
+    potentialAction: [
+      {
+        '@type': 'SearchAction',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `${siteConfig.url}/?q={search_term_string}`,
+        },
+        'query-input': 'required name=search_term_string',
       },
-      'query-input': 'required name=search_term_string',
-    },
+      // Image Converters
+      {
+        '@type': 'ConvertAction',
+        name: 'Convert PNG to WebP',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `${siteConfig.url}/png-to-webp`,
+        },
+      },
+      {
+        '@type': 'ConvertAction',
+        name: 'Convert JPG to PNG',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `${siteConfig.url}/jpg-to-png`,
+        },
+      },
+      {
+        '@type': 'ConvertAction',
+        name: 'Convert WebP to PNG',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `${siteConfig.url}/webp-to-png`,
+        },
+      },
+      {
+        '@type': 'ConvertAction',
+        name: 'Convert JPG to WebP',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `${siteConfig.url}/jpg-to-webp`,
+        },
+      },
+      {
+        '@type': 'ConvertAction',
+        name: 'Convert PNG to JPG',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `${siteConfig.url}/png-to-jpg`,
+        },
+      },
+      {
+        '@type': 'ConvertAction',
+        name: 'Convert WebP to JPG',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `${siteConfig.url}/webp-to-jpg`,
+        },
+      },
+      {
+        '@type': 'ConvertAction',
+        name: 'Convert HEIC to JPG',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `${siteConfig.url}/heic-to-jpg`,
+        },
+      },
+      {
+        '@type': 'ConvertAction',
+        name: 'Convert HEIC to WebP',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `${siteConfig.url}/heic-to-webp`,
+        },
+      },
+      // PDF Converters
+      {
+        '@type': 'ConvertAction',
+        name: 'Convert PNG to PDF',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `${siteConfig.url}/png-to-pdf`,
+        },
+      },
+      {
+        '@type': 'ConvertAction',
+        name: 'Convert JPG to PDF',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `${siteConfig.url}/jpg-to-pdf`,
+        },
+      },
+      {
+        '@type': 'ConvertAction',
+        name: 'Convert WebP to PDF',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `${siteConfig.url}/webp-to-pdf`,
+        },
+      },
+      {
+        '@type': 'ConvertAction',
+        name: 'Convert PDF to JPG',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `${siteConfig.url}/pdf-to-jpg`,
+        },
+      },
+      {
+        '@type': 'ConvertAction',
+        name: 'Convert PDF to PNG',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `${siteConfig.url}/pdf-to-png`,
+        },
+      },
+      // Image Analysis
+      {
+        '@type': 'AnalyzeAction',
+        name: 'Analyze Images',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `${siteConfig.url}/analyze`,
+        },
+      },
+      // Color Tools
+      {
+        '@type': 'ViewAction',
+        name: 'Color Picker',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `${siteConfig.url}/colors/picker`,
+        },
+      },
+      {
+        '@type': 'CreateAction',
+        name: 'Generate Color Palettes',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `${siteConfig.url}/colors/palettes`,
+        },
+      },
+      {
+        '@type': 'CreateAction',
+        name: 'Gradient Generator',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `${siteConfig.url}/colors/gradients`,
+        },
+      },
+      {
+        '@type': 'ConvertAction',
+        name: 'Color Converter',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `${siteConfig.url}/colors/converter`,
+        },
+      },
+      // Font Tools
+      {
+        '@type': 'ViewAction',
+        name: 'Font Preview',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `${siteConfig.url}/fonts/preview`,
+        },
+      },
+      {
+        '@type': 'ViewAction',
+        name: 'Font Pairings',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `${siteConfig.url}/fonts/pairings`,
+        },
+      },
+      {
+        '@type': 'CreateAction',
+        name: 'Typographic Scale Generator',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `${siteConfig.url}/fonts/scales`,
+        },
+      },
+      // PDF Tools
+      {
+        '@type': 'OrganizeAction',
+        name: 'Merge PDF Files',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `${siteConfig.url}/merge-pdf`,
+        },
+      },
+      {
+        '@type': 'OrganizeAction',
+        name: 'Split PDF Files',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `${siteConfig.url}/split-pdf`,
+        },
+      },
+    ],
   };
 
   // WebPage schema - page-specific
