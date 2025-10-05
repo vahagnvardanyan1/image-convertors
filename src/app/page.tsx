@@ -4,6 +4,7 @@ import { HowTo } from '@/components/HowTo';
 import { Features } from '@/components/Features';
 import { BannerBlocks } from '@/components/BannerBlock';
 import { FAQ } from '@/components/FAQ';
+import ToolsPreview from '@/components/ToolsPreview';
 
 export default function HomePage() {
   return (
@@ -11,6 +12,7 @@ export default function HomePage() {
       <FormatGrid />
       <Hero />
       <HowTo />
+      <ToolsPreview />
       <Features />
       <BannerBlocks />
       <FAQ />

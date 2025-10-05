@@ -14,16 +14,6 @@ export function Hero() {
 
   return (
     <section className="relative bg-gradient-to-br from-blue-50 via-white to-purple-50 py-16 lg:py-24 overflow-hidden">
-      {/* Background Image */}
-      <div className="absolute inset-0 opacity-10">
-        <ImageWithFallback
-          fetchPriority="high"
-          src="https://images.unsplash.com/photo-1631375937044-6dd5beac01d2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkaWdpdGFsJTIwdHJhbnNmb3JtYXRpb24lMjB0ZWNobm9sb2d5JTIwYmFja2dyb3VuZHxlbnwxfHx8fDE3NTg5NzgxMzV8MA&ixlib=rb-4.1.0&q=80&w=1080"
-          alt="Digital transformation background"
-          className="w-full h-full object-cover"
-        />
-      </div>
-
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
@@ -83,7 +73,7 @@ export function Hero() {
                   src="/person-with-laptop.png"
                   alt="Designer converting images on a laptop"
                   width={1024}
-                  height={1536}
+                  height={1236}
                   className="w-full h-auto object-cover"
                   priority
                   sizes="(max-width: 1280px) 70vw, 480px"

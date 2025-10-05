@@ -194,6 +194,36 @@ export function Footer() {
             </ul>
           </div>
 
+          {/* Font Tools */}
+          <div className="border-b border-gray-800 pb-4 sm:border-b-0 sm:pb-0">
+            <button onClick={() => toggleSection('font')} className="flex items-center justify-between w-full sm:cursor-default sm:pointer-events-none">
+              <h3 className="font-semibold mb-4 sm:mb-4">Font Tools</h3>
+              <ChevronDown className={`sm:hidden transition-transform ${openSection === 'font' ? 'rotate-180' : ''}`} size={20} />
+            </button>
+            <ul className={`space-y-2 ${openSection === 'font' ? 'block' : 'hidden sm:block'}`}>
+              <li>
+                <Link href="/fonts" className="text-gray-400 hover:text-white transition-colors text-sm font-medium">
+                  ✨ All Font Tools
+                </Link>
+              </li>
+              <li>
+                <Link href="/fonts/preview" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  Font Preview
+                </Link>
+              </li>
+              <li>
+                <Link href="/fonts/pairings" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  Font Pairings
+                </Link>
+              </li>
+              <li>
+                <Link href="/fonts/scales" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  Typographic Scale
+                </Link>
+              </li>
+            </ul>
+          </div>
+
           {/* Blog & Resources */}
           <div className="border-b border-gray-800 pb-4 sm:border-b-0 sm:pb-0">
             <button onClick={() => toggleSection('blog')} className="flex items-center justify-between w-full sm:cursor-default sm:pointer-events-none">
@@ -256,42 +286,51 @@ export function Footer() {
                   Compress Images Guide
                 </Link>
               </li>
-            </ul>
-          </div>
-
-          {/* Legal & Support */}
-          <div>
-            <button onClick={() => toggleSection('legal')} className="flex items-center justify-between w-full sm:cursor-default sm:pointer-events-none">
-              <h3 className="font-semibold mb-4 sm:mb-4">Legal & Support</h3>
-              <ChevronDown className={`sm:hidden transition-transform ${openSection === 'legal' ? 'rotate-180' : ''}`} size={20} />
-            </button>
-            <ul className={`space-y-2 ${openSection === 'legal' ? 'block' : 'hidden sm:block'}`}>
               <li>
-                <Link href="/privacy-policy" className="text-gray-400 hover:text-white transition-colors text-sm">
-                  Privacy Policy
+                <Link href="/blog/color-picker-guide" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  Color Picker Guide
                 </Link>
               </li>
               <li>
-                <Link href="/terms-of-use" className="text-gray-400 hover:text-white transition-colors text-sm">
-                  Terms of Use
+                <Link href="/blog/font-preview-guide" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  Font Preview Guide
                 </Link>
               </li>
               <li>
-                <Link href="/terms-of-service" className="text-gray-400 hover:text-white transition-colors text-sm">
-                  Terms of Service
+                <Link href="/blog/font-pairing-guide" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  Font Pairing Guide
                 </Link>
               </li>
               <li>
-                <Link href="/cookie-policy" className="text-gray-400 hover:text-white transition-colors text-sm">
-                  Cookie Policy
+                <Link href="/blog/typographic-scale-guide" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  Typographic Scale Guide
                 </Link>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-gray-800 mt-8 pt-8">
+        {/* Legal Links - Centered */}
+        <div className="mt-8 pt-8">
+          <div className="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 mb-6">
+            <Link href="/privacy-policy" className="text-gray-400 hover:text-white transition-colors text-sm">
+              Privacy Policy
+            </Link>
+            <span className="text-gray-600 hidden sm:inline">•</span>
+            <Link href="/terms-of-use" className="text-gray-400 hover:text-white transition-colors text-sm">
+              Terms of Use
+            </Link>
+            <span className="text-gray-600 hidden sm:inline">•</span>
+            <Link href="/terms-of-service" className="text-gray-400 hover:text-white transition-colors text-sm">
+              Terms of Service
+            </Link>
+            <span className="text-gray-600 hidden sm:inline">•</span>
+            <Link href="/cookie-policy" className="text-gray-400 hover:text-white transition-colors text-sm">
+              Cookie Policy
+            </Link>
+          </div>
+
+          {/* Bottom Bar */}
           <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
             <p className="text-gray-400 text-sm text-center sm:text-left">© 2025 ImageConverter. All rights reserved.</p>
             <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4">

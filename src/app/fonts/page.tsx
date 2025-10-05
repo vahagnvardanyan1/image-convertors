@@ -1,65 +1,57 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from 'next/link';
-import { Palette, Droplet, Blend, ArrowLeftRight } from 'lucide-react';
+import { Type, Sparkles, Ruler } from 'lucide-react';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Color Tools - Free Online Color Picker, Palette Generator & Converter',
-  description:
-    'Professional color tools for designers and developers. Color picker, palette generator, gradient creator, and color format converter. Convert between HEX, RGB, HSL, and more. Free online color utilities.',
-  keywords: 'color tools, color picker, color palette, gradient generator, color converter, HEX to RGB, RGB to HSL, color utilities, design tools, color schemes',
+  title: 'Font Tools - Free Typography Playground, Font Pairing & Scale Generator',
+  description: 'Professional font tools for designers and developers. Preview Google Fonts, discover perfect font pairings, and generate typographic scales. Free online typography utilities.',
+  keywords: 'font tools, typography, font preview, font pairing, typographic scale, Google Fonts, font generator, CSS fonts, web typography, design tools',
   openGraph: {
-    title: 'Color Tools - Free Online Color Picker, Palette Generator & Converter',
-    description: 'Professional color tools for designers and developers. Color picker, palette generator, gradient creator, and color format converter.',
+    title: 'Font Tools - Free Typography Playground, Font Pairing & Scale Generator',
+    description: 'Professional font tools for designers and developers. Preview Google Fonts, discover perfect font pairings, and generate typographic scales.',
     type: 'website',
-    images: ['/color-picker.jpg'],
+    images: ['/font-generator.jpg'],
   },
 };
 
 const features = [
   {
-    name: 'Color Picker',
-    description: 'Choose and explore colors with an interactive color picker. Get instant color codes in multiple formats.',
-    href: '/colors/picker',
-    icon: Droplet,
+    name: 'Font Preview',
+    description: 'Interactive font playground with live preview. Test Google Fonts with custom text, sizes, weights, and styling options.',
+    href: '/fonts/preview',
+    icon: Type,
     color: 'from-blue-500 to-cyan-500',
   },
   {
-    name: 'Color Palettes',
-    description: 'Create, save, and manage beautiful color palettes. Browse predefined palettes or build your own.',
-    href: '/colors/palettes',
-    icon: Palette,
+    name: 'Font Pairings',
+    description: 'Discover perfect font combinations for your projects. Browse curated pairings with use case recommendations.',
+    href: '/fonts/pairings',
+    icon: Sparkles,
     color: 'from-purple-500 to-pink-500',
   },
   {
-    name: 'Gradient Generator',
-    description: 'Generate stunning gradients between colors. Preview and copy CSS code for your projects.',
-    href: '/colors/gradients',
-    icon: Blend,
+    name: 'Typographic Scale',
+    description: 'Generate harmonious font size scales using musical ratios. Export CSS custom properties for your design system.',
+    href: '/fonts/scales',
+    icon: Ruler,
     color: 'from-orange-500 to-red-500',
-  },
-  {
-    name: 'Color Converter',
-    description: 'Convert colors between HEX, RGB, HSL, and more formats. Perfect for cross-platform development.',
-    href: '/colors/converter',
-    icon: ArrowLeftRight,
-    color: 'from-green-500 to-teal-500',
   },
 ];
 
-export default function ColorsPage() {
+export default function FontsPage() {
   return (
     <div>
       <div className="mb-8">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Welcome to Colors</h2>
-        <p className="text-gray-600 dark:text-gray-400">Select a tool below to start working with colors, palettes, and gradients.</p>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Welcome to Font Tools</h2>
+        <p className="text-gray-600 dark:text-gray-400">Explore typography tools to preview fonts, discover pairings, and generate scales for your designs.</p>
       </div>
 
       {/* Desktop Layout: Image on left, Links on right */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
         {/* Left: Featured Image */}
-        <div className="rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700">
-          <img src="/color-picker.jpg" alt="Color Picker Tool Preview" className="w-full h-full object-cover" />
+        <div className="rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700 max-h-[500px]">
+          <img src="/font-generator.jpg" alt="Font Tools Preview" className="w-full h-full object-cover" />
         </div>
 
         {/* Right: Feature Links */}
@@ -93,19 +85,19 @@ export default function ColorsPage() {
         <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
           <li className="flex items-start gap-2">
             <span className="text-blue-600 dark:text-blue-400 font-bold">•</span>
-            <span>Use the Color Picker to find the perfect color for your project</span>
+            <span>Use Font Preview to test Google Fonts with your own content and styling</span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-purple-600 dark:text-purple-400 font-bold">•</span>
-            <span>Save your favorite color combinations in Palettes for easy access</span>
+            <span>Browse Font Pairings to find complementary combinations for headings and body text</span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-orange-600 dark:text-orange-400 font-bold">•</span>
-            <span>Generate smooth gradients and copy CSS code directly to your clipboard</span>
+            <span>Generate Typographic Scales with musical ratios for consistent visual hierarchy</span>
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-green-600 dark:text-green-400 font-bold">•</span>
-            <span>Convert between different color formats with the Color Converter</span>
+            <span className="text-red-600 dark:text-red-400 font-bold">•</span>
+            <span>Copy CSS code directly to your projects with one click</span>
           </li>
         </ul>
       </div>

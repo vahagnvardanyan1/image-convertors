@@ -56,6 +56,9 @@ module.exports = {
       await config.transform(config, '/blog/png-to-pdf-guide'),
       await config.transform(config, '/blog/png-to-webp-guide'),
       await config.transform(config, '/blog/webp-to-png-guide'),
+      await config.transform(config, '/blog/font-preview-guide'),
+      await config.transform(config, '/blog/font-pairing-guide'),
+      await config.transform(config, '/blog/typographic-scale-guide'),
 
       // Color tools
       await config.transform(config, '/colors'),
@@ -63,6 +66,12 @@ module.exports = {
       await config.transform(config, '/colors/palettes'),
       await config.transform(config, '/colors/gradients'),
       await config.transform(config, '/colors/converter'),
+
+      // Font tools
+      await config.transform(config, '/fonts'),
+      await config.transform(config, '/fonts/preview'),
+      await config.transform(config, '/fonts/pairings'),
+      await config.transform(config, '/fonts/scales'),
     ];
   },
   // Optimize for SEO

@@ -1,5 +1,5 @@
 'use client';
-import { ArrowRight, FileImage, Image as ImageIcon, Globe, Camera, FileText, Merge, Split, Info, Palette, Droplet, Blend, Shuffle } from 'lucide-react';
+import { ArrowRight, FileImage, Image as ImageIcon, Globe, Camera, FileText, Merge, Split, Info, Palette, Droplet, Blend, Shuffle, Type, Sparkles, Ruler } from 'lucide-react';
 import Link from 'next/link';
 import { Card } from '../Card';
 
@@ -175,12 +175,40 @@ const converters = [
     popular: false,
     category: 'colors',
   },
+  {
+    from: 'Font',
+    to: 'Preview',
+    route: '/fonts/preview',
+    icon: Type,
+    description: 'Test Google Fonts with live preview and customization options',
+    popular: true,
+    category: 'fonts',
+  },
+  {
+    from: 'Font',
+    to: 'Pairings',
+    route: '/fonts/pairings',
+    icon: Sparkles,
+    description: 'Discover perfect font combinations with curated pairings',
+    popular: true,
+    category: 'fonts',
+  },
+  {
+    from: 'Typographic',
+    to: 'Scale',
+    route: '/fonts/scales',
+    icon: Ruler,
+    description: 'Generate harmonious font size systems using musical ratios',
+    popular: true,
+    category: 'fonts',
+  },
 ];
 
 export function FormatGrid() {
   const imageConverters = converters.filter(c => c.category === 'image');
   const pdfConverters = converters.filter(c => c.category === 'pdf');
   const colorTools = converters.filter(c => c.category === 'colors');
+  const fontTools = converters.filter(c => c.category === 'fonts');
 
   const renderConverterCard = (converter: (typeof converters)[0]) => {
     const IconComponent = converter.icon;
@@ -257,6 +285,15 @@ export function FormatGrid() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">{colorTools.map(renderConverterCard)}</div>
         </div>
 
+        {/* Font Tools */}
+        <div className="mb-12">
+          <h3 className="text-xl font-semibold text-gray-900 mb-6 flex items-center">
+            <Type className="mr-2" size={24} />
+            Font Tools
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">{fontTools.map(renderConverterCard)}</div>
+        </div>
+
         <div className="mt-12">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Explore Color Tools */}
@@ -275,6 +312,24 @@ export function FormatGrid() {
               </Link>
             </div>
 
+            {/* Explore Font Tools */}
+            <div className="bg-gradient-to-br from-orange-50 to-red-50 rounded-2xl p-8 border border-orange-100">
+              <h3 className="font-bold text-gray-900 mb-2 flex items-center">
+                <Type className="mr-2" size={24} />
+                Explore Font Tools
+              </h3>
+              <p className="text-gray-600 mb-4">Master typography with our font preview, pairing, and scale generators.</p>
+              <Link
+                href="/fonts"
+                className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-orange-600 to-red-600 text-white rounded-lg font-medium hover:shadow-lg transition-all duration-200"
+              >
+                View All Font Tools
+                <ArrowRight className="ml-2" size={16} />
+              </Link>
+            </div>
+          </div>
+
+          <div className="mt-6">
             {/* Learn More */}
             <div className="bg-gray-50 rounded-2xl p-8">
               <h3 className="font-bold text-gray-900 mb-2">Need a different format?</h3>

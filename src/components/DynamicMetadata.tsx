@@ -32,6 +32,10 @@ export function DynamicMetadata({ title: customTitle, description, keywords }: D
       '/jpg-to-webp': 'JPG to WebP Converter - Convert JPEG Images to WebP Format | ImageConverter',
       '/png-to-jpg': 'PNG to JPG Converter - Convert PNG Images to JPEG Format | ImageConverter',
       '/webp-to-jpg': 'WebP to JPG Converter - Convert WebP Images to JPEG Format | ImageConverter',
+      '/fonts': 'Font Tools - Free Typography Playground, Font Pairing & Scale Generator | ImageConverter',
+      '/fonts/preview': 'Font Preview - Interactive Typography Playground with Google Fonts | ImageConverter',
+      '/fonts/pairings': 'Font Pairings - Discover Perfect Typography Combinations | ImageConverter',
+      '/fonts/scales': 'Typographic Scale Generator - Create Harmonious Font Size Systems | ImageConverter',
     };
 
     const title = customTitle || routeTitles[pathname] || routeTitles['/'];

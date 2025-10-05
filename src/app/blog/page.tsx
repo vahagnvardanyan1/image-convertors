@@ -1,20 +1,31 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowLeft, Calendar, Clock, ArrowRight, Image as ImageIcon, Smartphone, TrendingDown, FileText, Layers, Droplet, Palette, Blend, ArrowLeftRight } from 'lucide-react';
+import { ArrowLeft, Calendar, Clock, ArrowRight, Image as ImageIcon, Smartphone, TrendingDown, FileText, Layers, Droplet, Palette, Blend, ArrowLeftRight, Type, Sparkles, Ruler } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/Card';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Blog - Image Conversion Guides & Tips | ImageConverter',
-  description: 'Learn everything about image conversion, optimization, and best practices. Guides, tutorials, and tips for PNG, JPG, WebP, HEIC, and PDF conversions.',
-  keywords: ['image conversion guides', 'PNG to JPG guide', 'image optimization', 'web performance', 'image converter tutorials', 'file format guides'],
+  title: 'Blog - Image Conversion, Color & Font Tools Guides | ImageConverter',
+  description: 'Learn everything about image conversion, color tools, typography, and best practices. Guides for PNG, JPG, WebP, HEIC, PDF conversions, Google Fonts, color pickers, and design tools.',
+  keywords: [
+    'image conversion guides',
+    'PNG to JPG guide',
+    'image optimization',
+    'web performance',
+    'image converter tutorials',
+    'file format guides',
+    'font pairing guide',
+    'typography scale',
+    'Google Fonts preview',
+    'color picker tool',
+  ],
   alternates: {
     canonical: 'https://imageconvertors.com/blog',
   },
   openGraph: {
-    title: 'Blog - Image Conversion Guides & Tips | ImageConverter',
-    description: 'Learn everything about image conversion, optimization, and best practices. Guides, tutorials, and tips for PNG, JPG, WebP, HEIC, and PDF conversions.',
+    title: 'Blog - Image Conversion, Color & Font Tools Guides | ImageConverter',
+    description: 'Learn everything about image conversion, color tools, typography, and best practices. Comprehensive guides for designers and developers.',
     url: 'https://imageconvertors.com/blog',
     siteName: 'ImageConverter',
     type: 'website',
@@ -175,6 +186,33 @@ const blogPosts: BlogPost[] = [
     category: 'Color Tools',
     icon: ArrowLeftRight,
   },
+  {
+    title: 'The Ultimate Guide to Previewing Google Fonts Online',
+    description: 'Preview Google Fonts instantly with our free online font playground. Test typography, compare fonts, adjust sizes & weights. Perfect for web designers and developers.',
+    slug: 'font-preview-guide',
+    publishDate: '2025-10-05',
+    readTime: '9 min read',
+    category: 'Font Tools',
+    icon: Type,
+  },
+  {
+    title: 'The Ultimate Guide to Google Font Pairings',
+    description: 'Discover perfect Google Font pairings for your projects. Browse curated font combinations for headings and body text. Create beautiful, harmonious typography.',
+    slug: 'font-pairing-guide',
+    publishDate: '2025-10-05',
+    readTime: '10 min read',
+    category: 'Font Tools',
+    icon: Sparkles,
+  },
+  {
+    title: 'The Ultimate Guide to Typographic Scales',
+    description: 'Generate harmonious typographic scales using musical ratios. Create perfect font size hierarchies for your design system with our free CSS typography scale tool.',
+    slug: 'typographic-scale-guide',
+    publishDate: '2025-10-05',
+    readTime: '11 min read',
+    category: 'Font Tools',
+    icon: Ruler,
+  },
 ];
 
 export default function BlogPage() {
@@ -196,7 +234,7 @@ export default function BlogPage() {
             <div>
               <h1 className="text-4xl md:text-5xl font-bold mb-4">ImageConverter Blog</h1>
               <p className="text-xl text-blue-100 max-w-3xl">
-                Guides, tutorials, and tips for image conversion, optimization, and best practices. Everything you need to know about working with digital images.
+                Guides, tutorials, and tips for image conversion, color tools, typography, and design best practices. Everything you need for professional web design.
               </p>
             </div>
             <div className="relative w-full max-w-md mx-auto lg:mx-0 overflow-hidden rounded-3xl border border-blue-300/40 bg-white/10 backdrop-blur-sm shadow-2xl">
@@ -292,12 +330,13 @@ export default function BlogPage() {
           <Card className="p-8 bg-gradient-to-br from-gray-50 to-blue-50 text-center">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">More Articles Coming Soon!</h2>
             <p className="text-gray-700 mb-6 max-w-2xl mx-auto">
-              We&apos;re constantly creating new content about image conversion, optimization techniques, format comparisons, and best practices. Check back soon for more guides and tutorials.
+              We&apos;re constantly creating new content about image conversion, optimization techniques, typography, color tools, and design best practices. Check back soon for more guides and
+              tutorials.
             </p>
             <div className="flex flex-wrap justify-center gap-3">
-              <span className="bg-white px-4 py-2 rounded-full text-sm font-medium text-gray-700 shadow-sm">HEIC Conversion Tips</span>
+              <span className="bg-white px-4 py-2 rounded-full text-sm font-medium text-gray-700 shadow-sm">Advanced Typography Tips</span>
               <span className="bg-white px-4 py-2 rounded-full text-sm font-medium text-gray-700 shadow-sm">WebP vs PNG Comparison</span>
-              <span className="bg-white px-4 py-2 rounded-full text-sm font-medium text-gray-700 shadow-sm">Image Format Comparison</span>
+              <span className="bg-white px-4 py-2 rounded-full text-sm font-medium text-gray-700 shadow-sm">Color Theory for Web Design</span>
               <span className="bg-white px-4 py-2 rounded-full text-sm font-medium text-gray-700 shadow-sm">Batch Image Processing</span>
             </div>
           </Card>

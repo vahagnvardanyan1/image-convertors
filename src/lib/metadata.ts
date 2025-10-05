@@ -57,6 +57,12 @@ export const siteConfig = {
     'color converter',
     'HEX to RGB',
     'color tools',
+    'font tools',
+    'typography',
+    'font preview',
+    'font pairing',
+    'typographic scale',
+    'Google Fonts',
   ],
   author: {
     name: 'ImageConverter Team',
@@ -175,6 +181,26 @@ export const routeMetadata: Record<string, Partial<Metadata>> = {
     description:
       'Convert colors between HEX, RGB, RGBA, HSL, HSLA, and HSV formats instantly. Supports color names and all CSS color formats. Perfect for cross-platform development. Free online color format converter.',
     keywords: 'color converter, HEX to RGB, RGB to HSL, HSL to HEX, color format converter, convert colors, CSS colors, color transformation, color code converter',
+  },
+  '/fonts': {
+    title: 'Font Tools - Free Typography Playground, Font Pairing & Scale Generator',
+    description: 'Professional font tools for designers and developers. Preview Google Fonts, discover perfect font pairings, and generate typographic scales. Free online typography utilities.',
+    keywords: 'font tools, typography, font preview, font pairing, typographic scale, Google Fonts, font generator, CSS fonts, web typography, design tools',
+  },
+  '/fonts/preview': {
+    title: 'Font Preview - Interactive Typography Playground with Google Fonts',
+    description: 'Test Google Fonts with live preview. Customize font size, weight, spacing, and colors. Generate CSS code instantly. Free online font preview tool.',
+    keywords: 'font preview, Google Fonts, typography playground, font tester, CSS fonts, web fonts, font customizer, font size, font weight',
+  },
+  '/fonts/pairings': {
+    title: 'Font Pairings - Discover Perfect Typography Combinations',
+    description: 'Browse curated font pairings for web design. Find complementary Google Font combinations with use case recommendations. Copy CSS instantly. Free font pairing tool.',
+    keywords: 'font pairing, font combinations, typography pairing, Google Font pairs, complementary fonts, font matching, web typography, design fonts',
+  },
+  '/fonts/scales': {
+    title: 'Typographic Scale Generator - Create Harmonious Font Size Systems',
+    description: 'Generate typographic scales using musical ratios. Create consistent font size hierarchies for your design system. Export CSS custom properties. Free type scale tool.',
+    keywords: 'typographic scale, font scale, type scale, modular scale, font size system, design system, CSS variables, typography ratio, type hierarchy',
   },
 };
 
@@ -529,6 +555,88 @@ export const generateStructuredData = (pathname: string) => {
     });
 
     return conversionSchemas;
+  }
+
+  // Handle font tools pages
+  if (pathname.startsWith('/fonts')) {
+    const fontSchemas = [...baseStructuredData];
+
+    if (pathname === '/fonts') {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (fontSchemas[2] as any).name = 'Font Tools - Typography Utilities';
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (fontSchemas[2] as any).description = 'Professional font tools including preview, pairing suggestions, and typographic scale generators.';
+
+      (fontSchemas[3] as WebApplicationSchema).featureList = [
+        'Google Fonts preview with live customization',
+        'Curated font pairing suggestions',
+        'Typographic scale generation',
+        'CSS font code generation',
+        'Font weight and size testing',
+        'Typography hierarchy tools',
+      ];
+    } else if (pathname === '/fonts/preview') {
+      (fontSchemas[3] as WebApplicationSchema).name = 'Font Preview Tool';
+      (fontSchemas[3] as WebApplicationSchema).description = 'Interactive Google Fonts preview with customization options.';
+      (fontSchemas[3] as WebApplicationSchema).featureList = [
+        'Live Google Fonts preview',
+        'Font size and weight adjustment',
+        'Line height and letter spacing controls',
+        'Text and background color customization',
+        'CSS code generation',
+        'Font import code export',
+      ];
+    } else if (pathname === '/fonts/pairings') {
+      (fontSchemas[3] as WebApplicationSchema).name = 'Font Pairing Explorer';
+      (fontSchemas[3] as WebApplicationSchema).description = 'Discover perfect font combinations with curated pairings.';
+      (fontSchemas[3] as WebApplicationSchema).featureList = [
+        'Curated font pairing recommendations',
+        'Category-based filtering',
+        'Use case suggestions',
+        'Live pairing preview',
+        'CSS code generation',
+        'Popular pairing highlights',
+      ];
+    } else if (pathname === '/fonts/scales') {
+      (fontSchemas[3] as WebApplicationSchema).name = 'Typographic Scale Generator';
+      (fontSchemas[3] as WebApplicationSchema).description = 'Generate harmonious font size systems using musical ratios.';
+      (fontSchemas[3] as WebApplicationSchema).featureList = [
+        'Musical ratio-based scales',
+        'Customizable base size',
+        'Visual scale preview',
+        'CSS custom properties generation',
+        'Quick preset scales',
+        'Responsive scale suggestions',
+      ];
+    }
+
+    // Add CreativeWork schema for font tools
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (fontSchemas as any[]).push({
+      '@context': 'https://schema.org',
+      '@type': 'CreativeWork',
+      name: 'Typography Tools Collection',
+      description: 'Comprehensive typography tools for web designers and developers, including font preview, pairing suggestions, and typographic scale generators.',
+      url: currentUrl,
+      creator: organizationSchema,
+      audience: {
+        '@type': 'Audience',
+        audienceType: 'Web Designers and Developers',
+      },
+    });
+
+    return fontSchemas;
+  }
+
+  // Handle color tools pages
+  if (pathname.startsWith('/colors')) {
+    const colorSchemas = [...baseStructuredData];
+
+    if (pathname === '/colors') {
+      (colorSchemas[3] as WebApplicationSchema).featureList = ['Color picker', 'Color palette generation', 'Gradient creator', 'Color format converter', 'HEX to RGB conversion', 'Color scheme tools'];
+    }
+
+    return colorSchemas;
   }
 
   // For other pages (privacy, terms, etc.)
