@@ -1,5 +1,4 @@
 import { ArrowRight, Zap, Shield, Star } from 'lucide-react';
-import { ImageWithFallback } from '../ImageWithFallback';
 
 export function BannerBlocks() {
   return (
@@ -7,28 +6,19 @@ export function BannerBlocks() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         {/* First Banner - Advanced Tools */}
         <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl overflow-hidden shadow-2xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
-            <div className="p-8 lg:p-12 text-white">
-              <div className="flex items-center mb-4">
-                <Zap className="mr-3" size={24} />
-                <span className="bg-white/20 text-white px-3 py-1 rounded-full text-sm font-medium">Pro Tools</span>
-              </div>
-              <h3 className="text-3xl font-bold mb-4">Batch Processing & Advanced Options</h3>
-              <p className="text-blue-100 mb-6 leading-relaxed">
-                Convert multiple images at once, adjust quality settings, resize images, and access advanced compression options. Perfect for professionals and power users.
-              </p>
-              <button className="inline-flex items-center px-6 py-3 bg-white text-gray-900 rounded-lg font-medium hover:bg-gray-100 transition-colors duration-200">
-                Coming Soon
-                <ArrowRight className="ml-2" size={16} />
-              </button>
+          <div className="p-8 lg:p-12 text-white text-center">
+            <div className="flex items-center justify-center mb-4">
+              <Zap className="mr-3" size={24} />
+              <span className="bg-white/20 text-white px-3 py-1 rounded-full text-sm font-medium">Pro Tools</span>
             </div>
-            <div className="h-64 lg:h-full">
-              <ImageWithFallback
-                src="https://images.unsplash.com/photo-1734208682292-df2643d0c8d9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBvZmZpY2UlMjBwcm9kdWN0aXZpdHklMjB0b29sc3xlbnwxfHx8fDE3NTg5NzgxMzh8MA&ixlib=rb-4.1.0&q=80&w=1080"
-                alt="Advanced productivity tools"
-                className="w-full h-full object-cover"
-              />
-            </div>
+            <h3 className="text-3xl font-bold mb-4">Batch Processing & Advanced Options</h3>
+            <p className="text-blue-100 mb-6 leading-relaxed max-w-2xl mx-auto">
+              Convert multiple images at once, adjust quality settings, resize images, and access advanced compression options. Perfect for professionals and power users.
+            </p>
+            <button className="inline-flex items-center px-6 py-3 bg-white text-gray-900 rounded-lg font-medium hover:bg-gray-100 transition-colors duration-200">
+              Coming Soon
+              <ArrowRight className="ml-2" size={16} />
+            </button>
           </div>
         </div>
 

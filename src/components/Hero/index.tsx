@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 import { Upload, ArrowRight } from 'lucide-react';
 import { Button } from '../ui/button';
 import { ImageWithFallback } from '../ImageWithFallback';
@@ -75,21 +76,40 @@ export function Hero() {
           </div>
 
           {/* Visual Element */}
-          <div className="lg:flex justify-center hidden">
-            <div className="relative">
-              <div className="w-96 h-96 bg-gradient-to-br from-blue-100 to-purple-100 rounded-3xl flex items-center justify-center shadow-2xl">
-                <div className="grid grid-cols-2 gap-4 p-8">
-                  {['PNG', 'JPG', 'WebP', 'GIF'].map(format => (
-                    <div key={format} className="w-20 h-20 bg-white rounded-2xl flex items-center justify-center shadow-lg transform transition-transform hover:scale-105">
-                      <span className="font-bold text-gray-700">{format}</span>
-                    </div>
-                  ))}
-                </div>
+          <div className="flex justify-center mt-12 lg:mt-0">
+            <div className="relative w-full max-w-xl pb-20">
+              <div className="relative rounded-[32px] overflow-hidden shadow-2xl ring-1 ring-blue-200/60">
+                <Image
+                  src="/person-with-laptop.png"
+                  alt="Designer converting images on a laptop"
+                  width={1024}
+                  height={1536}
+                  className="w-full h-auto object-cover"
+                  priority
+                  sizes="(max-width: 1280px) 70vw, 480px"
+                />
+                <div className="absolute inset-0 bg-gradient-to-tr from-white/70 via-white/10 to-transparent" />
               </div>
-              {/* Floating conversion arrows */}
-              <div className="absolute -right-4 top-1/2 transform -translate-y-1/2">
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-white shadow-lg animate-pulse">
-                  <ArrowRight size={20} />
+
+              <div className="absolute left-1/2 -bottom-12 w-full max-w-md -translate-x-1/2">
+                <div className="bg-white/95 backdrop-blur-md rounded-2xl shadow-xl border border-blue-100/60 p-6">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-blue-500 mb-3">Popular conversions</p>
+                  <div className="grid grid-cols-2 gap-3 mb-4">
+                    {[
+                      { label: 'PNG', color: 'text-blue-600' },
+                      { label: 'JPG', color: 'text-purple-600' },
+                      { label: 'WebP', color: 'text-green-600' },
+                      { label: 'PDF', color: 'text-red-500' },
+                    ].map(format => (
+                      <div key={format.label} className="bg-white rounded-xl p-4 shadow-md border border-gray-100 flex items-center justify-center">
+                        <span className={`text-2xl font-bold ${format.color}`}>{format.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="flex items-center justify-center gap-2 text-gray-500 text-sm">
+                    <ArrowRight className="text-blue-500" size={20} />
+                    <span>Instant conversions in your browser</span>
+                  </div>
                 </div>
               </div>
             </div>

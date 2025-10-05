@@ -448,12 +448,12 @@ export const generateStructuredData = (pathname: string) => {
   }
 
   // Handle conversion tool pages
-  if (pathname.includes('to') || pathname.includes('pdf')) {
+  if (pathname.includes('-to-') || pathname.includes('pdf')) {
     const conversionSchemas = [...baseStructuredData];
     let serviceName = '';
     let serviceDescription = '';
 
-    if (pathname.includes('to')) {
+    if (pathname.includes('-to-')) {
       const [from, to] = pathname.slice(1).split('-to-');
       serviceName = `${from.toUpperCase()} to ${to.toUpperCase()} Converter`;
       serviceDescription = `Convert ${from.toUpperCase()} images to ${to.toUpperCase()} format online for free.`;
@@ -594,7 +594,7 @@ export const generateBreadcrumbStructuredData = (pathname: string) => {
 // Generate FAQ structured data
 export const generateFAQStructuredData = (pathname: string) => {
   // Only add FAQ schema on homepage and main converter pages
-  if (pathname !== '/' && !pathname.includes('to') && !pathname.includes('pdf')) {
+  if (pathname !== '/' && !pathname.includes('-to-') && !pathname.includes('pdf')) {
     return null;
   }
 
@@ -646,7 +646,7 @@ export const generateFAQStructuredData = (pathname: string) => {
 
   let specificFAQs: FAQItem[] = [];
 
-  if (pathname.includes('to')) {
+  if (pathname.includes('-to-')) {
     const [from, to] = pathname.slice(1).split('-to-');
     specificFAQs = [
       {
@@ -679,7 +679,7 @@ export const generateFAQStructuredData = (pathname: string) => {
 
 // Generate HowTo structured data for conversion processes
 export const generateHowToStructuredData = (pathname: string) => {
-  if (!pathname.includes('to') && !pathname.includes('pdf')) {
+  if (!pathname.includes('-to-') && !pathname.includes('pdf')) {
     return null;
   }
 
@@ -690,7 +690,7 @@ export const generateHowToStructuredData = (pathname: string) => {
   let description = '';
   let steps: HowToStep[] = [];
 
-  if (pathname.includes('to')) {
+  if (pathname.includes('-to-')) {
     const [from, to] = pathname.slice(1).split('-to-');
     name = `How to Convert ${from.toUpperCase()} to ${to.toUpperCase()}`;
     description = `Step-by-step guide to convert ${from.toUpperCase()} images to ${to.toUpperCase()} format online for free.`;

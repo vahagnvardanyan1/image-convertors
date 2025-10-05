@@ -94,6 +94,10 @@ export function Header() {
     { name: 'HEIC to JPG Guide', href: '/blog/heic-to-jpg-guide', popular: false },
     { name: 'HEIC to WebP Guide', href: '/blog/heic-to-webp-guide', popular: false },
     { name: 'Compress Images Guide', href: '/blog/compress-images-guide', popular: false },
+    { name: 'Color Picker Guide', href: '/blog/color-picker-guide', popular: false },
+    { name: 'Color Palette Guide', href: '/blog/color-palette-guide', popular: false },
+    { name: 'Gradient Generator Guide', href: '/blog/gradient-generator-guide', popular: false },
+    { name: 'Color Converter Guide', href: '/blog/color-converter-guide', popular: false },
   ];
 
   return (

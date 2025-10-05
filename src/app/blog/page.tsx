@@ -1,5 +1,6 @@
+import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowLeft, Calendar, Clock, ArrowRight, Image as ImageIcon, Smartphone, TrendingDown, FileText, Layers } from 'lucide-react';
+import { ArrowLeft, Calendar, Clock, ArrowRight, Image as ImageIcon, Smartphone, TrendingDown, FileText, Layers, Droplet, Palette, Blend, ArrowLeftRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/Card';
 import type { Metadata } from 'next';
@@ -137,6 +138,43 @@ const blogPosts: BlogPost[] = [
     category: 'Image Optimization',
     icon: TrendingDown,
   },
+  {
+    title: 'The Ultimate Guide to Online Color Pickers',
+    description: 'Pick colors instantly with our free online color picker. Get HEX, RGB, HSL, RGBA, and HSLA codes. Perfect for web designers, developers, and digital artists.',
+    slug: 'color-picker-guide',
+    publishDate: '2025-10-04',
+    readTime: '7 min read',
+    category: 'Color Tools',
+    icon: Droplet,
+    featured: false,
+  },
+  {
+    title: 'The Ultimate Guide to Creating Perfect Color Palettes',
+    description: 'Generate stunning color palettes online. Create complementary, analogous, and monochromatic color schemes. Save your palettes and browse curated collections.',
+    slug: 'color-palette-guide',
+    publishDate: '2025-10-04',
+    readTime: '8 min read',
+    category: 'Color Tools',
+    icon: Palette,
+  },
+  {
+    title: 'The Ultimate Guide to Creating CSS Gradients',
+    description: 'Generate stunning CSS gradients online. Create linear and radial gradients with multiple colors. Get ready-to-use CSS code for beautiful web designs.',
+    slug: 'gradient-generator-guide',
+    publishDate: '2025-10-04',
+    readTime: '8 min read',
+    category: 'Color Tools',
+    icon: Blend,
+  },
+  {
+    title: 'The Ultimate Guide to Converting Color Codes',
+    description: 'Convert colors between HEX, RGB, HSL, RGBA, HSLA, and HSV formats instantly. Free online color converter for designers and developers with accurate conversions.',
+    slug: 'color-converter-guide',
+    publishDate: '2025-10-04',
+    readTime: '7 min read',
+    category: 'Color Tools',
+    icon: ArrowLeftRight,
+  },
 ];
 
 export default function BlogPage() {
@@ -154,10 +192,25 @@ export default function BlogPage() {
               Back to Home
             </Button>
           </Link>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">ImageConverter Blog</h1>
-          <p className="text-xl text-blue-100 max-w-3xl">
-            Guides, tutorials, and tips for image conversion, optimization, and best practices. Everything you need to know about working with digital images.
-          </p>
+          <div className="grid gap-8 lg:gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,420px)] items-center">
+            <div>
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">ImageConverter Blog</h1>
+              <p className="text-xl text-blue-100 max-w-3xl">
+                Guides, tutorials, and tips for image conversion, optimization, and best practices. Everything you need to know about working with digital images.
+              </p>
+            </div>
+            <div className="relative w-full max-w-md mx-auto lg:mx-0 overflow-hidden rounded-3xl border border-blue-300/40 bg-white/10 backdrop-blur-sm shadow-2xl">
+              <Image
+                src="/png-jpg-webp-pdf-convertors.png"
+                alt="Illustrations of PNG, JPG, WebP, and PDF conversion tools"
+                width={1536}
+                height={1024}
+                className="w-full h-auto"
+                priority
+                sizes="(max-width: 1024px) 100vw, 420px"
+              />
+            </div>
+          </div>
         </div>
       </div>
 
