@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: 'Font Tools - Free Typography Playground, Font Pairing & Scale Generator',
     description: 'Professional font tools for designers and developers. Preview Google Fonts, discover perfect font pairings, and generate typographic scales.',
     type: 'website',
-    images: ['/font-generator.jpg'],
+    images: ['/font-generator.webp'],
   },
 };
 
@@ -51,7 +51,7 @@ export default function FontsPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
         {/* Left: Featured Image */}
         <div className="rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700 max-h-[500px]">
-          <img src="/font-generator.jpg" alt="Font Tools Preview" className="w-full h-full object-cover" />
+          <img src="/font-generator.webp" alt="Font Tools Preview" className="w-full h-full object-cover" />
         </div>
 
         {/* Right: Feature Links */}

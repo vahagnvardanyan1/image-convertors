@@ -239,7 +239,7 @@ export default function BlogPage() {
             </div>
             <div className="relative w-full max-w-md mx-auto lg:mx-0 overflow-hidden rounded-3xl border border-blue-300/40 bg-white/10 backdrop-blur-sm shadow-2xl">
               <Image
-                src="/png-jpg-webp-pdf-convertors.png"
+                src="/png-jpg-webp-pdf-convertors.webp"
                 alt="Illustrations of PNG, JPG, WebP, and PDF conversion tools"
                 width={1536}
                 height={1024}

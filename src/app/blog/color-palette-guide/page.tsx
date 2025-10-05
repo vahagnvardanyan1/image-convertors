@@ -80,7 +80,7 @@ export default function ColorPaletteGuidePage() {
         <div className="mb-12">
           <div className="relative mx-auto max-w-3xl overflow-hidden rounded-3xl border border-purple-100 shadow-xl">
             <Image
-              src="/layout-design.png"
+              src="/layout-design.webp"
               alt="Designer workspace showing multiple color palette combinations on screen"
               width={1024}
               height={1536}

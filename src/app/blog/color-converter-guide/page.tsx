@@ -79,7 +79,7 @@ export default function ColorConverterGuidePage() {
         <div className="mb-12">
           <div className="relative mx-auto max-w-3xl overflow-hidden rounded-3xl border border-green-100 shadow-xl">
             <Image
-              src="/convert.png"
+              src="/convert.webp"
               alt="Illustration of the ImageConvertors color converter showing HEX, RGB, and HSL values"
               width={1024}
               height={1536}

@@ -78,7 +78,7 @@ export default function ColorPickerGuidePage() {
 
         <div className="mb-12">
           <div className="relative overflow-hidden rounded-3xl border border-blue-100 shadow-xl">
-            <Image src="/color-picker.jpg" alt="Screenshot of the ImageConvertors online color picker interface" width={810} height={821} className="w-full h-auto" priority />
+            <Image src="/color-picker.webp" alt="Screenshot of the ImageConvertors online color picker interface" width={810} height={821} className="w-full h-auto" priority />
           </div>
           <p className="mt-4 text-sm text-center text-gray-500">Explore colors visually and copy HEX, RGB, or HSL codes instantly with the ImageConvertors color picker.</p>
         </div>

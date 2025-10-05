@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     type: 'article',
     images: [
       {
-        url: '/font-picker.png',
+        url: '/font-picker.webp',
         width: 1200,
         height: 630,
         alt: 'Google Font Preview Tool Guide',
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'The Ultimate Guide to Previewing Google Fonts Online',
     description: 'Preview Google Fonts instantly with our free online font playground. Test typography and compare fonts.',
-    images: ['/font-picker.png'],
+    images: ['/font-picker.webp'],
   },
 };
 
@@ -79,7 +79,7 @@ export default function FontPreviewGuidePage() {
 
         <div className="mb-12">
           <div className="relative overflow-hidden rounded-3xl border border-blue-100 shadow-xl">
-            <Image src="/font-picker.png" alt="Screenshot of the ImageConvertors Google Fonts preview interface" width={1200} height={630} className="w-full h-auto" priority />
+            <Image src="/font-picker.webp" alt="Screenshot of the ImageConvertors Google Fonts preview interface" width={1200} height={630} className="w-full h-auto" priority />
           </div>
           <p className="mt-4 text-sm text-center text-gray-500">Preview Google Fonts with custom text, sizes, weights, and styling options in real-time.</p>
         </div>

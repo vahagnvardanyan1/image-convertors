@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     type: 'article',
     images: [
       {
-        url: '/font-generator.jpg',
+        url: '/font-generator.webp',
         width: 1200,
         height: 630,
         alt: 'Typographic Scale Generator Guide',
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'The Ultimate Guide to Typographic Scales',
     description: 'Generate harmonious typographic scales using musical ratios for perfect typography.',
-    images: ['/font-generator.jpg'],
+    images: ['/font-generator.webp'],
   },
 };
 
@@ -79,7 +79,7 @@ export default function TypographicScaleGuidePage() {
 
         <div className="mb-12">
           <div className="relative overflow-hidden rounded-3xl border border-orange-100 shadow-xl">
-            <Image src="/font-generator.jpg" alt="Screenshot of the ImageConvertors typographic scale generator interface" width={1200} height={630} className="w-full h-auto" priority />
+            <Image src="/font-generator.webp" alt="Screenshot of the ImageConvertors typographic scale generator interface" width={1200} height={630} className="w-full h-auto" priority />
           </div>
           <p className="mt-4 text-sm text-center text-gray-500">Generate harmonious font size scales using mathematical ratios and export CSS custom properties.</p>
         </div>

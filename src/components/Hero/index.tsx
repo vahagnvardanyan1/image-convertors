@@ -70,7 +70,7 @@ export function Hero() {
             <div className="relative w-full max-w-xl pb-20">
               <div className="relative rounded-[32px] overflow-hidden shadow-2xl ring-1 ring-blue-200/60">
                 <Image
-                  src="/person-with-laptop.png"
+                  src="/person-with-laptop.webp"
                   alt="Designer converting images on a laptop"
                   width={1024}
                   height={1236}

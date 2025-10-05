@@ -80,7 +80,7 @@ export default function GradientGeneratorGuidePage() {
         <div className="mb-12">
           <div className="relative mx-auto max-w-3xl overflow-hidden rounded-3xl border border-orange-100 shadow-xl">
             <Image
-              src="/person-with-laptop.png"
+              src="/person-with-laptop.webp"
               alt="Designer experimenting with gradient backgrounds on a laptop"
               width={1024}
               height={1536}

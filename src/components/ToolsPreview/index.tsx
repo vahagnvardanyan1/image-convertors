@@ -7,7 +7,7 @@ const ToolsPreview = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         {/* Left: Image */}
         <div className="rounded-xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-700">
-          <img src="/font-picker.png" alt="Font and Color Tools Preview" className="w-full h-full object-cover" />
+          <img src="/font-picker.webp" alt="Font and Color Tools Preview" className="w-full h-full object-cover" />
         </div>
 
         {/* Right: Navigation Cards */}

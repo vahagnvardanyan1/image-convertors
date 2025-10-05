@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/color-picker.jpg',
+        url: '/color-picker.webp',
         width: 810,
         height: 821,
         alt: 'Color Tools - Color Picker, Palette Generator, Gradient Creator',
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Color Tools - Free Online Color Picker, Palette Generator & Converter',
     description: 'Professional color tools for designers and developers. Color picker, palette generator, gradient creator, and color format converter.',
-    images: ['/color-picker.jpg'],
+    images: ['/color-picker.webp'],
   },
 };
 
@@ -77,7 +77,7 @@ export default function ColorsPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
         {/* Left: Featured Image */}
         <div className="rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700">
-          <img src="/color-picker.jpg" alt="Color Picker Tool Preview" className="w-full h-full object-cover" />
+          <img src="/color-picker.webp" alt="Color Picker Tool Preview" className="w-full h-full object-cover" />
         </div>
 
         {/* Right: Feature Links */}

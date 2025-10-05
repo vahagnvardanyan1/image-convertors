@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     type: 'article',
     images: [
       {
-        url: '/font-generator.jpg',
+        url: '/font-generator.webp',
         width: 1200,
         height: 630,
         alt: 'Font Pairing Tool Guide',
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'The Ultimate Guide to Google Font Pairings',
     description: 'Discover perfect Google Font pairings and create beautiful typography for your projects.',
-    images: ['/font-generator.jpg'],
+    images: ['/font-generator.webp'],
   },
 };
 
@@ -80,7 +80,7 @@ export default function FontPairingGuidePage() {
         <div className="mb-12">
           <div className="relative overflow-hidden rounded-3xl border border-purple-100 shadow-xl">
             <Image
-              src="/font-generator.jpg"
+              src="/font-generator.webp"
               alt="Screenshot of the ImageConvertors font pairing tool showing complementary font combinations"
               width={1200}
               height={630}
