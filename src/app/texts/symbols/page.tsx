@@ -51,6 +51,12 @@ const metadata = {
     'special characters for documents',
     'symbols for website',
   ],
+  openGraph: {
+    title: 'Symbol Library - 300+ Unicode Symbols & Special Characters | ImageConvertors',
+    description:
+      'Explore and copy over 300 special Unicode symbols and characters instantly. Browse mathematical symbols, arrows, currency signs, punctuation marks, geometric shapes, Greek letters, technical symbols, and more. One-click copy to clipboard for easy use in your projects.',
+    images: ['/symbol.webp'],
+  },
 };
 
 export default function SymbolsPage() {

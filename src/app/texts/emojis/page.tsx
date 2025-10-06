@@ -43,6 +43,12 @@ const metadata = {
     'emoji for messages',
     'emoji for website',
   ],
+  openGraph: {
+    title: 'Emoji Picker - Browse & Copy 500+ Emojis with Device Preview | ImageConvertors',
+    description:
+      'Browse and copy over 500 emojis instantly with device-specific rendering preview. Filter by category including smileys, animals, food, travel, activities, objects, symbols, and flags. See how emojis appear on Apple, Google, Microsoft, and Samsung devices. One-click copy to clipboard for easy use in your projects.',
+    images: ['/emoji.webp'],
+  },
 };
 
 type DeviceType = 'native' | 'apple' | 'google' | 'microsoft' | 'samsung';
