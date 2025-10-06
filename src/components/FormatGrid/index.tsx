@@ -1,9 +1,18 @@
 'use client';
-import { ArrowRight, FileImage, Image as ImageIcon, Globe, Camera, FileText, Merge, Split, Info, Palette, Droplet, Blend, Shuffle, Type, Sparkles, Ruler, Smile, Hash } from 'lucide-react';
+import { ArrowRight, FileImage, Image as ImageIcon, Globe, Camera, FileText, Merge, Split, Info, Palette, Droplet, Blend, Shuffle, Type, Sparkles, Ruler, Smile, Hash, Eraser } from 'lucide-react';
 import Link from 'next/link';
 import { Card } from '../Card';
 
 const converters = [
+  {
+    from: 'Remove',
+    to: 'Background',
+    route: '/remove-background',
+    icon: Eraser,
+    description: 'Remove image backgrounds automatically with AI technology',
+    popular: true,
+    category: 'image',
+  },
   {
     from: 'PNG',
     to: 'WebP',

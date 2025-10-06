@@ -55,6 +55,7 @@ export function Header() {
   };
 
   const imageConverters = [
+    { name: 'Remove Background', href: '/remove-background', popular: true },
     { name: 'PNG to WebP', href: '/png-to-webp', popular: true },
     { name: 'JPG to PNG', href: '/jpg-to-png', popular: true },
     { name: 'JPG to WebP', href: '/jpg-to-webp', popular: true },
