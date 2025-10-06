@@ -7,9 +7,14 @@ interface DynamicMetadataProps {
   title?: string;
   description?: string;
   keywords?: string | string[];
+  openGraph?: {
+    title?: string;
+    description?: string;
+    images?: string[];
+  };
 }
 
-export function DynamicMetadata({ title: customTitle, description, keywords }: DynamicMetadataProps = {}) {
+export function DynamicMetadata({ title: customTitle, description, keywords, openGraph }: DynamicMetadataProps = {}) {
   const pathname = usePathname();
 
   useEffect(() => {
@@ -69,7 +74,47 @@ export function DynamicMetadata({ title: customTitle, description, keywords }: D
       }
       metaKeywords.content = Array.isArray(keywords) ? keywords.join(', ') : keywords;
     }
-  }, [pathname, customTitle, description, keywords]);
+
+    // Update OpenGraph meta tags
+    if (openGraph) {
+      // OG Title
+      if (openGraph.title) {
+        let ogTitle = document.querySelector('meta[property="og:title"]') as HTMLMetaElement;
+        if (!ogTitle) {
+          ogTitle = document.createElement('meta');
+          ogTitle.setAttribute('property', 'og:title');
+          document.head.appendChild(ogTitle);
+        }
+        ogTitle.content = openGraph.title;
+      }
+
+      // OG Description
+      if (openGraph.description) {
+        let ogDescription = document.querySelector('meta[property="og:description"]') as HTMLMetaElement;
+        if (!ogDescription) {
+          ogDescription = document.createElement('meta');
+          ogDescription.setAttribute('property', 'og:description');
+          document.head.appendChild(ogDescription);
+        }
+        ogDescription.content = openGraph.description;
+      }
+
+      // OG Images
+      if (openGraph.images && openGraph.images.length > 0) {
+        // Remove existing og:image tags
+        const existingImages = document.querySelectorAll('meta[property="og:image"]');
+        existingImages.forEach(img => img.remove());
+
+        // Add new og:image tags
+        openGraph.images.forEach(imageUrl => {
+          const ogImage = document.createElement('meta');
+          ogImage.setAttribute('property', 'og:image');
+          ogImage.content = imageUrl.startsWith('http') ? imageUrl : `${window.location.origin}${imageUrl}`;
+          document.head.appendChild(ogImage);
+        });
+      }
+    }
+  }, [pathname, customTitle, description, keywords, openGraph]);
 
   return null; // This component doesn't render anything
 }

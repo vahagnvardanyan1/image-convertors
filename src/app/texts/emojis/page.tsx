@@ -86,7 +86,7 @@ export default function EmojisPage() {
 
   return (
     <div>
-      <DynamicMetadata title={metadata.title} description={metadata.description} keywords={metadata.keywords} />
+      <DynamicMetadata title={metadata.title} description={metadata.description} keywords={metadata.keywords} openGraph={metadata.openGraph} />
 
       <div className="mb-6">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Emoji Browser</h2>
