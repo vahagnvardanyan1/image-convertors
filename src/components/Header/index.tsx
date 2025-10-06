@@ -1,5 +1,5 @@
 'use client';
-import { Menu, X, ChevronDown, FileText, Image as ImageIcon, BookOpen, Palette, Type } from 'lucide-react';
+import { Menu, X, ChevronDown, FileText, Image as ImageIcon, BookOpen, Palette, Type, Sparkles } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
@@ -13,6 +13,7 @@ export function Header() {
   const [isPDFDropdownOpen, setIsPDFDropdownOpen] = useState(false);
   const [isColorDropdownOpen, setIsColorDropdownOpen] = useState(false);
   const [isTextDropdownOpen, setIsTextDropdownOpen] = useState(false);
+  const [isAIDropdownOpen, setIsAIDropdownOpen] = useState(false);
   const [isBlogDropdownOpen, setIsBlogDropdownOpen] = useState(false);
 
   // Close dropdowns when clicking outside
@@ -24,6 +25,7 @@ export function Header() {
         setIsPDFDropdownOpen(false);
         setIsColorDropdownOpen(false);
         setIsTextDropdownOpen(false);
+        setIsAIDropdownOpen(false);
         setIsBlogDropdownOpen(false);
       }
     };
@@ -40,6 +42,7 @@ export function Header() {
     setIsPDFDropdownOpen(false);
     setIsColorDropdownOpen(false);
     setIsTextDropdownOpen(false);
+    setIsAIDropdownOpen(false);
     setIsBlogDropdownOpen(false);
   };
 
@@ -54,8 +57,9 @@ export function Header() {
     }
   };
 
+  const aiTools = [{ name: 'Remove Background', href: '/remove-background', popular: true }];
+
   const imageConverters = [
-    { name: 'Remove Background', href: '/remove-background', popular: true },
     { name: 'PNG to WebP', href: '/png-to-webp', popular: true },
     { name: 'JPG to PNG', href: '/jpg-to-png', popular: true },
     { name: 'JPG to WebP', href: '/jpg-to-webp', popular: true },
@@ -99,10 +103,11 @@ export function Header() {
   ];
 
   const blogGuides = [
+    { name: 'Remove Background Guide', href: '/blog/remove-background-guide', popular: true },
     { name: 'PNG to WebP Guide', href: '/blog/png-to-webp-guide', popular: true },
     { name: 'PNG to JPG Guide', href: '/blog/png-to-jpg-guide', popular: true },
     { name: 'WebP to PNG Guide', href: '/blog/webp-to-png-guide', popular: true },
-    { name: 'PNG to PDF Guide', href: '/blog/png-to-pdf-guide', popular: true },
+    { name: 'PNG to PDF Guide', href: '/blog/png-to-pdf-guide', popular: false },
     { name: 'JPG to WebP Guide', href: '/blog/jpg-to-webp-guide', popular: false },
     { name: 'JPG to PDF Guide', href: '/blog/jpg-to-pdf-guide', popular: false },
     { name: 'PDF to JPG Guide', href: '/blog/pdf-to-jpg-guide', popular: false },
@@ -132,6 +137,31 @@ export function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
+            {/* AI Tools Dropdown */}
+            <div className="relative group dropdown-container" onMouseEnter={() => setIsAIDropdownOpen(true)} onMouseLeave={() => setIsAIDropdownOpen(false)}>
+              <button className="flex items-center space-x-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors py-2" onClick={() => setIsAIDropdownOpen(!isAIDropdownOpen)}>
+                <Sparkles size={16} />
+                <span>AI</span>
+                <ChevronDown size={16} className={`transition-transform ${isAIDropdownOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {isAIDropdownOpen && (
+                <div className="absolute top-full left-0 w-64 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                  <div className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide border-b border-gray-100">AI-Powered Tools</div>
+                  {aiTools.map(tool => (
+                    <Link
+                      key={tool.href}
+                      href={tool.href}
+                      onClick={() => setIsAIDropdownOpen(false)}
+                      className={`block px-4 py-2 text-sm transition-colors ${pathname === tool.href ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'}`}
+                    >
+                      {tool.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
             {/* Image Converters Dropdown */}
             <div className="relative group dropdown-container" onMouseEnter={() => setIsImageDropdownOpen(true)} onMouseLeave={() => setIsImageDropdownOpen(false)}>
               <button className="flex items-center space-x-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors py-2" onClick={() => setIsImageDropdownOpen(!isImageDropdownOpen)}>
@@ -376,6 +406,25 @@ export function Header() {
             <div className="h-full overflow-y-auto">
               <div className="px-4 py-6">
                 <div className="grid grid-cols-2 gap-6">
+                  {/* AI Tools Section */}
+                  <div>
+                    <div className="flex items-center space-x-2 text-xs font-semibold text-gray-700 uppercase tracking-wide mb-3 pb-2 border-b-2 border-purple-200">
+                      <span>✨ AI Tools</span>
+                    </div>
+                    <div className="space-y-2">
+                      {aiTools.map(tool => (
+                        <Link
+                          key={tool.href}
+                          href={tool.href}
+                          onClick={handleMenuClose}
+                          className={`block py-1.5 text-sm font-medium transition-colors ${pathname === tool.href ? 'text-blue-600 font-semibold' : 'text-gray-700 hover:text-blue-600'}`}
+                        >
+                          {tool.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+
                   {/* Image Converters Section */}
                   <div>
                     <div className="flex items-center space-x-2 text-xs font-semibold text-gray-700 uppercase tracking-wide mb-3 pb-2 border-b-2 border-blue-200">

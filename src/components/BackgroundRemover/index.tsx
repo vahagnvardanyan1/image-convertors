@@ -1,6 +1,6 @@
 'use client';
 import { useState, useRef, useEffect } from 'react';
-import { ArrowLeft, FileImage, Download, Zap, Trash2, AlertCircle, Sparkles, Brain, Cpu, Lock, Upload, CheckCircle, Image as ImageIcon, ShoppingBag, User, Palette, ChevronDown } from 'lucide-react';
+import { ArrowLeft, FileImage, Download, Zap, Trash2, AlertCircle, Sparkles, Brain, Cpu, Lock, Upload, Image as ImageIcon, ShoppingBag, User, Palette, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '../ui/button';

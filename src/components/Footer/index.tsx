@@ -14,7 +14,7 @@ export function Footer() {
   return (
     <footer className="bg-gray-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-8">
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-1 pb-6 border-b border-gray-800 sm:border-b-0 sm:pb-0">
             <div className="flex items-center mb-4">
@@ -32,6 +32,21 @@ export function Footer() {
                 cropimage@gmail.com
               </a>
             </div>
+          </div>
+
+          {/* AI Tools */}
+          <div className="border-b border-gray-800 pb-4 sm:border-b-0 sm:pb-0">
+            <button onClick={() => toggleSection('ai')} className="flex items-center justify-between w-full sm:cursor-default sm:pointer-events-none">
+              <h3 className="font-semibold mb-4 sm:mb-4">AI Tools</h3>
+              <ChevronDown className={`sm:hidden transition-transform ${openSection === 'ai' ? 'rotate-180' : ''}`} size={20} />
+            </button>
+            <ul className={`space-y-2 ${openSection === 'ai' ? 'block' : 'hidden sm:block'}`}>
+              <li>
+                <Link href="/remove-background" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  Remove Background
+                </Link>
+              </li>
+            </ul>
           </div>
 
           {/* Image Converters */}
@@ -244,6 +259,11 @@ export function Footer() {
               <li>
                 <Link href="/blog" className="text-gray-400 hover:text-white transition-colors text-sm">
                   Blog Home
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog/remove-background-guide" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  Remove Background Guide
                 </Link>
               </li>
               <li>

@@ -61,6 +61,7 @@ module.exports = {
       await config.transform(config, '/blog/typographic-scale-guide'),
       await config.transform(config, '/blog/emoji-guide'),
       await config.transform(config, '/blog/symbol-guide'),
+      await config.transform(config, '/blog/remove-background-guide'),
 
       // Color tools
       await config.transform(config, '/colors'),

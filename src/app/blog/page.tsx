@@ -1,6 +1,24 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowLeft, Calendar, Clock, ArrowRight, Image as ImageIcon, Smartphone, TrendingDown, FileText, Layers, Droplet, Palette, Blend, ArrowLeftRight, Type, Sparkles, Ruler } from 'lucide-react';
+import {
+  ArrowLeft,
+  Calendar,
+  Clock,
+  ArrowRight,
+  Image as ImageIcon,
+  Smartphone,
+  TrendingDown,
+  FileText,
+  Layers,
+  Droplet,
+  Palette,
+  Blend,
+  ArrowLeftRight,
+  Type,
+  Sparkles,
+  Ruler,
+  Scissors,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/Card';
 import type { Metadata } from 'next';
@@ -212,6 +230,16 @@ const blogPosts: BlogPost[] = [
     readTime: '11 min read',
     category: 'Font Tools',
     icon: Ruler,
+  },
+  {
+    title: 'Free AI Background Remover — Remove Backgrounds Online Instantly',
+    description:
+      'Free AI-powered background remover. Remove backgrounds from images online instantly. No signup, unlimited use. Perfect for products, portraits & e-commerce. Professional results in seconds.',
+    slug: 'remove-background-guide',
+    publishDate: '2025-10-06',
+    readTime: '9 min read',
+    category: 'Image Tools',
+    icon: Scissors,
   },
 ];
 
