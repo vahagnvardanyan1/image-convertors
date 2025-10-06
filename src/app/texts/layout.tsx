@@ -3,16 +3,19 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { Type, Sparkles, Ruler, Home } from 'lucide-react';
+import { Type, Smile, Hash, Home, Sparkles, Ruler } from 'lucide-react';
 
 const navigation = [
-  { name: 'Dashboard', href: '/fonts', icon: Home },
-  { name: 'Preview', href: '/fonts/preview', icon: Type },
-  { name: 'Pairings', href: '/fonts/pairings', icon: Sparkles },
-  { name: 'Scales', href: '/fonts/scales', icon: Ruler },
+  { name: 'Dashboard', href: '/texts', icon: Home },
+  { name: 'Font Generator', href: '/texts/fonts', icon: Type },
+  { name: 'Emojis', href: '/texts/emojis', icon: Smile },
+  { name: 'Symbols', href: '/texts/symbols', icon: Hash },
+  { name: 'Font Preview', href: '/texts/fonts/preview', icon: Type },
+  { name: 'Font Pairings', href: '/texts/fonts/pairings', icon: Sparkles },
+  { name: 'Typographic Scale', href: '/texts/fonts/scales', icon: Ruler },
 ];
 
-export default function FontsLayout({ children }: { children: React.ReactNode }) {
+export default function TextsLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
   return (
@@ -21,8 +24,8 @@ export default function FontsLayout({ children }: { children: React.ReactNode })
         {/* Header */}
         <div className="mb-8">
           <div className="mb-6">
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Free Font Tools & Typography Playground</h1>
-            <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">Preview Google Fonts, discover perfect pairings, and generate typographic scales</p>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Text Tools Hub - Fonts, Emojis & Symbols</h1>
+            <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">Explore typography, emojis, and special characters for your creative projects</p>
           </div>
 
           {/* Responsive Navigation */}

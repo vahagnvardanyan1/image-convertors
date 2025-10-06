@@ -239,7 +239,7 @@ export default function FontPreviewGuidePage() {
                   <h3 className="font-semibold text-gray-900 text-lg mb-2">Open the Font Preview Tool</h3>
                   <p className="text-gray-700 mb-3">
                     Go to{' '}
-                    <Link href="/fonts/preview" className="text-blue-600 hover:text-blue-800 font-medium underline">
+                    <Link href="/texts/fonts/preview" className="text-blue-600 hover:text-blue-800 font-medium underline">
                       ImageConvertors Font Preview
                     </Link>{' '}
                     to access the typography playground.
@@ -303,7 +303,7 @@ export default function FontPreviewGuidePage() {
           </div>
 
           <div className="mt-6 text-center">
-            <Link href="/fonts/preview">
+            <Link href="/texts/fonts/preview">
               <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3">
                 Try Font Preview Now →
               </Button>
@@ -445,7 +445,7 @@ export default function FontPreviewGuidePage() {
               <p className="text-gray-700">
                 <strong>A:</strong> While our preview tool focuses on one font at a time for detailed testing, you can quickly switch between fonts to compare them. For pre-made font combinations,
                 check our{' '}
-                <Link href="/fonts/pairings" className="text-blue-600 hover:text-blue-800 font-medium underline">
+                <Link href="/texts/fonts/pairings" className="text-blue-600 hover:text-blue-800 font-medium underline">
                   Font Pairings tool
                 </Link>
                 .
@@ -466,7 +466,7 @@ export default function FontPreviewGuidePage() {
         <Card className="p-8 text-center bg-gradient-to-r from-blue-600 to-cyan-600 text-white">
           <h2 className="text-3xl font-bold mb-4">Ready to Find Your Perfect Font?</h2>
           <p className="text-xl mb-6 text-blue-100">Preview thousands of Google Fonts with our free online tool. Fast, easy, and no sign-up required!</p>
-          <Link href="/fonts/preview">
+          <Link href="/texts/fonts/preview">
             <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-3 text-lg font-semibold">
               Start Previewing Fonts Now →
             </Button>
@@ -477,13 +477,13 @@ export default function FontPreviewGuidePage() {
         <div className="mt-12">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Related Typography Tools</h2>
           <div className="grid md:grid-cols-3 gap-4">
-            <Link href="/fonts/pairings">
+            <Link href="/texts/fonts/pairings">
               <Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer h-full">
                 <h3 className="font-semibold text-gray-900 mb-2">Font Pairings</h3>
                 <p className="text-gray-600 text-sm">Discover perfect font combinations for headings and body text.</p>
               </Card>
             </Link>
-            <Link href="/fonts/scales">
+            <Link href="/texts/fonts/scales">
               <Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer h-full">
                 <h3 className="font-semibold text-gray-900 mb-2">Typographic Scale</h3>
                 <p className="text-gray-600 text-sm">Generate harmonious font size scales for your design system.</p>

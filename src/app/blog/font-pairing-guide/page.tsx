@@ -294,7 +294,7 @@ export default function FontPairingGuidePage() {
                   <h3 className="font-semibold text-gray-900 text-lg mb-2">Browse Curated Pairings</h3>
                   <p className="text-gray-700 mb-3">
                     Go to{' '}
-                    <Link href="/fonts/pairings" className="text-purple-600 hover:text-purple-800 font-medium underline">
+                    <Link href="/texts/fonts/pairings" className="text-purple-600 hover:text-purple-800 font-medium underline">
                       ImageConvertors Font Pairings
                     </Link>{' '}
                     to explore professionally curated font combinations.
@@ -348,7 +348,7 @@ export default function FontPairingGuidePage() {
           </div>
 
           <div className="mt-6 text-center">
-            <Link href="/fonts/pairings">
+            <Link href="/texts/fonts/pairings">
               <Button size="lg" className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3">
                 Explore Font Pairings Now →
               </Button>
@@ -480,7 +480,7 @@ export default function FontPairingGuidePage() {
         <Card className="p-8 text-center bg-gradient-to-r from-purple-600 to-pink-600 text-white">
           <h2 className="text-3xl font-bold mb-4">Ready to Find Perfect Font Pairings?</h2>
           <p className="text-xl mb-6 text-purple-100">Browse curated Google Font combinations and elevate your typography. Free and easy to use!</p>
-          <Link href="/fonts/pairings">
+          <Link href="/texts/fonts/pairings">
             <Button size="lg" className="bg-white text-purple-600 hover:bg-gray-100 px-8 py-3 text-lg font-semibold">
               Explore Font Pairings Now →
             </Button>
@@ -491,13 +491,13 @@ export default function FontPairingGuidePage() {
         <div className="mt-12">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Related Typography Tools</h2>
           <div className="grid md:grid-cols-3 gap-4">
-            <Link href="/fonts/preview">
+            <Link href="/texts/fonts/preview">
               <Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer h-full">
                 <h3 className="font-semibold text-gray-900 mb-2">Font Preview</h3>
                 <p className="text-gray-600 text-sm">Test Google Fonts with custom text and styling options.</p>
               </Card>
             </Link>
-            <Link href="/fonts/scales">
+            <Link href="/texts/fonts/scales">
               <Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer h-full">
                 <h3 className="font-semibold text-gray-900 mb-2">Typographic Scale</h3>
                 <p className="text-gray-600 text-sm">Generate harmonious font size scales for your design system.</p>

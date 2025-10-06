@@ -71,6 +71,11 @@ export const siteConfig = {
     'Google Fonts',
     'Unicode fonts',
     'Instagram fonts',
+    'emoji picker',
+    'emoji browser',
+    'unicode symbols',
+    'special characters',
+    'text tools',
   ],
   author: {
     name: 'ImageConvertors',
@@ -190,25 +195,41 @@ export const routeMetadata: Record<string, Partial<Metadata>> = {
       'Convert colors between HEX, RGB, RGBA, HSL, HSLA, and HSV formats instantly. Supports color names and all CSS color formats. Perfect for cross-platform development. Free online color format converter.',
     keywords: 'color converter, HEX to RGB, RGB to HSL, HSL to HEX, color format converter, convert colors, CSS colors, color transformation, color code converter',
   },
-  '/fonts': {
+  '/texts/fonts': {
     title: 'Font Tools - Free Typography Playground, Font Pairing & Scale Generator | ImageConvertors',
     description: 'Professional font tools for designers and developers. Preview Google Fonts, discover perfect font pairings, and generate typographic scales. Free online typography utilities.',
     keywords: 'font tools, typography, font preview, font pairing, typographic scale, Google Fonts, font generator, CSS fonts, web typography, design tools, fancy text, unicode fonts',
   },
-  '/fonts/preview': {
+  '/texts/fonts/preview': {
     title: 'Font Preview - Interactive Typography Playground with Google Fonts | ImageConvertors',
     description: 'Test Google Fonts with live preview. Customize font size, weight, spacing, and colors. Generate CSS code instantly. Free online font preview tool.',
     keywords: 'font preview, Google Fonts, typography playground, font tester, CSS fonts, web fonts, font customizer, font size, font weight, free online fonts',
   },
-  '/fonts/pairings': {
+  '/texts/fonts/pairings': {
     title: 'Font Pairings - Discover Perfect Typography Combinations | ImageConvertors',
     description: 'Browse curated font pairings for web design. Find complementary Google Font combinations with use case recommendations. Copy CSS instantly. Free font pairing tool.',
     keywords: 'font pairing, font combinations, typography pairing, Google Font pairs, complementary fonts, font matching, web typography, design fonts',
   },
-  '/fonts/scales': {
+  '/texts/fonts/scales': {
     title: 'Typographic Scale Generator - Create Harmonious Font Size Systems | ImageConvertors',
     description: 'Generate typographic scales using musical ratios. Create consistent font size hierarchies for your design system. Export CSS custom properties. Free type scale tool.',
     keywords: 'typographic scale, font scale, type scale, modular scale, font size system, design system, CSS variables, typography ratio, type hierarchy',
+  },
+  '/texts/emojis': {
+    title: 'Emoji Picker - Browse & Copy Emojis with Device Preview | ImageConvertors',
+    description:
+      'Browse thousands of emojis with device-specific rendering. Filter by category and see how emojis appear on Apple, Google, Microsoft, and Samsung devices. Copy to clipboard instantly.',
+    keywords: 'emoji picker, emoji browser, copy emoji, device emoji, Apple emoji, Google emoji, Microsoft emoji, Samsung emoji, emoji categories, unicode emoji, emoji library, free emoji picker',
+  },
+  '/texts/symbols': {
+    title: 'Symbol Library - Unicode Symbols & Special Characters | ImageConvertors',
+    description: 'Explore and copy special Unicode symbols and characters. Browse mathematical symbols, arrows, currency signs, shapes, and more for your projects.',
+    keywords: 'unicode symbols, special characters, mathematical symbols, arrows, currency symbols, shapes, copy symbols, unicode library, special characters library, symbols picker',
+  },
+  '/texts': {
+    title: 'Text Tools - Emoji Picker, Symbols & Font Utilities | ImageConvertors',
+    description: 'Free online text tools including emoji picker, Unicode symbols library, font preview, and typography utilities. Perfect for designers and developers.',
+    keywords: 'text tools, emoji picker, symbols library, font tools, typography, unicode, special characters, design tools, web design',
   },
 };
 
@@ -411,7 +432,7 @@ export const generateStructuredData = (pathname: string) => {
         name: 'Font Preview',
         target: {
           '@type': 'EntryPoint',
-          urlTemplate: `${siteConfig.url}/fonts/preview`,
+          urlTemplate: `${siteConfig.url}/texts/fonts/preview`,
         },
       },
       {
@@ -419,7 +440,7 @@ export const generateStructuredData = (pathname: string) => {
         name: 'Font Pairings',
         target: {
           '@type': 'EntryPoint',
-          urlTemplate: `${siteConfig.url}/fonts/pairings`,
+          urlTemplate: `${siteConfig.url}/texts/fonts/pairings`,
         },
       },
       {
@@ -427,7 +448,24 @@ export const generateStructuredData = (pathname: string) => {
         name: 'Typographic Scale Generator',
         target: {
           '@type': 'EntryPoint',
-          urlTemplate: `${siteConfig.url}/fonts/scales`,
+          urlTemplate: `${siteConfig.url}/texts/fonts/scales`,
+        },
+      },
+      // Text Tools
+      {
+        '@type': 'ViewAction',
+        name: 'Emoji Picker',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `${siteConfig.url}/texts/emojis`,
+        },
+      },
+      {
+        '@type': 'ViewAction',
+        name: 'Symbol Library',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `${siteConfig.url}/texts/symbols`,
         },
       },
       // PDF Tools
@@ -757,17 +795,65 @@ export const generateStructuredData = (pathname: string) => {
     return conversionSchemas;
   }
 
-  // Handle font tools pages
-  if (pathname.startsWith('/fonts')) {
-    const fontSchemas = [...baseStructuredData];
+  // Handle text tools pages
+  if (pathname.startsWith('/texts')) {
+    const textSchemas = [...baseStructuredData];
 
-    if (pathname === '/fonts') {
+    if (pathname === '/texts') {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (fontSchemas[2] as any).name = 'Font Tools - Typography Utilities';
+      (textSchemas[2] as any).name = 'Text Tools - Emoji, Symbols & Fonts';
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (fontSchemas[2] as any).description = 'Professional font tools including preview, pairing suggestions, and typographic scale generators.';
+      (textSchemas[2] as any).description = 'Free online text tools including emoji picker, Unicode symbols library, font preview, and typography utilities.';
 
-      (fontSchemas[3] as WebApplicationSchema).featureList = [
+      (textSchemas[3] as WebApplicationSchema).featureList = [
+        'Browse and copy emojis',
+        'Unicode symbols library',
+        'Google Fonts preview',
+        'Font pairing suggestions',
+        'Typographic scale generation',
+        'Special characters collection',
+      ];
+    } else if (pathname === '/texts/emojis') {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (textSchemas[2] as any).name = 'Emoji Picker - Browse & Copy Emojis';
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (textSchemas[2] as any).description = 'Browse thousands of emojis with device-specific rendering. Filter by category and copy to clipboard instantly.';
+
+      (textSchemas[3] as WebApplicationSchema).name = 'Emoji Picker';
+      (textSchemas[3] as WebApplicationSchema).description = 'Browse and copy emojis with device-specific rendering preview.';
+      (textSchemas[3] as WebApplicationSchema).featureList = [
+        'Browse thousands of emojis',
+        'Category-based filtering',
+        'Search by name or keyword',
+        'Device-specific rendering preview',
+        'One-click copy to clipboard',
+        'Native and platform emojis (Apple, Google, Microsoft, Samsung)',
+      ];
+    } else if (pathname === '/texts/symbols') {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (textSchemas[2] as any).name = 'Symbol Library - Unicode Symbols';
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (textSchemas[2] as any).description = 'Explore and copy special Unicode symbols and characters including mathematical symbols, arrows, currency signs, and shapes.';
+
+      (textSchemas[3] as WebApplicationSchema).name = 'Symbol Library';
+      (textSchemas[3] as WebApplicationSchema).description = 'Browse and copy Unicode symbols and special characters.';
+      (textSchemas[3] as WebApplicationSchema).featureList = [
+        'Mathematical symbols',
+        'Arrow symbols',
+        'Currency symbols',
+        'Geometric shapes',
+        'Punctuation marks',
+        'Miscellaneous symbols',
+        'Search and filter symbols',
+        'One-click copy with Unicode reference',
+      ];
+    } else if (pathname === '/texts/fonts') {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (textSchemas[2] as any).name = 'Font Tools - Typography Utilities';
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (textSchemas[2] as any).description = 'Professional font tools including preview, pairing suggestions, and typographic scale generators.';
+
+      (textSchemas[3] as WebApplicationSchema).featureList = [
         'Google Fonts preview with live customization',
         'Curated font pairing suggestions',
         'Typographic scale generation',
@@ -775,10 +861,10 @@ export const generateStructuredData = (pathname: string) => {
         'Font weight and size testing',
         'Typography hierarchy tools',
       ];
-    } else if (pathname === '/fonts/preview') {
-      (fontSchemas[3] as WebApplicationSchema).name = 'Font Preview Tool';
-      (fontSchemas[3] as WebApplicationSchema).description = 'Interactive Google Fonts preview with customization options.';
-      (fontSchemas[3] as WebApplicationSchema).featureList = [
+    } else if (pathname === '/texts/fonts/preview') {
+      (textSchemas[3] as WebApplicationSchema).name = 'Font Preview Tool';
+      (textSchemas[3] as WebApplicationSchema).description = 'Interactive Google Fonts preview with customization options.';
+      (textSchemas[3] as WebApplicationSchema).featureList = [
         'Live Google Fonts preview',
         'Font size and weight adjustment',
         'Line height and letter spacing controls',
@@ -786,10 +872,10 @@ export const generateStructuredData = (pathname: string) => {
         'CSS code generation',
         'Font import code export',
       ];
-    } else if (pathname === '/fonts/pairings') {
-      (fontSchemas[3] as WebApplicationSchema).name = 'Font Pairing Explorer';
-      (fontSchemas[3] as WebApplicationSchema).description = 'Discover perfect font combinations with curated pairings.';
-      (fontSchemas[3] as WebApplicationSchema).featureList = [
+    } else if (pathname === '/texts/fonts/pairings') {
+      (textSchemas[3] as WebApplicationSchema).name = 'Font Pairing Explorer';
+      (textSchemas[3] as WebApplicationSchema).description = 'Discover perfect font combinations with curated pairings.';
+      (textSchemas[3] as WebApplicationSchema).featureList = [
         'Curated font pairing recommendations',
         'Category-based filtering',
         'Use case suggestions',
@@ -797,10 +883,10 @@ export const generateStructuredData = (pathname: string) => {
         'CSS code generation',
         'Popular pairing highlights',
       ];
-    } else if (pathname === '/fonts/scales') {
-      (fontSchemas[3] as WebApplicationSchema).name = 'Typographic Scale Generator';
-      (fontSchemas[3] as WebApplicationSchema).description = 'Generate harmonious font size systems using musical ratios.';
-      (fontSchemas[3] as WebApplicationSchema).featureList = [
+    } else if (pathname === '/texts/fonts/scales') {
+      (textSchemas[3] as WebApplicationSchema).name = 'Typographic Scale Generator';
+      (textSchemas[3] as WebApplicationSchema).description = 'Generate harmonious font size systems using musical ratios.';
+      (textSchemas[3] as WebApplicationSchema).featureList = [
         'Musical ratio-based scales',
         'Customizable base size',
         'Visual scale preview',
@@ -810,13 +896,19 @@ export const generateStructuredData = (pathname: string) => {
       ];
     }
 
-    // Add CreativeWork schema for font tools
+    // Add CreativeWork schema for text tools
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (fontSchemas as any[]).push({
+    (textSchemas as any[]).push({
       '@context': 'https://schema.org',
       '@type': 'CreativeWork',
-      name: 'Typography Tools Collection',
-      description: 'Comprehensive typography tools for web designers and developers, including font preview, pairing suggestions, and typographic scale generators.',
+      name: pathname.includes('/fonts') ? 'Typography Tools Collection' : pathname.includes('/emojis') ? 'Emoji Collection' : pathname.includes('/symbols') ? 'Symbol Collection' : 'Text Tools Collection',
+      description: pathname.includes('/fonts')
+        ? 'Comprehensive typography tools for web designers and developers, including font preview, pairing suggestions, and typographic scale generators.'
+        : pathname.includes('/emojis')
+          ? 'Comprehensive emoji library with device-specific rendering and easy copy functionality.'
+          : pathname.includes('/symbols')
+            ? 'Complete Unicode symbols library with special characters for various use cases.'
+            : 'Complete text tools collection including emojis, symbols, and font utilities.',
       url: currentUrl,
       creator: organizationSchema,
       audience: {
@@ -825,7 +917,7 @@ export const generateStructuredData = (pathname: string) => {
       },
     });
 
-    return fontSchemas;
+    return textSchemas;
   }
 
   // Handle color tools pages

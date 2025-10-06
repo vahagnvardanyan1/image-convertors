@@ -37,10 +37,10 @@ export function DynamicMetadata({ title: customTitle, description, keywords }: D
       '/colors/palettes': 'Color Palette Generator - Create & Save Custom Color Schemes | ImageConvertors',
       '/colors/gradients': 'Gradient Generator - Create CSS & Tailwind Gradients Online | ImageConvertors',
       '/colors/converter': 'Color Converter - Convert Between HEX, RGB, HSL & Color Formats | ImageConvertors',
-      '/fonts': 'Font Tools - Free Typography Playground, Font Pairing & Scale Generator | ImageConvertors',
-      '/fonts/preview': 'Font Preview - Interactive Typography Playground with Google Fonts | ImageConvertors',
-      '/fonts/pairings': 'Font Pairings - Discover Perfect Typography Combinations | ImageConvertors',
-      '/fonts/scales': 'Typographic Scale Generator - Create Harmonious Font Size Systems | ImageConvertors',
+      '/texts/fonts': 'Font Tools - Free Typography Playground, Font Pairing & Scale Generator | ImageConvertors',
+      '/texts/fonts/preview': 'Font Preview - Interactive Typography Playground with Google Fonts | ImageConvertors',
+      '/texts/fonts/pairings': 'Font Pairings - Discover Perfect Typography Combinations | ImageConvertors',
+      '/texts/fonts/scales': 'Typographic Scale Generator - Create Harmonious Font Size Systems | ImageConvertors',
     };
 
     const title = customTitle || routeTitles[pathname] || routeTitles['/'];

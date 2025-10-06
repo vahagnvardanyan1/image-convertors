@@ -6,14 +6,14 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Font Tools - Free Typography Playground, Font Pairing & Scale Generator | ImageConvertors',
   description: 'Professional font tools for designers and developers. Preview Google Fonts, discover perfect font pairings, and generate typographic scales. Free online typography utilities.',
-  keywords: 'font tools, typography, font preview, font pairing, typographic scale, Google Fonts, font generator, CSS fonts, web typography, design tools, fancy text, unicode fonts',
+  keywords: 'font tools, typography, font preview, font pairing, typographic scale, Google Fonts, font generator, CSS fonts, web typography, design tools',
   alternates: {
-    canonical: 'https://imageconvertors.com/fonts',
+    canonical: 'https://imageconvertors.com/texts/font-tools',
   },
   openGraph: {
     title: 'Font Tools - Free Typography Playground, Font Pairing & Scale Generator | ImageConvertors',
     description: 'Professional font tools for designers and developers. Preview Google Fonts, discover perfect font pairings, and generate typographic scales.',
-    url: 'https://imageconvertors.com/fonts',
+    url: 'https://imageconvertors.com/texts/font-tools',
     siteName: 'ImageConvertors',
     type: 'website',
     images: ['/font-generator.webp'],
@@ -30,27 +30,27 @@ const features = [
   {
     name: 'Font Preview',
     description: 'Interactive font playground with live preview. Test Google Fonts with custom text, sizes, weights, and styling options.',
-    href: '/fonts/preview',
+    href: '/texts/fonts/preview',
     icon: Type,
     color: 'from-blue-500 to-cyan-500',
   },
   {
     name: 'Font Pairings',
     description: 'Discover perfect font combinations for your projects. Browse curated pairings with use case recommendations.',
-    href: '/fonts/pairings',
+    href: '/texts/fonts/pairings',
     icon: Sparkles,
     color: 'from-purple-500 to-pink-500',
   },
   {
     name: 'Typographic Scale',
     description: 'Generate harmonious font size scales using musical ratios. Export CSS custom properties for your design system.',
-    href: '/fonts/scales',
+    href: '/texts/fonts/scales',
     icon: Ruler,
     color: 'from-orange-500 to-red-500',
   },
 ];
 
-export default function FontsPage() {
+export default function FontToolsPage() {
   return (
     <div>
       <div className="mb-8">

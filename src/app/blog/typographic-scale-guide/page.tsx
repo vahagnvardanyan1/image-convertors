@@ -257,7 +257,7 @@ export default function TypographicScaleGuidePage() {
                   <h3 className="font-semibold text-gray-900 text-lg mb-2">Open the Scale Generator</h3>
                   <p className="text-gray-700 mb-3">
                     Go to{' '}
-                    <Link href="/fonts/scales" className="text-orange-600 hover:text-orange-800 font-medium underline">
+                    <Link href="/texts/fonts/scales" className="text-orange-600 hover:text-orange-800 font-medium underline">
                       ImageConvertors Typographic Scale
                     </Link>{' '}
                     to access the generator tool.
@@ -321,7 +321,7 @@ export default function TypographicScaleGuidePage() {
           </div>
 
           <div className="mt-6 text-center">
-            <Link href="/fonts/scales">
+            <Link href="/texts/fonts/scales">
               <Button size="lg" className="bg-orange-600 hover:bg-orange-700 text-white px-8 py-3">
                 Generate Your Scale Now →
               </Button>
@@ -473,7 +473,7 @@ h3 {
         <Card className="p-8 text-center bg-gradient-to-r from-orange-600 to-red-600 text-white">
           <h2 className="text-3xl font-bold mb-4">Ready to Create Your Typographic Scale?</h2>
           <p className="text-xl mb-6 text-orange-100">Generate harmonious font size scales with mathematical precision. Free and easy to use!</p>
-          <Link href="/fonts/scales">
+          <Link href="/texts/fonts/scales">
             <Button size="lg" className="bg-white text-orange-600 hover:bg-gray-100 px-8 py-3 text-lg font-semibold">
               Generate Scale Now →
             </Button>
@@ -484,13 +484,13 @@ h3 {
         <div className="mt-12">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Related Typography Tools</h2>
           <div className="grid md:grid-cols-3 gap-4">
-            <Link href="/fonts/preview">
+            <Link href="/texts/fonts/preview">
               <Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer h-full">
                 <h3 className="font-semibold text-gray-900 mb-2">Font Preview</h3>
                 <p className="text-gray-600 text-sm">Test your scale with different Google Fonts and styling options.</p>
               </Card>
             </Link>
-            <Link href="/fonts/pairings">
+            <Link href="/texts/fonts/pairings">
               <Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer h-full">
                 <h3 className="font-semibold text-gray-900 mb-2">Font Pairings</h3>
                 <p className="text-gray-600 text-sm">Find perfect font combinations to use with your scale.</p>

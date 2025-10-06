@@ -12,7 +12,7 @@ export function Header() {
   const [isImageDropdownOpen, setIsImageDropdownOpen] = useState(false);
   const [isPDFDropdownOpen, setIsPDFDropdownOpen] = useState(false);
   const [isColorDropdownOpen, setIsColorDropdownOpen] = useState(false);
-  const [isFontDropdownOpen, setIsFontDropdownOpen] = useState(false);
+  const [isTextDropdownOpen, setIsTextDropdownOpen] = useState(false);
   const [isBlogDropdownOpen, setIsBlogDropdownOpen] = useState(false);
 
   // Close dropdowns when clicking outside
@@ -23,7 +23,7 @@ export function Header() {
         setIsImageDropdownOpen(false);
         setIsPDFDropdownOpen(false);
         setIsColorDropdownOpen(false);
-        setIsFontDropdownOpen(false);
+        setIsTextDropdownOpen(false);
         setIsBlogDropdownOpen(false);
       }
     };
@@ -39,7 +39,7 @@ export function Header() {
     setIsImageDropdownOpen(false);
     setIsPDFDropdownOpen(false);
     setIsColorDropdownOpen(false);
-    setIsFontDropdownOpen(false);
+    setIsTextDropdownOpen(false);
     setIsBlogDropdownOpen(false);
   };
 
@@ -86,10 +86,15 @@ export function Header() {
     { name: 'Color Converter', href: '/colors/converter', popular: false },
   ];
 
+  const textTools = [
+    { name: 'Emojis', href: '/texts/emojis', popular: true },
+    { name: 'Symbols', href: '/texts/symbols', popular: true },
+  ];
+
   const fontTools = [
-    { name: 'Font Preview', href: '/fonts/preview', popular: true },
-    { name: 'Font Pairings', href: '/fonts/pairings', popular: true },
-    { name: 'Typographic Scale', href: '/fonts/scales', popular: true },
+    { name: 'Font Preview', href: '/texts/fonts/preview', popular: true },
+    { name: 'Font Pairings', href: '/texts/fonts/pairings', popular: true },
+    { name: 'Typographic Scale', href: '/texts/fonts/scales', popular: true },
   ];
 
   const blogGuides = [
@@ -251,29 +256,40 @@ export function Header() {
               )}
             </div>
 
-            {/* Font Tools Dropdown */}
-            <div className="relative group dropdown-container" onMouseEnter={() => setIsFontDropdownOpen(true)} onMouseLeave={() => setIsFontDropdownOpen(false)}>
-              <button className="flex items-center space-x-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors py-2" onClick={() => setIsFontDropdownOpen(!isFontDropdownOpen)}>
+            {/* Text Tools Dropdown */}
+            <div className="relative group dropdown-container" onMouseEnter={() => setIsTextDropdownOpen(true)} onMouseLeave={() => setIsTextDropdownOpen(false)}>
+              <button className="flex items-center space-x-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors py-2" onClick={() => setIsTextDropdownOpen(!isTextDropdownOpen)}>
                 <Type size={16} />
-                <span>Font Tools</span>
-                <ChevronDown size={16} className={`transition-transform ${isFontDropdownOpen ? 'rotate-180' : ''}`} />
+                <span>Text Tools</span>
+                <ChevronDown size={16} className={`transition-transform ${isTextDropdownOpen ? 'rotate-180' : ''}`} />
               </button>
 
-              {isFontDropdownOpen && (
+              {isTextDropdownOpen && (
                 <div className="absolute top-full left-0 w-64 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
                   <Link
-                    href="/fonts"
-                    onClick={() => setIsFontDropdownOpen(false)}
+                    href="/texts"
+                    onClick={() => setIsTextDropdownOpen(false)}
                     className="block px-4 py-3 text-sm font-bold text-blue-600 hover:text-blue-700 hover:bg-blue-50 border-b-2 border-blue-100 bg-gradient-to-r from-blue-50 to-purple-50"
                   >
-                    ✨ View All Font Tools
+                    ✨ View All Text Tools
                   </Link>
-                  <div className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide border-b border-gray-100">Typography Tools</div>
+                  <div className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide border-b border-gray-100">Text Tools</div>
+                  {textTools.map(tool => (
+                    <Link
+                      key={tool.href}
+                      href={tool.href}
+                      onClick={() => setIsTextDropdownOpen(false)}
+                      className={`block px-4 py-2 text-sm transition-colors ${pathname === tool.href ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'}`}
+                    >
+                      {tool.name}
+                    </Link>
+                  ))}
+                  <div className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide border-t border-b border-gray-100 mt-2">Font Tools</div>
                   {fontTools.map(tool => (
                     <Link
                       key={tool.href}
                       href={tool.href}
-                      onClick={() => setIsFontDropdownOpen(false)}
+                      onClick={() => setIsTextDropdownOpen(false)}
                       className={`block px-4 py-2 text-sm transition-colors ${pathname === tool.href ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'}`}
                     >
                       {tool.name}
@@ -424,16 +440,16 @@ export function Header() {
                     </div>
                   </div>
 
-                  {/* Font Tools Section */}
+                  {/* Text Tools Section */}
                   <div>
                     <div className="flex items-center space-x-2 text-xs font-semibold text-gray-700 uppercase tracking-wide mb-3 pb-2 border-b-2 border-orange-200">
-                      <span>✍️ Font Tools</span>
+                      <span>✍️ Text Tools</span>
                     </div>
                     <div className="space-y-2">
-                      <Link href="/fonts" onClick={handleMenuClose} className="block py-1.5 text-sm font-bold text-blue-600 hover:text-blue-700">
-                        ✨ All Font Tools
+                      <Link href="/texts" onClick={handleMenuClose} className="block py-1.5 text-sm font-bold text-blue-600 hover:text-blue-700">
+                        ✨ All Text Tools
                       </Link>
-                      {fontTools.map(tool => (
+                      {textTools.map(tool => (
                         <Link
                           key={tool.href}
                           href={tool.href}
@@ -443,6 +459,19 @@ export function Header() {
                           {tool.name}
                         </Link>
                       ))}
+                      <div className="mt-3 pt-2 border-t border-gray-200">
+                        <div className="text-xs font-semibold text-gray-500 mb-2">Font Tools</div>
+                        {fontTools.map(tool => (
+                          <Link
+                            key={tool.href}
+                            href={tool.href}
+                            onClick={handleMenuClose}
+                            className={`block py-1.5 text-sm font-medium transition-colors ${pathname === tool.href ? 'text-blue-600 font-semibold' : 'text-gray-700 hover:text-blue-600'}`}
+                          >
+                            {tool.name}
+                          </Link>
+                        ))}
+                      </div>
                     </div>
                   </div>
 

@@ -178,7 +178,7 @@ const converters = [
   {
     from: 'Font',
     to: 'Preview',
-    route: '/fonts/preview',
+    route: '/texts/fonts/preview',
     icon: Type,
     description: 'Test Google Fonts with live preview and customization options',
     popular: true,
@@ -187,7 +187,7 @@ const converters = [
   {
     from: 'Font',
     to: 'Pairings',
-    route: '/fonts/pairings',
+    route: '/texts/fonts/pairings',
     icon: Sparkles,
     description: 'Discover perfect font combinations with curated pairings',
     popular: true,
@@ -196,7 +196,7 @@ const converters = [
   {
     from: 'Typographic',
     to: 'Scale',
-    route: '/fonts/scales',
+    route: '/texts/fonts/scales',
     icon: Ruler,
     description: 'Generate harmonious font size systems using musical ratios',
     popular: true,
@@ -320,7 +320,7 @@ export function FormatGrid() {
               </h3>
               <p className="text-gray-600 mb-4">Master typography with our font preview, pairing, and scale generators.</p>
               <Link
-                href="/fonts"
+                href="/texts/fonts"
                 className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-orange-600 to-red-600 text-white rounded-lg font-medium hover:shadow-lg transition-all duration-200"
               >
                 View All Font Tools

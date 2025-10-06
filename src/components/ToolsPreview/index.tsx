@@ -35,7 +35,7 @@ const ToolsPreview = () => {
 
           {/* Font Tools Card */}
           <Link
-            href="/fonts"
+            href="texts/fonts"
             className="group block p-6 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-gray-800 dark:to-gray-700 rounded-xl border-2 border-purple-200 dark:border-gray-600 hover:border-purple-400 dark:hover:border-purple-500 transition-all duration-300 hover:shadow-xl hover:scale-105"
           >
             <div className="flex items-start gap-4">

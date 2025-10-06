@@ -59,6 +59,8 @@ module.exports = {
       await config.transform(config, '/blog/font-preview-guide'),
       await config.transform(config, '/blog/font-pairing-guide'),
       await config.transform(config, '/blog/typographic-scale-guide'),
+      await config.transform(config, '/blog/emoji-guide'),
+      await config.transform(config, '/blog/symbol-guide'),
 
       // Color tools
       await config.transform(config, '/colors'),
@@ -68,10 +70,15 @@ module.exports = {
       await config.transform(config, '/colors/converter'),
 
       // Font tools
-      await config.transform(config, '/fonts'),
-      await config.transform(config, '/fonts/preview'),
-      await config.transform(config, '/fonts/pairings'),
-      await config.transform(config, '/fonts/scales'),
+      await config.transform(config, '/texts/fonts'),
+      await config.transform(config, '/texts/fonts/preview'),
+      await config.transform(config, '/texts/fonts/pairings'),
+      await config.transform(config, '/texts/fonts/scales'),
+
+      // Text tools
+      await config.transform(config, '/texts'),
+      await config.transform(config, '/texts/emojis'),
+      await config.transform(config, '/texts/symbols'),
     ];
   },
   // Optimize for SEO

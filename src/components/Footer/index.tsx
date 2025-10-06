@@ -194,31 +194,41 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Font Tools */}
+          {/* Text Tools */}
           <div className="border-b border-gray-800 pb-4 sm:border-b-0 sm:pb-0">
-            <button onClick={() => toggleSection('font')} className="flex items-center justify-between w-full sm:cursor-default sm:pointer-events-none">
-              <h3 className="font-semibold mb-4 sm:mb-4">Font Tools</h3>
-              <ChevronDown className={`sm:hidden transition-transform ${openSection === 'font' ? 'rotate-180' : ''}`} size={20} />
+            <button onClick={() => toggleSection('text')} className="flex items-center justify-between w-full sm:cursor-default sm:pointer-events-none">
+              <h3 className="font-semibold mb-4 sm:mb-4">Text Tools</h3>
+              <ChevronDown className={`sm:hidden transition-transform ${openSection === 'text' ? 'rotate-180' : ''}`} size={20} />
             </button>
-            <ul className={`space-y-2 ${openSection === 'font' ? 'block' : 'hidden sm:block'}`}>
+            <ul className={`space-y-2 ${openSection === 'text' ? 'block' : 'hidden sm:block'}`}>
               <li>
-                <Link href="/fonts" className="text-gray-400 hover:text-white transition-colors text-sm font-medium">
-                  ✨ All Font Tools
+                <Link href="/texts" className="text-gray-400 hover:text-white transition-colors text-sm font-medium">
+                  📝 All Text Tools
                 </Link>
               </li>
               <li>
-                <Link href="/fonts/preview" className="text-gray-400 hover:text-white transition-colors text-sm">
+                <Link href="/texts/fonts/preview" className="text-gray-400 hover:text-white transition-colors text-sm">
                   Font Preview
                 </Link>
               </li>
               <li>
-                <Link href="/fonts/pairings" className="text-gray-400 hover:text-white transition-colors text-sm">
+                <Link href="/texts/fonts/pairings" className="text-gray-400 hover:text-white transition-colors text-sm">
                   Font Pairings
                 </Link>
               </li>
               <li>
-                <Link href="/fonts/scales" className="text-gray-400 hover:text-white transition-colors text-sm">
+                <Link href="/texts/fonts/scales" className="text-gray-400 hover:text-white transition-colors text-sm">
                   Typographic Scale
+                </Link>
+              </li>
+              <li>
+                <Link href="/texts/emojis" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  Emoji Picker
+                </Link>
+              </li>
+              <li>
+                <Link href="/texts/symbols" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  Symbol Library
                 </Link>
               </li>
             </ul>
