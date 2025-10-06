@@ -7,9 +7,50 @@ import { copyToClipboard } from '@/lib/colorUtils';
 import { Search, Copy, Check } from 'lucide-react';
 
 const metadata = {
-  title: 'Symbol Library - Unicode Symbols & Special Characters | ImageConvertors',
-  description: 'Explore and copy special Unicode symbols and characters. Browse mathematical symbols, arrows, currency signs, shapes, and more for your projects.',
-  keywords: 'unicode symbols, special characters, mathematical symbols, arrows, currency symbols, shapes, copy symbols, unicode library',
+  title: 'Symbol Library - 300+ Unicode Symbols & Special Characters | ImageConvertors',
+  description:
+    'Explore and copy over 300 special Unicode symbols and characters instantly. Browse mathematical symbols, arrows, currency signs, punctuation marks, geometric shapes, Greek letters, technical symbols, and more. One-click copy to clipboard for easy use in documents, websites, and projects.',
+  keywords: [
+    'unicode symbols',
+    'special characters',
+    'copy symbols',
+    'symbol library',
+    'unicode characters',
+    'symbol picker',
+    'mathematical symbols',
+    'math symbols',
+    'arrows symbols',
+    'arrow characters',
+    'currency symbols',
+    'currency signs',
+    'dollar sign',
+    'euro sign',
+    'pound sign',
+    'yen sign',
+    'punctuation marks',
+    'special punctuation',
+    'geometric shapes',
+    'shape symbols',
+    'circle symbols',
+    'square symbols',
+    'triangle symbols',
+    'star symbols',
+    'Greek letters',
+    'Greek alphabet',
+    'alpha beta gamma',
+    'technical symbols',
+    'keyboard symbols',
+    'copyright symbol',
+    'trademark symbol',
+    'degree symbol',
+    'infinity symbol',
+    'checkmark symbol',
+    'bullet points',
+    'symbol copy paste',
+    'unicode copy paste',
+    'special characters for documents',
+    'symbols for website',
+  ],
 };
 
 export default function SymbolsPage() {
@@ -35,7 +76,7 @@ export default function SymbolsPage() {
       </div>
 
       {/* Search and Filters */}
-      <div className="mb-6 space-y-4">
+      <div className="sticky top-16 z-10 bg-gray-50 dark:bg-gray-800 pb-4 mb-6 space-y-4 -mx-4 px-4 pt-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 shadow-md">
         {/* Search Bar */}
         <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
@@ -84,9 +125,7 @@ export default function SymbolsPage() {
               title={`${item.name} - Click to copy`}
             >
               {/* Symbol Display */}
-              <div className="text-5xl text-center mb-3 text-gray-800 dark:text-gray-100 font-mono">
-                {item.symbol}
-              </div>
+              <div className="text-5xl text-center mb-3 text-gray-800 dark:text-gray-100 font-mono">{item.symbol}</div>
 
               {/* Symbol Info */}
               <div className="text-center">

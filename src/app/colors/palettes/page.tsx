@@ -12,7 +12,24 @@ const metadata = {
   title: 'Color Palette Generator - Create & Save Custom Color Schemes',
   description:
     'Generate beautiful color palettes with complementary, analogous, and monochromatic schemes. Save your favorite palettes locally. Browse predefined palettes or create custom color combinations. Free palette generator.',
-  keywords: 'color palette, palette generator, color schemes, complementary colors, analogous colors, monochromatic palette, color combinations, design palette, color harmony',
+  keywords: [
+    'color palette',
+    'palette generator',
+    'color schemes',
+    'complementary colors',
+    'analogous colors',
+    'monochromatic palette',
+    'color combinations',
+    'design palette',
+    'color harmony',
+    'color scheme generator',
+    'custom palette',
+    'save color palette',
+    'triadic colors',
+    'split complementary',
+    'color wheel',
+    'palette creator',
+  ],
 };
 
 const predefinedPalettes = [

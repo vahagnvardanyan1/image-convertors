@@ -11,7 +11,24 @@ const metadata = {
   title: 'Gradient Generator - Create CSS & Tailwind Gradients Online',
   description:
     'Generate stunning gradients between colors with instant CSS and Tailwind code. Customize direction, steps, and colors. Preview gradients in real-time. Copy code directly to your project. Free gradient generator.',
-  keywords: 'gradient generator, CSS gradient, Tailwind gradient, linear gradient, color gradient, gradient maker, web gradient, gradient tool, gradient CSS code',
+  keywords: [
+    'gradient generator',
+    'CSS gradient',
+    'Tailwind gradient',
+    'linear gradient',
+    'color gradient',
+    'gradient maker',
+    'web gradient',
+    'gradient tool',
+    'gradient CSS code',
+    'gradient creator',
+    'background gradient',
+    'gradient background',
+    'CSS gradient generator',
+    'Tailwind CSS gradient',
+    'gradient code',
+    'online gradient tool',
+  ],
 };
 
 type GradientDirection = 'to right' | 'to left' | 'to bottom' | 'to top' | 'to bottom right' | 'to bottom left';

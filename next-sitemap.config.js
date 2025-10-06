@@ -70,13 +70,11 @@ module.exports = {
       await config.transform(config, '/colors/converter'),
 
       // Font tools
+      await config.transform(config, '/texts'),
       await config.transform(config, '/texts/fonts'),
       await config.transform(config, '/texts/fonts/preview'),
       await config.transform(config, '/texts/fonts/pairings'),
       await config.transform(config, '/texts/fonts/scales'),
-
-      // Text tools
-      await config.transform(config, '/texts'),
       await config.transform(config, '/texts/emojis'),
       await config.transform(config, '/texts/symbols'),
     ];

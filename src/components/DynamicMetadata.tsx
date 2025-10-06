@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 interface DynamicMetadataProps {
   title?: string;
   description?: string;
-  keywords?: string;
+  keywords?: string | string[];
 }
 
 export function DynamicMetadata({ title: customTitle, description, keywords }: DynamicMetadataProps = {}) {
@@ -67,7 +67,7 @@ export function DynamicMetadata({ title: customTitle, description, keywords }: D
         metaKeywords.name = 'keywords';
         document.head.appendChild(metaKeywords);
       }
-      metaKeywords.content = keywords;
+      metaKeywords.content = Array.isArray(keywords) ? keywords.join(', ') : keywords;
     }
   }, [pathname, customTitle, description, keywords]);
 

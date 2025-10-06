@@ -302,6 +302,21 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/blog/color-palette-guide" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  Color Palette Guide
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog/gradient-generator-guide" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  Gradient Generator Guide
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog/color-converter-guide" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  Color Converter Guide
+                </Link>
+              </li>
+              <li>
                 <Link href="/blog/font-preview-guide" className="text-gray-400 hover:text-white transition-colors text-sm">
                   Font Preview Guide
                 </Link>
@@ -314,6 +329,16 @@ export function Footer() {
               <li>
                 <Link href="/blog/typographic-scale-guide" className="text-gray-400 hover:text-white transition-colors text-sm">
                   Typographic Scale Guide
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog/emoji-guide" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  Emoji Guide
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog/symbol-guide" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  Symbol Guide
                 </Link>
               </li>
             </ul>

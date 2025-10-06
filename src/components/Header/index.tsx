@@ -115,6 +115,8 @@ export function Header() {
     { name: 'Font Preview Guide', href: '/blog/font-preview-guide', popular: false },
     { name: 'Font Pairing Guide', href: '/blog/font-pairing-guide', popular: false },
     { name: 'Typographic Scale Guide', href: '/blog/typographic-scale-guide', popular: false },
+    { name: 'Emoji Guide', href: '/blog/emoji-guide', popular: false },
+    { name: 'Symbol Guide', href: '/blog/symbol-guide', popular: false },
   ];
 
   return (

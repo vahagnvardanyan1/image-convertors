@@ -10,7 +10,24 @@ const metadata = {
   title: 'Color Converter - Convert Between HEX, RGB, HSL & Color Formats',
   description:
     'Convert colors between HEX, RGB, RGBA, HSL, HSLA, and HSV formats instantly. Supports color names and all CSS color formats. Perfect for cross-platform development. Free online color format converter.',
-  keywords: 'color converter, HEX to RGB, RGB to HSL, HSL to HEX, color format converter, convert colors, CSS colors, color transformation, color code converter',
+  keywords: [
+    'color converter',
+    'HEX to RGB',
+    'RGB to HSL',
+    'HSL to HEX',
+    'color format converter',
+    'convert colors',
+    'CSS colors',
+    'color transformation',
+    'color code converter',
+    'RGB to HEX',
+    'HEX to HSL',
+    'HSL to RGB',
+    'color format tool',
+    'RGBA converter',
+    'HSLA converter',
+    'color code conversion',
+  ],
 };
 
 type ColorFormat = 'hex' | 'rgb' | 'hsl';

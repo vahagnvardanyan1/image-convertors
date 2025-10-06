@@ -1,5 +1,5 @@
 'use client';
-import { ArrowRight, FileImage, Image as ImageIcon, Globe, Camera, FileText, Merge, Split, Info, Palette, Droplet, Blend, Shuffle, Type, Sparkles, Ruler } from 'lucide-react';
+import { ArrowRight, FileImage, Image as ImageIcon, Globe, Camera, FileText, Merge, Split, Info, Palette, Droplet, Blend, Shuffle, Type, Sparkles, Ruler, Smile, Hash } from 'lucide-react';
 import Link from 'next/link';
 import { Card } from '../Card';
 
@@ -55,6 +55,42 @@ const converters = [
     route: '/webp-to-jpg',
     icon: Camera,
     description: 'Convert to universally compatible JPG format',
+    popular: false,
+    category: 'image',
+  },
+  {
+    from: 'HEIC',
+    to: 'JPG',
+    route: '/heic-to-jpg',
+    icon: Camera,
+    description: 'Convert Apple HEIC photos to JPG format',
+    popular: true,
+    category: 'image',
+  },
+  {
+    from: 'HEIC',
+    to: 'PNG',
+    route: '/heic-to-png',
+    icon: ImageIcon,
+    description: 'Convert HEIC to PNG with transparency support',
+    popular: false,
+    category: 'image',
+  },
+  {
+    from: 'HEIC',
+    to: 'WebP',
+    route: '/heic-to-webp',
+    icon: Globe,
+    description: 'Convert HEIC to modern WebP format',
+    popular: false,
+    category: 'image',
+  },
+  {
+    from: 'HEIC',
+    to: 'PDF',
+    route: '/heic-to-pdf',
+    icon: FileText,
+    description: 'Convert Apple HEIC photos to PDF documents',
     popular: false,
     category: 'image',
   },
@@ -202,6 +238,24 @@ const converters = [
     popular: true,
     category: 'fonts',
   },
+  {
+    from: 'Emoji',
+    to: 'Browser',
+    route: '/texts/emojis',
+    icon: Smile,
+    description: 'Browse, search, and copy emojis from our comprehensive collection',
+    popular: true,
+    category: 'texts',
+  },
+  {
+    from: 'Symbol',
+    to: 'Browser',
+    route: '/texts/symbols',
+    icon: Hash,
+    description: 'Find and copy special symbols, characters, and Unicode glyphs',
+    popular: true,
+    category: 'texts',
+  },
 ];
 
 export function FormatGrid() {
@@ -209,6 +263,7 @@ export function FormatGrid() {
   const pdfConverters = converters.filter(c => c.category === 'pdf');
   const colorTools = converters.filter(c => c.category === 'colors');
   const fontTools = converters.filter(c => c.category === 'fonts');
+  const textTools = converters.filter(c => c.category === 'texts');
 
   const renderConverterCard = (converter: (typeof converters)[0]) => {
     const IconComponent = converter.icon;
@@ -294,8 +349,17 @@ export function FormatGrid() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">{fontTools.map(renderConverterCard)}</div>
         </div>
 
+        {/* Text Tools */}
+        <div className="mb-12">
+          <h3 className="text-xl font-semibold text-gray-900 mb-6 flex items-center">
+            <Sparkles className="mr-2" size={24} />
+            Text & Symbol Tools
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">{textTools.map(renderConverterCard)}</div>
+        </div>
+
         <div className="mt-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Explore Color Tools */}
             <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl p-8 border border-purple-100">
               <h3 className="font-bold text-gray-900 mb-2 flex items-center">
@@ -324,6 +388,22 @@ export function FormatGrid() {
                 className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-orange-600 to-red-600 text-white rounded-lg font-medium hover:shadow-lg transition-all duration-200"
               >
                 View All Font Tools
+                <ArrowRight className="ml-2" size={16} />
+              </Link>
+            </div>
+
+            {/* Explore Text Tools */}
+            <div className="bg-gradient-to-br from-green-50 to-teal-50 rounded-2xl p-8 border border-green-100">
+              <h3 className="font-bold text-gray-900 mb-2 flex items-center">
+                <Sparkles className="mr-2" size={24} />
+                Explore Text Tools
+              </h3>
+              <p className="text-gray-600 mb-4">Access emojis, symbols, and special characters for your projects.</p>
+              <Link
+                href="/texts"
+                className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-600 to-teal-600 text-white rounded-lg font-medium hover:shadow-lg transition-all duration-200"
+              >
+                View All Text Tools
                 <ArrowRight className="ml-2" size={16} />
               </Link>
             </div>

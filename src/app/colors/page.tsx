@@ -6,8 +6,24 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Free Color Tools: Palette Generator & Picker | ImageConvertors',
   description: 'Create and explore color schemes online. Use our free color palette generator to design custom palettes or easily pick any color code for your projects.',
-  keywords:
-    'color palette generator, color picker, color scheme tool, design color palettes, free online colors, hex color picker, trending color palettes, free color palette, design colors, online color tools',
+  keywords: [
+    'color palette generator',
+    'color picker',
+    'color scheme tool',
+    'design color palettes',
+    'free online colors',
+    'hex color picker',
+    'trending color palettes',
+    'free color palette',
+    'design colors',
+    'online color tools',
+    'color tools',
+    'color scheme generator',
+    'palette maker',
+    'hex color tool',
+    'RGB color picker',
+    'HSL color tool',
+  ],
   alternates: {
     canonical: 'https://imageconvertors.com/colors',
   },

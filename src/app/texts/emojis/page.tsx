@@ -2,14 +2,47 @@
 
 import { useState } from 'react';
 import { DynamicMetadata } from '@/components/DynamicMetadata';
-import { emojis, emojiCategories, type EmojiCategory, searchEmojis } from '@/lib/emojiData';
+import { emojiCategories, type EmojiCategory, searchEmojis } from '@/lib/emojiData';
 import { copyToClipboard } from '@/lib/colorUtils';
-import { Search, Copy, Check } from 'lucide-react';
+import { Search, Check } from 'lucide-react';
 
 const metadata = {
-  title: 'Emoji Picker - Browse & Copy Emojis with Device Preview | ImageConvertors',
-  description: 'Browse thousands of emojis with device-specific rendering. Filter by category and see how emojis appear on Apple, Google, Microsoft, and Samsung devices. Copy to clipboard instantly.',
-  keywords: 'emoji picker, emoji browser, copy emoji, device emoji, Apple emoji, Google emoji, Microsoft emoji, Samsung emoji, emoji categories',
+  title: 'Emoji Picker - Browse & Copy 500+ Emojis with Device Preview | ImageConvertors',
+  description:
+    'Browse and copy over 500 emojis instantly with device-specific rendering preview. Filter by category including smileys, animals, food, travel, activities, objects, symbols, and flags. See how emojis appear on Apple, Google, Microsoft, and Samsung devices. One-click copy to clipboard for easy use in your projects.',
+  keywords: [
+    'emoji picker',
+    'emoji browser',
+    'copy emoji',
+    'emoji library',
+    'emoji collection',
+    'emoji search',
+    'free emoji',
+    'emoji keyboard',
+    'device emoji preview',
+    'Apple emoji',
+    'Google emoji',
+    'Microsoft emoji',
+    'Samsung emoji',
+    'emoji categories',
+    'smileys emoji',
+    'people emoji',
+    'animals emoji',
+    'nature emoji',
+    'food emoji',
+    'drink emoji',
+    'travel emoji',
+    'places emoji',
+    'activities emoji',
+    'objects emoji',
+    'symbols emoji',
+    'flags emoji',
+    'emoji unicode',
+    'emoji copy paste',
+    'emoji for social media',
+    'emoji for messages',
+    'emoji for website',
+  ],
 };
 
 type DeviceType = 'native' | 'apple' | 'google' | 'microsoft' | 'samsung';
@@ -64,7 +97,7 @@ export default function EmojisPage() {
       </div>
 
       {/* Search and Filters */}
-      <div className="mb-6 space-y-4">
+      <div className="sticky top-16 z-10 bg-gray-50 dark:bg-gray-800 pb-4 mb-6 space-y-4 -mx-4 px-4 pt-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 shadow-md">
         {/* Search Bar */}
         <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
@@ -112,7 +145,7 @@ export default function EmojisPage() {
               </button>
             ))}
           </div>
-          <p className="mt-3 text-xs text-gray-600 dark:text-gray-400">Select how you want to preview emoji rendering (Note: Native uses your system's default emoji style)</p>
+          <p className="mt-3 text-xs text-gray-600 dark:text-gray-400">Select how you want to preview emoji rendering (Note: Native uses your system&apos;s default emoji style)</p>
         </div>
       </div>
 
@@ -186,4 +219,3 @@ export default function EmojisPage() {
     </div>
   );
 }
-

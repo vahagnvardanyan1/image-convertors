@@ -11,7 +11,24 @@ const metadata = {
   title: 'Color Picker - Interactive Color Selector & Format Converter',
   description:
     'Pick colors and get instant format conversions. Interactive color picker with HEX, RGB, RGBA, HSL, HSLA, and HSV outputs. Perfect for web designers and developers. Free online color picker tool.',
-  keywords: 'color picker, pick color, color selector, HEX color picker, RGB color picker, color formats, web colors, design colors, color tool',
+  keywords: [
+    'color picker',
+    'pick color',
+    'color selector',
+    'HEX color picker',
+    'RGB color picker',
+    'color formats',
+    'web colors',
+    'design colors',
+    'color tool',
+    'HSL color picker',
+    'RGBA color picker',
+    'HSV color picker',
+    'interactive color picker',
+    'online color selector',
+    'color code picker',
+    'eyedropper tool',
+  ],
 };
 
 export default function ColorPickerPage() {

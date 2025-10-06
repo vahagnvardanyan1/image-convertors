@@ -68,8 +68,8 @@ export default function SymbolGuidePage() {
         {/* Introduction */}
         <div className="prose prose-lg max-w-none mb-12">
           <p className="text-xl text-gray-700 leading-relaxed mb-6">
-            Special characters and symbols are powerful tools for adding visual interest, clarity, and professionalism to your content. An{' '}
-            <strong>online symbol library</strong> makes it easy to browse thousands of Unicode symbols, special characters, and decorative elements, and copy them instantly to your clipboard.
+            Special characters and symbols are powerful tools for adding visual interest, clarity, and professionalism to your content. An <strong>online symbol library</strong> makes it easy to
+            browse thousands of Unicode symbols, special characters, and decorative elements, and copy them instantly to your clipboard.
           </p>
           <p className="text-gray-700 leading-relaxed mb-8">
             In this comprehensive guide, we'll explore what a symbol library is, the different types of symbols available, and how to use them effectively in your projects.
@@ -78,7 +78,14 @@ export default function SymbolGuidePage() {
 
         <div className="mb-12">
           <div className="relative overflow-hidden rounded-3xl border border-purple-100 shadow-xl">
-            <Image src="/symbol.webp" alt="Screenshot of the ImageConvertors symbol library interface showing various Unicode symbols and special characters" width={1200} height={630} className="w-full h-auto" priority />
+            <Image
+              src="/symbol.webp"
+              alt="Screenshot of the ImageConvertors symbol library interface showing various Unicode symbols and special characters"
+              width={1200}
+              height={630}
+              className="w-full h-auto"
+              priority
+            />
           </div>
           <p className="mt-4 text-sm text-center text-gray-500">Browse thousands of Unicode symbols and special characters with the ImageConvertors symbol library.</p>
         </div>
@@ -131,9 +138,7 @@ export default function SymbolGuidePage() {
             </div>
             <h2 className="text-2xl font-bold text-gray-900">Types of Symbols Available</h2>
           </div>
-          <p className="text-gray-700 leading-relaxed mb-6">
-            Unicode includes over 140,000 characters covering a vast range of symbols. Here are the most popular categories:
-          </p>
+          <p className="text-gray-700 leading-relaxed mb-6">Unicode includes over 140,000 characters covering a vast range of symbols. Here are the most popular categories:</p>
 
           <div className="space-y-4">
             <div className="bg-gray-50 p-5 rounded-lg border border-gray-200">
@@ -377,21 +382,24 @@ export default function SymbolGuidePage() {
             <div className="bg-white p-6 rounded-lg shadow-sm">
               <h3 className="font-semibold text-gray-900 mb-3 text-lg">Q: What is Unicode and why does it matter?</h3>
               <p className="text-gray-700">
-                <strong>A:</strong> Unicode is an international standard that assigns a unique number to every character across all writing systems and symbol sets. It ensures that symbols display consistently across all platforms and devices, making your content universally readable.
+                <strong>A:</strong> Unicode is an international standard that assigns a unique number to every character across all writing systems and symbol sets. It ensures that symbols display
+                consistently across all platforms and devices, making your content universally readable.
               </p>
             </div>
 
             <div className="bg-white p-6 rounded-lg shadow-sm">
               <h3 className="font-semibold text-gray-900 mb-3 text-lg">Q: Will these symbols work in all applications?</h3>
               <p className="text-gray-700">
-                <strong>A:</strong> Most modern applications support Unicode characters. However, very old software or systems might not display all symbols correctly. When in doubt, test the symbol in your target application before finalizing your content.
+                <strong>A:</strong> Most modern applications support Unicode characters. However, very old software or systems might not display all symbols correctly. When in doubt, test the symbol
+                in your target application before finalizing your content.
               </p>
             </div>
 
             <div className="bg-white p-6 rounded-lg shadow-sm">
               <h3 className="font-semibold text-gray-900 mb-3 text-lg">Q: Can I use symbols in programming code?</h3>
               <p className="text-gray-700">
-                <strong>A:</strong> Yes! Many programming languages support Unicode in strings, comments, and variable names. However, it&apos;s best practice to stick to ASCII for code identifiers and use Unicode symbols mainly in strings, comments, and documentation.
+                <strong>A:</strong> Yes! Many programming languages support Unicode in strings, comments, and variable names. However, it&apos;s best practice to stick to ASCII for code identifiers
+                and use Unicode symbols mainly in strings, comments, and documentation.
               </p>
             </div>
 
@@ -405,7 +413,8 @@ export default function SymbolGuidePage() {
             <div className="bg-white p-6 rounded-lg shadow-sm">
               <h3 className="font-semibold text-gray-900 mb-3 text-lg">Q: How are symbols different from emojis?</h3>
               <p className="text-gray-700">
-                <strong>A:</strong> Symbols are typically monochrome characters used for technical, decorative, or functional purposes (like ©, ™, →, ±). Emojis are colorful pictographs used for emotional expression (😊, 🎉). Both are part of Unicode but serve different purposes.
+                <strong>A:</strong> Symbols are typically monochrome characters used for technical, decorative, or functional purposes (like ©, ™, →, ±). Emojis are colorful pictographs used for
+                emotional expression (😊, 🎉). Both are part of Unicode but serve different purposes.
               </p>
             </div>
           </div>
@@ -450,4 +459,3 @@ export default function SymbolGuidePage() {
     </>
   );
 }
-
