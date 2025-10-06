@@ -70,19 +70,10 @@ export default function EmojisPage() {
   };
 
   // Get emoji URL based on device type
-  const getEmojiDisplay = (emoji: string, unicode: string) => {
+  const getEmojiDisplay = (emoji: string) => {
     if (selectedDevice === 'native') {
       return <span className="text-5xl">{emoji}</span>;
     }
-
-    // Use external emoji CDN for device-specific rendering
-    const codePoint = unicode.replace('U+', '').toLowerCase();
-    const emojiUrls: Record<Exclude<DeviceType, 'native'>, string> = {
-      apple: `https://em-content.zobj.net/thumbs/120/apple/354/${emoji}.png`,
-      google: `https://em-content.zobj.net/thumbs/120/google/350/${emoji}.png`,
-      microsoft: `https://em-content.zobj.net/thumbs/120/microsoft/319/${emoji}.png`,
-      samsung: `https://em-content.zobj.net/thumbs/120/samsung/349/${emoji}.png`,
-    };
 
     return <span className="text-5xl inline-block w-16 h-16 flex items-center justify-center">{emoji}</span>;
   };
@@ -167,7 +158,7 @@ export default function EmojisPage() {
               title={`${item.name} - Click to copy`}
             >
               {/* Emoji Display */}
-              <div className="flex items-center justify-center mb-1">{getEmojiDisplay(item.emoji, item.unicode)}</div>
+              <div className="flex items-center justify-center mb-1">{getEmojiDisplay(item.emoji)}</div>
 
               {/* Emoji Name (on hover) */}
               <div className="absolute inset-x-0 bottom-0 bg-black/80 text-white text-xs p-2 rounded-b-lg opacity-0 group-hover:opacity-100 transition-opacity">

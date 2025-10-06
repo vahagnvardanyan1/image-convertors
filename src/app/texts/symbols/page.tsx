@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { DynamicMetadata } from '@/components/DynamicMetadata';
-import { symbols, symbolCategories, type SymbolCategory, searchSymbols } from '@/lib/symbolsData';
+import { symbolCategories, type SymbolCategory, searchSymbols } from '@/lib/symbolsData';
 import { copyToClipboard } from '@/lib/colorUtils';
 import { Search, Copy, Check } from 'lucide-react';
 

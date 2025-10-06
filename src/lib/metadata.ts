@@ -901,7 +901,13 @@ export const generateStructuredData = (pathname: string) => {
     (textSchemas as any[]).push({
       '@context': 'https://schema.org',
       '@type': 'CreativeWork',
-      name: pathname.includes('/fonts') ? 'Typography Tools Collection' : pathname.includes('/emojis') ? 'Emoji Collection' : pathname.includes('/symbols') ? 'Symbol Collection' : 'Text Tools Collection',
+      name: pathname.includes('/fonts')
+        ? 'Typography Tools Collection'
+        : pathname.includes('/emojis')
+          ? 'Emoji Collection'
+          : pathname.includes('/symbols')
+            ? 'Symbol Collection'
+            : 'Text Tools Collection',
       description: pathname.includes('/fonts')
         ? 'Comprehensive typography tools for web designers and developers, including font preview, pairing suggestions, and typographic scale generators.'
         : pathname.includes('/emojis')

@@ -72,7 +72,7 @@ export default function SymbolGuidePage() {
             browse thousands of Unicode symbols, special characters, and decorative elements, and copy them instantly to your clipboard.
           </p>
           <p className="text-gray-700 leading-relaxed mb-8">
-            In this comprehensive guide, we'll explore what a symbol library is, the different types of symbols available, and how to use them effectively in your projects.
+            In this comprehensive guide, we&apos;ll explore what a symbol library is, the different types of symbols available, and how to use them effectively in your projects.
           </p>
         </div>
 
@@ -268,7 +268,7 @@ export default function SymbolGuidePage() {
                 <div className="w-10 h-10 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold mr-4 flex-shrink-0">3</div>
                 <div>
                   <h3 className="font-semibold text-gray-900 text-lg mb-2">Preview Symbols</h3>
-                  <p className="text-gray-700">Hover over any symbol to see its name and Unicode code point. This helps ensure you're selecting the right character.</p>
+                  <p className="text-gray-700">Hover over any symbol to see its name and Unicode code point. This helps ensure you&apos;re selecting the right character.</p>
                 </div>
               </div>
             </div>
@@ -310,22 +310,22 @@ export default function SymbolGuidePage() {
             <div className="bg-gradient-to-r from-purple-50 to-violet-50 p-5 rounded-lg border border-purple-200">
               <h3 className="font-semibold text-gray-900 mb-2 text-lg">📝 Documentation & Technical Writing</h3>
               <p className="text-gray-700 text-sm mb-3">Enhance documentation with mathematical symbols, arrows, and special notation.</p>
-              <p className="text-sm text-gray-600">Example: "If x ≥ 10 → result ≠ null"</p>
+              <p className="text-sm text-gray-600">Example: &quot;If x ≥ 10 → result ≠ null&quot;</p>
             </div>
             <div className="bg-gradient-to-r from-blue-50 to-cyan-50 p-5 rounded-lg border border-blue-200">
               <h3 className="font-semibold text-gray-900 mb-2 text-lg">💼 Business & Finance</h3>
               <p className="text-gray-700 text-sm mb-3">Add currency symbols and financial notation to reports and presentations.</p>
-              <p className="text-sm text-gray-600">Example: "Revenue: $1.5M | €1.2M | £1.0M"</p>
+              <p className="text-sm text-gray-600">Example: &quot;Revenue: $1.5M | €1.2M | £1.0M&quot;</p>
             </div>
             <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-5 rounded-lg border border-green-200">
               <h3 className="font-semibold text-gray-900 mb-2 text-lg">🎨 Design & Layout</h3>
               <p className="text-gray-700 text-sm mb-3">Use decorative symbols, bullets, and dividers in designs and layouts.</p>
-              <p className="text-sm text-gray-600">Example: "★★★★★ • Premium Quality • ✓ Verified"</p>
+              <p className="text-sm text-gray-600">Example: &quot;★★★★★ • Premium Quality • ✓ Verified&quot;</p>
             </div>
             <div className="bg-gradient-to-r from-pink-50 to-rose-50 p-5 rounded-lg border border-pink-200">
               <h3 className="font-semibold text-gray-900 mb-2 text-lg">📱 Social Media Posts</h3>
               <p className="text-gray-700 text-sm mb-3">Create eye-catching posts with special characters and decorative symbols.</p>
-              <p className="text-sm text-gray-600">Example: "✨ New Product Launch ➜ 50% OFF ✓"</p>
+              <p className="text-sm text-gray-600">Example: &quot;✨ New Product Launch ➜ 50% OFF ✓&quot;</p>
             </div>
           </div>
         </Card>

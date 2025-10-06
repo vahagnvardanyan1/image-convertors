@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowLeft, Sparkles, Zap, CheckCircle, HelpCircle, Eye, Heart, Layers } from 'lucide-react';
+import { ArrowLeft, Sparkles, CheckCircle, HelpCircle, Eye, Heart, Layers } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/Card';
 import type { Metadata } from 'next';
