@@ -1,7 +1,8 @@
 'use client';
 import { useState, useRef, useEffect } from 'react';
-import { ArrowLeft, FileImage, Download, Zap, Trash2, AlertCircle, Sparkles, Brain, Cpu, Lock } from 'lucide-react';
+import { ArrowLeft, FileImage, Download, Zap, Trash2, AlertCircle, Sparkles, Brain, Cpu, Lock, Upload, CheckCircle, Image as ImageIcon, ShoppingBag, User, Palette, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Button } from '../ui/button';
 import { Card } from '@/components/Card';
 import { removeBackground } from '@imgly/background-removal';
@@ -12,6 +13,7 @@ export function BackgroundRemover() {
   const [processedImage, setProcessedImage] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const processingRef = useRef<HTMLDivElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
@@ -142,6 +144,81 @@ export function BackgroundRemover() {
     },
   ];
 
+  const howItWorksSteps = [
+    {
+      step: 1,
+      title: 'Upload Your Image',
+      description: 'Simply drag and drop or select any image from your device. Supports all major formats.',
+      icon: Upload,
+    },
+    {
+      step: 2,
+      title: 'AI Processing',
+      description: 'Our advanced AI analyzes your image and intelligently removes the background in seconds.',
+      icon: Brain,
+    },
+    {
+      step: 3,
+      title: 'Download Result',
+      description: 'Get a high-quality PNG with transparent background, ready to use anywhere.',
+      icon: Download,
+    },
+  ];
+
+  const useCases = [
+    {
+      title: 'E-commerce',
+      description: 'Create professional product photos with clean, transparent backgrounds for your online store.',
+      icon: ShoppingBag,
+      gradient: 'from-blue-500 to-cyan-500',
+    },
+    {
+      title: 'Profile Pictures',
+      description: 'Remove distracting backgrounds from portraits and headshots for a professional look.',
+      icon: User,
+      gradient: 'from-purple-500 to-pink-500',
+    },
+    {
+      title: 'Graphic Design',
+      description: 'Isolate subjects for logos, posters, banners, and other creative projects.',
+      icon: Palette,
+      gradient: 'from-orange-500 to-red-500',
+    },
+    {
+      title: 'Photo Editing',
+      description: 'Extract subjects to combine with different backgrounds or create stunning compositions.',
+      icon: ImageIcon,
+      gradient: 'from-green-500 to-teal-500',
+    },
+  ];
+
+  const faqs = [
+    {
+      question: 'Is this background remover really free?',
+      answer: 'Yes! Our AI background remover is completely free to use with no hidden fees, watermarks, or sign-up required. Process as many images as you need.',
+    },
+    {
+      question: 'Are my images stored on your servers?',
+      answer: 'No, all processing happens locally in your browser using AI technology. Your images never leave your device, ensuring complete privacy and security.',
+    },
+    {
+      question: 'What image formats are supported?',
+      answer: 'We support all major image formats including JPG, JPEG, PNG, WebP, HEIC, and more. The output is always a PNG file with transparent background.',
+    },
+    {
+      question: 'How accurate is the AI background removal?',
+      answer: 'Our AI is trained on millions of images and uses advanced neural networks for accurate edge detection. It works best with clear subjects and good contrast.',
+    },
+    {
+      question: 'What is the maximum file size?',
+      answer: 'Since processing happens in your browser, the limit depends on your device. Most modern devices can handle images up to 10-20MB without issues.',
+    },
+    {
+      question: 'Can I use the results commercially?',
+      answer: 'Yes! You have full rights to use the processed images for any purpose, including commercial projects. The tool just processes your images without claiming any rights.',
+    },
+  ];
+
   return (
     <>
       {/* Header with gradient - hidden after image upload */}
@@ -242,34 +319,36 @@ export function BackgroundRemover() {
                   <input ref={fileInputRef} type="file" accept="image/*" onChange={e => e.target.files?.[0] && handleFileSelect(e.target.files[0])} className="hidden" />
                 </div>
               ) : (
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between p-5 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl border border-purple-200">
-                    <div className="flex items-center space-x-3">
-                      <div className="p-2 bg-white rounded-lg shadow-sm">
-                        <FileImage className="h-6 w-6 text-purple-600" />
+                <>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between p-5 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl border border-purple-200">
+                      <div className="flex items-center space-x-3">
+                        <div className="p-2 bg-white rounded-lg shadow-sm">
+                          <FileImage className="h-6 w-6 text-purple-600" />
+                        </div>
+                        <div>
+                          <p className="font-semibold text-gray-900">{selectedFile.name}</p>
+                          <p className="text-sm text-gray-600">{formatFileSize(selectedFile.size)}</p>
+                        </div>
                       </div>
-                      <div>
-                        <p className="font-semibold text-gray-900">{selectedFile.name}</p>
-                        <p className="text-sm text-gray-600">{formatFileSize(selectedFile.size)}</p>
-                      </div>
+                      <Button variant="outline" onClick={handleReset} className="flex items-center border-purple-200 hover:bg-white">
+                        <Trash2 className="mr-2" size={16} />
+                        Remove
+                      </Button>
                     </div>
-                    <Button variant="outline" onClick={handleReset} className="flex items-center border-purple-200 hover:bg-white">
-                      <Trash2 className="mr-2" size={16} />
-                      Remove
-                    </Button>
-                  </div>
 
-                  {!processedImage && !isProcessing && (
-                    <Button
-                      onClick={handleRemoveBackground}
-                      className="w-full bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 hover:from-purple-700 hover:via-pink-700 hover:to-blue-700 text-white font-semibold py-6 text-lg shadow-lg hover:shadow-xl transition-all"
-                    >
-                      <Sparkles className="mr-2 animate-pulse" size={20} />
-                      Remove Background with AI
-                      <Zap className="ml-2" size={20} />
-                    </Button>
-                  )}
-                </div>
+                    {!processedImage && !isProcessing && (
+                      <Button
+                        onClick={handleRemoveBackground}
+                        className="w-full bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 hover:from-purple-700 hover:via-pink-700 hover:to-blue-700 text-white font-semibold py-6 text-lg shadow-lg hover:shadow-xl transition-all"
+                      >
+                        <Sparkles className="mr-2 animate-pulse" size={20} />
+                        Remove Background with AI
+                        <Zap className="ml-2" size={20} />
+                      </Button>
+                    )}
+                  </div>
+                </>
               )}
 
               {error && (
@@ -392,6 +471,123 @@ export function BackgroundRemover() {
               </div>
             </Card>
           </div>
+        </div>
+
+        {/* Demo Example Section */}
+        <div className="mt-20">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              See It In <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Action</span>
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">Watch how our AI instantly removes backgrounds with perfect edge detection</p>
+          </div>
+
+          <Card className="overflow-hidden border-2 border-purple-200 shadow-2xl">
+            <Image src="/bg-remove.webp" alt="AI Background Remover Example - Before and After" width={1200} height={630} className="w-full h-auto" priority />
+          </Card>
+        </div>
+
+        {/* How It Works Section */}
+        <div className="mt-20">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              How It <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Works</span>
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">Remove backgrounds from your images in just three simple steps</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {howItWorksSteps.map((step, index) => (
+              <div key={index} className="relative">
+                {index < howItWorksSteps.length - 1 && <div className="hidden md:block absolute top-12 left-1/2 w-full h-0.5 bg-gradient-to-r from-purple-300 to-pink-300 z-0"></div>}
+                <Card className="relative z-10 p-8 text-center bg-white hover:shadow-xl transition-all duration-300 border-2 border-gray-100 hover:border-purple-200">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl mb-6 shadow-lg">
+                    <step.icon className="text-white" size={32} />
+                  </div>
+                  <div className="absolute -top-4 -right-4 w-12 h-12 bg-gradient-to-br from-purple-600 to-pink-600 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                    {step.step}
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">{step.title}</h3>
+                  <p className="text-gray-600 leading-relaxed">{step.description}</p>
+                </Card>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Use Cases Section */}
+        <div className="mt-20">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Perfect For <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Every Need</span>
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">From e-commerce to creative projects, our AI background remover has you covered</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {useCases.map((useCase, index) => (
+              <Card key={index} className="group p-6 bg-white hover:shadow-xl transition-all duration-300 border-2 border-gray-100 hover:border-purple-200 cursor-pointer">
+                <div className={`inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br ${useCase.gradient} rounded-xl mb-4 shadow-md group-hover:scale-110 transition-transform`}>
+                  <useCase.icon className="text-white" size={28} />
+                </div>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">{useCase.title}</h3>
+                <p className="text-gray-600 text-sm leading-relaxed">{useCase.description}</p>
+              </Card>
+            ))}
+          </div>
+        </div>
+
+        {/* FAQ Section */}
+        <div className="mt-20 mb-12">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Frequently Asked <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Questions</span>
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">Everything you need to know about our AI background remover</p>
+          </div>
+
+          <div className="max-w-3xl mx-auto space-y-4">
+            {faqs.map((faq, index) => (
+              <Card key={index} className="overflow-hidden border-2 border-gray-100 hover:border-purple-200 transition-colors">
+                <button
+                  onClick={() => setOpenFaqIndex(openFaqIndex === index ? null : index)}
+                  className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-purple-50/50 transition-colors"
+                >
+                  <span className="font-semibold text-gray-900 pr-4">{faq.question}</span>
+                  <ChevronDown className={`flex-shrink-0 text-purple-600 transition-transform duration-300 ${openFaqIndex === index ? 'rotate-180' : ''}`} size={20} />
+                </button>
+                <div className={`overflow-hidden transition-all duration-300 ${openFaqIndex === index ? 'max-h-48' : 'max-h-0'}`}>
+                  <div className="px-6 pb-5 pt-2 text-gray-600 leading-relaxed border-t border-gray-100">{faq.answer}</div>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </div>
+
+        {/* CTA Section */}
+        <div className="mt-20 mb-12">
+          <Card className="relative overflow-hidden bg-gradient-to-br from-purple-500 via-pink-500 to-blue-500 border-0">
+            <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
+            <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+
+            <div className="relative px-8 py-16 text-center">
+              <div className="inline-flex items-center justify-center p-4 bg-white/20 backdrop-blur-sm rounded-2xl mb-6">
+                <Sparkles className="text-white" size={48} />
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Ready to Remove Backgrounds?</h2>
+              <p className="text-lg text-white/90 max-w-2xl mx-auto mb-8">Start using our free AI background remover now. No sign-up required, completely private, and lightning fast.</p>
+              <Button
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                size="lg"
+                className="bg-white text-purple-600 hover:bg-gray-50 font-semibold px-8 py-6 text-lg shadow-xl hover:shadow-2xl transition-all"
+              >
+                <Upload className="mr-2" size={24} />
+                Upload Your Image
+                <Sparkles className="ml-2" size={20} />
+              </Button>
+            </div>
+          </Card>
         </div>
       </div>
     </>
