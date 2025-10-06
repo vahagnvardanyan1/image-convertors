@@ -82,26 +82,26 @@ export default function SymbolsPage() {
       </div>
 
       {/* Search and Filters */}
-      <div className="sticky top-16 z-10 bg-gray-50 dark:bg-gray-800 pb-4 mb-6 space-y-4 -mx-4 px-4 pt-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 shadow-md">
+      <div className="sticky top-16 z-10 bg-gray-50 dark:bg-gray-800 pb-3 mb-4 space-y-2.5 sm:space-y-4 -mx-4 px-4 pt-3 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 shadow-md">
         {/* Search Bar */}
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
           <input
             type="text"
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            placeholder="Search symbols by name or keyword..."
-            className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="Search symbols..."
+            className="w-full pl-9 pr-3 py-2 sm:py-3 text-sm sm:text-base rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
 
         {/* Category Tabs */}
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-1.5 sm:gap-2">
           {symbolCategories.map(category => (
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+              className={`px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all ${
                 selectedCategory === category
                   ? 'bg-purple-600 text-white shadow-lg shadow-purple-500/30'
                   : 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600'
@@ -122,21 +122,21 @@ export default function SymbolsPage() {
 
       {/* Symbols Grid */}
       {filteredSymbols.length > 0 ? (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-3">
           {filteredSymbols.map((item, index) => (
             <button
               key={`${item.symbol}-${index}`}
               onClick={() => handleCopySymbol(item.symbol)}
-              className="relative group bg-white dark:bg-gray-700 rounded-lg p-6 border-2 border-gray-200 dark:border-gray-600 hover:border-purple-500 dark:hover:border-purple-400 transition-all hover:scale-105 hover:shadow-xl"
+              className="relative group bg-white dark:bg-gray-700 rounded-lg p-3 sm:p-6 border-2 border-gray-200 dark:border-gray-600 hover:border-purple-500 dark:hover:border-purple-400 transition-all hover:scale-105 hover:shadow-xl"
               title={`${item.name} - Click to copy`}
             >
               {/* Symbol Display */}
-              <div className="text-5xl text-center mb-3 text-gray-800 dark:text-gray-100 font-mono">{item.symbol}</div>
+              <div className="text-4xl sm:text-5xl text-center mb-2 sm:mb-3 text-gray-800 dark:text-gray-100 font-mono">{item.symbol}</div>
 
               {/* Symbol Info */}
               <div className="text-center">
-                <p className="text-xs font-semibold text-gray-900 dark:text-white truncate">{item.name}</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{item.unicode}</p>
+                <p className="text-[10px] sm:text-xs font-semibold text-gray-900 dark:text-white truncate">{item.name}</p>
+                <p className="text-[9px] sm:text-xs text-gray-500 dark:text-gray-400 mt-0.5 sm:mt-1">{item.unicode}</p>
               </div>
 
               {/* Copy Button (on hover) */}

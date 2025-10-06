@@ -77,11 +77,7 @@ export default function EmojisPage() {
 
   // Get emoji URL based on device type
   const getEmojiDisplay = (emoji: string) => {
-    if (selectedDevice === 'native') {
-      return <span className="text-5xl">{emoji}</span>;
-    }
-
-    return <span className="text-5xl inline-block w-16 h-16 flex items-center justify-center">{emoji}</span>;
+    return emoji;
   };
 
   return (
@@ -94,26 +90,26 @@ export default function EmojisPage() {
       </div>
 
       {/* Search and Filters */}
-      <div className="sticky top-16 z-10 bg-gray-50 dark:bg-gray-800 pb-4 mb-6 space-y-4 -mx-4 px-4 pt-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 shadow-md">
+      <div className="sticky top-16 z-10 bg-gray-50 dark:bg-gray-800 pb-3 mb-4 space-y-2.5 sm:space-y-4 -mx-4 px-4 pt-3 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 shadow-md">
         {/* Search Bar */}
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
           <input
             type="text"
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            placeholder="Search emojis by name or keyword..."
-            className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="Search emojis..."
+            className="w-full pl-9 pr-3 py-2 sm:py-3 text-sm sm:text-base rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
 
         {/* Category Tabs */}
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-1.5 sm:gap-2">
           {emojiCategories.map(category => (
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+              className={`px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all ${
                 selectedCategory === category
                   ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30'
                   : 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600'
@@ -124,15 +120,15 @@ export default function EmojisPage() {
           ))}
         </div>
 
-        {/* Device Selector */}
-        <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-700 dark:to-gray-600 rounded-lg p-4 border border-blue-100 dark:border-gray-600">
-          <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-3">Device Rendering Style:</label>
-          <div className="flex flex-wrap gap-2">
+        {/* Device Selector - Compact on mobile */}
+        <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-700 dark:to-gray-600 rounded-lg p-2.5 sm:p-4 border border-blue-100 dark:border-gray-600">
+          <label className="block text-xs sm:text-sm font-semibold text-gray-900 dark:text-white mb-2 sm:mb-3">Device Style:</label>
+          <div className="flex flex-wrap gap-1.5 sm:gap-2">
             {deviceOptions.map(device => (
               <button
                 key={device.id}
                 onClick={() => setSelectedDevice(device.id)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                className={`px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all ${
                   selectedDevice === device.id
                     ? 'bg-blue-600 text-white shadow-lg'
                     : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-500 hover:bg-gray-50 dark:hover:bg-gray-700'
@@ -142,7 +138,6 @@ export default function EmojisPage() {
               </button>
             ))}
           </div>
-          <p className="mt-3 text-xs text-gray-600 dark:text-gray-400">Select how you want to preview emoji rendering (Note: Native uses your system&apos;s default emoji style)</p>
         </div>
       </div>
 
@@ -155,16 +150,16 @@ export default function EmojisPage() {
 
       {/* Emoji Grid */}
       {filteredEmojis.length > 0 ? (
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
+        <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 gap-2 sm:gap-3">
           {filteredEmojis.map((item, index) => (
             <button
               key={`${item.emoji}-${index}`}
               onClick={() => handleCopyEmoji(item.emoji)}
-              className="relative group bg-white dark:bg-gray-700 rounded-lg p-4 border-2 border-gray-200 dark:border-gray-600 hover:border-blue-500 dark:hover:border-blue-400 transition-all hover:scale-110 hover:shadow-lg flex flex-col items-center justify-center aspect-square"
+              className="relative group bg-white dark:bg-gray-700 rounded-lg p-3 sm:p-4 border-2 border-gray-200 dark:border-gray-600 hover:border-blue-500 dark:hover:border-blue-400 transition-all hover:scale-110 hover:shadow-lg flex flex-col items-center justify-center aspect-square"
               title={`${item.name} - Click to copy`}
             >
               {/* Emoji Display */}
-              <div className="flex items-center justify-center mb-1">{getEmojiDisplay(item.emoji)}</div>
+              <div className="flex items-center justify-center text-4xl sm:text-5xl">{getEmojiDisplay(item.emoji)}</div>
 
               {/* Emoji Name (on hover) */}
               <div className="absolute inset-x-0 bottom-0 bg-black/80 text-white text-xs p-2 rounded-b-lg opacity-0 group-hover:opacity-100 transition-opacity">
