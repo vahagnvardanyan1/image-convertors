@@ -40,6 +40,9 @@ module.exports = {
       await config.transform(config, '/split-pdf'),
       await config.transform(config, '/pdf-info'),
 
+      // AI tools
+      await config.transform(config, '/remove-background'),
+
       // Blog pages
       await config.transform(config, '/blog'),
       await config.transform(config, '/blog/compress-images-guide'),
