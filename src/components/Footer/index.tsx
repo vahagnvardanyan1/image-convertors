@@ -46,6 +46,11 @@ export function Footer() {
                   Remove Background
                 </Link>
               </li>
+              <li>
+                <Link href="/enhance-image" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  Enhance Image
+                </Link>
+              </li>
             </ul>
           </div>
 

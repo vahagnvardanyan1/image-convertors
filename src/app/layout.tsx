@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   description: 'Free online image converter & font generator. Convert PNG/JPG/WebP images, create fancy text, and design color schemes—all without installing any software.',
   metadataBase: new URL('https://imageconvertors.com'),
   alternates: { canonical: 'https://imageconvertors.com' },
-  keywords: 'free image converter, online image tools, font generator, fancy text, color palette generator, color picker, PNG to JPG, WebP converter, free online tools',
+  keywords: ['free image converter', 'online image tools, font generator', 'fancy text, color palette generator', 'color picker', 'PNG to JPG, WebP converter', 'free online tools'],
   verification: {
     google: 'mM2oIIAyburPaxGWhln8gTGmHOappiXVfNebcrHusHE',
   },

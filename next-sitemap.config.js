@@ -15,6 +15,10 @@ module.exports = {
       await config.transform(config, '/'),
       await config.transform(config, '/analyze'),
 
+      // AI Tools
+      await config.transform(config, '/remove-background'),
+      await config.transform(config, '/enhance-image'),
+
       // Image converter tools
       await config.transform(config, '/png-to-webp'),
       await config.transform(config, '/png-to-jpg'),

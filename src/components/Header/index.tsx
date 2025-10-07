@@ -57,7 +57,10 @@ export function Header() {
     }
   };
 
-  const aiTools = [{ name: 'Remove Background', href: '/remove-background', popular: true }];
+  const aiTools = [
+    { name: 'Remove Background', href: '/remove-background', popular: true },
+    { name: 'Enhance Image', href: '/enhance-image', popular: true },
+  ];
 
   const imageConverters = [
     { name: 'PNG to WebP', href: '/png-to-webp', popular: true },
