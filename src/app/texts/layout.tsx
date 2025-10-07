@@ -3,13 +3,16 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { Type, Smile, Hash, Home, Sparkles, Ruler } from 'lucide-react';
+import { Type, Smile, Hash, Home, Sparkles, Ruler, FileJson, GitCompare, FileSearch } from 'lucide-react';
 
 const navigation = [
   { name: 'Dashboard', href: '/texts', icon: Home },
   { name: 'Font Generator', href: '/texts/fonts', icon: Type },
   { name: 'Emojis', href: '/texts/emojis', icon: Smile },
   { name: 'Symbols', href: '/texts/symbols', icon: Hash },
+  { name: 'JSON Validator', href: '/texts/json-validator', icon: FileJson },
+  { name: 'JSON Comparer', href: '/texts/json-comparer', icon: GitCompare },
+  { name: 'JSON Parser', href: '/texts/json-parser', icon: FileSearch },
   { name: 'Font Preview', href: '/texts/fonts/preview', icon: Type },
   { name: 'Font Pairings', href: '/texts/fonts/pairings', icon: Sparkles },
   { name: 'Typographic Scale', href: '/texts/fonts/scales', icon: Ruler },

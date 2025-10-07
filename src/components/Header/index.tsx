@@ -96,6 +96,12 @@ export function Header() {
     { name: 'Symbols', href: '/texts/symbols', popular: true },
   ];
 
+  const jsonTools = [
+    { name: 'JSON Validator', href: '/texts/json-validator', popular: true },
+    { name: 'JSON Comparer', href: '/texts/json-comparer', popular: true },
+    { name: 'JSON Parser', href: '/texts/json-parser', popular: true },
+  ];
+
   const fontTools = [
     { name: 'Font Preview', href: '/texts/fonts/preview', popular: true },
     { name: 'Font Pairings', href: '/texts/fonts/pairings', popular: true },
@@ -123,6 +129,9 @@ export function Header() {
     { name: 'Typographic Scale Guide', href: '/blog/typographic-scale-guide', popular: false },
     { name: 'Emoji Guide', href: '/blog/emoji-guide', popular: false },
     { name: 'Symbol Guide', href: '/blog/symbol-guide', popular: false },
+    { name: 'JSON Validator Guide', href: '/blog/json-validator-guide', popular: false },
+    { name: 'JSON Comparer Guide', href: '/blog/json-comparer-guide', popular: false },
+    { name: 'JSON Parser Guide', href: '/blog/json-parser-guide', popular: false },
   ];
 
   return (
@@ -317,6 +326,17 @@ export function Header() {
                       {tool.name}
                     </Link>
                   ))}
+                  <div className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide border-t border-b border-gray-100 mt-2">JSON Tools</div>
+                  {jsonTools.map(tool => (
+                    <Link
+                      key={tool.href}
+                      href={tool.href}
+                      onClick={() => setIsTextDropdownOpen(false)}
+                      className={`block px-4 py-2 text-sm transition-colors ${pathname === tool.href ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'}`}
+                    >
+                      {tool.name}
+                    </Link>
+                  ))}
                   <div className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide border-t border-b border-gray-100 mt-2">Font Tools</div>
                   {fontTools.map(tool => (
                     <Link
@@ -346,11 +366,11 @@ export function Header() {
               </button>
 
               {isBlogDropdownOpen && (
-                <div className="absolute top-full left-0 w-64 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                <div className="absolute top-full left-0 w-64 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50 max-h-[500px] overflow-y-auto">
                   <Link
                     href="/blog"
                     onClick={() => setIsBlogDropdownOpen(false)}
-                    className="block px-4 py-3 text-sm font-bold text-purple-600 hover:text-purple-700 hover:bg-purple-50 border-b-2 border-purple-100 bg-gradient-to-r from-purple-50 to-pink-50"
+                    className="block px-4 py-3 text-sm font-bold text-purple-600 hover:text-purple-700 hover:bg-purple-50 border-b-2 border-purple-100 bg-gradient-to-r from-purple-50 to-pink-50 sticky top-0 z-10 bg-white"
                   >
                     📚 View All Articles
                   </Link>
@@ -511,6 +531,19 @@ export function Header() {
                           {tool.name}
                         </Link>
                       ))}
+                      <div className="mt-3 pt-2 border-t border-gray-200">
+                        <div className="text-xs font-semibold text-gray-500 mb-2">JSON Tools</div>
+                        {jsonTools.map(tool => (
+                          <Link
+                            key={tool.href}
+                            href={tool.href}
+                            onClick={handleMenuClose}
+                            className={`block py-1.5 text-sm font-medium transition-colors ${pathname === tool.href ? 'text-blue-600 font-semibold' : 'text-gray-700 hover:text-blue-600'}`}
+                          >
+                            {tool.name}
+                          </Link>
+                        ))}
+                      </div>
                       <div className="mt-3 pt-2 border-t border-gray-200">
                         <div className="text-xs font-semibold text-gray-500 mb-2">Font Tools</div>
                         {fontTools.map(tool => (

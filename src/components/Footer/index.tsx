@@ -222,18 +222,18 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/texts/fonts/preview" className="text-gray-400 hover:text-white transition-colors text-sm">
-                  Font Preview
+                <Link href="/texts/json-validator" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  JSON Validator
                 </Link>
               </li>
               <li>
-                <Link href="/texts/fonts/pairings" className="text-gray-400 hover:text-white transition-colors text-sm">
-                  Font Pairings
+                <Link href="/texts/json-comparer" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  JSON Comparer
                 </Link>
               </li>
               <li>
-                <Link href="/texts/fonts/scales" className="text-gray-400 hover:text-white transition-colors text-sm">
-                  Typographic Scale
+                <Link href="/texts/json-parser" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  JSON Parser
                 </Link>
               </li>
               <li>
@@ -246,6 +246,11 @@ export function Footer() {
                   Symbol Library
                 </Link>
               </li>
+              <li>
+                <Link href="/texts/fonts/preview" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  Font Preview
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -255,7 +260,7 @@ export function Footer() {
               <h3 className="font-semibold mb-4 sm:mb-4">Blog & Resources</h3>
               <ChevronDown className={`sm:hidden transition-transform ${openSection === 'blog' ? 'rotate-180' : ''}`} size={20} />
             </button>
-            <ul className={`space-y-2 ${openSection === 'blog' ? 'block' : 'hidden sm:block'}`}>
+            <ul className={`space-y-2 max-h-[400px] overflow-y-auto ${openSection === 'blog' ? 'block' : 'hidden sm:block'}`}>
               <li>
                 <Link href="/blog" className="text-gray-400 hover:text-white transition-colors text-sm">
                   Blog Home
@@ -359,6 +364,21 @@ export function Footer() {
               <li>
                 <Link href="/blog/symbol-guide" className="text-gray-400 hover:text-white transition-colors text-sm">
                   Symbol Guide
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog/json-validator-guide" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  JSON Validator Guide
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog/json-comparer-guide" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  JSON Comparer Guide
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog/json-parser-guide" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  JSON Parser Guide
                 </Link>
               </li>
             </ul>

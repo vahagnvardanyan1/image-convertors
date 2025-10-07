@@ -1,0 +1,486 @@
+'use client';
+
+import { useState } from 'react';
+import { DynamicMetadata } from '@/components/DynamicMetadata';
+import { Check, X, AlertCircle, Copy, Trash2, FileJson, Zap, BarChart3 } from 'lucide-react';
+import { copyToClipboard } from '@/lib/colorUtils';
+import JSONEditor from '@/components/JSONEditor';
+import JSONToolHero from '@/components/JSONToolHero';
+import JSONToolFeatures from '@/components/JSONToolFeatures';
+import JSONToolHowTo from '@/components/JSONToolHowTo';
+
+const metadata = {
+  title: 'JSON Validator - Validate & Format JSON Online | ImageConvertors',
+  description:
+    'Free online JSON validator and formatter. Validate JSON syntax, format JSON with proper indentation, and get detailed error messages. Perfect for developers working with JSON data, APIs, and configuration files.',
+  keywords: [
+    'json validator',
+    'json formatter',
+    'validate json',
+    'json syntax checker',
+    'json parser',
+    'json lint',
+    'json beautifier',
+    'json pretty print',
+    'json online tool',
+    'json checker',
+    'json error checker',
+    'json validation tool',
+    'format json online',
+    'json editor',
+    'json tester',
+    'validate json online',
+    'json syntax validator',
+    'json format checker',
+    'json debugging tool',
+    'free json validator',
+  ],
+  openGraph: {
+    title: 'JSON Validator - Validate & Format JSON Online | ImageConvertors',
+    description:
+      'Free online JSON validator and formatter. Validate JSON syntax, format JSON with proper indentation, and get detailed error messages. Perfect for developers working with JSON data, APIs, and configuration files.',
+    images: ['/json-validate.webp'],
+  },
+};
+
+export default function JsonValidatorPage() {
+  const [jsonInput, setJsonInput] = useState('');
+  const [validationResult, setValidationResult] = useState<{
+    isValid: boolean;
+    error?: string;
+    errorLine?: number;
+    errorColumn?: number;
+    formatted?: string;
+    stats?: {
+      lines: number;
+      size: string;
+      type: string;
+    };
+  } | null>(null);
+  const [indentSize, setIndentSize] = useState(2);
+  const [copied, setCopied] = useState(false);
+
+  const validateJson = () => {
+    if (!jsonInput.trim()) {
+      setValidationResult({
+        isValid: false,
+        error: 'Please enter JSON to validate',
+      });
+      return;
+    }
+
+    try {
+      const parsed = JSON.parse(jsonInput);
+      const formatted = JSON.stringify(parsed, null, indentSize);
+      const lines = formatted.split('\n').length;
+      const size = new Blob([formatted]).size;
+      const sizeStr = size < 1024 ? `${size} B` : `${(size / 1024).toFixed(2)} KB`;
+
+      let type = 'Unknown';
+      if (Array.isArray(parsed)) {
+        type = `Array (${parsed.length} items)`;
+      } else if (typeof parsed === 'object' && parsed !== null) {
+        type = `Object (${Object.keys(parsed).length} keys)`;
+      } else if (typeof parsed === 'string') {
+        type = 'String';
+      } else if (typeof parsed === 'number') {
+        type = 'Number';
+      } else if (typeof parsed === 'boolean') {
+        type = 'Boolean';
+      } else if (parsed === null) {
+        type = 'Null';
+      }
+
+      setValidationResult({
+        isValid: true,
+        formatted,
+        stats: {
+          lines,
+          size: sizeStr,
+          type,
+        },
+      });
+    } catch (error) {
+      let errorLine: number | undefined;
+      let errorColumn: number | undefined;
+      let errorMessage = 'Invalid JSON';
+      let errorContext = '';
+
+      if (error instanceof Error) {
+        errorMessage = error.message;
+
+        // Extract position from error message
+        // Common formats:
+        // - "Unexpected token ... at position X"
+        // - "JSON at position X"
+        const positionMatch = errorMessage.match(/position (\d+)/i);
+
+        if (positionMatch) {
+          const position = parseInt(positionMatch[1], 10);
+
+          // Calculate line and column from character position
+          let currentPos = 0;
+          const lines = jsonInput.split('\n');
+
+          for (let i = 0; i < lines.length; i++) {
+            const lineLength = lines[i].length + 1; // +1 for newline character
+
+            if (currentPos + lineLength > position) {
+              errorLine = i + 1;
+              errorColumn = position - currentPos + 1;
+              break;
+            }
+
+            currentPos += lineLength;
+          }
+
+          // If we couldn't determine line, default to last line
+          if (!errorLine) {
+            errorLine = lines.length;
+            errorColumn = lines[lines.length - 1].length;
+          }
+        } else {
+          // Fallback: Try progressive parsing to find the problematic line
+          const lines = jsonInput.split('\n');
+          let lastValidLine = 0;
+
+          // Try parsing progressively line by line
+          for (let i = 1; i <= lines.length; i++) {
+            const partial = lines.slice(0, i).join('\n');
+            try {
+              JSON.parse(partial);
+              lastValidLine = i;
+            } catch {
+              // If this is the first line that fails, it's likely the error line
+              if (lastValidLine === i - 1 || i === 1) {
+                errorLine = i;
+                break;
+              }
+            }
+          }
+
+          // If still not found, try a different approach
+          if (!errorLine) {
+            // Try to find the first structural error
+            let openBraces = 0;
+            let openBrackets = 0;
+            let inString = false;
+            let escapeNext = false;
+
+            for (let i = 0; i < lines.length; i++) {
+              const line = lines[i];
+              for (let j = 0; j < line.length; j++) {
+                const char = line[j];
+
+                if (escapeNext) {
+                  escapeNext = false;
+                  continue;
+                }
+
+                if (char === '\\') {
+                  escapeNext = true;
+                  continue;
+                }
+
+                if (char === '"') {
+                  inString = !inString;
+                } else if (!inString) {
+                  if (char === '{') openBraces++;
+                  else if (char === '}') openBraces--;
+                  else if (char === '[') openBrackets++;
+                  else if (char === ']') openBrackets--;
+
+                  // Check for negative values (closing before opening)
+                  if (openBraces < 0 || openBrackets < 0) {
+                    errorLine = i + 1;
+                    errorColumn = j + 1;
+                    break;
+                  }
+                }
+              }
+              if (errorLine) break;
+            }
+
+            // Still no error line? Default to first line
+            if (!errorLine) {
+              errorLine = 1;
+            }
+          }
+        }
+
+        // Generate error context showing the line content
+        if (errorLine) {
+          const lines = jsonInput.split('\n');
+          const errorLineContent = lines[errorLine - 1] || '';
+          const maxLength = 60;
+
+          if (errorColumn && errorLineContent.length > maxLength) {
+            // Show context around the error position
+            const start = Math.max(0, errorColumn - 30);
+            const end = Math.min(errorLineContent.length, errorColumn + 30);
+            const prefix = start > 0 ? '...' : '';
+            const suffix = end < errorLineContent.length ? '...' : '';
+            errorContext = prefix + errorLineContent.substring(start, end) + suffix;
+          } else if (errorLineContent.length > maxLength) {
+            // Just truncate if too long and no column info
+            errorContext = errorLineContent.substring(0, maxLength) + '...';
+          } else {
+            errorContext = errorLineContent;
+          }
+        }
+      }
+
+      // Format error message
+      let formattedError = errorMessage;
+      if (errorLine) {
+        formattedError = `Parse error on line ${errorLine}`;
+        if (errorContext) {
+          formattedError += `:\n${errorContext}`;
+        }
+      }
+
+      setValidationResult({
+        isValid: false,
+        error: formattedError,
+        errorLine,
+        errorColumn,
+      });
+    }
+  };
+
+  const handleCopyFormatted = async () => {
+    if (validationResult?.formatted) {
+      await copyToClipboard(validationResult.formatted);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
+  const handleClear = () => {
+    setJsonInput('');
+    setValidationResult(null);
+  };
+
+  const handleLoadExample = () => {
+    const example = {
+      name: 'John Doe',
+      age: 30,
+      email: 'john@example.com',
+      address: {
+        street: '123 Main St',
+        city: 'New York',
+        country: 'USA',
+      },
+      hobbies: ['reading', 'coding', 'traveling'],
+      active: true,
+    };
+    setJsonInput(JSON.stringify(example, null, 2));
+  };
+
+  const heroFeatures = ['Real-time Validation', 'Error Highlighting', 'Auto Format', 'Free Forever'];
+
+  const keyFeatures = [
+    {
+      icon: Zap,
+      title: 'Instant Validation',
+      description: 'Get immediate feedback on your JSON syntax with real-time error detection.',
+      color: 'from-yellow-500 to-orange-500',
+    },
+    {
+      icon: AlertCircle,
+      title: 'Error Highlighting',
+      description: 'See exactly where errors occur with line-by-line highlighting and detailed messages.',
+      color: 'from-red-500 to-pink-500',
+    },
+    {
+      icon: FileJson,
+      title: 'Auto Formatting',
+      description: 'Beautify your JSON with customizable indentation (2, 4, or 8 spaces).',
+      color: 'from-blue-500 to-cyan-500',
+    },
+    {
+      icon: BarChart3,
+      title: 'Statistics',
+      description: 'View detailed stats including lines, size, type, and structure information.',
+      color: 'from-purple-500 to-pink-500',
+    },
+  ];
+
+  const howToSteps = [
+    {
+      number: 1,
+      title: 'Paste JSON',
+      description: 'Copy your JSON data and paste it into the editor',
+    },
+    {
+      number: 2,
+      title: 'Click Validate',
+      description: 'Press the validate button to check syntax',
+    },
+    {
+      number: 3,
+      title: 'View Results',
+      description: 'See validation results and error details',
+    },
+    {
+      number: 4,
+      title: 'Copy Formatted',
+      description: 'Copy the beautified JSON with one click',
+    },
+  ];
+
+  return (
+    <div>
+      <DynamicMetadata title={metadata.title} description={metadata.description} keywords={metadata.keywords} openGraph={metadata.openGraph} />
+
+      {/* Working Area */}
+      <div className="mb-6">
+        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">JSON Validator & Formatter</h2>
+        <p className="text-gray-600 dark:text-gray-400">Validate and format your JSON data with detailed error reporting</p>
+      </div>
+
+      {/* Controls */}
+      <div className="mb-4 flex flex-wrap items-center gap-3">
+        <div className="flex items-center gap-2">
+          <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Indent:</label>
+          <select
+            value={indentSize}
+            onChange={e => setIndentSize(Number(e.target.value))}
+            className="px-3 py-1.5 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
+          >
+            <option value={2}>2 spaces</option>
+            <option value={4}>4 spaces</option>
+            <option value={8}>8 spaces</option>
+          </select>
+        </div>
+        <button
+          onClick={handleLoadExample}
+          className="px-4 py-1.5 text-sm rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+        >
+          Load Example
+        </button>
+      </div>
+
+      {/* Single Editor Section */}
+      <div className="max-w-5xl mx-auto">
+        <div className="flex items-center justify-between mb-2">
+          <label className="text-sm font-semibold text-gray-900 dark:text-white">JSON Editor</label>
+          <button onClick={handleClear} className="flex items-center gap-1 text-sm text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300">
+            <Trash2 size={14} />
+            Clear
+          </button>
+        </div>
+
+        {/* JSON Editor */}
+        <JSONEditor
+          value={jsonInput}
+          onChange={setJsonInput}
+          placeholder='Enter your JSON here... e.g., {"name": "John", "age": 30}'
+          errorLine={validationResult?.isValid === false ? validationResult.errorLine : undefined}
+        />
+
+        <button
+          onClick={validateJson}
+          className="mt-3 w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl"
+        >
+          Validate & Format JSON
+        </button>
+
+        {/* Validation Results Below */}
+        {validationResult && (
+          <div className="mt-6 space-y-4">
+            {validationResult.isValid ? (
+              <>
+                {/* Success Message */}
+                <div className="flex items-center gap-3 px-6 py-4 rounded-lg bg-green-50 dark:bg-green-900/20 border-2 border-green-500">
+                  <Check className="text-green-600 dark:text-green-400 flex-shrink-0" size={28} />
+                  <div>
+                    <p className="font-bold text-lg text-green-900 dark:text-green-400">Valid JSON ✓</p>
+                    <p className="text-sm text-green-700 dark:text-green-500">Your JSON is properly formatted</p>
+                  </div>
+                </div>
+
+                {/* Stats */}
+                {validationResult.stats && (
+                  <div className="grid grid-cols-3 gap-4">
+                    <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
+                      <p className="text-xs text-blue-600 dark:text-blue-400 font-medium">Lines</p>
+                      <p className="text-2xl font-bold text-blue-900 dark:text-blue-300">{validationResult.stats.lines}</p>
+                    </div>
+                    <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg border border-purple-200 dark:border-purple-800">
+                      <p className="text-xs text-purple-600 dark:text-purple-400 font-medium">Size</p>
+                      <p className="text-2xl font-bold text-purple-900 dark:text-purple-300">{validationResult.stats.size}</p>
+                    </div>
+                    <div className="bg-pink-50 dark:bg-pink-900/20 p-4 rounded-lg border border-pink-200 dark:border-pink-800">
+                      <p className="text-xs text-pink-600 dark:text-pink-400 font-medium">Type</p>
+                      <p className="text-lg font-bold text-pink-900 dark:text-pink-300">{validationResult.stats.type}</p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Formatted Output */}
+                {validationResult.formatted && (
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <label className="text-sm font-semibold text-gray-900 dark:text-white">Formatted JSON</label>
+                      <button onClick={handleCopyFormatted} className="flex items-center gap-1 px-3 py-1.5 text-sm text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors">
+                        {copied ? (
+                          <>
+                            <Check size={14} />
+                            Copied!
+                          </>
+                        ) : (
+                          <>
+                            <Copy size={14} />
+                            Copy
+                          </>
+                        )}
+                      </button>
+                    </div>
+                    <div className="relative">
+                      <pre className="w-full max-h-96 px-4 py-3 text-sm font-mono rounded-lg border-2 border-green-300 dark:border-green-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 overflow-auto">
+                        {validationResult.formatted}
+                      </pre>
+                    </div>
+                  </div>
+                )}
+              </>
+            ) : (
+              <>
+                {/* Error Message */}
+                <div className="flex items-start gap-3 px-6 py-4 rounded-lg bg-red-50 dark:bg-red-900/20 border-2 border-red-500">
+                  <X className="text-red-600 dark:text-red-400 flex-shrink-0 mt-1" size={28} />
+                  <div className="flex-1">
+                    <p className="font-bold text-lg text-red-900 dark:text-red-400 mb-3">Invalid JSON</p>
+                    <div className="bg-red-100 dark:bg-red-900/40 border-l-4 border-red-600 p-4 rounded">
+                      <pre className="text-sm text-red-800 dark:text-red-200 font-mono whitespace-pre-wrap break-all">{validationResult.error}</pre>
+                    </div>
+                    {validationResult.errorColumn && <p className="text-sm text-red-700 dark:text-red-400 mt-3 font-semibold">Column {validationResult.errorColumn}</p>}
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* Hero Section */}
+      <div className="mt-16">
+        <JSONToolHero
+          icon={FileJson}
+          title="JSON Validator & Formatter"
+          description="Validate, format, and beautify your JSON data instantly. Free online tool with error detection and line-by-line highlighting."
+          imageSrc="/json-validate.webp"
+          imageAlt="JSON Validator Tool"
+          features={heroFeatures}
+        />
+      </div>
+
+      {/* Key Features */}
+      <JSONToolFeatures features={keyFeatures} />
+
+      {/* How to Use */}
+      <JSONToolHowTo steps={howToSteps} />
+    </div>
+  );
+}

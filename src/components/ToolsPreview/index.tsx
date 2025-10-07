@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Palette, Type, Smile } from 'lucide-react';
+import { Palette, Type, Smile, FileJson } from 'lucide-react';
 
 const ToolsPreview = () => {
   return (
@@ -9,7 +9,7 @@ const ToolsPreview = () => {
         <p className="text-gray-600 dark:text-gray-400">Access powerful color, typography, and text tools for your creative projects</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {/* Color Tools Card */}
         <Link
           href="/colors"
@@ -54,6 +54,22 @@ const ToolsPreview = () => {
             <div className="flex-1">
               <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors mb-2">Text Tools</h3>
               <p className="text-sm text-gray-600 dark:text-gray-300">Browse emojis, symbols, and special characters for your projects</p>
+            </div>
+          </div>
+        </Link>
+
+        {/* JSON Tools Card */}
+        <Link
+          href="/texts/json-validator"
+          className="group block p-6 bg-gradient-to-br from-orange-50 to-yellow-50 dark:from-gray-800 dark:to-gray-700 rounded-xl border-2 border-orange-200 dark:border-gray-600 hover:border-orange-400 dark:hover:border-orange-500 transition-all duration-300 hover:shadow-xl hover:scale-105"
+        >
+          <div className="flex flex-col items-center text-center gap-4">
+            <div className="flex-shrink-0 p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 shadow-lg">
+              <FileJson className="w-8 h-8 text-white" />
+            </div>
+            <div className="flex-1">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors mb-2">JSON Tools</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-300">Validate, compare, and parse JSON with powerful online tools</p>
             </div>
           </div>
         </Link>

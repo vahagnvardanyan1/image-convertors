@@ -65,6 +65,9 @@ module.exports = {
       await config.transform(config, '/blog/emoji-guide'),
       await config.transform(config, '/blog/symbol-guide'),
       await config.transform(config, '/blog/remove-background-guide'),
+      await config.transform(config, '/blog/json-validator-guide'),
+      await config.transform(config, '/blog/json-comparer-guide'),
+      await config.transform(config, '/blog/json-parser-guide'),
 
       // Color tools
       await config.transform(config, '/colors'),
@@ -73,7 +76,7 @@ module.exports = {
       await config.transform(config, '/colors/gradients'),
       await config.transform(config, '/colors/converter'),
 
-      // Font tools
+      // Text tools
       await config.transform(config, '/texts'),
       await config.transform(config, '/texts/fonts'),
       await config.transform(config, '/texts/fonts/preview'),
@@ -81,6 +84,9 @@ module.exports = {
       await config.transform(config, '/texts/fonts/scales'),
       await config.transform(config, '/texts/emojis'),
       await config.transform(config, '/texts/symbols'),
+      await config.transform(config, '/texts/json-validator'),
+      await config.transform(config, '/texts/json-comparer'),
+      await config.transform(config, '/texts/json-parser'),
     ];
   },
   // Optimize for SEO

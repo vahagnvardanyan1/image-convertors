@@ -107,9 +107,11 @@ export function DynamicMetadata({ title: customTitle, description, keywords, ope
 
         // Add new og:image tags
         openGraph.images.forEach(imageUrl => {
+          // Ensure imageUrl is a string
+          const urlString = typeof imageUrl === 'string' ? imageUrl : String(imageUrl);
           const ogImage = document.createElement('meta');
           ogImage.setAttribute('property', 'og:image');
-          ogImage.content = imageUrl.startsWith('http') ? imageUrl : `${window.location.origin}${imageUrl}`;
+          ogImage.content = urlString.startsWith('http') ? urlString : `${window.location.origin}${urlString}`;
           document.head.appendChild(ogImage);
         });
       }
