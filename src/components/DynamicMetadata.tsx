@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { usePathname } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useRef, useMemo } from 'react';
 
 interface DynamicMetadataProps {
   title?: string;
@@ -16,8 +17,15 @@ interface DynamicMetadataProps {
 
 export function DynamicMetadata({ title: customTitle, description, keywords, openGraph }: DynamicMetadataProps = {}) {
   const pathname = usePathname();
+  const isMountedRef = useRef(true);
+  const createdImagesRef = useRef<Set<HTMLMetaElement>>(new Set());
+
+  // Serialize openGraph to prevent unnecessary re-renders
+  const openGraphSerialized = useMemo(() => JSON.stringify(openGraph), [openGraph]);
 
   useEffect(() => {
+    isMountedRef.current = true;
+    const openGraphData = openGraphSerialized ? JSON.parse(openGraphSerialized) : null;
     // Update canonical URL based on current pathname
     let canonicalLink = document.querySelector('link[rel="canonical"]') as HTMLLinkElement;
     if (!canonicalLink) {
@@ -76,47 +84,71 @@ export function DynamicMetadata({ title: customTitle, description, keywords, ope
     }
 
     // Update OpenGraph meta tags
-    if (openGraph) {
+    if (openGraphData) {
       // OG Title
-      if (openGraph.title) {
+      if (openGraphData.title) {
         let ogTitle = document.querySelector('meta[property="og:title"]') as HTMLMetaElement;
         if (!ogTitle) {
           ogTitle = document.createElement('meta');
           ogTitle.setAttribute('property', 'og:title');
           document.head.appendChild(ogTitle);
         }
-        ogTitle.content = openGraph.title;
+        ogTitle.content = openGraphData.title;
       }
 
       // OG Description
-      if (openGraph.description) {
+      if (openGraphData.description) {
         let ogDescription = document.querySelector('meta[property="og:description"]') as HTMLMetaElement;
         if (!ogDescription) {
           ogDescription = document.createElement('meta');
           ogDescription.setAttribute('property', 'og:description');
           document.head.appendChild(ogDescription);
         }
-        ogDescription.content = openGraph.description;
+        ogDescription.content = openGraphData.description;
       }
 
       // OG Images
-      if (openGraph.images && openGraph.images.length > 0) {
-        // Remove existing og:image tags
-        const existingImages = document.querySelectorAll('meta[property="og:image"]');
-        existingImages.forEach(img => img.remove());
+      if (openGraphData.images && Array.isArray(openGraphData.images) && openGraphData.images.length > 0) {
+        // Clean up old images we created
+        createdImagesRef.current.forEach(img => {
+          try {
+            if (img?.parentNode) {
+              img.remove();
+            }
+          } catch (e) {
+            // Ignore
+          }
+        });
+        createdImagesRef.current.clear();
 
         // Add new og:image tags
-        openGraph.images.forEach(imageUrl => {
+        openGraphData.images.forEach((imageUrl: any) => {
           // Ensure imageUrl is a string
           const urlString = typeof imageUrl === 'string' ? imageUrl : String(imageUrl);
-          const ogImage = document.createElement('meta');
-          ogImage.setAttribute('property', 'og:image');
-          ogImage.content = urlString.startsWith('http') ? urlString : `${window.location.origin}${urlString}`;
-          document.head.appendChild(ogImage);
+          if (urlString && urlString !== 'null' && urlString !== 'undefined') {
+            try {
+              const ogImage = document.createElement('meta');
+              ogImage.setAttribute('property', 'og:image');
+              ogImage.content = urlString.startsWith('http') ? urlString : `${window.location.origin}${urlString}`;
+              if (isMountedRef.current) {
+                document.head.appendChild(ogImage);
+                createdImagesRef.current.add(ogImage);
+              }
+            } catch (e) {
+              // Ignore creation errors
+            }
+          }
         });
       }
     }
-  }, [pathname, customTitle, description, keywords, openGraph]);
+
+    // Cleanup function
+    return () => {
+      isMountedRef.current = false;
+      // Don't remove elements on unmount - let them persist between navigations
+      // They will be updated by the next page's DynamicMetadata component
+    };
+  }, [pathname, customTitle, description, keywords, openGraphSerialized]);
 
   return null; // This component doesn't render anything
 }
