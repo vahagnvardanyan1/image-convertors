@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
 import { useState, useRef } from 'react';
 import { ArrowLeft, FileImage, Download, Zap, Trash2, AlertCircle, Sparkles, Brain, Lock, Upload, Image as ImageIcon, ShoppingBag, User, Palette, ChevronDown } from 'lucide-react';
@@ -314,7 +315,7 @@ export function BackgroundRemover() {
                           : {}
                       }
                     >
-                      {(processedImage || imagePreview) && <img src={processedImage || imagePreview} alt="Preview" className="max-w-full max-h-[500px] w-auto h-auto rounded-lg" />}
+                      {(processedImage || imagePreview) && <img src={processedImage || imagePreview || ''} alt="Preview" className="max-w-full max-h-[500px] w-auto h-auto rounded-lg" />}
 
                       {/* Minimalistic Loader Overlay */}
                       {isProcessing && (
