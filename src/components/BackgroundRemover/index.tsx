@@ -1,6 +1,6 @@
 'use client';
-import { useState, useRef, useEffect } from 'react';
-import { ArrowLeft, FileImage, Download, Zap, Trash2, AlertCircle, Sparkles, Brain, Cpu, Lock, Upload, Image as ImageIcon, ShoppingBag, User, Palette, ChevronDown } from 'lucide-react';
+import { useState, useRef } from 'react';
+import { ArrowLeft, FileImage, Download, Zap, Trash2, AlertCircle, Sparkles, Brain, Lock, Upload, Image as ImageIcon, ShoppingBag, User, Palette, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '../ui/button';
@@ -9,15 +9,12 @@ import { removeBackground } from '@imgly/background-removal';
 
 export function BackgroundRemover() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [originalPreview, setOriginalPreview] = useState<string | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [processedImage, setProcessedImage] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const processingRef = useRef<HTMLDivElement>(null);
-  const previewRef = useRef<HTMLDivElement>(null);
-  const downloadRef = useRef<HTMLDivElement>(null);
 
   const formatFileSize = (bytes: number): string => {
     if (bytes === 0) return '0 Bytes';
@@ -26,24 +23,6 @@ export function BackgroundRemover() {
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   };
-
-  // Auto-scroll to processing indicator when processing starts
-  useEffect(() => {
-    if (isProcessing && processingRef.current) {
-      setTimeout(() => {
-        processingRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }, 100);
-    }
-  }, [isProcessing]);
-
-  // Auto-scroll to results when processing completes
-  useEffect(() => {
-    if (processedImage && previewRef.current) {
-      setTimeout(() => {
-        previewRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 200);
-    }
-  }, [processedImage]);
 
   const handleFileSelect = async (file: File) => {
     if (!file.type.startsWith('image/')) {
@@ -57,21 +36,21 @@ export function BackgroundRemover() {
 
     // Create preview
     const reader = new FileReader();
-    reader.onload = e => {
-      setOriginalPreview(e.target?.result as string);
+    reader.onload = async e => {
+      setImagePreview(e.target?.result as string);
+      // Auto-start background removal
+      await handleRemoveBackgroundWithFile(file);
     };
     reader.readAsDataURL(file);
   };
 
-  const handleRemoveBackground = async () => {
-    if (!selectedFile) return;
-
+  const handleRemoveBackgroundWithFile = async (file: File) => {
     setIsProcessing(true);
     setError(null);
 
     try {
       // Remove background using @imgly/background-removal
-      const blob = await removeBackground(selectedFile);
+      const blob = await removeBackground(file);
 
       // Convert blob to data URL for preview
       const dataUrl = URL.createObjectURL(blob);
@@ -82,6 +61,11 @@ export function BackgroundRemover() {
     } finally {
       setIsProcessing(false);
     }
+  };
+
+  const handleRemoveBackground = async () => {
+    if (!selectedFile) return;
+    await handleRemoveBackgroundWithFile(selectedFile);
   };
 
   const handleDownload = () => {
@@ -97,7 +81,7 @@ export function BackgroundRemover() {
 
   const handleReset = () => {
     setSelectedFile(null);
-    setOriginalPreview(null);
+    setImagePreview(null);
     setProcessedImage(null);
     setError(null);
     if (fileInputRef.current) {
@@ -297,151 +281,105 @@ export function BackgroundRemover() {
                 <h2 className="text-2xl font-bold text-gray-900">Upload Your Image</h2>
               </div>
 
-              {!selectedFile ? (
-                <div
-                  className="relative border-2 border-dashed border-purple-300 rounded-2xl p-12 text-center hover:border-purple-500 hover:bg-purple-50/50 transition-all duration-300 cursor-pointer group"
-                  onDrop={handleDrop}
-                  onDragOver={handleDragOver}
-                  onClick={() => fileInputRef.current?.click()}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-purple-400/5 to-pink-400/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                  <div className="relative">
-                    <div className="mx-auto w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
-                      <FileImage className="text-white" size={40} />
-                    </div>
-                    <p className="text-xl font-bold text-gray-900 mb-2">Drop your image here or click to browse</p>
-                    <p className="text-gray-600 mb-4">Supports JPG, PNG, WebP and more formats</p>
-                    <div className="flex items-center justify-center gap-2 text-sm text-purple-600 font-medium">
-                      <Sparkles size={16} />
-                      <span>AI will remove the background automatically</span>
-                    </div>
-                  </div>
-                  <input ref={fileInputRef} type="file" accept="image/*" onChange={e => e.target.files?.[0] && handleFileSelect(e.target.files[0])} className="hidden" />
-                </div>
-              ) : (
-                <>
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between p-5 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl border border-purple-200">
-                      <div className="flex items-center space-x-3">
-                        <div className="p-2 bg-white rounded-lg shadow-sm">
-                          <FileImage className="h-6 w-6 text-purple-600" />
-                        </div>
-                        <div>
-                          <p className="font-semibold text-gray-900">{selectedFile.name}</p>
-                          <p className="text-sm text-gray-600">{formatFileSize(selectedFile.size)}</p>
-                        </div>
+              {/* Upload Area / Image Display */}
+              <div className="relative border-2 border-dashed border-purple-300 rounded-2xl overflow-hidden" onDrop={handleDrop} onDragOver={handleDragOver}>
+                {!selectedFile ? (
+                  <div className="p-12 text-center hover:border-purple-500 hover:bg-purple-50/50 transition-all duration-300 cursor-pointer group" onClick={() => fileInputRef.current?.click()}>
+                    <div className="absolute inset-0 bg-gradient-to-br from-purple-400/5 to-pink-400/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div className="relative">
+                      <div className="mx-auto w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                        <FileImage className="text-white" size={40} />
                       </div>
-                      <Button variant="outline" onClick={handleReset} className="flex items-center border-purple-200 hover:bg-white">
-                        <Trash2 className="mr-2" size={16} />
-                        Remove
+                      <p className="text-xl font-bold text-gray-900 mb-2">Drop your image here or click to browse</p>
+                      <p className="text-gray-600 mb-4">Supports JPG, PNG, WebP and more formats</p>
+                      <div className="flex items-center justify-center gap-2 text-sm text-purple-600 font-medium">
+                        <Sparkles size={16} />
+                        <span>AI will remove the background automatically</span>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="relative">
+                    {/* Image Display */}
+                    <div
+                      className="relative min-h-[300px] flex items-center justify-center p-4"
+                      style={
+                        processedImage
+                          ? {
+                              backgroundImage:
+                                'linear-gradient(45deg, #f0f0f0 25%, transparent 25%), linear-gradient(-45deg, #f0f0f0 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #f0f0f0 75%), linear-gradient(-45deg, transparent 75%, #f0f0f0 75%)',
+                              backgroundSize: '20px 20px',
+                              backgroundPosition: '0 0, 0 10px, 10px -10px, -10px 0px',
+                            }
+                          : {}
+                      }
+                    >
+                      {(processedImage || imagePreview) && <img src={processedImage || imagePreview} alt="Preview" className="max-w-full max-h-[500px] w-auto h-auto rounded-lg" />}
+
+                      {/* Minimalistic Loader Overlay */}
+                      {isProcessing && (
+                        <div className="absolute inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center">
+                          <div className="flex flex-col items-center gap-3">
+                            <div className="w-12 h-12 border-4 border-purple-200 border-t-purple-600 rounded-full animate-spin"></div>
+                            <p className="text-sm font-medium text-gray-700">Processing...</p>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Status Badge */}
+                      {processedImage && (
+                        <div className="absolute top-4 right-4 px-3 py-1.5 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-semibold rounded-full shadow-lg flex items-center gap-1.5">
+                          <Sparkles size={14} />
+                          <span>Background Removed</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+                <input ref={fileInputRef} type="file" accept="image/*" onChange={e => e.target.files?.[0] && handleFileSelect(e.target.files[0])} className="hidden" />
+              </div>
+
+              {/* File Info and Actions */}
+              {selectedFile && (
+                <div className="mt-4 space-y-3">
+                  <div className="flex items-center justify-between p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl border border-purple-200">
+                    <div className="flex items-center space-x-3 min-w-0 flex-1 mr-3">
+                      <div className="p-2 bg-white rounded-lg shadow-sm flex-shrink-0">
+                        <FileImage className="h-5 w-5 text-purple-600" />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="font-semibold text-gray-900 truncate">{selectedFile.name}</p>
+                        <p className="text-sm text-gray-600">{formatFileSize(selectedFile.size)}</p>
+                      </div>
+                    </div>
+                    <Button variant="outline" onClick={handleReset} className="flex items-center gap-2 border-purple-200 hover:bg-white flex-shrink-0" size="sm">
+                      <Trash2 size={14} />
+                      <span className="hidden sm:inline">Remove</span>
+                    </Button>
+                  </div>
+
+                  {processedImage && (
+                    <div className="flex gap-3">
+                      <Button
+                        onClick={handleDownload}
+                        className="flex-1 bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-700 hover:to-teal-700 text-white font-semibold py-4 text-base shadow-lg hover:shadow-xl transition-all"
+                      >
+                        <Download className="mr-2" size={18} />
+                        Download PNG
+                      </Button>
+                      <Button variant="outline" onClick={handleReset} className="flex items-center gap-2 border-2 border-gray-300 hover:bg-gray-50 px-6">
+                        <Trash2 size={16} />
+                        <span className="hidden sm:inline">Start Over</span>
                       </Button>
                     </div>
-
-                    {!processedImage && !isProcessing && (
-                      <Button
-                        onClick={handleRemoveBackground}
-                        className="w-full bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 hover:from-purple-700 hover:via-pink-700 hover:to-blue-700 text-white font-semibold py-6 text-lg shadow-lg hover:shadow-xl transition-all"
-                      >
-                        <Sparkles className="mr-2 animate-pulse" size={20} />
-                        Remove Background with AI
-                        <Zap className="ml-2" size={20} />
-                      </Button>
-                    )}
-                  </div>
-                </>
+                  )}
+                </div>
               )}
 
               {error && (
                 <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center">
-                  <AlertCircle className="h-5 w-5 text-red-500 mr-2" />
+                  <AlertCircle className="h-5 w-5 text-red-500 mr-2 flex-shrink-0" />
                   <span className="text-red-700">{error}</span>
-                </div>
-              )}
-
-              {isProcessing && (
-                <div ref={processingRef} className="mt-6 text-center">
-                  <div className="relative inline-flex flex-col items-center px-8 py-6 bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl border-2 border-purple-200 shadow-lg">
-                    <div className="relative mb-4">
-                      <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full blur-xl opacity-50 animate-pulse"></div>
-                      <div className="relative w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
-                        <Cpu className="text-white animate-pulse" size={32} />
-                      </div>
-                      <div className="absolute -top-1 -right-1">
-                        <Sparkles className="text-yellow-400 animate-bounce" size={20} />
-                      </div>
-                    </div>
-                    <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">AI is working its magic...</span>
-                    <span className="text-sm text-gray-600">Analyzing and removing background</span>
-                    <div className="flex gap-1 mt-4">
-                      <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                      <div className="w-2 h-2 bg-pink-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                      <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {(originalPreview || processedImage) && (
-                <div ref={previewRef} className="mt-8">
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="h-1 flex-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"></div>
-                    <h3 className="text-xl font-bold text-gray-900">Preview</h3>
-                    <div className="h-1 flex-1 bg-gradient-to-l from-purple-500 to-pink-500 rounded-full"></div>
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {originalPreview && (
-                      <div className="group">
-                        <div className="flex items-center gap-2 mb-3">
-                          <div className="w-3 h-3 bg-gray-400 rounded-full"></div>
-                          <p className="text-sm font-semibold text-gray-700">Original Image</p>
-                        </div>
-                        <div className="border-2 border-gray-200 rounded-xl p-4 bg-white shadow-md group-hover:shadow-lg transition-shadow overflow-hidden">
-                          <img src={originalPreview} alt="Original" className="w-full h-auto rounded-lg" />
-                        </div>
-                      </div>
-                    )}
-                    {processedImage && (
-                      <div className="group">
-                        <div className="flex items-center gap-2 mb-3">
-                          <div className="w-3 h-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full animate-pulse"></div>
-                          <p className="text-sm font-semibold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">AI Processed</p>
-                          <Sparkles className="text-purple-500 animate-pulse" size={16} />
-                        </div>
-                        <div
-                          className="border-2 border-purple-200 rounded-xl p-4 relative shadow-md group-hover:shadow-xl transition-shadow overflow-hidden"
-                          style={{
-                            backgroundImage:
-                              'linear-gradient(45deg, #f0f0f0 25%, transparent 25%), linear-gradient(-45deg, #f0f0f0 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #f0f0f0 75%), linear-gradient(-45deg, transparent 75%, #f0f0f0 75%)',
-                            backgroundSize: '20px 20px',
-                            backgroundPosition: '0 0, 0 10px, 10px -10px, -10px 0px',
-                          }}
-                        >
-                          <div className="absolute top-2 right-2 px-3 py-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-semibold rounded-full shadow-lg flex items-center gap-1">
-                            <Sparkles size={12} />
-                            <span>Transparent</span>
-                          </div>
-                          <img src={processedImage} alt="Processed" className="w-full h-auto rounded-lg" />
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              )}
-
-              {processedImage && (
-                <div ref={downloadRef} className="mt-8 flex gap-3">
-                  <Button
-                    onClick={handleDownload}
-                    className="flex-1 bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-700 hover:to-teal-700 text-white font-semibold py-4 text-lg shadow-lg hover:shadow-xl transition-all"
-                  >
-                    <Download className="mr-2" size={20} />
-                    Download PNG
-                    <Sparkles className="ml-2" size={16} />
-                  </Button>
-                  <Button variant="outline" onClick={handleReset} className="flex items-center border-2 border-gray-300 hover:bg-gray-50 px-6">
-                    <Trash2 className="mr-2" size={16} />
-                    Start Over
-                  </Button>
                 </div>
               )}
             </Card>
