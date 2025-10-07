@@ -39,14 +39,7 @@ const metadata = {
     title: 'JSON Comparer - Compare & Diff JSON Online | ImageConvertors',
     description:
       'Free online JSON comparison tool. Compare two JSON objects or arrays, visualize differences with color-coded highlighting, and get detailed diff reports. Perfect for API testing, data validation, and debugging.',
-    images: [
-      {
-        url: '/json-compare.webp',
-        width: 1200,
-        height: 630,
-        alt: 'JSON Comparer Tool',
-      },
-    ],
+    images: ['/json-compare.webp'],
   },
 };
 

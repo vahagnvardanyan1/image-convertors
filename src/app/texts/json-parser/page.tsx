@@ -39,14 +39,7 @@ const metadata = {
   openGraph: {
     title: 'JSON Parser - Parse & Explore JSON Online | ImageConvertors',
     description: 'Free online JSON parser and explorer. Parse JSON data, explore nested structures, view data types, and navigate through complex JSON with an interactive tree view.',
-    images: [
-      {
-        url: '/json-parse.webp',
-        width: 1200,
-        height: 630,
-        alt: 'JSON Parser Tool',
-      },
-    ],
+    images: ['/json-parse.webp'],
   },
 };
 
