@@ -1,14 +1,12 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
-import Script from 'next/script';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { CookieConsent } from '@/components/CookieConsent';
 import { StructuredData } from '@/components/StructuredData';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import Head from 'next/head';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
 
 const geistSans = Geist({
@@ -73,10 +71,8 @@ export const viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <Head>
-        <GoogleAnalytics />
-      </Head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <GoogleAnalytics />
         <Header />
         <StructuredData />
         <main>{children}</main>
