@@ -74,18 +74,18 @@ export default function FontScalesPage() {
     <div>
       <DynamicMetadata title={metadata.title} description={metadata.description} keywords={metadata.keywords} />
 
-      <div className="mb-8">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Typographic Scale Generator</h2>
+      <div className="mb-4 sm:mb-6 lg:mb-8">
+        <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2">Typographic Scale Generator</h2>
         <p className="text-gray-600 dark:text-gray-400">Create harmonious font size systems using mathematical ratios</p>
       </div>
 
       {/* Quick Presets */}
-      <div className="mb-8 p-6 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 rounded-xl border border-blue-100 dark:border-gray-600">
+      <div className="mb-6 sm:mb-8 p-4 sm:p-6 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 rounded-xl border border-blue-100 dark:border-gray-600">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
           <Sparkles size={20} />
           Quick Presets
         </h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
           {presets.map(preset => (
             <button
               key={preset.name}
@@ -93,7 +93,7 @@ export default function FontScalesPage() {
               className="px-4 py-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-600 hover:shadow-lg hover:border-blue-500 transition-all text-left"
             >
               <div className="font-semibold text-gray-900 dark:text-white text-sm">{preset.name}</div>
-              <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+              <div className="text-xs text-gray-600 dark:text-gray-400 mt-1 break-words">
                 {preset.baseSize}px • {fontScaleRatios.find(r => r.id === preset.ratioId)?.label}
               </div>
             </button>
@@ -101,10 +101,10 @@ export default function FontScalesPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
         {/* Controls */}
-        <div className="space-y-6">
-          <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
+        <div className="space-y-4 sm:space-y-6">
+          <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4 sm:p-6">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Scale Settings</h3>
 
             {/* Base Size */}
@@ -157,45 +157,47 @@ export default function FontScalesPage() {
           </div>
 
           {/* Scale Table */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 overflow-x-auto">
+          <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4 sm:p-6 overflow-x-auto">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Generated Scale</h3>
-            <table className="w-full text-sm">
-              <thead className="border-b border-gray-200 dark:border-gray-700">
-                <tr>
-                  <th className="text-left py-2 text-gray-700 dark:text-gray-300 font-semibold">Level</th>
-                  <th className="text-right py-2 text-gray-700 dark:text-gray-300 font-semibold">Pixels</th>
-                  <th className="text-right py-2 text-gray-700 dark:text-gray-300 font-semibold">REM</th>
-                </tr>
-              </thead>
-              <tbody>
-                {scale.map(item => (
-                  <tr key={item.label} className="border-b border-gray-100 dark:border-gray-700 last:border-b-0">
-                    <td className="py-3 text-gray-900 dark:text-white font-medium">{item.label}</td>
-                    <td className="py-3 text-right text-gray-600 dark:text-gray-400">{item.px}px</td>
-                    <td className="py-3 text-right text-gray-600 dark:text-gray-400">{item.rem}rem</td>
+            <div className="overflow-x-auto -mx-4 sm:mx-0">
+              <table className="w-full text-sm min-w-[300px]">
+                <thead className="border-b border-gray-200 dark:border-gray-700">
+                  <tr>
+                    <th className="text-left py-2 px-2 text-gray-700 dark:text-gray-300 font-semibold">Level</th>
+                    <th className="text-right py-2 px-2 text-gray-700 dark:text-gray-300 font-semibold">Pixels</th>
+                    <th className="text-right py-2 px-2 text-gray-700 dark:text-gray-300 font-semibold">REM</th>
                   </tr>
-                ))}
-                {includeBody && (
-                  <tr className="border-t-2 border-gray-200 dark:border-gray-600">
-                    <td className="py-3 text-gray-900 dark:text-white font-medium">Body</td>
-                    <td className="py-3 text-right text-gray-600 dark:text-gray-400">{baseSize}px</td>
-                    <td className="py-3 text-right text-gray-600 dark:text-gray-400">{(baseSize / 16).toFixed(3)}rem</td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {scale.map(item => (
+                    <tr key={item.label} className="border-b border-gray-100 dark:border-gray-700 last:border-b-0">
+                      <td className="py-3 px-2 text-gray-900 dark:text-white font-medium">{item.label}</td>
+                      <td className="py-3 px-2 text-right text-gray-600 dark:text-gray-400">{item.px}px</td>
+                      <td className="py-3 px-2 text-right text-gray-600 dark:text-gray-400">{item.rem}rem</td>
+                    </tr>
+                  ))}
+                  {includeBody && (
+                    <tr className="border-t-2 border-gray-200 dark:border-gray-600">
+                      <td className="py-3 px-2 text-gray-900 dark:text-white font-medium">Body</td>
+                      <td className="py-3 px-2 text-right text-gray-600 dark:text-gray-400">{baseSize}px</td>
+                      <td className="py-3 px-2 text-right text-gray-600 dark:text-gray-400">{(baseSize / 16).toFixed(3)}rem</td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
 
         {/* Preview & CSS */}
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           {/* Visual Preview */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
+          <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4 sm:p-6">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Visual Preview</h3>
             <div className="space-y-4">
               {scale.map((item, index) => (
                 <div key={index} className="pb-3 border-b border-gray-100 dark:border-gray-700 last:border-b-0">
-                  <div className="text-gray-900 dark:text-white" style={{ fontSize: `${item.px}px`, lineHeight: 1.2 }}>
+                  <div className="text-gray-900 dark:text-white break-words overflow-hidden" style={{ fontSize: `${Math.min(item.px, 48)}px`, lineHeight: 1.2 }}>
                     {item.label}: The quick brown fox
                   </div>
                   <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
@@ -205,7 +207,7 @@ export default function FontScalesPage() {
               ))}
               {includeBody && (
                 <div className="pt-3 border-t-2 border-gray-200 dark:border-gray-600">
-                  <div className="text-gray-900 dark:text-white" style={{ fontSize: `${baseSize}px`, lineHeight: 1.5 }}>
+                  <div className="text-gray-900 dark:text-white break-words" style={{ fontSize: `${baseSize}px`, lineHeight: 1.5 }}>
                     Body: Typography is the craft of endowing human language with a durable visual form. This is your base body text size that will be used for most content.
                   </div>
                   <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
@@ -217,15 +219,15 @@ export default function FontScalesPage() {
           </div>
 
           {/* CSS Output */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
-            <div className="flex items-center justify-between mb-4">
+          <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4 sm:p-6">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">CSS Variables</h3>
-              <Button onClick={handleCopyCSS} size="sm">
+              <Button onClick={handleCopyCSS} size="sm" className="w-full sm:w-auto">
                 <Copy className="mr-2" size={16} />
                 {copiedField === 'css' ? 'Copied!' : 'Copy CSS'}
               </Button>
             </div>
-            <pre className="bg-gray-50 dark:bg-gray-900 rounded-lg p-4 overflow-x-auto text-xs text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 max-h-[500px] overflow-y-auto">
+            <pre className="bg-gray-50 dark:bg-gray-900 rounded-lg p-3 sm:p-4 overflow-x-auto text-xs text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 max-h-[400px] sm:max-h-[500px] overflow-y-auto">
               <code>{generateCSSVariables()}</code>
             </pre>
           </div>
@@ -233,7 +235,7 @@ export default function FontScalesPage() {
       </div>
 
       {/* Info Panel */}
-      <div className="mt-12 p-6 rounded-xl bg-gradient-to-r from-orange-50 to-red-50 dark:from-gray-700 dark:to-gray-600 border border-orange-100 dark:border-gray-600">
+      <div className="mt-8 sm:mt-12 p-4 sm:p-6 rounded-xl bg-gradient-to-r from-orange-50 to-red-50 dark:from-gray-700 dark:to-gray-600 border border-orange-100 dark:border-gray-600">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">About Typographic Scales</h3>
         <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
           <li className="flex items-start gap-2">

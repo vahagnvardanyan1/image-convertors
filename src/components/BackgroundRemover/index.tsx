@@ -66,11 +66,6 @@ export function BackgroundRemover() {
     }
   };
 
-  const handleRemoveBackground = async () => {
-    if (!selectedFile) return;
-    await handleRemoveBackgroundWithFile(selectedFile);
-  };
-
   const handleDownload = () => {
     if (!processedImage) return;
 

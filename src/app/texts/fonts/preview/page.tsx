@@ -94,15 +94,15 @@ background-color: ${bgColor};`;
     <div>
       <DynamicMetadata title={metadata.title} description={metadata.description} keywords={metadata.keywords} />
 
-      <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Font Preview Playground</h2>
+      <div className="mb-4 sm:mb-6">
+        <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2">Font Preview Playground</h2>
         <p className="text-gray-600 dark:text-gray-400">Test Google Fonts with live preview and customization options</p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
         {/* Controls */}
-        <div className="space-y-6">
-          <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
+        <div className="space-y-4 sm:space-y-6">
+          <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4 sm:p-6">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Font Settings</h3>
 
             {/* Font Selection */}
@@ -177,12 +177,12 @@ background-color: ${bgColor};`;
             {/* Text Align */}
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Text Align</label>
-              <div className="flex gap-2">
+              <div className="grid grid-cols-2 sm:flex gap-2">
                 {(['left', 'center', 'right', 'justify'] as TextAlign[]).map(align => (
                   <button
                     key={align}
                     onClick={() => setTextAlign(align)}
-                    className={`flex-1 px-4 py-2 rounded-lg border transition-colors ${
+                    className={`flex-1 px-3 sm:px-4 py-2 rounded-lg border transition-colors text-sm ${
                       textAlign === align
                         ? 'bg-blue-600 text-white border-blue-600'
                         : 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600'
@@ -195,7 +195,7 @@ background-color: ${bgColor};`;
             </div>
 
             {/* Colors */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Text Color</label>
                 <div className="relative">
@@ -208,7 +208,7 @@ background-color: ${bgColor};`;
                     style={{ backgroundColor: textColor }}
                   />
                   {showTextColorPicker && (
-                    <div className="absolute z-10 mt-2">
+                    <div className="absolute z-10 mt-2 left-0 sm:left-auto">
                       <div className="fixed inset-0" onClick={() => setShowTextColorPicker(false)} />
                       <div className="relative">
                         <HexColorPicker color={textColor} onChange={setTextColor} />
@@ -236,7 +236,7 @@ background-color: ${bgColor};`;
                     style={{ backgroundColor: bgColor }}
                   />
                   {showBgColorPicker && (
-                    <div className="absolute z-10 mt-2">
+                    <div className="absolute z-10 mt-2 left-0 sm:left-auto">
                       <div className="fixed inset-0" onClick={() => setShowBgColorPicker(false)} />
                       <div className="relative">
                         <HexColorPicker color={bgColor} onChange={setBgColor} />
@@ -264,9 +264,9 @@ background-color: ${bgColor};`;
         </div>
 
         {/* Preview & CSS */}
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           {/* Live Preview */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
+          <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4 sm:p-6">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Live Preview</h3>
             <div className="mb-4">
               <textarea
@@ -277,7 +277,7 @@ background-color: ${bgColor};`;
               />
             </div>
             <div
-              className="p-6 rounded-lg border-2 border-gray-200 dark:border-gray-700 min-h-[300px]"
+              className="p-4 sm:p-6 rounded-lg border-2 border-gray-200 dark:border-gray-700 min-h-[200px] sm:min-h-[300px] overflow-auto break-words"
               style={{
                 fontFamily: currentFont?.cssFamily,
                 fontSize: `${fontSize}px`,
@@ -295,7 +295,7 @@ background-color: ${bgColor};`;
           </div>
 
           {/* CSS Output */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
+          <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4 sm:p-6">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Generated CSS</h3>
               <Button onClick={handleCopyCSS} size="sm">
