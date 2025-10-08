@@ -57,6 +57,11 @@ export function Footer() {
             </button>
             <ul className={`space-y-2 ${openSection === 'image' ? 'block' : 'hidden sm:block'}`}>
               <li>
+                <Link href="/crop-image" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  Crop Image
+                </Link>
+              </li>
+              <li>
                 <Link href="/png-to-webp" className="text-gray-400 hover:text-white transition-colors text-sm">
                   PNG to WebP
                 </Link>
@@ -105,11 +110,6 @@ export function Footer() {
                 <Link href="/analyze" className="text-gray-400 hover:text-white transition-colors text-sm">
                   Image Analyzer
                 </Link>
-              </li>
-              <li>
-                <a href="http://cropsimage.com/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors text-sm">
-                  Crop Images
-                </a>
               </li>
             </ul>
           </div>
@@ -264,6 +264,11 @@ export function Footer() {
               <li>
                 <Link href="/blog" className="text-gray-400 hover:text-white transition-colors text-sm">
                   Blog Home
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog/crop-image-guide" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  Crop Image Guide
                 </Link>
               </li>
               <li>

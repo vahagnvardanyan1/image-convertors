@@ -176,6 +176,15 @@ const converters = [
     category: 'pdf',
   },
   {
+    from: 'Crop',
+    to: 'Image',
+    route: '/crop-image',
+    icon: ImageIcon,
+    description: 'Crop, resize, and rotate images with precision controls',
+    popular: true,
+    category: 'image',
+  },
+  {
     from: 'Analyze',
     to: 'PDF',
     route: '/pdf-info',

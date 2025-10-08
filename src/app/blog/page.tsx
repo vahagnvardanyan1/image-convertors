@@ -18,6 +18,7 @@ import {
   Sparkles,
   Ruler,
   Scissors,
+  Crop,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/Card';
@@ -76,6 +77,16 @@ interface BlogPost {
 }
 
 const blogPosts: BlogPost[] = [
+  {
+    title: 'Free Online Image Cropper — Crop & Resize Photos Perfectly',
+    description: 'Complete guide to cropping images online for free. Learn professional techniques, aspect ratios, and best practices for perfect image dimensions. No signup required.',
+    slug: 'crop-image-guide',
+    publishDate: '2025-10-08',
+    readTime: '10 min read',
+    category: 'Image Editing',
+    icon: Crop,
+    featured: true,
+  },
   {
     title: 'The Ultimate Guide to Converting PNG to JPG Online',
     description: 'Learn everything about converting PNG images to JPG format without losing quality. Discover when to use each format, best practices, and step-by-step conversion methods.',

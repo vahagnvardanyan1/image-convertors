@@ -59,6 +59,11 @@ export function Header() {
 
   const aiTools = [{ name: 'Remove Background', href: '/remove-background', popular: true }];
 
+  const imageTools = [
+    { name: 'Crop Image', href: '/crop-image', popular: true },
+    { name: 'Image Analyzer', href: '/analyze', popular: true },
+  ];
+
   const imageConverters = [
     { name: 'PNG to WebP', href: '/png-to-webp', popular: true },
     { name: 'JPG to PNG', href: '/jpg-to-png', popular: true },
@@ -109,10 +114,11 @@ export function Header() {
   ];
 
   const blogGuides = [
+    { name: 'Crop Image Guide', href: '/blog/crop-image-guide', popular: true },
     { name: 'Remove Background Guide', href: '/blog/remove-background-guide', popular: true },
     { name: 'PNG to WebP Guide', href: '/blog/png-to-webp-guide', popular: true },
     { name: 'PNG to JPG Guide', href: '/blog/png-to-jpg-guide', popular: true },
-    { name: 'WebP to PNG Guide', href: '/blog/webp-to-png-guide', popular: true },
+    { name: 'WebP to PNG Guide', href: '/blog/webp-to-png-guide', popular: false },
     { name: 'PNG to PDF Guide', href: '/blog/png-to-pdf-guide', popular: false },
     { name: 'JPG to WebP Guide', href: '/blog/jpg-to-webp-guide', popular: false },
     { name: 'JPG to PDF Guide', href: '/blog/jpg-to-pdf-guide', popular: false },
@@ -150,7 +156,7 @@ export function Header() {
             <div className="relative group dropdown-container" onMouseEnter={() => setIsAIDropdownOpen(true)} onMouseLeave={() => setIsAIDropdownOpen(false)}>
               <button className="flex items-center space-x-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors py-2" onClick={() => setIsAIDropdownOpen(!isAIDropdownOpen)}>
                 <Sparkles size={16} />
-                <span>AI</span>
+                <span>AI Tools</span>
                 <ChevronDown size={16} className={`transition-transform ${isAIDropdownOpen ? 'rotate-180' : ''}`} />
               </button>
 
@@ -171,7 +177,7 @@ export function Header() {
               )}
             </div>
 
-            {/* Image Converters Dropdown */}
+            {/* Image Tools Dropdown */}
             <div className="relative group dropdown-container" onMouseEnter={() => setIsImageDropdownOpen(true)} onMouseLeave={() => setIsImageDropdownOpen(false)}>
               <button className="flex items-center space-x-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors py-2" onClick={() => setIsImageDropdownOpen(!isImageDropdownOpen)}>
                 <ImageIcon size={16} />
@@ -181,7 +187,18 @@ export function Header() {
 
               {isImageDropdownOpen && (
                 <div className="absolute top-full left-0 w-64 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
-                  <div className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide border-b border-gray-100">Popular Converters</div>
+                  <div className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide border-b border-gray-100">Image Tools</div>
+                  {imageTools.map(tool => (
+                    <Link
+                      key={tool.href}
+                      href={tool.href}
+                      onClick={() => setIsImageDropdownOpen(false)}
+                      className={`block px-4 py-2 text-sm transition-colors ${pathname === tool.href ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'}`}
+                    >
+                      {tool.name}
+                    </Link>
+                  ))}
+                  <div className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide border-t border-b border-gray-100 mt-2">Popular Converters</div>
                   {imageConverters
                     .filter(tool => tool.popular)
                     .map(tool => (
@@ -352,11 +369,6 @@ export function Header() {
               )}
             </div>
 
-            {/* Analyze Link */}
-            <Link href="/analyze" className={`text-sm font-medium transition-colors ${pathname === '/analyze' ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-gray-900'}`}>
-              Analyze
-            </Link>
-
             {/* Blog Dropdown */}
             <div className="relative group dropdown-container" onMouseEnter={() => setIsBlogDropdownOpen(true)} onMouseLeave={() => setIsBlogDropdownOpen(false)}>
               <button className="flex items-center space-x-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors py-2" onClick={() => setIsBlogDropdownOpen(!isBlogDropdownOpen)}>
@@ -445,27 +457,37 @@ export function Header() {
                     </div>
                   </div>
 
-                  {/* Image Converters Section */}
+                  {/* Image Tools Section */}
                   <div>
                     <div className="flex items-center space-x-2 text-xs font-semibold text-gray-700 uppercase tracking-wide mb-3 pb-2 border-b-2 border-blue-200">
                       <span>🖼️ Image Tools</span>
                     </div>
                     <div className="space-y-2">
-                      {imageConverters
-                        .filter(tool => tool.popular)
-                        .map(tool => (
-                          <Link
-                            key={tool.href}
-                            href={tool.href}
-                            onClick={handleMenuClose}
-                            className={`block py-1.5 text-sm font-medium transition-colors ${pathname === tool.href ? 'text-blue-600 font-semibold' : 'text-gray-700 hover:text-blue-600'}`}
-                          >
-                            {tool.name}
-                          </Link>
-                        ))}
-                      <Link href="/analyze" onClick={handleMenuClose} className="block py-1.5 text-sm font-medium text-gray-700 hover:text-blue-600">
-                        Image Analyzer
-                      </Link>
+                      {imageTools.map(tool => (
+                        <Link
+                          key={tool.href}
+                          href={tool.href}
+                          onClick={handleMenuClose}
+                          className={`block py-1.5 text-sm font-medium transition-colors ${pathname === tool.href ? 'text-blue-600 font-semibold' : 'text-gray-700 hover:text-blue-600'}`}
+                        >
+                          {tool.name}
+                        </Link>
+                      ))}
+                      <div className="mt-3 pt-2 border-t border-gray-200">
+                        <div className="text-xs font-semibold text-gray-500 mb-2">Format Converters</div>
+                        {imageConverters
+                          .filter(tool => tool.popular)
+                          .map(tool => (
+                            <Link
+                              key={tool.href}
+                              href={tool.href}
+                              onClick={handleMenuClose}
+                              className={`block py-1.5 text-sm font-medium transition-colors ${pathname === tool.href ? 'text-blue-600 font-semibold' : 'text-gray-700 hover:text-blue-600'}`}
+                            >
+                              {tool.name}
+                            </Link>
+                          ))}
+                      </div>
                     </div>
                   </div>
 
