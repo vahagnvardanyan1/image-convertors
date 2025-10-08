@@ -2,6 +2,9 @@
 import Image from 'next/image';
 import { Upload, ArrowRight } from 'lucide-react';
 import { Button } from '../ui/button';
+import { Container } from '../Container';
+import { cn } from '@/lib/utils';
+import { designTokens, getGradientClasses, getButtonGradientClasses } from '@/styles/design-tokens';
 
 export function Hero() {
   const scrollToConverter = () => {
@@ -12,17 +15,17 @@ export function Hero() {
   };
 
   return (
-    <section className="relative bg-gradient-to-br from-blue-50 via-white to-purple-50 py-16 lg:py-24 overflow-hidden">
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className={cn('relative bg-gradient-to-br from-blue-50 via-white to-purple-50 overflow-hidden', designTokens.spacing.sectionY)}>
+      <Container className="relative">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
           <div className="text-center lg:text-left">
-            <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6">
+            <h1 className={cn(designTokens.typography.displayLg, 'font-bold text-gray-900 mb-6')}>
               Free Online Image, Font & Color
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"> Tools</span>
+              <span className={cn(getGradientClasses('primary'), 'bg-clip-text text-transparent')}> Tools</span>
             </h1>
 
-            <p className="text-lg lg:text-xl text-gray-600 mb-6 max-w-xl">Convert images, create fancy text, and pick color palettes instantly—all without installing any software.</p>
+            <p className={cn(designTokens.typography.lead, 'text-gray-600 mb-6 max-w-xl')}>Convert images, create fancy text, and pick color palettes instantly—all without installing any software.</p>
 
             <div className="mb-8">
               <p className="text-gray-700 mb-2">Popular conversions:</p>
@@ -39,7 +42,12 @@ export function Hero() {
               <Button
                 size="lg"
                 onClick={scrollToConverter}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
+                className={cn(
+                  getButtonGradientClasses('primary'),
+                  'text-white px-8 py-4 rounded-xl shadow-lg hover:shadow-xl',
+                  designTokens.interaction.transition.base,
+                  designTokens.interaction.focus.ring,
+                )}
               >
                 <Upload className="mr-2" size={20} />
                 Upload Your Image
@@ -52,7 +60,7 @@ export function Hero() {
                   const element = document.getElementById('how-to');
                   if (element) element.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="px-8 py-4 rounded-xl border-2 hover:bg-gray-50"
+                className={cn('px-8 py-4 rounded-xl border-2 hover:bg-gray-50', designTokens.interaction.focus.ring)}
               >
                 Learn How
                 <ArrowRight className="ml-2" size={20} />
@@ -91,7 +99,7 @@ export function Hero() {
                       { label: 'PDF', color: 'text-red-500' },
                     ].map(format => (
                       <div key={format.label} className="bg-white rounded-xl p-4 shadow-md border border-gray-100 flex items-center justify-center">
-                        <span className={`text-2xl font-bold ${format.color}`}>{format.label}</span>
+                        <span className={cn('text-2xl font-bold', format.color)}>{format.label}</span>
                       </div>
                     ))}
                   </div>
@@ -104,7 +112,7 @@ export function Hero() {
             </div>
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }
