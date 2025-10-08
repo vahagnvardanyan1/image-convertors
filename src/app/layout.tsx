@@ -8,6 +8,8 @@ import { CookieConsent } from '@/components/CookieConsent';
 import { StructuredData } from '@/components/StructuredData';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import Head from 'next/head';
+import GoogleAnalytics from '@/components/GoogleAnalytics';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -71,6 +73,9 @@ export const viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
+      <Head>
+        <GoogleAnalytics />
+      </Head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Script async src="https://www.googletagmanager.com/gtag/js?id=AW-17602920334" strategy="afterInteractive" />
         <Script id="google-analytics" strategy="afterInteractive">
