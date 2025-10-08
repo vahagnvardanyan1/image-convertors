@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { Button } from '../ui/button';
 import { Card } from '@/components/Card';
 import { removeBackground } from '@imgly/background-removal';
+import { sendGAEvent } from '@next/third-parties/google';
 
 export function BackgroundRemover() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -26,6 +27,7 @@ export function BackgroundRemover() {
   };
 
   const handleFileSelect = async (file: File) => {
+    sendGAEvent('event', 'file-select', { value: file.name });
     if (!file.type.startsWith('image/')) {
       setError('Please select a valid image file');
       return;
