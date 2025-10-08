@@ -414,7 +414,7 @@ export function ImageCropper() {
               </div>
 
               {/* Bottom Sheet Overlay */}
-              {isBottomSheetOpen && <div className="fixed inset-0 bg-black bg-opacity-50 z-50 transition-opacity" onClick={() => setIsBottomSheetOpen(false)} />}
+              {isBottomSheetOpen && <div className="fixed inset-0 bg-transparent z-50 transition-opacity" onClick={() => setIsBottomSheetOpen(false)} />}
 
               {/* Bottom Sheet */}
               <div
@@ -468,7 +468,10 @@ export function ImageCropper() {
                         {aspectRatios.map(ratio => (
                           <button
                             key={ratio.label}
-                            onClick={() => handleSetAspectRatio(ratio.value)}
+                            onClick={() => {
+                              handleSetAspectRatio(ratio.value);
+                              setTimeout(() => setIsBottomSheetOpen(false), 300);
+                            }}
                             className={`px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
                               aspectRatio === ratio.value ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                             }`}
@@ -483,11 +486,25 @@ export function ImageCropper() {
                     <Card className="p-4">
                       <h4 className="font-semibold text-gray-900 mb-3 text-sm">Zoom</h4>
                       <div className="grid grid-cols-2 gap-2">
-                        <Button onClick={handleZoomIn} variant="outline" className="w-full" size="sm">
+                        <Button
+                          onClick={() => {
+                            handleZoomIn();
+                          }}
+                          variant="outline"
+                          className="w-full"
+                          size="sm"
+                        >
                           <ZoomIn className="mr-1" size={16} />
                           Zoom In
                         </Button>
-                        <Button onClick={handleZoomOut} variant="outline" className="w-full" size="sm">
+                        <Button
+                          onClick={() => {
+                            handleZoomOut();
+                          }}
+                          variant="outline"
+                          className="w-full"
+                          size="sm"
+                        >
                           <ZoomOut className="mr-1" size={16} />
                           Zoom Out
                         </Button>
@@ -498,19 +515,51 @@ export function ImageCropper() {
                     <Card className="p-4">
                       <h4 className="font-semibold text-gray-900 mb-3 text-sm">Transform</h4>
                       <div className="grid grid-cols-2 gap-2">
-                        <Button onClick={handleRotateLeft} variant="outline" className="w-full" size="sm">
+                        <Button
+                          onClick={() => {
+                            handleRotateLeft();
+                            setTimeout(() => setIsBottomSheetOpen(false), 300);
+                          }}
+                          variant="outline"
+                          className="w-full"
+                          size="sm"
+                        >
                           <RotateCcw className="mr-1" size={16} />
                           Rotate Left
                         </Button>
-                        <Button onClick={handleRotateRight} variant="outline" className="w-full" size="sm">
+                        <Button
+                          onClick={() => {
+                            handleRotateRight();
+                            setTimeout(() => setIsBottomSheetOpen(false), 300);
+                          }}
+                          variant="outline"
+                          className="w-full"
+                          size="sm"
+                        >
                           <RotateCw className="mr-1" size={16} />
                           Rotate Right
                         </Button>
-                        <Button onClick={handleFlipHorizontal} variant="outline" className="w-full" size="sm">
+                        <Button
+                          onClick={() => {
+                            handleFlipHorizontal();
+                            setTimeout(() => setIsBottomSheetOpen(false), 300);
+                          }}
+                          variant="outline"
+                          className="w-full"
+                          size="sm"
+                        >
                           <FlipHorizontal className="mr-1" size={16} />
                           Flip H
                         </Button>
-                        <Button onClick={handleFlipVertical} variant="outline" className="w-full" size="sm">
+                        <Button
+                          onClick={() => {
+                            handleFlipVertical();
+                            setTimeout(() => setIsBottomSheetOpen(false), 300);
+                          }}
+                          variant="outline"
+                          className="w-full"
+                          size="sm"
+                        >
                           <FlipVertical className="mr-1" size={16} />
                           Flip V
                         </Button>

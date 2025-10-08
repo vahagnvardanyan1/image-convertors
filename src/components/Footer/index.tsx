@@ -62,6 +62,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/resize-image" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  Resize Image
+                </Link>
+              </li>
+              <li>
                 <Link href="/png-to-webp" className="text-gray-400 hover:text-white transition-colors text-sm">
                   PNG to WebP
                 </Link>
@@ -269,6 +274,11 @@ export function Footer() {
               <li>
                 <Link href="/blog/crop-image-guide" className="text-gray-400 hover:text-white transition-colors text-sm">
                   Crop Image Guide
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog/resize-image-guide" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  Resize Image Guide
                 </Link>
               </li>
               <li>

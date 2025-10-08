@@ -26,6 +26,7 @@ module.exports = {
       await config.transform(config, '/webp-to-jpg'),
       await config.transform(config, '/webp-to-pdf'),
       await config.transform(config, '/crop-image'),
+      await config.transform(config, '/blog/resize-image'),
 
       // HEIC converter tools
       await config.transform(config, '/heic-to-jpg'),
@@ -70,6 +71,7 @@ module.exports = {
       await config.transform(config, '/blog/json-comparer-guide'),
       await config.transform(config, '/blog/json-parser-guide'),
       await config.transform(config, '/blog/crop-image-guide'),
+      await config.transform(config, '/blog/resize-image-guide'),
 
       // Color tools
       await config.transform(config, '/colors'),

@@ -61,6 +61,7 @@ export function Header() {
 
   const imageTools = [
     { name: 'Crop Image', href: '/crop-image', popular: true },
+    { name: 'Resize Image', href: '/resize-image', popular: true },
     { name: 'Image Analyzer', href: '/analyze', popular: true },
   ];
 
@@ -115,6 +116,7 @@ export function Header() {
 
   const blogGuides = [
     { name: 'Crop Image Guide', href: '/blog/crop-image-guide', popular: true },
+    { name: 'Resize Image Guide', href: '/blog/resize-image-guide', popular: true },
     { name: 'Remove Background Guide', href: '/blog/remove-background-guide', popular: true },
     { name: 'PNG to WebP Guide', href: '/blog/png-to-webp-guide', popular: true },
     { name: 'PNG to JPG Guide', href: '/blog/png-to-jpg-guide', popular: true },

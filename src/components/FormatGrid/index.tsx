@@ -1,5 +1,26 @@
 'use client';
-import { ArrowRight, FileImage, Image as ImageIcon, Globe, Camera, FileText, Merge, Split, Info, Palette, Droplet, Blend, Shuffle, Type, Sparkles, Ruler, Smile, Hash, Eraser } from 'lucide-react';
+import {
+  ArrowRight,
+  FileImage,
+  Image as ImageIcon,
+  Globe,
+  Camera,
+  FileText,
+  Merge,
+  Split,
+  Info,
+  Palette,
+  Droplet,
+  Blend,
+  Shuffle,
+  Type,
+  Sparkles,
+  Ruler,
+  Smile,
+  Hash,
+  Eraser,
+  Maximize2,
+} from 'lucide-react';
 import Link from 'next/link';
 import { Card } from '../Card';
 

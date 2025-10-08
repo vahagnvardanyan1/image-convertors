@@ -19,6 +19,7 @@ import {
   Ruler,
   Scissors,
   Crop,
+  Maximize2,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/Card';
@@ -77,6 +78,16 @@ interface BlogPost {
 }
 
 const blogPosts: BlogPost[] = [
+  {
+    title: 'Free Online Image Resizer — Resize & Scale Photos Perfectly',
+    description: 'Complete guide to resizing images online for free. Learn professional techniques, optimal dimensions, and best practices for perfect image scaling. No signup required.',
+    slug: 'resize-image-guide',
+    publishDate: '2025-10-08',
+    readTime: '11 min read',
+    category: 'Image Editing',
+    icon: Maximize2,
+    featured: true,
+  },
   {
     title: 'Free Online Image Cropper — Crop & Resize Photos Perfectly',
     description: 'Complete guide to cropping images online for free. Learn professional techniques, aspect ratios, and best practices for perfect image dimensions. No signup required.',
