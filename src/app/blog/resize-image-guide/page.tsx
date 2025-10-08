@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     tags: ['image resizing', 'photo scaling', 'image dimensions', 'resize tool', 'image optimization', 'web images', 'free tools'],
     images: [
       {
-        url: '/crop.webp',
+        url: '/resize.webp',
         width: 1200,
         height: 630,
         alt: 'Free Online Image Resizer Tool - Resize Images Instantly',

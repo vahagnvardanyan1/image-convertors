@@ -4,7 +4,7 @@ import { ImageResizer } from '@/components/ImageResizer';
 export const metadata: Metadata = {
   title: 'Free Online Image Resizer - Resize Photos & Pictures | ImageConvertors',
   description: 'Resize images online for free with our easy-to-use image resizer tool. Scale by percentage, set exact dimensions, or use presets. No signup required, works in your browser.',
-  keywords: 'image resizer, resize image online, photo resizer, resize pictures, scale image, image dimensions, resize photos, free image resizer, bulk image resize',
+  keywords: ['image', 'resizer', 'resize image online', 'photo resizer', 'resize pictures', 'scale image', 'image dimensions', 'resize photos', 'free image resizer', 'bulk image resize'],
   alternates: {
     canonical: 'https://imageconvertors.com/resize-image',
   },
@@ -17,18 +17,12 @@ export const metadata: Metadata = {
     locale: 'en_US',
     images: [
       {
-        url: '/crop.webp',
+        url: '/resize.webp',
         width: 1200,
         height: 630,
         alt: 'Free Online Image Resizer Tool - Resize Images Instantly',
       },
     ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Free Online Image Resizer - Resize Photos Instantly',
-    description: 'Resize images online for free. Easy-to-use tool with percentage, pixel, and preset options. No signup required.',
-    images: ['/crop.webp'],
   },
 };
 

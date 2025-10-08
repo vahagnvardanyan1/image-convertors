@@ -206,6 +206,15 @@ const converters = [
     category: 'image',
   },
   {
+    from: 'Resize',
+    to: 'Image',
+    route: '/resize-image',
+    icon: Maximize2,
+    description: 'Resize images by percentage, pixels, or presets',
+    popular: true,
+    category: 'image',
+  },
+  {
     from: 'Analyze',
     to: 'PDF',
     route: '/pdf-info',
