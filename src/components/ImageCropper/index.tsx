@@ -6,8 +6,11 @@ import { ArrowLeft, Upload, Download, RotateCcw, RotateCw, FlipHorizontal, FlipV
 import Link from 'next/link';
 import { Button } from '../ui/button';
 import { Card } from '@/components/Card';
+import { useTranslations } from 'next-intl';
 
 export function ImageCropper() {
+  const t = useTranslations('cropper');
+  const tConverter = useTranslations('converter');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [cropper, setCropper] = useState<Cropper | null>(null);
@@ -86,7 +89,7 @@ export function ImageCropper() {
 
   const handleFileSelection = (file: File) => {
     if (!file.type.startsWith('image/')) {
-      alert('Please select a valid image file');
+      alert(tConverter('selectValidImage'));
       return;
     }
 

@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { PDFTool } from '@/components/PDFTool';
 import { PDFErrorBoundary } from '@/components/PDFErrorBoundary';
+import { getTranslations } from 'next-intl/server';
 
 export const metadata: Metadata = {
   title: 'Images to PDF Converter - Convert JPG, PNG, WebP to PDF Online Free',
@@ -32,14 +33,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ImagesToPDFPage() {
+export default async function ImagesToPDFPage() {
+  const t = await getTranslations('pdfTool');
   return (
     <PDFErrorBoundary>
-      <PDFTool
-        mode="images-to-pdf"
-        title="Images to PDF Converter"
-        description="Convert multiple images into a single PDF document. Upload your JPG, PNG, or WebP files and customize the PDF layout."
-      />
+      <PDFTool mode="images-to-pdf" title={t('imagesToPdfTitle')} description={t('imagesToPdfDescription')} />
     </PDFErrorBoundary>
   );
 }

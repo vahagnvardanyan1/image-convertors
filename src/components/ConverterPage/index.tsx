@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../Accordion';
 import { convertImage, validateImageFile, cleanupImageUrl, type ConversionResult, type SupportedFormat } from '../../lib/imageConverter';
 import { ConversionResultModal } from '../ConversionResultModal';
+import { useTranslations } from 'next-intl';
 
 interface ConverterPageProps {
   from: string;
@@ -16,6 +17,8 @@ interface ConverterPageProps {
 }
 
 export function ConverterPage({ from, to, title }: ConverterPageProps) {
+  const t = useTranslations('converterPage');
+  const tConverter = useTranslations('converter');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [outputFormat, setOutputFormat] = useState(to.toLowerCase());
   const [isConverting, setIsConverting] = useState(false);
@@ -67,7 +70,7 @@ export function ConverterPage({ from, to, title }: ConverterPageProps) {
     setConversionResult(null);
 
     if (!validateImageFile(file)) {
-      setError('Please select a valid image file (PNG, JPG, WebP, GIF, or HEIC)');
+      setError(tConverter('selectValidImageFormats'));
       return;
     }
 
@@ -92,7 +95,7 @@ export function ConverterPage({ from, to, title }: ConverterPageProps) {
       setConversionResult(result);
       setIsModalOpen(true);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Conversion failed');
+      setError(err instanceof Error ? err.message : tConverter('conversionFailed'));
     } finally {
       setIsConverting(false);
     }
@@ -115,55 +118,61 @@ export function ConverterPage({ from, to, title }: ConverterPageProps) {
     setIsModalOpen(false);
   };
 
+  const getStep2Description = () => {
+    const baseDesc = t('step2Description', { format: to });
+    const formatDesc = to === 'WebP' ? t('step2DescWebP', { format: to }) : to === 'PNG' ? t('step2DescPNG', { format: to }) : t('step2DescJPG', { format: to });
+    return `${baseDesc} ${formatDesc}`;
+  };
+
   const formatSteps = [
     {
       number: 1,
-      title: `Upload your ${from} image`,
-      description: `Select your ${from} file by clicking the upload button or dragging and dropping it into the upload area. We'll automatically detect the format and prepare it for conversion.`,
+      title: t('step1Title', { format: from }),
+      description: t('step1Description', { format: from }),
     },
     {
       number: 2,
-      title: `Choose ${to} as output`,
-      description: `The output format is automatically set to ${to}, but you can change it if needed. ${to} format offers ${to === 'WebP' ? 'excellent compression with high quality' : to === 'PNG' ? 'lossless compression with transparency support' : 'universal compatibility and smaller file sizes'}.`,
+      title: t('step2Title', { format: to }),
+      description: getStep2Description(),
     },
     {
       number: 3,
-      title: 'Convert your image',
-      description: `Click the convert button to transform your ${from} image to ${to}. The conversion happens instantly in your browser with no quality loss.`,
+      title: t('step3Title'),
+      description: t('step3Description', { from, to }),
     },
     {
       number: 4,
-      title: 'Download the result',
-      description: `Your converted ${to} image is ready! Download it directly to your device or use it immediately in your projects.`,
+      title: t('step4Title'),
+      description: t('step4Description', { format: to }),
     },
   ];
 
+  const getConversionAnswer = () => {
+    if (to === 'WebP') return t('whyConvertWebP', { from, to });
+    if (to === 'PNG') return t('whyConvertPNG', { from, to });
+    return t('whyConvertJPG', { from, to });
+  };
+
+  const getQualityAnswer = () => {
+    if (to === 'WebP') return t('qualityAnswerWebP', { from, to });
+    if (to === 'PNG') return t('qualityAnswerPNG', { from, to });
+    return t('qualityAnswerJPG', { from, to });
+  };
+
   const faqs = [
     {
-      question: `Why convert ${from} to ${to}?`,
-      answer: `Converting ${from} to ${to} ${
-        to === 'WebP'
-          ? 'reduces file size by up to 30% while maintaining excellent quality, making it perfect for web use.'
-          : to === 'PNG'
-            ? 'adds transparency support and lossless compression, ideal for graphics and logos.'
-            : 'provides universal compatibility and smaller file sizes for sharing and web use.'
-      }`,
+      question: t('whyConvert', { from, to }),
+      answer: getConversionAnswer(),
       icon: FileImage,
     },
     {
-      question: 'Will the image quality be affected?',
-      answer: `Our ${from} to ${to} converter maintains the highest possible quality during conversion. ${
-        to === 'WebP'
-          ? 'WebP format provides excellent compression with minimal quality loss.'
-          : to === 'PNG'
-            ? "PNG is a lossless format, so there's no quality degradation."
-            : 'JPG conversion uses high-quality compression settings by default.'
-      }`,
+      question: t('qualityAffected'),
+      answer: getQualityAnswer(),
       icon: Settings,
     },
     {
-      question: 'What file sizes are supported?',
-      answer: `You can convert ${from} files up to 50MB in size. For optimal performance and faster conversion, we recommend files under 25MB.`,
+      question: t('fileSizeSupport'),
+      answer: t('fileSizeAnswer', { format: from }),
       icon: Zap,
     },
   ];
@@ -177,12 +186,12 @@ export function ConverterPage({ from, to, title }: ConverterPageProps) {
             <Link href="/">
               <Button variant="outline" className="flex items-center">
                 <ArrowLeft className="mr-2" size={16} />
-                Back to Home
+                {tConverter('backToHome')}
               </Button>
             </Link>
             <div>
               <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
-              <p className="text-gray-600">Fast, secure, and free online conversion</p>
+              <p className="text-gray-600">{tConverter('fastSecureFree')}</p>
             </div>
           </div>
         </div>
@@ -194,7 +203,7 @@ export function ConverterPage({ from, to, title }: ConverterPageProps) {
           <div className="lg:col-span-2 space-y-6">
             {/* Upload Section */}
             <Card className="p-6">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">1. Upload Your Image</h2>
+              <h2 className="text-xl font-bold text-gray-900 mb-4">1. {tConverter('uploadYourImage')}</h2>
 
               <div
                 className={`border-2 border-dashed rounded-xl p-8 text-center transition-all duration-200 cursor-pointer ${
@@ -211,10 +220,10 @@ export function ConverterPage({ from, to, title }: ConverterPageProps) {
                   <div>
                     <Upload className={`mx-auto mb-4 transition-all duration-200 ${isDragOver ? 'text-blue-500 scale-110' : 'text-gray-400'}`} size={48} />
                     <p className={`text-lg font-medium mb-2 transition-colors duration-200 ${isDragOver ? 'text-blue-600' : 'text-gray-900'}`}>
-                      {isDragOver ? `Drop your ${from} file here!` : `Drag and drop your ${from} file here`}
+                      {isDragOver ? tConverter('dropFileHere') : tConverter('dragDropHere')}
                     </p>
                     <p className={`text-sm transition-colors duration-200 ${isDragOver ? 'text-blue-500' : 'text-gray-500'}`}>
-                      {isDragOver ? 'Release to upload' : 'or click anywhere to browse your files'}
+                      {isDragOver ? tConverter('releaseToUpload') : tConverter('orClickBrowse')}
                     </p>
                     {!isDragOver && (
                       <Button
@@ -225,7 +234,7 @@ export function ConverterPage({ from, to, title }: ConverterPageProps) {
                         }}
                         className="mt-4 rounded-lg"
                       >
-                        Choose File
+                        {tConverter('chooseFile')}
                       </Button>
                     )}
                   </div>
@@ -247,7 +256,7 @@ export function ConverterPage({ from, to, title }: ConverterPageProps) {
                       }}
                       className="text-red-600 hover:text-red-700"
                     >
-                      Remove
+                      {tConverter('remove')}
                     </Button>
                   </div>
                 )}
@@ -264,20 +273,20 @@ export function ConverterPage({ from, to, title }: ConverterPageProps) {
 
             {/* Format Selection */}
             <Card className="p-6">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">2. Choose Output Format</h2>
+              <h2 className="text-xl font-bold text-gray-900 mb-4">2. {tConverter('chooseOutputFormat')}</h2>
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Convert to:</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">{tConverter('convertTo')}:</label>
                   <Select value={outputFormat} onValueChange={setOutputFormat}>
                     <SelectTrigger className="w-full">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="webp">WebP - Modern web format</SelectItem>
-                      <SelectItem value="png">PNG - Lossless with transparency</SelectItem>
-                      <SelectItem value="jpg">JPG - Universal compatibility</SelectItem>
-                      <SelectItem value="gif">GIF - Animation support</SelectItem>
+                      <SelectItem value="webp">{tConverter('formats.webpModern')}</SelectItem>
+                      <SelectItem value="png">{tConverter('formats.pngLossless')}</SelectItem>
+                      <SelectItem value="jpg">{tConverter('formats.jpgUniversal')}</SelectItem>
+                      <SelectItem value="gif">{tConverter('formats.gifAnimation')}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -285,7 +294,9 @@ export function ConverterPage({ from, to, title }: ConverterPageProps) {
                 {/* Quality Control */}
                 {(outputFormat === 'jpg' || outputFormat === 'webp') && (
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Quality: {Math.round(quality * 100)}%</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      {tConverter('quality')}: {Math.round(quality * 100)}%
+                    </label>
                     <input
                       type="range"
                       min="0.1"
@@ -296,8 +307,8 @@ export function ConverterPage({ from, to, title }: ConverterPageProps) {
                       className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
                     />
                     <div className="flex justify-between text-xs text-gray-500 mt-1">
-                      <span>Lower quality (smaller file)</span>
-                      <span>Higher quality (larger file)</span>
+                      <span>{tConverter('lowerQuality')}</span>
+                      <span>{tConverter('higherQuality')}</span>
                     </div>
                   </div>
                 )}
@@ -306,7 +317,7 @@ export function ConverterPage({ from, to, title }: ConverterPageProps) {
 
             {/* Convert Button */}
             <Card className="p-6">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">3. Convert Image</h2>
+              <h2 className="text-xl font-bold text-gray-900 mb-4">3. {t('step3Convert')}</h2>
 
               <Button
                 onClick={handleConvert}
@@ -316,12 +327,12 @@ export function ConverterPage({ from, to, title }: ConverterPageProps) {
                 {isConverting ? (
                   <div className="flex items-center">
                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                    Converting...
+                    {tConverter('converting')}
                   </div>
                 ) : (
                   <div className="flex items-center">
                     <Zap className="mr-2" size={20} />
-                    Convert to {outputFormat.toUpperCase()}
+                    {tConverter('convertTo')} {outputFormat.toUpperCase()}
                   </div>
                 )}
               </Button>
@@ -333,7 +344,7 @@ export function ConverterPage({ from, to, title }: ConverterPageProps) {
             {/* How-To for this conversion */}
             <Card className="p-6">
               <h3 className="font-bold text-gray-900 mb-4">
-                How to Convert {from} to {to}
+                {t('howToConvert')} {from} {t('to')} {to}
               </h3>
 
               <Accordion type="single" collapsible className="w-full space-y-2">
@@ -362,7 +373,7 @@ export function ConverterPage({ from, to, title }: ConverterPageProps) {
             {/* Format-specific FAQs */}
             <Card className="p-6">
               <h3 className="font-bold text-gray-900 mb-4">
-                {from} to {to} FAQ
+                {from} {t('to')} {to} {t('faq')}
               </h3>
 
               <Accordion type="single" collapsible className="w-full space-y-2">

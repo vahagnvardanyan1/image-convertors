@@ -5,6 +5,7 @@ import { ArrowLeft, Upload, Download, RotateCcw, Maximize2, Image as ImageIcon, 
 import Link from 'next/link';
 import { Button } from '../ui/button';
 import { Card } from '@/components/Card';
+import { useTranslations } from 'next-intl';
 
 type ResizeMode = 'percentage' | 'pixels' | 'preset';
 type PresetSize = 'thumbnail' | 'small' | 'medium' | 'large' | 'hd' | 'fullhd' | '4k';
@@ -27,6 +28,8 @@ const presets: Record<PresetSize, PresetDimensions> = {
 };
 
 export function ImageResizer() {
+  const t = useTranslations('resizer');
+  const tConverter = useTranslations('converter');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [originalDimensions, setOriginalDimensions] = useState({ width: 0, height: 0 });
@@ -78,7 +81,7 @@ export function ImageResizer() {
 
   const handleFileSelection = (file: File) => {
     if (!file.type.startsWith('image/')) {
-      alert('Please select a valid image file');
+      alert(tConverter('selectValidImage'));
       return;
     }
 

@@ -1,3 +1,4 @@
+'use client';
 import { useState, useRef } from 'react';
 import { Upload, FileImage, Zap, AlertCircle } from 'lucide-react';
 import { Button } from '../ui/button';
@@ -5,8 +6,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Card } from '../Card';
 import { convertImage, validateImageFile, cleanupImageUrl, type ConversionResult, type SupportedFormat } from '../../lib/imageConverter';
 import { ConversionResultModal } from '../ConversionResultModal';
+import { useTranslations } from 'next-intl';
 
 export function ConversionTool() {
+  const t = useTranslations('converter');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [inputFormat, setInputFormat] = useState('');
   const [outputFormat, setOutputFormat] = useState('');
@@ -59,7 +62,7 @@ export function ConversionTool() {
     setConversionResult(null);
 
     if (!validateImageFile(file)) {
-      setError('Please select a valid image file (PNG, JPG, WebP, or GIF)');
+      setError(t('selectValidImage'));
       return;
     }
 
@@ -88,7 +91,7 @@ export function ConversionTool() {
       setConversionResult(result);
       setIsModalOpen(true);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Conversion failed');
+      setError(err instanceof Error ? err.message : t('conversionFailed'));
     } finally {
       setIsConverting(false);
     }
@@ -117,8 +120,8 @@ export function ConversionTool() {
     <section className="bg-gray-50 py-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Convert Your Images</h2>
-          <p className="text-gray-600">Upload your image and select the output format to get started</p>
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('uploadYourImage')}</h2>
+          <p className="text-gray-600">{t('chooseOutputFormat')}</p>
         </div>
 
         <Card className="p-8 bg-white shadow-lg rounded-2xl">
@@ -143,12 +146,8 @@ export function ConversionTool() {
             ) : (
               <div>
                 <Upload className={`mx-auto mb-4 transition-all duration-200 ${isDragOver ? 'text-blue-500 scale-110' : 'text-gray-400'}`} size={48} />
-                <p className={`text-lg font-medium mb-2 transition-colors duration-200 ${isDragOver ? 'text-blue-600' : 'text-gray-900'}`}>
-                  {isDragOver ? 'Drop your image here!' : 'Drag and drop your image here'}
-                </p>
-                <p className={`text-gray-500 mb-4 transition-colors duration-200 ${isDragOver ? 'text-blue-500' : 'text-gray-500'}`}>
-                  {isDragOver ? 'Release to upload' : 'or click anywhere to browse your files'}
-                </p>
+                <p className={`text-lg font-medium mb-2 transition-colors duration-200 ${isDragOver ? 'text-blue-600' : 'text-gray-900'}`}>{isDragOver ? t('dropFileHere') : t('dragDropHere')}</p>
+                <p className={`text-gray-500 mb-4 transition-colors duration-200 ${isDragOver ? 'text-blue-500' : 'text-gray-500'}`}>{isDragOver ? t('releaseToUpload') : t('orClickBrowse')}</p>
                 {!isDragOver && (
                   <Button
                     variant="outline"
@@ -158,7 +157,7 @@ export function ConversionTool() {
                     }}
                     className="rounded-lg"
                   >
-                    Choose File
+                    {t('chooseFile')}
                   </Button>
                 )}
               </div>
@@ -170,10 +169,10 @@ export function ConversionTool() {
           {/* Format Selection */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Input Format</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">{t('inputFormat')}</label>
               <Select value={inputFormat} onValueChange={setInputFormat}>
                 <SelectTrigger className="rounded-lg">
-                  <SelectValue placeholder="Auto-detected" />
+                  <SelectValue placeholder={t('autoDetected')} />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="PNG">PNG</SelectItem>
@@ -186,10 +185,10 @@ export function ConversionTool() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Output Format</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">{t('outputFormat')}</label>
               <Select value={outputFormat} onValueChange={setOutputFormat}>
                 <SelectTrigger className="rounded-lg">
-                  <SelectValue placeholder="Choose output format" />
+                  <SelectValue placeholder={t('chooseOutputFormat')} />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="PNG">PNG</SelectItem>
@@ -204,7 +203,9 @@ export function ConversionTool() {
           {/* Quality Control */}
           {(outputFormat === 'JPG' || outputFormat === 'WEBP') && (
             <div className="mb-6">
-              <label className="block text-sm font-medium text-gray-700 mb-2">Quality: {Math.round(quality * 100)}%</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                {t('quality')}: {Math.round(quality * 100)}%
+              </label>
               <input
                 type="range"
                 min="0.1"
@@ -215,8 +216,8 @@ export function ConversionTool() {
                 className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
               />
               <div className="flex justify-between text-xs text-gray-500 mt-1">
-                <span>Lower quality (smaller file)</span>
-                <span>Higher quality (larger file)</span>
+                <span>{t('lowerQuality')}</span>
+                <span>{t('higherQuality')}</span>
               </div>
             </div>
           )}
@@ -237,7 +238,7 @@ export function ConversionTool() {
               className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Zap className={`mr-2 ${isConverting ? 'animate-spin' : ''}`} size={20} />
-              {isConverting ? 'Converting...' : 'Convert Image'}
+              {isConverting ? t('converting') : t('convertImage')}
             </Button>
           </div>
         </Card>

@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { PDFTool } from '@/components/PDFTool';
 import { PDFErrorBoundary } from '@/components/PDFErrorBoundary';
+import { getTranslations } from 'next-intl/server';
 
 export const metadata: Metadata = {
   title: 'PDF to PNG Converter - Convert PDF Pages to PNG Images Online Free',
@@ -32,14 +33,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default function PDFToPNGPage() {
+export default async function PDFToPNGPage() {
+  const t = await getTranslations('pdfTool');
   return (
     <PDFErrorBoundary>
-      <PDFTool
-        mode="pdf-to-images"
-        title="PDF to PNG Converter"
-        description="Convert your PDF documents to high-quality PNG images with transparency support. Extract all pages or select specific pages to convert."
-      />
+      <PDFTool mode="pdf-to-images" title={t('pdfToPngTitle')} description={t('pdfToPngDescription')} />
     </PDFErrorBoundary>
   );
 }

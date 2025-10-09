@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { PDFTool } from '@/components/PDFTool';
 import { PDFErrorBoundary } from '@/components/PDFErrorBoundary';
+import { getTranslations } from 'next-intl/server';
 
 export const metadata: Metadata = {
   title: 'Merge PDF Files - Combine Multiple PDF Documents Online Free',
@@ -21,10 +22,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default function MergePDFPage() {
+export default async function MergePDFPage() {
+  const t = await getTranslations('pdfTool');
+
   return (
     <PDFErrorBoundary>
-      <PDFTool mode="merge-pdf" title="Merge PDF Files" description="Combine multiple PDF documents into a single file. Upload your PDF files and they will be merged in the order you select them." />
+      <PDFTool mode="merge-pdf" title={t('mergePdfFiles')} description={t('mergePdfDescription')} />
     </PDFErrorBoundary>
   );
 }

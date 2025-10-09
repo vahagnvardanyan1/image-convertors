@@ -4,6 +4,7 @@ import { Download, X, FileText, Image as ImageIcon, Info, Eye, Calendar, User, F
 import { Button } from '../ui/button';
 import { Modal } from '../Modal';
 import { downloadFile, downloadMultipleFiles, formatFileSize, type PDFConversionResult, type PDFCreationResult, type PDFMergeResult, type PDFSplitResult } from '../../lib/pdfConverter';
+import { useTranslations } from 'next-intl';
 
 interface PDFResultModalProps {
   isOpen: boolean;
@@ -14,6 +15,7 @@ interface PDFResultModalProps {
 }
 
 export function PDFResultModal({ isOpen, onClose, result, mode, onReset }: PDFResultModalProps) {
+  const t = useTranslations('pdfResult');
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   if (!result) return null;
@@ -49,20 +51,18 @@ export function PDFResultModal({ isOpen, onClose, result, mode, onReset }: PDFRe
   const renderPDFToImagesResult = (result: PDFConversionResult) => (
     <div className="space-y-6">
       <div className="text-center">
-        <h3 className="text-xl font-semibold text-gray-900 mb-2">Conversion Complete!</h3>
-        <p className="text-gray-600">
-          Successfully converted {result.images.length} page{result.images.length !== 1 ? 's' : ''} from your PDF
-        </p>
+        <h3 className="text-xl font-semibold text-gray-900 mb-2">{t('conversionComplete')}</h3>
+        <p className="text-gray-600">{t('successfullyConverted', { count: result.images.length, plural: result.images.length !== 1 ? 's' : '' })}</p>
       </div>
 
       <div className="bg-gray-50 rounded-lg p-4">
         <div className="grid grid-cols-2 gap-4 text-sm">
           <div>
-            <span className="text-gray-500">Original Size:</span>
+            <span className="text-gray-500">{t('originalSize')}</span>
             <span className="ml-2 font-medium">{formatFileSize(result.originalSize)}</span>
           </div>
           <div>
-            <span className="text-gray-500">Total Converted Size:</span>
+            <span className="text-gray-500">{t('totalConvertedSize')}</span>
             <span className="ml-2 font-medium">{formatFileSize(result.convertedSize)}</span>
           </div>
         </div>
@@ -76,7 +76,7 @@ export function PDFResultModal({ isOpen, onClose, result, mode, onReset }: PDFRe
               <div>
                 <p className="font-medium text-gray-900">{image.fileName}</p>
                 <p className="text-sm text-gray-500">
-                  Page {image.pageNumber} • {formatFileSize(image.blob.size)}
+                  {t('page')} {image.pageNumber} • {formatFileSize(image.blob.size)}
                 </p>
               </div>
             </div>
@@ -95,10 +95,10 @@ export function PDFResultModal({ isOpen, onClose, result, mode, onReset }: PDFRe
       <div className="flex justify-center space-x-4">
         <Button onClick={handleDownloadAll} className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
           <Download className="mr-2" size={16} />
-          Download All Images
+          {t('downloadAllImages')}
         </Button>
         <Button onClick={onReset} variant="outline">
-          Convert Another PDF
+          {t('convertAnotherPdf')}
         </Button>
       </div>
     </div>
@@ -107,29 +107,29 @@ export function PDFResultModal({ isOpen, onClose, result, mode, onReset }: PDFRe
   const renderImagesToPDFResult = (result: PDFCreationResult) => (
     <div className="space-y-6">
       <div className="text-center">
-        <h3 className="text-xl font-semibold text-gray-900 mb-2">PDF Created Successfully!</h3>
-        <p className="text-gray-600">
-          Your {result.pageCount} image{result.pageCount !== 1 ? 's' : ''} have been combined into a PDF
-        </p>
+        <h3 className="text-xl font-semibold text-gray-900 mb-2">{t('pdfCreated')}</h3>
+        <p className="text-gray-600">{t('imagesHaveBeenCombined', { count: result.pageCount, plural: result.pageCount !== 1 ? 's' : '' })}</p>
       </div>
 
       <div className="bg-gray-50 rounded-lg p-4">
         <div className="grid grid-cols-2 gap-4 text-sm">
           <div>
-            <span className="text-gray-500">Original Size:</span>
+            <span className="text-gray-500">{t('originalSize')}</span>
             <span className="ml-2 font-medium">{formatFileSize(result.originalSize)}</span>
           </div>
           <div>
-            <span className="text-gray-500">PDF Size:</span>
+            <span className="text-gray-500">{t('pdfSize')}</span>
             <span className="ml-2 font-medium">{formatFileSize(result.convertedSize)}</span>
           </div>
           <div>
-            <span className="text-gray-500">Pages:</span>
+            <span className="text-gray-500">{t('pages')}</span>
             <span className="ml-2 font-medium">{result.pageCount}</span>
           </div>
           <div>
-            <span className="text-gray-500">Compression:</span>
-            <span className="ml-2 font-medium">{result.convertedSize < result.originalSize ? `${Math.round((1 - result.convertedSize / result.originalSize) * 100)}% smaller` : 'No compression'}</span>
+            <span className="text-gray-500">{t('compression')}</span>
+            <span className="ml-2 font-medium">
+              {result.convertedSize < result.originalSize ? t('smaller', { percent: Math.round((1 - result.convertedSize / result.originalSize) * 100) }) : t('noCompression')}
+            </span>
           </div>
         </div>
       </div>
@@ -150,10 +150,10 @@ export function PDFResultModal({ isOpen, onClose, result, mode, onReset }: PDFRe
       <div className="flex justify-center space-x-4">
         <Button onClick={() => handleDownload(result.blob, result.fileName)} className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
           <Download className="mr-2" size={16} />
-          Download PDF
+          {t('downloadPdf')}
         </Button>
         <Button onClick={onReset} variant="outline">
-          Create Another PDF
+          {t('createAnotherPdf')}
         </Button>
       </div>
     </div>
@@ -162,27 +162,29 @@ export function PDFResultModal({ isOpen, onClose, result, mode, onReset }: PDFRe
   const renderMergePDFResult = (result: PDFMergeResult) => (
     <div className="space-y-6">
       <div className="text-center">
-        <h3 className="text-xl font-semibold text-gray-900 mb-2">PDFs Merged Successfully!</h3>
-        <p className="text-gray-600">Your PDFs have been combined into a single document with {result.totalPages} pages</p>
+        <h3 className="text-xl font-semibold text-gray-900 mb-2">{t('pdfsMerged')}</h3>
+        <p className="text-gray-600">{t('pdfsCombined', { count: result.totalPages })}</p>
       </div>
 
       <div className="bg-gray-50 rounded-lg p-4">
         <div className="grid grid-cols-2 gap-4 text-sm">
           <div>
-            <span className="text-gray-500">Original Size:</span>
+            <span className="text-gray-500">{t('originalSize')}</span>
             <span className="ml-2 font-medium">{formatFileSize(result.originalSize)}</span>
           </div>
           <div>
-            <span className="text-gray-500">Merged Size:</span>
+            <span className="text-gray-500">{t('mergedSize')}</span>
             <span className="ml-2 font-medium">{formatFileSize(result.convertedSize)}</span>
           </div>
           <div>
-            <span className="text-gray-500">Total Pages:</span>
+            <span className="text-gray-500">{t('totalPages')}</span>
             <span className="ml-2 font-medium">{result.totalPages}</span>
           </div>
           <div>
-            <span className="text-gray-500">Compression:</span>
-            <span className="ml-2 font-medium">{result.convertedSize < result.originalSize ? `${Math.round((1 - result.convertedSize / result.originalSize) * 100)}% smaller` : 'No compression'}</span>
+            <span className="text-gray-500">{t('compression')}</span>
+            <span className="ml-2 font-medium">
+              {result.convertedSize < result.originalSize ? t('smaller', { percent: Math.round((1 - result.convertedSize / result.originalSize) * 100) }) : t('noCompression')}
+            </span>
           </div>
         </div>
       </div>
@@ -203,10 +205,10 @@ export function PDFResultModal({ isOpen, onClose, result, mode, onReset }: PDFRe
       <div className="flex justify-center space-x-4">
         <Button onClick={() => handleDownload(result.blob, result.fileName)} className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
           <Download className="mr-2" size={16} />
-          Download Merged PDF
+          {t('downloadMergedPdf')}
         </Button>
         <Button onClick={onReset} variant="outline">
-          Merge More PDFs
+          {t('mergeMorePdfs')}
         </Button>
       </div>
     </div>
@@ -215,20 +217,18 @@ export function PDFResultModal({ isOpen, onClose, result, mode, onReset }: PDFRe
   const renderSplitPDFResult = (result: PDFSplitResult) => (
     <div className="space-y-6">
       <div className="text-center">
-        <h3 className="text-xl font-semibold text-gray-900 mb-2">PDF Split Successfully!</h3>
-        <p className="text-gray-600">
-          Your PDF has been split into {result.pdfs.length} separate document{result.pdfs.length !== 1 ? 's' : ''}
-        </p>
+        <h3 className="text-xl font-semibold text-gray-900 mb-2">{t('pdfSplit')}</h3>
+        <p className="text-gray-600">{t('pdfSplitInto', { count: result.pdfs.length, plural: result.pdfs.length !== 1 ? 's' : '' })}</p>
       </div>
 
       <div className="bg-gray-50 rounded-lg p-4">
         <div className="grid grid-cols-2 gap-4 text-sm">
           <div>
-            <span className="text-gray-500">Original Size:</span>
+            <span className="text-gray-500">{t('originalSize')}</span>
             <span className="ml-2 font-medium">{formatFileSize(result.originalSize)}</span>
           </div>
           <div>
-            <span className="text-gray-500">Total Split Size:</span>
+            <span className="text-gray-500">{t('totalSplitSize')}</span>
             <span className="ml-2 font-medium">{formatFileSize(result.convertedSize)}</span>
           </div>
         </div>
@@ -261,10 +261,10 @@ export function PDFResultModal({ isOpen, onClose, result, mode, onReset }: PDFRe
       <div className="flex justify-center space-x-4">
         <Button onClick={handleDownloadAll} className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
           <Download className="mr-2" size={16} />
-          Download All PDFs
+          {t('downloadAllPdfs')}
         </Button>
         <Button onClick={onReset} variant="outline">
-          Split Another PDF
+          {t('splitAnotherPdf')}
         </Button>
       </div>
     </div>
@@ -283,8 +283,8 @@ export function PDFResultModal({ isOpen, onClose, result, mode, onReset }: PDFRe
   }) => (
     <div className="space-y-6">
       <div className="text-center">
-        <h3 className="text-xl font-semibold text-gray-900 mb-2">PDF Information</h3>
-        <p className="text-gray-600">Here&apos;s detailed information about your PDF document</p>
+        <h3 className="text-xl font-semibold text-gray-900 mb-2">{t('pdfInformation')}</h3>
+        <p className="text-gray-600">{t('detailedInfo')}</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -292,15 +292,15 @@ export function PDFResultModal({ isOpen, onClose, result, mode, onReset }: PDFRe
           <div className="bg-gray-50 rounded-lg p-4">
             <h4 className="font-medium text-gray-900 mb-3 flex items-center">
               <Info className="mr-2" size={16} />
-              Basic Information
+              {t('basicInformation')}
             </h4>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
-                <span className="text-gray-500">Pages:</span>
+                <span className="text-gray-500">{t('pages')}</span>
                 <span className="font-medium">{result.pageCount}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-500">File Size:</span>
+                <span className="text-gray-500">{t('fileSize')}</span>
                 <span className="font-medium">{formatFileSize(result.fileSize)}</span>
               </div>
             </div>
@@ -310,18 +310,18 @@ export function PDFResultModal({ isOpen, onClose, result, mode, onReset }: PDFRe
             <div className="bg-gray-50 rounded-lg p-4">
               <h4 className="font-medium text-gray-900 mb-3 flex items-center">
                 <FileImage className="mr-2" size={16} />
-                Document Details
+                {t('documentDetails')}
               </h4>
               <div className="space-y-2 text-sm">
                 {result.title && (
                   <div>
-                    <span className="text-gray-500 block">Title:</span>
+                    <span className="text-gray-500 block">{t('title')}</span>
                     <span className="font-medium">{result.title}</span>
                   </div>
                 )}
                 {result.subject && (
                   <div>
-                    <span className="text-gray-500 block">Subject:</span>
+                    <span className="text-gray-500 block">{t('subject')}</span>
                     <span className="font-medium">{result.subject}</span>
                   </div>
                 )}
@@ -335,24 +335,24 @@ export function PDFResultModal({ isOpen, onClose, result, mode, onReset }: PDFRe
             <div className="bg-gray-50 rounded-lg p-4">
               <h4 className="font-medium text-gray-900 mb-3 flex items-center">
                 <User className="mr-2" size={16} />
-                Author Information
+                {t('authorInformation')}
               </h4>
               <div className="space-y-2 text-sm">
                 {result.author && (
                   <div>
-                    <span className="text-gray-500 block">Author:</span>
+                    <span className="text-gray-500 block">{t('author')}</span>
                     <span className="font-medium">{result.author}</span>
                   </div>
                 )}
                 {result.creator && (
                   <div>
-                    <span className="text-gray-500 block">Creator:</span>
+                    <span className="text-gray-500 block">{t('creator')}</span>
                     <span className="font-medium">{result.creator}</span>
                   </div>
                 )}
                 {result.producer && (
                   <div>
-                    <span className="text-gray-500 block">Producer:</span>
+                    <span className="text-gray-500 block">{t('producer')}</span>
                     <span className="font-medium">{result.producer}</span>
                   </div>
                 )}
@@ -364,18 +364,18 @@ export function PDFResultModal({ isOpen, onClose, result, mode, onReset }: PDFRe
             <div className="bg-gray-50 rounded-lg p-4">
               <h4 className="font-medium text-gray-900 mb-3 flex items-center">
                 <Calendar className="mr-2" size={16} />
-                Dates
+                {t('dates')}
               </h4>
               <div className="space-y-2 text-sm">
                 {result.creationDate && (
                   <div>
-                    <span className="text-gray-500 block">Created:</span>
+                    <span className="text-gray-500 block">{t('created')}</span>
                     <span className="font-medium">{new Date(result.creationDate).toLocaleString()}</span>
                   </div>
                 )}
                 {result.modificationDate && (
                   <div>
-                    <span className="text-gray-500 block">Modified:</span>
+                    <span className="text-gray-500 block">{t('modified')}</span>
                     <span className="font-medium">{new Date(result.modificationDate).toLocaleString()}</span>
                   </div>
                 )}
@@ -387,7 +387,7 @@ export function PDFResultModal({ isOpen, onClose, result, mode, onReset }: PDFRe
 
       <div className="flex justify-center">
         <Button onClick={onReset} variant="outline">
-          Analyze Another PDF
+          {t('analyzeAnotherPdf')}
         </Button>
       </div>
     </div>
@@ -418,7 +418,7 @@ export function PDFResultModal({ isOpen, onClose, result, mode, onReset }: PDFRe
           },
         );
       default:
-        return <div>Unknown result type</div>;
+        return <div>{t('unknownResultType')}</div>;
     }
   };
 
@@ -427,7 +427,7 @@ export function PDFResultModal({ isOpen, onClose, result, mode, onReset }: PDFRe
       <Modal isOpen={isOpen} onClose={onClose} size="xl">
         <div className="p-6">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-bold text-gray-900">Processing Complete</h2>
+            <h2 className="text-2xl font-bold text-gray-900">{t('processingComplete')}</h2>
             <button onClick={onClose} className="text-gray-400 hover:text-gray-600 transition-colors">
               <X size={24} />
             </button>
@@ -442,7 +442,7 @@ export function PDFResultModal({ isOpen, onClose, result, mode, onReset }: PDFRe
         <Modal isOpen={!!previewUrl} onClose={closePreview} size="xl">
           <div className="p-6">
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-xl font-semibold text-gray-900">Preview</h3>
+              <h3 className="text-xl font-semibold text-gray-900">{t('preview')}</h3>
               <button onClick={closePreview} className="text-gray-400 hover:text-gray-600 transition-colors">
                 <X size={24} />
               </button>
@@ -458,11 +458,11 @@ export function PDFResultModal({ isOpen, onClose, result, mode, onReset }: PDFRe
                 <div className="space-y-4">
                   <div className="bg-gray-100 rounded-lg p-8 text-center">
                     <FileText className="mx-auto mb-4 text-gray-400" size={64} />
-                    <h4 className="text-lg font-medium text-gray-900 mb-2">PDF Preview</h4>
+                    <h4 className="text-lg font-medium text-gray-900 mb-2">{t('pdfPreview')}</h4>
                     <p className="text-gray-600 mb-4">
-                      PDF preview is not available in this browser.
+                      {t('pdfPreviewNotAvailable')}
                       <br />
-                      Please download the file to view it.
+                      {t('pleaseDownloadToView')}
                     </p>
                     <div className="flex justify-center space-x-4">
                       <Button
@@ -477,7 +477,7 @@ export function PDFResultModal({ isOpen, onClose, result, mode, onReset }: PDFRe
                         }}
                         variant="outline"
                       >
-                        Open in New Tab
+                        {t('openInNewTab')}
                       </Button>
                       <Button
                         onClick={() => {
@@ -490,7 +490,7 @@ export function PDFResultModal({ isOpen, onClose, result, mode, onReset }: PDFRe
                         }}
                         className="bg-blue-600 hover:bg-blue-700 text-white"
                       >
-                        Download PDF
+                        {t('downloadPdfFile')}
                       </Button>
                     </div>
                   </div>

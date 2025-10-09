@@ -18,6 +18,7 @@ import {
   type ImageToPDFOptions,
 } from '../../lib/pdfConverter';
 import { PDFResultModal } from '../PDFResultModal';
+import { useTranslations } from 'next-intl';
 
 type PDFToolMode = 'pdf-to-images' | 'images-to-pdf' | 'merge-pdf' | 'split-pdf' | 'pdf-info';
 
@@ -28,6 +29,7 @@ interface PDFToolProps {
 }
 
 export function PDFTool({ mode, title, description }: PDFToolProps) {
+  const t = useTranslations('pdfTool');
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [isDragOver, setIsDragOver] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -92,31 +94,31 @@ export function PDFTool({ mode, title, description }: PDFToolProps) {
     // Validate files based on mode
     if (mode === 'pdf-to-images' || mode === 'pdf-info' || mode === 'split-pdf') {
       if (files.length !== 1) {
-        setError('Please select exactly one PDF file');
+        setError(t('errorPleaseSelectOne'));
         return;
       }
       if (!validatePDFFile(files[0])) {
-        setError('Please select a valid PDF file');
+        setError(t('errorValidPdfFile'));
         return;
       }
     } else if (mode === 'images-to-pdf') {
       if (files.length === 0) {
-        setError('Please select at least one image file');
+        setError(t('errorSelectAtLeastOneImage'));
         return;
       }
       const invalidFiles = files.filter(file => !validateImageForPDF(file));
       if (invalidFiles.length > 0) {
-        setError('All files must be valid image files (PNG, JPG, WebP)');
+        setError(t('errorAllImageFiles'));
         return;
       }
     } else if (mode === 'merge-pdf') {
       if (files.length < 2) {
-        setError('Please select at least 2 PDF files to merge');
+        setError(t('errorSelectAtLeastTwo'));
         return;
       }
       const invalidFiles = files.filter(file => !validatePDFFile(file));
       if (invalidFiles.length > 0) {
-        setError('All files must be valid PDF files');
+        setError(t('errorAllPdfFiles'));
         return;
       }
     }
@@ -309,23 +311,19 @@ export function PDFTool({ mode, title, description }: PDFToolProps) {
                     </div>
                   </div>
                 ))}
-                {selectedFiles.length > 1 && <p className="text-sm text-gray-600 mt-2">{selectedFiles.length} files selected</p>}
+                {selectedFiles.length > 1 && (
+                  <p className="text-sm text-gray-600 mt-2">
+                    {selectedFiles.length} {t('filesSelected')}
+                  </p>
+                )}
               </div>
             ) : (
               <div>
                 <Upload className={`mx-auto mb-4 transition-all duration-200 ${isDragOver ? 'text-blue-500 scale-110' : 'text-gray-400'}`} size={48} />
                 <p className={`text-lg font-medium mb-2 transition-colors duration-200 ${isDragOver ? 'text-blue-600' : 'text-gray-900'}`}>
-                  {isDragOver
-                    ? `Drop your ${mode === 'images-to-pdf' ? 'images' : 'PDF file(s)'} here!`
-                    : mode === 'images-to-pdf'
-                      ? 'Drag and drop your images here'
-                      : mode === 'merge-pdf'
-                        ? 'Drag and drop your PDF files here'
-                        : 'Drag and drop your PDF file here'}
+                  {isDragOver ? t('dropFilesHere') : mode === 'images-to-pdf' ? t('dragDropImages') : mode === 'merge-pdf' ? t('dragDropPdfFiles') : t('dragDropPdfFile')}
                 </p>
-                <p className={`text-gray-500 mb-4 transition-colors duration-200 ${isDragOver ? 'text-blue-500' : 'text-gray-500'}`}>
-                  {isDragOver ? 'Release to upload' : 'or click anywhere to browse your files'}
-                </p>
+                <p className={`text-gray-500 mb-4 transition-colors duration-200 ${isDragOver ? 'text-blue-500' : 'text-gray-500'}`}>{isDragOver ? t('releaseToUpload') : t('orClickToBrowse')}</p>
                 {!isDragOver && (
                   <Button
                     variant="outline"
@@ -335,7 +333,7 @@ export function PDFTool({ mode, title, description }: PDFToolProps) {
                     }}
                     className="rounded-lg"
                   >
-                    Choose {getMultiple() ? 'Files' : 'File'}
+                    {getMultiple() ? t('chooseFiles') : t('chooseFile')}
                   </Button>
                 )}
               </div>
@@ -349,13 +347,13 @@ export function PDFTool({ mode, title, description }: PDFToolProps) {
             <div className="mb-6">
               <div className="flex items-center mb-4">
                 <Settings className="mr-2" size={20} />
-                <h3 className="text-lg font-medium text-gray-900">Options</h3>
+                <h3 className="text-lg font-medium text-gray-900">{t('options')}</h3>
               </div>
 
               {mode === 'pdf-to-images' && (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Format</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">{t('format')}</label>
                     <Select value={imageFormat} onValueChange={(value: 'jpg' | 'png' | 'webp') => setImageFormat(value)}>
                       <SelectTrigger>
                         <SelectValue />
@@ -369,22 +367,26 @@ export function PDFTool({ mode, title, description }: PDFToolProps) {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Quality: {Math.round(imageQuality * 100)}%</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      {t('quality')}: {Math.round(imageQuality * 100)}%
+                    </label>
                     <input type="range" min="0.1" max="1" step="0.1" value={imageQuality} onChange={e => setImageQuality(parseFloat(e.target.value))} className="w-full" />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Scale: {imageScale}x</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      {t('scale')}: {imageScale}x
+                    </label>
                     <input type="range" min="1" max="4" step="0.5" value={imageScale} onChange={e => setImageScale(parseFloat(e.target.value))} className="w-full" />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Pages (e.g., 1,3-5)</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">{t('pages')}</label>
                     <input
                       type="text"
                       value={pageRange}
                       onChange={e => setPageRange(e.target.value)}
-                      placeholder="All pages"
+                      placeholder={t('allPages')}
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
                   </div>
@@ -394,7 +396,7 @@ export function PDFTool({ mode, title, description }: PDFToolProps) {
               {mode === 'images-to-pdf' && (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Page Size</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">{t('pageSize')}</label>
                     <Select value={pageSize} onValueChange={(value: 'A4' | 'A3' | 'letter' | 'legal') => setPageSize(value)}>
                       <SelectTrigger>
                         <SelectValue />
@@ -409,27 +411,29 @@ export function PDFTool({ mode, title, description }: PDFToolProps) {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Orientation</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">{t('orientation')}</label>
                     <Select value={orientation} onValueChange={(value: 'portrait' | 'landscape') => setOrientation(value)}>
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="portrait">Portrait</SelectItem>
-                        <SelectItem value="landscape">Landscape</SelectItem>
+                        <SelectItem value="portrait">{t('portrait')}</SelectItem>
+                        <SelectItem value="landscape">{t('landscape')}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Margin: {margin}mm</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      {t('margin')}: {margin}mm
+                    </label>
                     <input type="range" min="0" max="50" step="5" value={margin} onChange={e => setMargin(parseInt(e.target.value))} className="w-full" />
                   </div>
 
                   <div className="flex items-center">
                     <input type="checkbox" id="fitToPage" checked={fitToPage} onChange={e => setFitToPage(e.target.checked)} className="mr-2" />
                     <label htmlFor="fitToPage" className="text-sm font-medium text-gray-700">
-                      Fit to page
+                      {t('fitToPage')}
                     </label>
                   </div>
                 </div>
@@ -438,16 +442,16 @@ export function PDFTool({ mode, title, description }: PDFToolProps) {
               {mode === 'split-pdf' && (
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <h4 className="font-medium text-gray-900">Page Ranges</h4>
+                    <h4 className="font-medium text-gray-900">{t('pageRanges')}</h4>
                     <Button onClick={addSplitRange} variant="outline" size="sm">
-                      Add Range
+                      {t('addRange')}
                     </Button>
                   </div>
 
                   {splitRanges.map((range, index) => (
                     <div key={index} className="grid grid-cols-1 md:grid-cols-4 gap-4 p-4 border rounded-lg">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Start Page</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">{t('startPage')}</label>
                         <input
                           type="number"
                           min="1"
@@ -457,7 +461,7 @@ export function PDFTool({ mode, title, description }: PDFToolProps) {
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">End Page</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">{t('endPage')}</label>
                         <input
                           type="number"
                           min="1"
@@ -467,18 +471,18 @@ export function PDFTool({ mode, title, description }: PDFToolProps) {
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Name (Optional)</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">{t('nameOptional')}</label>
                         <input
                           type="text"
                           value={range.name || ''}
                           onChange={e => updateSplitRange(index, 'name', e.target.value)}
-                          placeholder="Custom name"
+                          placeholder={t('customName')}
                           className="w-full px-3 py-2 border border-gray-300 rounded-lg"
                         />
                       </div>
                       <div className="flex items-end">
                         <Button onClick={() => removeSplitRange(index)} variant="outline" size="sm" disabled={splitRanges.length === 1} className="text-red-600 hover:text-red-700">
-                          Remove
+                          {t('remove')}
                         </Button>
                       </div>
                     </div>
@@ -504,12 +508,12 @@ export function PDFTool({ mode, title, description }: PDFToolProps) {
               className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Zap className={`mr-2 ${isProcessing ? 'animate-spin' : ''}`} size={20} />
-              {isProcessing ? 'Processing...' : getProcessButtonText(mode)}
+              {isProcessing ? t('processing') : getProcessButtonText(mode, t)}
             </Button>
 
             {selectedFiles.length > 0 && (
               <Button onClick={handleReset} variant="outline" className="px-8 py-3 rounded-xl">
-                Reset
+                {t('reset')}
               </Button>
             )}
           </div>
@@ -522,19 +526,19 @@ export function PDFTool({ mode, title, description }: PDFToolProps) {
   );
 }
 
-function getProcessButtonText(mode: PDFToolMode): string {
+function getProcessButtonText(mode: PDFToolMode, t: (key: string) => string): string {
   switch (mode) {
     case 'pdf-to-images':
-      return 'Convert to Images';
+      return t('convertToImages');
     case 'images-to-pdf':
-      return 'Create PDF';
+      return t('createPdf');
     case 'merge-pdf':
-      return 'Merge PDFs';
+      return t('mergePdfs');
     case 'split-pdf':
-      return 'Split PDF';
+      return t('splitPdf');
     case 'pdf-info':
-      return 'Analyze PDF';
+      return t('analyzePdf');
     default:
-      return 'Process';
+      return t('process');
   }
 }

@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Download, Sparkles, Wand2, RefreshCw, Image as ImageIcon, Eye, ChevronUp, Loader2 } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Card } from '../Card';
+import { useTranslations } from 'next-intl';
 
 type AspectRatio = '1:1' | '16:9' | '9:16' | '4:3' | '3:4';
 
@@ -24,6 +25,7 @@ const aspectRatioMap: Record<AspectRatio, { width: number; height: number }> = {
 };
 
 export function AIImageGenerator() {
+  const t = useTranslations('aiGenerator');
   const [prompt, setPrompt] = useState('');
   const [generatedImage, setGeneratedImage] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
@@ -172,21 +174,14 @@ export function AIImageGenerator() {
     }
   };
 
-  const examplePrompts = [
-    'A serene mountain landscape at sunset with vibrant colors',
-    'A futuristic cityscape with flying cars and neon lights',
-    'A cute cartoon cat wearing a wizard hat',
-    'An abstract painting with bold geometric shapes',
-    'A cozy coffee shop interior with warm lighting',
-    'A mystical forest with glowing mushrooms',
-  ];
+  const examplePrompts = [t('examplePrompt1'), t('examplePrompt2'), t('examplePrompt3'), t('examplePrompt4'), t('examplePrompt5'), t('examplePrompt6')];
 
   const models = [
-    { value: 'flux', label: 'Flux (Default)', description: 'Best quality, balanced' },
-    { value: 'flux-realism', label: 'Flux Realism', description: 'Photorealistic images' },
-    { value: 'flux-anime', label: 'Flux Anime', description: 'Anime style art' },
-    { value: 'flux-3d', label: 'Flux 3D', description: '3D rendered look' },
-    { value: 'turbo', label: 'Turbo', description: 'Fast generation' },
+    { value: 'flux', label: t('fluxDefault'), description: t('fluxBestQuality') },
+    { value: 'flux-realism', label: t('fluxRealism'), description: t('fluxRealismDesc') },
+    { value: 'flux-anime', label: t('fluxAnime'), description: t('fluxAnimeDesc') },
+    { value: 'flux-3d', label: t('flux3d'), description: t('flux3dDesc') },
+    { value: 'turbo', label: t('turbo'), description: t('turboDesc') },
   ];
 
   return (
@@ -194,11 +189,9 @@ export function AIImageGenerator() {
       <div className="text-center mb-6 sm:mb-12">
         <div className="flex items-center justify-center mb-3 sm:mb-4">
           <Sparkles className="text-purple-600 mr-2 sm:mr-3" size={32} />
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900">AI Image Generator</h1>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900">{t('title')}</h1>
         </div>
-        <p className="text-base sm:text-xl text-gray-600 max-w-3xl mx-auto px-2">
-          Create stunning AI-generated images from text descriptions. Powered by advanced AI models. Free, fast, and unlimited generations.
-        </p>
+        <p className="text-base sm:text-xl text-gray-600 max-w-3xl mx-auto px-2">{t('description')}</p>
       </div>
 
       <div className="grid lg:grid-cols-2 gap-4 sm:gap-8">
@@ -208,12 +201,12 @@ export function AIImageGenerator() {
           <Card className="p-4 sm:p-6">
             <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4 flex items-center">
               <Wand2 className="mr-2 text-purple-600" size={20} />
-              <span>Enter Your Prompt</span>
+              <span>{t('enterPrompt')}</span>
             </h2>
 
             <div className="space-y-3 sm:space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Describe the image you want to create</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">{t('describeImage')}</label>
                 <textarea
                   value={prompt}
                   onChange={e => setPrompt(e.target.value)}
@@ -225,11 +218,11 @@ export function AIImageGenerator() {
                       }
                     }
                   }}
-                  placeholder="Example: A majestic dragon flying over a medieval castle at sunset..."
+                  placeholder={t('promptPlaceholder')}
                   rows={4}
                   className="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"
                 />
-                <p className="text-xs text-gray-500 mt-1 hidden sm:block">Press Enter to generate</p>
+                <p className="text-xs text-gray-500 mt-1 hidden sm:block">{t('pressEnterToGenerate')}</p>
               </div>
 
               <Button
@@ -240,12 +233,12 @@ export function AIImageGenerator() {
                 {isGenerating ? (
                   <>
                     <Loader2 className="animate-spin mr-2" size={20} />
-                    Generating...
+                    {t('generating')}
                   </>
                 ) : (
                   <>
                     <Sparkles className="mr-2" size={20} />
-                    Generate Image
+                    {t('generateImage')}
                   </>
                 )}
               </Button>
@@ -253,7 +246,7 @@ export function AIImageGenerator() {
 
             {/* Example Prompts */}
             <div className="mt-4 sm:mt-6">
-              <p className="text-xs sm:text-sm font-medium text-gray-700 mb-2 sm:mb-3">Quick examples:</p>
+              <p className="text-xs sm:text-sm font-medium text-gray-700 mb-2 sm:mb-3">{t('quickExamples')}</p>
               <div className="flex flex-wrap gap-1.5 sm:gap-2">
                 {examplePrompts.slice(0, 4).map((example, index) => (
                   <button
@@ -272,7 +265,7 @@ export function AIImageGenerator() {
                 }}
                 className="text-xs text-purple-600 hover:text-purple-700 font-medium mt-2 sm:hidden"
               >
-                Show more examples
+                {t('showMoreExamples')}
               </button>
               <div id="all-examples" className="hidden sm:flex flex-wrap gap-1.5 mt-1.5">
                 {examplePrompts.slice(4).map((example, index) => (
@@ -290,7 +283,7 @@ export function AIImageGenerator() {
 
           {/* Model Selection */}
           <Card className="p-4 sm:p-6">
-            <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">AI Model</h2>
+            <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">{t('aiModel')}</h2>
             <div className="space-y-2 sm:space-y-3">
               {models.map(model => (
                 <button
@@ -307,11 +300,11 @@ export function AIImageGenerator() {
 
           {/* Settings */}
           <Card className="p-4 sm:p-6">
-            <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">Image Settings</h2>
+            <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">{t('imageSettings')}</h2>
             <div className="space-y-3 sm:space-y-4">
               {/* Aspect Ratio */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Aspect Ratio</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">{t('aspectRatio')}</label>
                 <div className="grid grid-cols-5 gap-1.5 sm:gap-2">
                   {(['1:1', '16:9', '9:16', '4:3', '3:4'] as AspectRatio[]).map(ratio => (
                     <button
@@ -334,8 +327,8 @@ export function AIImageGenerator() {
               <div className="space-y-3 sm:space-y-3">
                 <label className="flex items-center justify-between cursor-pointer p-3 sm:p-0 bg-gray-50 sm:bg-transparent rounded-lg sm:rounded-none min-h-[56px] sm:min-h-0">
                   <div className="flex-1 pr-3">
-                    <span className="text-sm font-medium text-gray-700 block">Enhance Quality</span>
-                    <p className="text-xs text-gray-500 mt-0.5">Improve image details and quality</p>
+                    <span className="text-sm font-medium text-gray-700 block">{t('enhanceQuality')}</span>
+                    <p className="text-xs text-gray-500 mt-0.5">{t('enhanceQualityDesc')}</p>
                   </div>
                   <input
                     type="checkbox"
@@ -347,8 +340,8 @@ export function AIImageGenerator() {
 
                 <label className="flex items-center justify-between cursor-pointer p-3 sm:p-0 bg-gray-50 sm:bg-transparent rounded-lg sm:rounded-none min-h-[56px] sm:min-h-0">
                   <div className="flex-1 pr-3">
-                    <span className="text-sm font-medium text-gray-700 block">No Logo</span>
-                    <p className="text-xs text-gray-500 mt-0.5">Remove watermark from image</p>
+                    <span className="text-sm font-medium text-gray-700 block">{t('noLogo')}</span>
+                    <p className="text-xs text-gray-500 mt-0.5">{t('noLogoDesc')}</p>
                   </div>
                   <input
                     type="checkbox"
@@ -361,15 +354,15 @@ export function AIImageGenerator() {
 
               {/* Custom Seed */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Custom Seed (Optional)</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">{t('customSeed')}</label>
                 <input
                   type="number"
                   value={settings.seed || ''}
                   onChange={e => setSettings(prev => ({ ...prev, seed: e.target.value ? parseInt(e.target.value) : undefined }))}
-                  placeholder="Random seed"
+                  placeholder={t('customSeedPlaceholder')}
                   className="w-full px-3 sm:px-4 py-2.5 sm:py-2 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                 />
-                <p className="text-xs text-gray-500 mt-1">Use the same seed to reproduce results</p>
+                <p className="text-xs text-gray-500 mt-1">{t('customSeedDesc')}</p>
               </div>
             </div>
           </Card>
@@ -381,12 +374,12 @@ export function AIImageGenerator() {
           <div className="lg:hidden mb-3">
             <Button onClick={scrollToControls} variant="outline" className="w-full h-12 text-base font-semibold">
               <ChevronUp className="mr-2" size={20} />
-              Back to Edit
+              {t('backToEdit')}
             </Button>
           </div>
 
           <Card className="p-4 sm:p-6">
-            <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">Generated Image</h2>
+            <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">{t('generatedImage')}</h2>
             <div className="relative aspect-square bg-gray-50 rounded-lg overflow-hidden flex items-center justify-center">
               {generatedImage ? (
                 <>
@@ -394,17 +387,17 @@ export function AIImageGenerator() {
                     <div className="absolute inset-0 flex items-center justify-center bg-gray-100 z-10">
                       <div className="text-center px-4">
                         <Loader2 className="animate-spin text-purple-600 mx-auto mb-3" size={40} />
-                        <p className="text-sm sm:text-base text-gray-600 font-medium">Creating your image...</p>
-                        <p className="text-xs text-gray-500 mt-1">This may take a few seconds</p>
+                        <p className="text-sm sm:text-base text-gray-600 font-medium">{t('creatingImage')}</p>
+                        <p className="text-xs text-gray-500 mt-1">{t('mayTakeFewSeconds')}</p>
                       </div>
                     </div>
                   )}
                   {imageError ? (
                     <div className="absolute inset-0 flex items-center justify-center bg-red-50">
                       <div className="text-center px-4">
-                        <p className="text-sm sm:text-base text-red-600 font-medium mb-3">Failed to generate image</p>
+                        <p className="text-sm sm:text-base text-red-600 font-medium mb-3">{t('failedToGenerate')}</p>
                         <Button onClick={generateImage} variant="outline" className="h-10">
-                          Try Again
+                          {t('tryAgain')}
                         </Button>
                       </div>
                     </div>
@@ -418,8 +411,8 @@ export function AIImageGenerator() {
               ) : (
                 <div className="text-center p-6 sm:p-8">
                   <ImageIcon className="mx-auto mb-3 sm:mb-4 text-gray-300" size={48} />
-                  <p className="text-sm sm:text-base text-gray-400 font-medium">Your generated image will appear here</p>
-                  <p className="text-xs sm:text-sm text-gray-400 mt-2">Enter a prompt and click &quot;Generate Image&quot;</p>
+                  <p className="text-sm sm:text-base text-gray-400 font-medium">{t('imageWillAppear')}</p>
+                  <p className="text-xs sm:text-sm text-gray-400 mt-2">{t('enterPromptAndGenerate')}</p>
                 </div>
               )}
             </div>
@@ -427,7 +420,7 @@ export function AIImageGenerator() {
             {generatedImage && !isGenerating && !imageError && (
               <div className="mt-3 sm:mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
                 <p className="text-xs sm:text-sm text-blue-800">
-                  <strong>Tip:</strong> Don&apos;t like the result? Click regenerate to create a variation, or edit your prompt and try again!
+                  <strong>{t('tip')}</strong> {t('regenerateTip')}
                 </p>
               </div>
             )}
@@ -435,18 +428,18 @@ export function AIImageGenerator() {
 
           {generatedImage && !isGenerating && !imageError && (
             <Card className="p-4 sm:p-6">
-              <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">Actions</h2>
+              <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">{t('actions')}</h2>
               <div className="space-y-2 sm:space-y-3">
                 <Button onClick={downloadImage} className="w-full bg-green-600 hover:bg-green-700 text-white h-12 sm:h-10 text-base sm:text-sm font-semibold">
                   <Download className="mr-2" size={20} />
-                  Download Image
+                  {t('downloadImage')}
                 </Button>
                 <Button onClick={regenerateWithNewSeed} variant="outline" className="w-full h-12 sm:h-10 text-base sm:text-sm font-semibold">
                   <RefreshCw className="mr-2" size={20} />
-                  Regenerate with New Seed
+                  {t('regenerateWithNewSeed')}
                 </Button>
               </div>
-              <p className="text-xs sm:text-sm text-gray-500 mt-3 sm:mt-4 text-center">Images are generated using AI and are free to use.</p>
+              <p className="text-xs sm:text-sm text-gray-500 mt-3 sm:mt-4 text-center">{t('imagesGeneratedInfo')}</p>
             </Card>
           )}
 
@@ -454,28 +447,28 @@ export function AIImageGenerator() {
           <Card className="p-4 sm:p-6 bg-gradient-to-br from-purple-50 to-blue-50 border-purple-200">
             <h3 className="text-sm sm:text-base font-bold text-gray-900 mb-2 sm:mb-3 flex items-center">
               <Sparkles className="mr-2 text-purple-600" size={18} />
-              <span>About AI Image Generation</span>
+              <span>{t('aboutAiGeneration')}</span>
             </h3>
             <ul className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-gray-700">
               <li className="flex items-start">
                 <span className="text-purple-600 mr-2 mt-0.5">•</span>
-                <span>Unlimited free generations</span>
+                <span>{t('unlimitedGenerations')}</span>
               </li>
               <li className="flex items-start">
                 <span className="text-purple-600 mr-2 mt-0.5">•</span>
-                <span>No signup or account required</span>
+                <span>{t('noSignupRequired')}</span>
               </li>
               <li className="flex items-start">
                 <span className="text-purple-600 mr-2 mt-0.5">•</span>
-                <span>Multiple AI models to choose from</span>
+                <span>{t('multipleModels')}</span>
               </li>
               <li className="flex items-start">
                 <span className="text-purple-600 mr-2 mt-0.5">•</span>
-                <span>All processing is done securely</span>
+                <span>{t('secureProcessing')}</span>
               </li>
               <li className="flex items-start">
                 <span className="text-purple-600 mr-2 mt-0.5">•</span>
-                <span>High-resolution output up to 1344px</span>
+                <span>{t('highResOutput')}</span>
               </li>
             </ul>
           </Card>
@@ -487,10 +480,10 @@ export function AIImageGenerator() {
         <button
           onClick={scrollToPreview}
           className="lg:hidden fixed bottom-5 right-4 left-4 sm:left-auto sm:right-6 bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-4 rounded-xl sm:rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 z-50 flex items-center justify-center space-x-2 animate-bounce font-semibold text-base"
-          aria-label="View Generated Image"
+          aria-label={t('viewGeneratedImage')}
         >
           <Eye size={22} />
-          <span>View Generated Image</span>
+          <span>{t('viewGeneratedImage')}</span>
         </button>
       )}
     </div>

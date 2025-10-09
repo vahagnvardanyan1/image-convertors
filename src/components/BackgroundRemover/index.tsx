@@ -8,8 +8,10 @@ import { Button } from '../ui/button';
 import { Card } from '@/components/Card';
 import { removeBackground } from '@imgly/background-removal';
 import { sendGAEvent } from '@next/third-parties/google';
+import { useTranslations } from 'next-intl';
 
 export function BackgroundRemover() {
+  const t = useTranslations('bgRemover');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [processedImage, setProcessedImage] = useState<string | null>(null);
@@ -29,7 +31,7 @@ export function BackgroundRemover() {
   const handleFileSelect = async (file: File) => {
     sendGAEvent('event', 'file-select', { value: file.name });
     if (!file.type.startsWith('image/')) {
-      setError('Please select a valid image file');
+      setError(t('pleaseSelectValidImage'));
       return;
     }
 
@@ -59,7 +61,7 @@ export function BackgroundRemover() {
       const dataUrl = URL.createObjectURL(blob);
       setProcessedImage(dataUrl);
     } catch (err) {
-      setError('Failed to remove background. Please try again with a different image.');
+      setError(t('failedRemove'));
       console.error(err);
     } finally {
       setIsProcessing(false);
@@ -101,26 +103,26 @@ export function BackgroundRemover() {
 
   const features = [
     {
-      title: 'AI-Powered',
-      description: 'Advanced neural networks trained on millions of images for perfect edge detection',
+      title: t('aiPoweredTitle'),
+      description: t('aiPoweredDesc'),
       icon: Brain,
       gradient: 'from-purple-500 to-pink-500',
     },
     {
-      title: 'Lightning Fast',
-      description: 'Process images in seconds with optimized ML models running locally',
+      title: t('lightningFastTitle'),
+      description: t('lightningFastDesc'),
       icon: Zap,
       gradient: 'from-yellow-500 to-orange-500',
     },
     {
-      title: '100% Private',
-      description: 'All processing happens in your browser - your images never leave your device',
+      title: t('privateTitle'),
+      description: t('privateDesc'),
       icon: Lock,
       gradient: 'from-green-500 to-teal-500',
     },
     {
-      title: 'Professional Quality',
-      description: 'Maintains image quality with transparent PNG output and perfect edges',
+      title: t('professionalQualityTitle'),
+      description: t('professionalQualityDesc'),
       icon: Sparkles,
       gradient: 'from-blue-500 to-cyan-500',
     },
@@ -129,46 +131,46 @@ export function BackgroundRemover() {
   const howItWorksSteps = [
     {
       step: 1,
-      title: 'Upload Your Image',
-      description: 'Simply drag and drop or select any image from your device. Supports all major formats.',
+      title: t('step1Title'),
+      description: t('step1Desc'),
       icon: Upload,
     },
     {
       step: 2,
-      title: 'AI Processing',
-      description: 'Our advanced AI analyzes your image and intelligently removes the background in seconds.',
+      title: t('step2Title'),
+      description: t('step2Desc'),
       icon: Brain,
     },
     {
       step: 3,
-      title: 'Download Result',
-      description: 'Get a high-quality PNG with transparent background, ready to use anywhere.',
+      title: t('step3Title'),
+      description: t('step3Desc'),
       icon: Download,
     },
   ];
 
   const useCases = [
     {
-      title: 'E-commerce',
-      description: 'Create professional product photos with clean, transparent backgrounds for your online store.',
+      title: t('ecommerce'),
+      description: t('ecommerceDesc'),
       icon: ShoppingBag,
       gradient: 'from-blue-500 to-cyan-500',
     },
     {
-      title: 'Profile Pictures',
-      description: 'Remove distracting backgrounds from portraits and headshots for a professional look.',
+      title: t('profilePictures'),
+      description: t('profilePicturesDesc'),
       icon: User,
       gradient: 'from-purple-500 to-pink-500',
     },
     {
-      title: 'Graphic Design',
-      description: 'Isolate subjects for logos, posters, banners, and other creative projects.',
+      title: t('graphicDesign'),
+      description: t('graphicDesignDesc'),
       icon: Palette,
       gradient: 'from-orange-500 to-red-500',
     },
     {
-      title: 'Photo Editing',
-      description: 'Extract subjects to combine with different backgrounds or create stunning compositions.',
+      title: t('photoEditing'),
+      description: t('photoEditingDesc'),
       icon: ImageIcon,
       gradient: 'from-green-500 to-teal-500',
     },
@@ -176,28 +178,28 @@ export function BackgroundRemover() {
 
   const faqs = [
     {
-      question: 'Is this background remover really free?',
-      answer: 'Yes! Our AI background remover is completely free to use with no hidden fees, watermarks, or sign-up required. Process as many images as you need.',
+      question: t('faqQuestion1'),
+      answer: t('faqAnswer1'),
     },
     {
-      question: 'Are my images stored on your servers?',
-      answer: 'No, all processing happens locally in your browser using AI technology. Your images never leave your device, ensuring complete privacy and security.',
+      question: t('faqQuestion2'),
+      answer: t('faqAnswer2'),
     },
     {
-      question: 'What image formats are supported?',
-      answer: 'We support all major image formats including JPG, JPEG, PNG, WebP, HEIC, and more. The output is always a PNG file with transparent background.',
+      question: t('faqQuestion3'),
+      answer: t('faqAnswer3'),
     },
     {
-      question: 'How accurate is the AI background removal?',
-      answer: 'Our AI is trained on millions of images and uses advanced neural networks for accurate edge detection. It works best with clear subjects and good contrast.',
+      question: t('faqQuestion4'),
+      answer: t('faqAnswer4'),
     },
     {
-      question: 'What is the maximum file size?',
-      answer: 'Since processing happens in your browser, the limit depends on your device. Most modern devices can handle images up to 10-20MB without issues.',
+      question: t('faqQuestion5'),
+      answer: t('faqAnswer5'),
     },
     {
-      question: 'Can I use the results commercially?',
-      answer: 'Yes! You have full rights to use the processed images for any purpose, including commercial projects. The tool just processes your images without claiming any rights.',
+      question: t('faqQuestion6'),
+      answer: t('faqAnswer6'),
     },
   ];
 
@@ -215,7 +217,7 @@ export function BackgroundRemover() {
               <Link href="/">
                 <Button variant="outline" className="flex items-center bg-white/80 backdrop-blur-sm hover:bg-white border-purple-200">
                   <ArrowLeft className="mr-2" size={16} />
-                  Back to Home
+                  {t('backToHome')}
                 </Button>
               </Link>
             </div>
@@ -223,20 +225,20 @@ export function BackgroundRemover() {
               <div className="inline-flex items-center justify-center p-3 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl mb-4 shadow-lg">
                 <Sparkles className="text-white" size={32} />
               </div>
-              <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent mb-3">AI Background Remover</h1>
-              <p className="text-lg text-gray-700 max-w-2xl mx-auto">Remove backgrounds instantly with advanced AI technology. Perfect results in seconds.</p>
+              <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent mb-3">{t('title')}</h1>
+              <p className="text-lg text-gray-700 max-w-2xl mx-auto">{t('description')}</p>
               <div className="flex items-center justify-center gap-6 mt-4 text-sm text-gray-600">
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                  <span>AI-Powered</span>
+                  <span>{t('aiPowered')}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-                  <span>100% Private</span>
+                  <span>{t('private')}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
-                  <span>Lightning Fast</span>
+                  <span>{t('lightningFast')}</span>
                 </div>
               </div>
             </div>
@@ -252,14 +254,14 @@ export function BackgroundRemover() {
               <Link href="/">
                 <Button variant="outline" size="sm" className="flex items-center hover:bg-gray-50 border-gray-200">
                   <ArrowLeft className="mr-2" size={14} />
-                  Back
+                  {t('back')}
                 </Button>
               </Link>
               <div className="flex items-center gap-2">
                 <div className="p-2 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg">
                   <Sparkles className="text-white" size={16} />
                 </div>
-                <span className="text-lg font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">AI Background Remover</span>
+                <span className="text-lg font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">{t('title')}</span>
               </div>
               <div className="w-16"></div> {/* Spacer for centering */}
             </div>
@@ -276,7 +278,7 @@ export function BackgroundRemover() {
                 <div className="p-2 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg">
                   <FileImage className="text-white" size={24} />
                 </div>
-                <h2 className="text-2xl font-bold text-gray-900">Upload Your Image</h2>
+                <h2 className="text-2xl font-bold text-gray-900">{t('uploadImageToRemove')}</h2>
               </div>
 
               {/* Upload Area / Image Display */}
@@ -288,11 +290,11 @@ export function BackgroundRemover() {
                       <div className="mx-auto w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
                         <FileImage className="text-white" size={40} />
                       </div>
-                      <p className="text-xl font-bold text-gray-900 mb-2">Drop your image here or click to browse</p>
-                      <p className="text-gray-600 mb-4">Supports JPG, PNG, WebP and more formats</p>
+                      <p className="text-xl font-bold text-gray-900 mb-2">{t('dropImageHere')}</p>
+                      <p className="text-gray-600 mb-4">{t('supportsFormats')}</p>
                       <div className="flex items-center justify-center gap-2 text-sm text-purple-600 font-medium">
                         <Sparkles size={16} />
-                        <span>AI will remove the background automatically</span>
+                        <span>{t('aiWillRemove')}</span>
                       </div>
                     </div>
                   </div>
@@ -319,7 +321,7 @@ export function BackgroundRemover() {
                         <div className="absolute inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center">
                           <div className="flex flex-col items-center gap-3">
                             <div className="w-12 h-12 border-4 border-purple-200 border-t-purple-600 rounded-full animate-spin"></div>
-                            <p className="text-sm font-medium text-gray-700">Processing...</p>
+                            <p className="text-sm font-medium text-gray-700">{t('processing')}</p>
                           </div>
                         </div>
                       )}
@@ -328,7 +330,7 @@ export function BackgroundRemover() {
                       {processedImage && (
                         <div className="absolute top-4 right-4 px-3 py-1.5 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-semibold rounded-full shadow-lg flex items-center gap-1.5">
                           <Sparkles size={14} />
-                          <span>Background Removed</span>
+                          <span>{t('backgroundRemoved')}</span>
                         </div>
                       )}
                     </div>
@@ -352,7 +354,7 @@ export function BackgroundRemover() {
                     </div>
                     <Button variant="outline" onClick={handleReset} className="flex items-center gap-2 border-purple-200 hover:bg-white flex-shrink-0" size="sm">
                       <Trash2 size={14} />
-                      <span className="hidden sm:inline">Remove</span>
+                      <span className="hidden sm:inline">{t('remove')}</span>
                     </Button>
                   </div>
 
@@ -363,11 +365,11 @@ export function BackgroundRemover() {
                         className="flex-1 bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-700 hover:to-teal-700 text-white font-semibold py-4 text-base shadow-lg hover:shadow-xl transition-all"
                       >
                         <Download className="mr-2" size={18} />
-                        Download PNG
+                        {t('downloadPng')}
                       </Button>
                       <Button variant="outline" onClick={handleReset} className="flex items-center gap-2 border-2 border-gray-300 hover:bg-gray-50 px-6">
                         <Trash2 size={16} />
-                        <span className="hidden sm:inline">Start Over</span>
+                        <span className="hidden sm:inline">{t('startOver')}</span>
                       </Button>
                     </div>
                   )}
@@ -388,7 +390,7 @@ export function BackgroundRemover() {
             <Card className="p-6 bg-gradient-to-br from-white to-purple-50/30 border-2 border-purple-100 shadow-lg">
               <div className="flex items-center gap-2 mb-6">
                 <Sparkles className="text-purple-600" size={24} />
-                <h3 className="text-xl font-bold text-gray-900">AI Features</h3>
+                <h3 className="text-xl font-bold text-gray-900">{t('aiFeatures')}</h3>
               </div>
               <div className="space-y-4">
                 {features.map((feature, index) => (
@@ -413,9 +415,9 @@ export function BackgroundRemover() {
         <div className="mt-20">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              See It In <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Action</span>
+              {t('seeItInAction')} <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">{t('action')}</span>
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">Watch how our AI instantly removes backgrounds with perfect edge detection</p>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">{t('watchHowAi')}</p>
           </div>
 
           <Card className="overflow-hidden border-2 border-purple-200 shadow-2xl">
@@ -427,9 +429,9 @@ export function BackgroundRemover() {
         <div className="mt-20">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              How It <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Works</span>
+              {t('howItWorks')} <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">{t('works')}</span>
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">Remove backgrounds from your images in just three simple steps</p>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">{t('removeBackgroundsInSteps')}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -455,9 +457,9 @@ export function BackgroundRemover() {
         <div className="mt-20">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Perfect For <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Every Need</span>
+              {t('perfectForEveryNeed')} <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">{t('everyNeed')}</span>
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">From e-commerce to creative projects, our AI background remover has you covered</p>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">{t('fromEcommerceToCreative')}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -477,9 +479,9 @@ export function BackgroundRemover() {
         <div className="mt-20 mb-12">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Frequently Asked <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Questions</span>
+              {t('frequentlyAskedQuestions')} <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">{t('questions')}</span>
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">Everything you need to know about our AI background remover</p>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">{t('everythingYouNeed')}</p>
           </div>
 
           <div className="max-w-3xl mx-auto space-y-4">
@@ -511,15 +513,15 @@ export function BackgroundRemover() {
               <div className="inline-flex items-center justify-center p-4 bg-white/20 backdrop-blur-sm rounded-2xl mb-6">
                 <Sparkles className="text-white" size={48} />
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Ready to Remove Backgrounds?</h2>
-              <p className="text-lg text-white/90 max-w-2xl mx-auto mb-8">Start using our free AI background remover now. No sign-up required, completely private, and lightning fast.</p>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">{t('readyToRemoveBackgrounds')}</h2>
+              <p className="text-lg text-white/90 max-w-2xl mx-auto mb-8">{t('startUsingFreeAi')}</p>
               <Button
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 size="lg"
                 className="bg-white text-purple-600 hover:bg-gray-50 font-semibold px-8 py-6 text-lg shadow-xl hover:shadow-2xl transition-all"
               >
                 <Upload className="mr-2" size={24} />
-                Upload Your Image
+                {t('uploadYourImage')}
                 <Sparkles className="ml-2" size={20} />
               </Button>
             </div>

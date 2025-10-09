@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { PDFTool } from '@/components/PDFTool';
 import { PDFErrorBoundary } from '@/components/PDFErrorBoundary';
+import { getTranslations } from 'next-intl/server';
 
 export const metadata: Metadata = {
   title: 'PDF to JPG Converter - Convert PDF Pages to JPG Images Online Free',
@@ -21,10 +22,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default function PDFToJPGPage() {
+export default async function PDFToJPGPage() {
+  const t = await getTranslations('pdfTool');
   return (
     <PDFErrorBoundary>
-      <PDFTool mode="pdf-to-images" title="PDF to JPG Converter" description="Convert your PDF documents to high-quality JPG images. Extract all pages or select specific pages to convert." />
+      <PDFTool mode="pdf-to-images" title={t('pdfToJpgTitle')} description={t('pdfToJpgDescription')} />
     </PDFErrorBoundary>
   );
 }
