@@ -41,29 +41,31 @@ export function Modal({ isOpen, onClose, title, children, size = 'md' }: ModalPr
     xl: 'max-w-4xl',
   };
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
-      {/* Backdrop */}
-      <div className="absolute inset-0  bg-opacity-50 transition-opacity" onClick={onClose} />
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
-      <div className={`relative bg-white rounded-2xl shadow-2xl ${sizeClasses[size]} w-full mx-4 max-h-[90vh] overflow-hidden animate-in fade-in-0 zoom-in-95 duration-200`}>
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      {/* Backdrop */}
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity" onClick={onClose} />
+
+      <div className={`relative bg-white rounded-2xl shadow-2xl ${sizeClasses[size]} w-full max-h-[90vh] overflow-hidden animate-in fade-in-0 zoom-in-95 duration-200`}>
         {/* Header */}
         {title && (
-          <div className="flex items-center justify-between p-6 border-b border-gray-200">
-            <h2 className="text-xl font-bold text-gray-900">{title}</h2>
-            <Button variant="outline" size="sm" onClick={onClose} className="h-8 w-8 p-0 rounded-full hover:bg-gray-100">
-              <X size={16} />
+          <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-200">
+            <h2 className="text-lg sm:text-xl font-bold text-gray-900 pr-2">{title}</h2>
+            <Button variant="outline" size="sm" onClick={onClose} className="h-9 w-9 sm:h-8 sm:w-8 p-0 rounded-full hover:bg-gray-100 flex-shrink-0">
+              <X size={18} className="sm:size-4" />
             </Button>
           </div>
         )}
 
         {/* Content */}
-        <div className="overflow-y-auto max-h-[calc(90vh-120px)]">{children}</div>
+        <div className="overflow-y-auto max-h-[calc(90vh-80px)] sm:max-h-[calc(90vh-120px)]">{children}</div>
 
         {/* Close button if no title */}
         {!title && (
-          <Button variant="outline" size="sm" onClick={onClose} className="absolute top-4 right-4 h-8 w-8 p-0 rounded-full hover:bg-gray-100 z-10">
-            <X size={16} />
+          <Button variant="outline" size="sm" onClick={onClose} className="absolute top-3 right-3 sm:top-4 sm:right-4 h-9 w-9 sm:h-8 sm:w-8 p-0 rounded-full hover:bg-gray-100 z-10 shadow-md">
+            <X size={18} className="sm:size-4" />
           </Button>
         )}
       </div>

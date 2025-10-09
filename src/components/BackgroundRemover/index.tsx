@@ -207,35 +207,37 @@ export function BackgroundRemover() {
       {!selectedFile && (
         <div className="relative bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50 border-b border-purple-100 overflow-hidden">
           <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-          <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-blue-400/20 to-cyan-400/20 rounded-full blur-3xl"></div>
+          <div className="absolute top-0 right-0 w-64 h-64 sm:w-96 sm:h-96 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-64 h-64 sm:w-96 sm:h-96 bg-gradient-to-tr from-blue-400/20 to-cyan-400/20 rounded-full blur-3xl"></div>
 
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <div className="flex items-center space-x-4 mb-6">
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-4">
+            <div className="flex items-center space-x-3 sm:space-x-4 mb-4 sm:mb-6">
               <Link href="/">
-                <Button variant="outline" className="flex items-center bg-white/80 backdrop-blur-sm hover:bg-white border-purple-200">
+                <Button variant="outline" size="lg" className="flex items-center bg-white/80 backdrop-blur-sm hover:bg-white border-purple-200">
                   <ArrowLeft className="mr-2" size={16} />
                   Back to Home
                 </Button>
               </Link>
             </div>
             <div className="text-center">
-              <div className="inline-flex items-center justify-center p-3 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl mb-4 shadow-lg">
-                <Sparkles className="text-white" size={32} />
+              <div className="inline-flex items-center justify-center p-2.5 sm:p-3 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl sm:rounded-2xl mb-3 sm:mb-4 shadow-lg">
+                <Sparkles className="text-white" size={28} />
               </div>
-              <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent mb-3">AI Background Remover</h1>
-              <p className="text-lg text-gray-700 max-w-2xl mx-auto">Remove backgrounds instantly with advanced AI technology. Perfect results in seconds.</p>
-              <div className="flex items-center justify-center gap-6 mt-4 text-sm text-gray-600">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent mb-2 sm:mb-3 px-4">
+                AI Background Remover
+              </h1>
+              <p className="text-base sm:text-lg text-gray-700 max-w-2xl mx-auto px-4">Remove backgrounds instantly with advanced AI technology. Perfect results in seconds.</p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 mt-3 sm:mt-4 text-xs sm:text-sm text-gray-600">
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse flex-shrink-0"></div>
                   <span>AI-Powered</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                  <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse flex-shrink-0"></div>
                   <span>100% Private</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
+                  <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse flex-shrink-0"></div>
                   <span>Lightning Fast</span>
                 </div>
               </div>
@@ -248,49 +250,54 @@ export function BackgroundRemover() {
       {selectedFile && (
         <div className="bg-white border-b border-gray-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between gap-2">
               <Link href="/">
-                <Button variant="outline" size="sm" className="flex items-center hover:bg-gray-50 border-gray-200">
+                <Button variant="outline" size="lg" className="flex items-center hover:bg-gray-50 border-gray-200">
                   <ArrowLeft className="mr-2" size={14} />
-                  Back
+                  <span className="hidden sm:inline">Back</span>
                 </Button>
               </Link>
-              <div className="flex items-center gap-2">
-                <div className="p-2 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg">
-                  <Sparkles className="text-white" size={16} />
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <div className="p-1.5 sm:p-2 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg">
+                  <Sparkles className="text-white" size={14} />
                 </div>
-                <span className="text-lg font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">AI Background Remover</span>
+                <span className="text-sm sm:text-lg font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent truncate max-w-[150px] sm:max-w-none">
+                  AI Background Remover
+                </span>
               </div>
-              <div className="w-16"></div> {/* Spacer for centering */}
+              <div className="w-10 sm:w-16"></div> {/* Spacer for centering */}
             </div>
           </div>
         </div>
       )}
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {/* Main Tool */}
-          <div className="lg:col-span-2 space-y-6">
-            <Card className="p-8 bg-gradient-to-br from-white to-purple-50/30 border-2 border-purple-100 shadow-xl">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg">
-                  <FileImage className="text-white" size={24} />
+          <div className="lg:col-span-2 space-y-4 sm:space-y-6">
+            <Card className="p-5 sm:p-6 lg:p-8 bg-gradient-to-br from-white to-purple-50/30 border-2 border-purple-100 shadow-xl">
+              <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
+                <div className="p-1.5 sm:p-2 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg">
+                  <FileImage className="text-white" size={20} />
                 </div>
-                <h2 className="text-2xl font-bold text-gray-900">Upload Your Image</h2>
+                <h2 className="text-xl sm:text-2xl font-bold text-gray-900">Upload Your Image</h2>
               </div>
 
               {/* Upload Area / Image Display */}
-              <div className="relative border-2 border-dashed border-purple-300 rounded-2xl overflow-hidden" onDrop={handleDrop} onDragOver={handleDragOver}>
+              <div className="relative border-2 border-dashed border-purple-300 rounded-xl sm:rounded-2xl overflow-hidden" onDrop={handleDrop} onDragOver={handleDragOver}>
                 {!selectedFile ? (
-                  <div className="p-12 text-center hover:border-purple-500 hover:bg-purple-50/50 transition-all duration-300 cursor-pointer group" onClick={() => fileInputRef.current?.click()}>
+                  <div
+                    className="p-8 sm:p-12 text-center hover:border-purple-500 hover:bg-purple-50/50 transition-all duration-300 cursor-pointer group touch-manipulation min-h-[240px] flex items-center justify-center"
+                    onClick={() => fileInputRef.current?.click()}
+                  >
                     <div className="absolute inset-0 bg-gradient-to-br from-purple-400/5 to-pink-400/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <div className="relative">
-                      <div className="mx-auto w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
-                        <FileImage className="text-white" size={40} />
+                    <div className="relative w-full">
+                      <div className="mx-auto w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                        <FileImage className="text-white" size={32} />
                       </div>
-                      <p className="text-xl font-bold text-gray-900 mb-2">Drop your image here or click to browse</p>
-                      <p className="text-gray-600 mb-4">Supports JPG, PNG, WebP and more formats</p>
-                      <div className="flex items-center justify-center gap-2 text-sm text-purple-600 font-medium">
+                      <p className="text-lg sm:text-xl font-bold text-gray-900 mb-2 px-2">Drop your image here or click to browse</p>
+                      <p className="text-sm sm:text-base text-gray-600 mb-4 px-2">Supports JPG, PNG, WebP and more formats</p>
+                      <div className="flex items-center justify-center gap-2 text-xs sm:text-sm text-purple-600 font-medium">
                         <Sparkles size={16} />
                         <span>AI will remove the background automatically</span>
                       </div>

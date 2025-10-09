@@ -254,9 +254,9 @@ export function ImageResizer() {
         {!imageUrl ? (
           <>
             {/* Upload Area */}
-            <Card className="mb-8">
+            <Card className="mb-6 sm:mb-8">
               <div
-                className={`relative border-2 border-dashed rounded-xl p-12 text-center transition-colors cursor-pointer ${isDragOver ? 'border-green-500 bg-green-50' : 'border-gray-300 hover:border-gray-400'}`}
+                className={`relative border-2 border-dashed rounded-lg sm:rounded-xl p-8 sm:p-12 text-center transition-colors cursor-pointer touch-manipulation min-h-[240px] flex items-center justify-center ${isDragOver ? 'border-green-500 bg-green-50' : 'border-gray-300 hover:border-gray-400 active:bg-gray-50'}`}
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
                 onDrop={handleDrop}
@@ -264,90 +264,90 @@ export function ImageResizer() {
               >
                 <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileSelect} className="hidden" />
 
-                <div className="flex flex-col items-center">
-                  <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center mb-6">
-                    <Upload className="text-white" size={40} />
+                <div className="flex flex-col items-center w-full">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center mb-4 sm:mb-6">
+                    <Upload className="text-white" size={32} />
                   </div>
 
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">Upload an Image to Resize</h3>
-                  <p className="text-gray-600 mb-6 max-w-md">Drag and drop your image here, or click anywhere in this area to browse</p>
+                  <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">Upload an Image to Resize</h3>
+                  <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6 max-w-md px-4">Drag and drop your image here, or click anywhere in this area to browse</p>
 
-                  <div className="inline-block px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg font-medium">
-                    <Upload className="inline mr-2" size={20} />
+                  <Button size="lg" className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white rounded-lg">
+                    <Upload className="mr-2" size={20} />
                     Click or Drop Image Here
-                  </div>
+                  </Button>
 
-                  <p className="text-sm text-gray-500 mt-4">Supports: JPG, PNG, WebP, GIF, HEIC</p>
+                  <p className="text-xs sm:text-sm text-gray-500 mt-3 sm:mt-4">Supports: JPG, PNG, WebP, GIF, HEIC</p>
                 </div>
               </div>
             </Card>
 
             {/* Features */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-              <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <Maximize2 className="text-green-600" size={24} />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-12">
+              <Card className="p-5 sm:p-6 text-center hover:shadow-lg transition-shadow">
+                <div className="w-11 h-11 sm:w-12 sm:h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                  <Maximize2 className="text-green-600" size={20} />
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-2">Multiple Resize Modes</h3>
-                <p className="text-gray-600 text-sm">Resize by percentage, exact pixels, or choose presets</p>
+                <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">Multiple Resize Modes</h3>
+                <p className="text-gray-600 text-xs sm:text-sm">Resize by percentage, exact pixels, or choose presets</p>
               </Card>
 
-              <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-                <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <Settings className="text-emerald-600" size={24} />
+              <Card className="p-5 sm:p-6 text-center hover:shadow-lg transition-shadow">
+                <div className="w-11 h-11 sm:w-12 sm:h-12 bg-emerald-100 rounded-lg flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                  <Settings className="text-emerald-600" size={20} />
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-2">Aspect Ratio Lock</h3>
-                <p className="text-gray-600 text-sm">Maintain proportions or resize freely</p>
+                <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">Aspect Ratio Lock</h3>
+                <p className="text-gray-600 text-xs sm:text-sm">Maintain proportions or resize freely</p>
               </Card>
 
-              <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <ImageIcon className="text-blue-600" size={24} />
+              <Card className="p-5 sm:p-6 text-center hover:shadow-lg transition-shadow">
+                <div className="w-11 h-11 sm:w-12 sm:h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                  <ImageIcon className="text-blue-600" size={20} />
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-2">High Quality</h3>
-                <p className="text-gray-600 text-sm">Professional quality output with smart algorithms</p>
+                <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">High Quality</h3>
+                <p className="text-gray-600 text-xs sm:text-sm">Professional quality output with smart algorithms</p>
               </Card>
 
-              <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle className="text-purple-600" size={24} />
+              <Card className="p-5 sm:p-6 text-center hover:shadow-lg transition-shadow">
+                <div className="w-11 h-11 sm:w-12 sm:h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                  <CheckCircle className="text-purple-600" size={20} />
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-2">100% Private</h3>
-                <p className="text-gray-600 text-sm">All processing happens in your browser</p>
+                <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">100% Private</h3>
+                <p className="text-gray-600 text-xs sm:text-sm">All processing happens in your browser</p>
               </Card>
             </div>
           </>
         ) : (
           <>
             {/* Resize Interface */}
-            <div className="mb-4 sm:mb-6 flex items-center justify-between">
-              <Button onClick={handleNewImage} variant="outline" size="sm">
-                <Upload className="mr-2" size={16} />
+            <div className="mb-4 sm:mb-6 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+              <Button onClick={handleNewImage} variant="outline" size="lg" className="w-full sm:w-auto">
+                <Upload className="mr-2" size={18} />
                 Upload Different Image
               </Button>
-              <div className="text-sm text-gray-600 hidden sm:block">
+              <div className="text-xs sm:text-sm text-gray-600 text-center sm:text-right bg-gray-50 px-3 py-2 rounded-lg sm:bg-transparent sm:px-0 sm:py-0">
                 Original: {originalDimensions.width}×{originalDimensions.height}px
               </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
               {/* Preview */}
-              <div className="lg:col-span-2">
+              <div className="lg:col-span-2 order-2 lg:order-1">
                 <Card className="p-4 sm:p-6">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Preview</h3>
-                  <div className="bg-gray-50 rounded-lg p-4 flex items-center justify-center min-h-[400px]">
-                    <img src={imageUrl} alt="Preview" className="max-w-full max-h-[500px] object-contain" />
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">Preview</h3>
+                  <div className="bg-gray-50 rounded-lg p-4 flex items-center justify-center min-h-[300px] sm:min-h-[400px]">
+                    <img src={imageUrl} alt="Preview" className="max-w-full max-h-[400px] sm:max-h-[500px] object-contain" />
                   </div>
-                  <div className="mt-4 grid grid-cols-2 gap-4 text-sm">
-                    <div className="bg-blue-50 p-3 rounded-lg">
-                      <p className="text-gray-600 mb-1">Original Size</p>
-                      <p className="font-semibold text-gray-900">
+                  <div className="mt-3 sm:mt-4 grid grid-cols-2 gap-3 sm:gap-4 text-xs sm:text-sm">
+                    <div className="bg-blue-50 p-2.5 sm:p-3 rounded-lg">
+                      <p className="text-gray-600 mb-1 text-[10px] sm:text-xs">Original Size</p>
+                      <p className="font-semibold text-gray-900 text-xs sm:text-sm">
                         {originalDimensions.width}×{originalDimensions.height}px
                       </p>
                     </div>
-                    <div className="bg-green-50 p-3 rounded-lg">
-                      <p className="text-gray-600 mb-1">Output Size</p>
-                      <p className="font-semibold text-gray-900">
+                    <div className="bg-green-50 p-2.5 sm:p-3 rounded-lg">
+                      <p className="text-gray-600 mb-1 text-[10px] sm:text-xs">Output Size</p>
+                      <p className="font-semibold text-gray-900 text-xs sm:text-sm">
                         {outputDims.width}×{outputDims.height}px
                       </p>
                     </div>
@@ -355,16 +355,21 @@ export function ImageResizer() {
                 </Card>
               </div>
 
-              {/* Desktop Controls - Hidden on Mobile */}
-              <div className="hidden lg:block lg:col-span-1">
-                <div className="space-y-4 sticky top-4">
+              {/* Controls - Mobile & Desktop */}
+              <div className="lg:col-span-1 order-1 lg:order-2">
+                <div className="space-y-3 sm:space-y-4 lg:sticky lg:top-4">
                   {/* Actions */}
                   <Card className="p-4 bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200">
-                    <Button onClick={handleResize} className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white mb-2" disabled={isResizing}>
+                    <Button
+                      onClick={handleResize}
+                      size="lg"
+                      className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white mb-2"
+                      disabled={isResizing}
+                    >
                       <Download className="mr-2" size={18} />
                       {isResizing ? 'Resizing...' : 'Resize & Download'}
                     </Button>
-                    <Button onClick={handleReset} variant="outline" className="w-full border-2">
+                    <Button onClick={handleReset} variant="outline" size="lg" className="w-full border-2">
                       <RotateCcw className="mr-2" size={16} />
                       Reset
                     </Button>
@@ -372,28 +377,28 @@ export function ImageResizer() {
 
                   {/* Resize Mode */}
                   <Card className="p-4">
-                    <h3 className="font-semibold text-gray-900 mb-3 text-sm">Resize Mode</h3>
+                    <h3 className="font-semibold text-gray-900 mb-3 text-sm sm:text-base">Resize Mode</h3>
                     <div className="space-y-2">
                       <button
                         onClick={() => setResizeMode('percentage')}
-                        className={`w-full px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                          resizeMode === 'percentage' ? 'bg-green-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        className={`w-full px-4 py-2.5 sm:py-2 rounded-lg text-sm font-medium transition-colors touch-manipulation active:scale-95 ${
+                          resizeMode === 'percentage' ? 'bg-green-600 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200 active:bg-gray-300'
                         }`}
                       >
                         Percentage
                       </button>
                       <button
                         onClick={() => setResizeMode('pixels')}
-                        className={`w-full px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                          resizeMode === 'pixels' ? 'bg-green-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        className={`w-full px-4 py-2.5 sm:py-2 rounded-lg text-sm font-medium transition-colors touch-manipulation active:scale-95 ${
+                          resizeMode === 'pixels' ? 'bg-green-600 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200 active:bg-gray-300'
                         }`}
                       >
                         Custom Pixels
                       </button>
                       <button
                         onClick={() => setResizeMode('preset')}
-                        className={`w-full px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                          resizeMode === 'preset' ? 'bg-green-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        className={`w-full px-4 py-2.5 sm:py-2 rounded-lg text-sm font-medium transition-colors touch-manipulation active:scale-95 ${
+                          resizeMode === 'preset' ? 'bg-green-600 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200 active:bg-gray-300'
                         }`}
                       >
                         Presets
@@ -404,8 +409,8 @@ export function ImageResizer() {
                   {/* Percentage Mode */}
                   {resizeMode === 'percentage' && (
                     <Card className="p-4">
-                      <h3 className="font-semibold text-gray-900 mb-3 text-sm">Scale: {percentage}%</h3>
-                      <input type="range" min="10" max="200" value={percentage} onChange={e => setPercentage(Number(e.target.value))} className="w-full mb-2" />
+                      <h3 className="font-semibold text-gray-900 mb-3 text-sm sm:text-base">Scale: {percentage}%</h3>
+                      <input type="range" min="10" max="200" value={percentage} onChange={e => setPercentage(Number(e.target.value))} className="w-full mb-2 h-2 accent-green-600" />
                       <div className="flex justify-between text-xs text-gray-500">
                         <span>10%</span>
                         <span>200%</span>
@@ -417,32 +422,37 @@ export function ImageResizer() {
                   {resizeMode === 'pixels' && (
                     <Card className="p-4">
                       <div className="mb-4">
-                        <label className="flex items-center gap-2 mb-3">
-                          <input type="checkbox" checked={maintainAspectRatio} onChange={e => setMaintainAspectRatio(e.target.checked)} className="w-4 h-4 text-green-600 rounded" />
+                        <label className="flex items-center gap-2 mb-3 cursor-pointer touch-manipulation">
+                          <input
+                            type="checkbox"
+                            checked={maintainAspectRatio}
+                            onChange={e => setMaintainAspectRatio(e.target.checked)}
+                            className="w-5 h-5 text-green-600 rounded focus:ring-2 focus:ring-green-500"
+                          />
                           <span className="text-sm font-medium text-gray-700">Lock aspect ratio</span>
                         </label>
                       </div>
                       <div className="space-y-3">
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1">Width (px)</label>
+                          <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5">Width (px)</label>
                           <input
                             type="number"
                             min="1"
                             max="10000"
                             value={customWidth}
                             onChange={e => handleWidthChange(Number(e.target.value))}
-                            className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500"
+                            className="w-full px-3 sm:px-4 py-2.5 sm:py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm sm:text-base"
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1">Height (px)</label>
+                          <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5">Height (px)</label>
                           <input
                             type="number"
                             min="1"
                             max="10000"
                             value={customHeight}
                             onChange={e => handleHeightChange(Number(e.target.value))}
-                            className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500"
+                            className="w-full px-3 sm:px-4 py-2.5 sm:py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm sm:text-base"
                           />
                         </div>
                       </div>
@@ -452,15 +462,15 @@ export function ImageResizer() {
                   {/* Presets Mode */}
                   {resizeMode === 'preset' && (
                     <Card className="p-4">
-                      <h3 className="font-semibold text-gray-900 mb-3 text-sm">Quick Presets</h3>
+                      <h3 className="font-semibold text-gray-900 mb-3 text-sm sm:text-base">Quick Presets</h3>
                       <div className="space-y-2">
                         {(Object.keys(presets) as PresetSize[]).map(key => (
                           <button
                             key={key}
                             onClick={() => setSelectedPreset(key)}
-                            className={`w-full px-4 py-2 rounded-lg text-left transition-colors ${selectedPreset === key ? 'bg-green-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
+                            className={`w-full px-4 py-2.5 sm:py-2 rounded-lg text-left transition-colors touch-manipulation active:scale-[0.98] ${selectedPreset === key ? 'bg-green-600 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200 active:bg-gray-300'}`}
                           >
-                            <div className="font-medium text-sm">{presets[key].label}</div>
+                            <div className="font-medium text-xs sm:text-sm">{presets[key].label}</div>
                             <div className={`text-xs ${selectedPreset === key ? 'text-green-100' : 'text-gray-500'}`}>{presets[key].description}</div>
                           </button>
                         ))}

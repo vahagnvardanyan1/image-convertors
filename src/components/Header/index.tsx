@@ -430,30 +430,34 @@ export function Header() {
 
           {/* Mobile menu button */}
           <div className="lg:hidden">
-            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-gray-600 hover:text-gray-900">
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="p-2 text-gray-600 hover:text-gray-900 active:bg-gray-100 rounded-lg transition-colors touch-manipulation"
+              aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+            >
+              {isMenuOpen ? <X size={26} /> : <Menu size={26} />}
             </button>
           </div>
         </div>
 
         {/* Mobile Navigation - Full Screen Menu */}
         {isMenuOpen && (
-          <div className="lg:hidden fixed inset-0 top-16 z-50 bg-white">
-            <div className="h-full overflow-y-auto">
-              <div className="px-4 py-6">
-                <div className="grid grid-cols-2 gap-6">
+          <div className="lg:hidden fixed inset-0 top-16 z-50 bg-white overflow-hidden">
+            <div className="h-full overflow-y-auto overscroll-contain">
+              <div className="px-4 py-6 pb-24">
+                <div className="grid grid-cols-2 gap-4 sm:gap-6">
                   {/* AI Tools Section */}
                   <div>
-                    <div className="flex items-center space-x-2 text-xs font-semibold text-gray-700 uppercase tracking-wide mb-3 pb-2 border-b-2 border-purple-200">
+                    <div className="flex items-center space-x-1.5 text-[10px] sm:text-xs font-semibold text-gray-700 uppercase tracking-wide mb-2 sm:mb-3 pb-2 border-b-2 border-purple-200">
                       <span>✨ AI Tools</span>
                     </div>
-                    <div className="space-y-2">
+                    <div className="space-y-1 sm:space-y-2">
                       {aiTools.map(tool => (
                         <Link
                           key={tool.href}
                           href={tool.href}
                           onClick={handleMenuClose}
-                          className={`block py-1.5 text-sm font-medium transition-colors ${pathname === tool.href ? 'text-blue-600 font-semibold' : 'text-gray-700 hover:text-blue-600'}`}
+                          className={`block py-2 text-xs sm:text-sm font-medium transition-colors rounded-lg px-2 active:bg-gray-100 touch-manipulation ${pathname === tool.href ? 'text-blue-600 font-semibold bg-blue-50' : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'}`}
                         >
                           {tool.name}
                         </Link>
@@ -463,22 +467,22 @@ export function Header() {
 
                   {/* Image Tools Section */}
                   <div>
-                    <div className="flex items-center space-x-2 text-xs font-semibold text-gray-700 uppercase tracking-wide mb-3 pb-2 border-b-2 border-blue-200">
+                    <div className="flex items-center space-x-1.5 text-[10px] sm:text-xs font-semibold text-gray-700 uppercase tracking-wide mb-2 sm:mb-3 pb-2 border-b-2 border-blue-200">
                       <span>🖼️ Image Tools</span>
                     </div>
-                    <div className="space-y-2">
+                    <div className="space-y-1 sm:space-y-2">
                       {imageTools.map(tool => (
                         <Link
                           key={tool.href}
                           href={tool.href}
                           onClick={handleMenuClose}
-                          className={`block py-1.5 text-sm font-medium transition-colors ${pathname === tool.href ? 'text-blue-600 font-semibold' : 'text-gray-700 hover:text-blue-600'}`}
+                          className={`block py-2 text-xs sm:text-sm font-medium transition-colors rounded-lg px-2 active:bg-gray-100 touch-manipulation ${pathname === tool.href ? 'text-blue-600 font-semibold bg-blue-50' : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'}`}
                         >
                           {tool.name}
                         </Link>
                       ))}
-                      <div className="mt-3 pt-2 border-t border-gray-200">
-                        <div className="text-xs font-semibold text-gray-500 mb-2">Format Converters</div>
+                      <div className="mt-2 sm:mt-3 pt-2 border-t border-gray-200">
+                        <div className="text-[10px] sm:text-xs font-semibold text-gray-500 mb-1.5 sm:mb-2 px-2">Format Converters</div>
                         {imageConverters
                           .filter(tool => tool.popular)
                           .map(tool => (
@@ -486,7 +490,7 @@ export function Header() {
                               key={tool.href}
                               href={tool.href}
                               onClick={handleMenuClose}
-                              className={`block py-1.5 text-sm font-medium transition-colors ${pathname === tool.href ? 'text-blue-600 font-semibold' : 'text-gray-700 hover:text-blue-600'}`}
+                              className={`block py-2 text-xs sm:text-sm font-medium transition-colors rounded-lg px-2 active:bg-gray-100 touch-manipulation ${pathname === tool.href ? 'text-blue-600 font-semibold bg-blue-50' : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'}`}
                             >
                               {tool.name}
                             </Link>
@@ -612,8 +616,8 @@ export function Header() {
                 </div>
 
                 {/* CTA Button */}
-                <div className="mt-8 pt-6 border-t border-gray-200">
-                  <Button onClick={() => scrollToSection('format-grid')} className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white w-full">
+                <div className="mt-6 sm:mt-8 pt-6 border-t border-gray-200">
+                  <Button onClick={() => scrollToSection('format-grid')} size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white w-full">
                     Start Converting
                   </Button>
                 </div>

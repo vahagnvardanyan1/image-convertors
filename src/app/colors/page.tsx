@@ -84,35 +84,37 @@ const features = [
 export default function ColorsPage() {
   return (
     <div>
-      <div className="mb-8">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Welcome to Colors</h2>
-        <p className="text-gray-600 dark:text-gray-400">Select a tool below to start working with colors, palettes, and gradients.</p>
+      <div className="mb-6 sm:mb-8">
+        <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2">Welcome to Colors</h2>
+        <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">Select a tool below to start working with colors, palettes, and gradients.</p>
       </div>
 
-      {/* Desktop Layout: Image on left, Links on right */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-        {/* Left: Featured Image */}
-        <div className="rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700">
+      {/* Responsive Layout */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mb-6 sm:mb-8">
+        {/* Featured Image */}
+        <div className="rounded-lg sm:rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700">
           <img src="/color-picker.webp" alt="Color Picker Tool Preview" className="w-full h-full object-cover" />
         </div>
 
-        {/* Right: Feature Links */}
-        <div className="grid grid-cols-1 gap-6">
+        {/* Feature Links */}
+        <div className="grid grid-cols-1 gap-3 sm:gap-4 lg:gap-6">
           {features.map(feature => {
             const Icon = feature.icon;
             return (
               <Link
                 key={feature.name}
                 href={feature.href}
-                className="group relative overflow-hidden rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 hover:shadow-2xl transition-all duration-300 hover:scale-105"
+                className="group relative overflow-hidden rounded-lg sm:rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 sm:p-5 lg:p-6 hover:shadow-2xl transition-all duration-300 active:scale-[0.98] sm:hover:scale-105 touch-manipulation"
               >
-                <div className="flex items-start gap-4">
-                  <div className={`flex-shrink-0 p-3 rounded-lg bg-gradient-to-br ${feature.color} shadow-lg`}>
-                    <Icon className="w-6 h-6 text-white" />
+                <div className="flex items-start gap-3 sm:gap-4">
+                  <div className={`flex-shrink-0 p-2.5 sm:p-3 rounded-lg bg-gradient-to-br ${feature.color} shadow-lg`}>
+                    <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                   </div>
-                  <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{feature.name}</h3>
-                    <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">{feature.description}</p>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors truncate">
+                      {feature.name}
+                    </h3>
+                    <p className="mt-1 sm:mt-2 text-xs sm:text-sm text-gray-600 dark:text-gray-400 line-clamp-2">{feature.description}</p>
                   </div>
                 </div>
                 <div className="absolute bottom-0 left-0 h-1 w-0 bg-gradient-to-r from-blue-500 to-purple-500 group-hover:w-full transition-all duration-300" />
@@ -122,9 +124,9 @@ export default function ColorsPage() {
         </div>
       </div>
 
-      <div className="mt-12 p-6 rounded-xl bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-700 dark:to-gray-600 border border-blue-100 dark:border-gray-600">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Quick Tips</h3>
-        <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+      <div className="mt-8 sm:mt-12 p-4 sm:p-6 rounded-lg sm:rounded-xl bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-700 dark:to-gray-600 border border-blue-100 dark:border-gray-600">
+        <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-2 sm:mb-3">Quick Tips</h3>
+        <ul className="space-y-2 text-xs sm:text-sm text-gray-700 dark:text-gray-300">
           <li className="flex items-start gap-2">
             <span className="text-blue-600 dark:text-blue-400 font-bold">•</span>
             <span>Use the Color Picker to find the perfect color for your project</span>

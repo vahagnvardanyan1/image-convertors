@@ -126,10 +126,28 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
-  
+
   /* Hide scrollbar for IE, Edge and Firefox */
   .scrollbar-hide {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  /* Mobile-optimized form inputs */
+  .input-base {
+    @apply w-full px-3 sm:px-4 py-2.5 sm:py-2 rounded-lg border border-gray-300;
+    @apply focus:ring-2 focus:ring-blue-500 focus:border-transparent;
+    @apply text-sm sm:text-base transition-all outline-none;
+    @apply touch-manipulation;
+  }
+
+  /* Touch-friendly interactive elements */
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px] touch-manipulation;
+  }
+
+  /* Mobile-optimized active states */
+  .active-press {
+    @apply active:scale-95 transition-transform;
   }
 }

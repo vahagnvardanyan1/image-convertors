@@ -29,11 +29,13 @@ const steps = [
 
 export function HowTo() {
   return (
-    <section id="how-to" className="bg-gray-50 py-16">
+    <section id="how-to" className="bg-gray-50 py-12 sm:py-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">How It Works</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">Convert your images in just four simple steps. Our streamlined process makes image conversion fast and effortless.</p>
+        <div className="text-center mb-8 sm:mb-12">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 sm:mb-4">How It Works</h2>
+          <p className="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto px-2">
+            Convert your images in just four simple steps. Our streamlined process makes image conversion fast and effortless.
+          </p>
         </div>
 
         <div className="space-y-4">
@@ -42,18 +44,18 @@ export function HowTo() {
               <AccordionItem
                 key={index}
                 value={`step-${index}`}
-                className="bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-200 px-6 py-2 data-[state=open]:bg-gradient-to-r data-[state=open]:from-blue-50 data-[state=open]:to-purple-50 data-[state=open]:border-blue-200"
+                className="bg-white border border-gray-200 rounded-xl sm:rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-200 px-4 sm:px-6 py-2 data-[state=open]:bg-gradient-to-r data-[state=open]:from-blue-50 data-[state=open]:to-purple-50 data-[state=open]:border-blue-200"
               >
-                <AccordionTrigger className="text-left hover:no-underline py-4 [&[data-state=open]>svg]:rotate-180">
-                  <div className="flex items-center space-x-4 pr-4">
-                    <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center">
-                      <span className="text-white font-bold text-sm">{step.number}</span>
+                <AccordionTrigger className="text-left hover:no-underline py-3 sm:py-4 [&[data-state=open]>svg]:rotate-180">
+                  <div className="flex items-center space-x-3 sm:space-x-4 pr-2 sm:pr-4">
+                    <div className="flex-shrink-0 w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center">
+                      <span className="text-white font-bold text-xs sm:text-sm">{step.number}</span>
                     </div>
-                    <span className="font-bold text-gray-900">{step.title}</span>
+                    <span className="font-bold text-gray-900 text-sm sm:text-base">{step.title}</span>
                   </div>
                 </AccordionTrigger>
-                <AccordionContent className="pb-4 ml-14">
-                  <p className="text-gray-600 leading-relaxed">{step.description}</p>
+                <AccordionContent className="pb-4 ml-12 sm:ml-14">
+                  <p className="text-gray-600 leading-relaxed text-sm sm:text-base">{step.description}</p>
                 </AccordionContent>
               </AccordionItem>
             ))}
@@ -61,11 +63,14 @@ export function HowTo() {
         </div>
 
         {/* Call to Action */}
-        <div className="mt-12 text-center">
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white">
-            <h3 className="font-bold mb-2">Ready to get started?</h3>
-            <p className="mb-4 text-blue-100">Follow these simple steps and convert your images in seconds.</p>
-            <a href="#conversion-tool" className="inline-flex items-center px-6 py-3 bg-white text-gray-900 rounded-lg font-medium hover:bg-gray-100 transition-colors duration-200">
+        <div className="mt-8 sm:mt-12 text-center">
+          <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl sm:rounded-2xl p-6 sm:p-8 text-white">
+            <h3 className="font-bold mb-2 text-lg sm:text-xl">Ready to get started?</h3>
+            <p className="mb-4 text-blue-100 text-sm sm:text-base">Follow these simple steps and convert your images in seconds.</p>
+            <a
+              href="#conversion-tool"
+              className="inline-flex items-center px-5 sm:px-6 py-2.5 sm:py-3 bg-white text-gray-900 rounded-lg font-medium hover:bg-gray-100 transition-colors duration-200 text-sm sm:text-base"
+            >
               Start Converting
             </a>
           </div>

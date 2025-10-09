@@ -280,18 +280,22 @@ export function PDFTool({ mode, title, description }: PDFToolProps) {
   };
 
   return (
-    <section className="bg-gray-50 py-16">
+    <section className="bg-gray-50 py-12 sm:py-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">{title}</h1>
-          <p className="text-gray-600">{description}</p>
+        <div className="text-center mb-8 sm:mb-12">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 sm:mb-4 px-4">{title}</h1>
+          <p className="text-sm sm:text-base text-gray-600 px-4">{description}</p>
         </div>
 
-        <Card className="p-8 bg-white shadow-lg rounded-2xl">
+        <Card className="p-4 sm:p-6 lg:p-8 bg-white shadow-lg rounded-xl sm:rounded-2xl">
           {/* File Upload Area */}
           <div
-            className={`border-2 border-dashed rounded-xl p-8 mb-6 text-center transition-all duration-200 cursor-pointer ${
-              isDragOver ? 'border-blue-500 bg-blue-50' : selectedFiles.length > 0 ? 'border-green-500 bg-green-50' : 'border-gray-300 hover:border-gray-400 hover:bg-gray-50'
+            className={`border-2 border-dashed rounded-lg sm:rounded-xl p-6 sm:p-8 mb-4 sm:mb-6 text-center transition-all duration-200 cursor-pointer touch-manipulation min-h-[200px] flex items-center justify-center ${
+              isDragOver
+                ? 'border-blue-500 bg-blue-50 scale-[1.02]'
+                : selectedFiles.length > 0
+                  ? 'border-green-500 bg-green-50'
+                  : 'border-gray-300 hover:border-gray-400 hover:bg-gray-50 active:bg-gray-100'
             }`}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
@@ -299,22 +303,22 @@ export function PDFTool({ mode, title, description }: PDFToolProps) {
             onClick={() => selectedFiles.length === 0 && fileInputRef.current?.click()}
           >
             {selectedFiles.length > 0 ? (
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4 w-full">
                 {selectedFiles.map((file, index) => (
-                  <div key={index} className="flex items-center justify-center space-x-4">
-                    {mode === 'images-to-pdf' ? <ImageIcon className="text-green-600" size={48} /> : <FileText className="text-green-600" size={48} />}
-                    <div className="text-left">
-                      <p className="font-medium text-gray-900">{file.name}</p>
-                      <p className="text-sm text-gray-500">{formatFileSize(file.size)}</p>
+                  <div key={index} className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-4">
+                    {mode === 'images-to-pdf' ? <ImageIcon className="text-green-600 flex-shrink-0" size={40} /> : <FileText className="text-green-600 flex-shrink-0" size={40} />}
+                    <div className="text-center sm:text-left">
+                      <p className="font-medium text-gray-900 text-sm sm:text-base break-all px-2">{file.name}</p>
+                      <p className="text-xs sm:text-sm text-gray-500">{formatFileSize(file.size)}</p>
                     </div>
                   </div>
                 ))}
-                {selectedFiles.length > 1 && <p className="text-sm text-gray-600 mt-2">{selectedFiles.length} files selected</p>}
+                {selectedFiles.length > 1 && <p className="text-xs sm:text-sm text-gray-600 mt-2">{selectedFiles.length} files selected</p>}
               </div>
             ) : (
-              <div>
-                <Upload className={`mx-auto mb-4 transition-all duration-200 ${isDragOver ? 'text-blue-500 scale-110' : 'text-gray-400'}`} size={48} />
-                <p className={`text-lg font-medium mb-2 transition-colors duration-200 ${isDragOver ? 'text-blue-600' : 'text-gray-900'}`}>
+              <div className="w-full">
+                <Upload className={`mx-auto mb-3 sm:mb-4 transition-all duration-200 ${isDragOver ? 'text-blue-500 scale-110' : 'text-gray-400'}`} size={40} />
+                <p className={`text-base sm:text-lg font-medium mb-2 transition-colors duration-200 px-2 ${isDragOver ? 'text-blue-600' : 'text-gray-900'}`}>
                   {isDragOver
                     ? `Drop your ${mode === 'images-to-pdf' ? 'images' : 'PDF file(s)'} here!`
                     : mode === 'images-to-pdf'
@@ -323,12 +327,13 @@ export function PDFTool({ mode, title, description }: PDFToolProps) {
                         ? 'Drag and drop your PDF files here'
                         : 'Drag and drop your PDF file here'}
                 </p>
-                <p className={`text-gray-500 mb-4 transition-colors duration-200 ${isDragOver ? 'text-blue-500' : 'text-gray-500'}`}>
+                <p className={`text-xs sm:text-sm text-gray-500 mb-4 transition-colors duration-200 ${isDragOver ? 'text-blue-500' : 'text-gray-500'}`}>
                   {isDragOver ? 'Release to upload' : 'or click anywhere to browse your files'}
                 </p>
                 {!isDragOver && (
                   <Button
                     variant="outline"
+                    size="lg"
                     onClick={e => {
                       e.stopPropagation();
                       fileInputRef.current?.click();

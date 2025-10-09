@@ -327,36 +327,36 @@ export function FormatGrid() {
     const IconComponent = converter.icon;
     return (
       <Link key={`${converter.from}-${converter.to}`} href={converter.route}>
-        <Card className="relative p-6 bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-200 cursor-pointer group">
+        <Card className="relative p-4 sm:p-5 lg:p-6 bg-white border border-gray-200 rounded-xl sm:rounded-2xl shadow-sm hover:shadow-lg transition-all duration-200 cursor-pointer group active:scale-[0.98] touch-manipulation">
           {converter.popular && (
-            <div className="absolute -top-3 left-6">
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-3 py-1 rounded-full text-xs font-medium">Popular</span>
+            <div className="absolute -top-2.5 sm:-top-3 left-4 sm:left-6">
+              <span className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-medium shadow-md">Popular</span>
             </div>
           )}
 
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600 transition-all duration-200">
-                <IconComponent className="text-gray-600 group-hover:text-white" size={20} />
+          <div className="flex items-center justify-between mb-3 sm:mb-4">
+            <div className="flex items-center space-x-2 sm:space-x-3 min-w-0 flex-1">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 bg-gray-100 rounded-lg flex items-center justify-center group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600 transition-all duration-200 flex-shrink-0">
+                <IconComponent className="text-gray-600 group-hover:text-white" size={18} />
               </div>
-              <div className="text-left">
-                <div className="font-bold text-gray-900">
+              <div className="text-left min-w-0">
+                <div className="font-bold text-gray-900 text-sm sm:text-base truncate">
                   {converter.from} → {converter.to}
                 </div>
               </div>
             </div>
-            <ArrowRight className="text-gray-400 group-hover:text-blue-600 transition-colors duration-200" size={20} />
+            <ArrowRight className="text-gray-400 group-hover:text-blue-600 transition-colors duration-200 flex-shrink-0" size={18} />
           </div>
 
-          <p className="text-gray-600 text-sm leading-relaxed mb-4">{converter.description}</p>
+          <p className="text-gray-600 text-xs sm:text-sm leading-relaxed mb-3 sm:mb-4 line-clamp-2">{converter.description}</p>
 
-          <div className="flex items-center justify-between">
-            <div className="flex space-x-2">
-              <span className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs">{converter.from}</span>
-              <ArrowRight size={12} className="text-gray-400 mt-1" />
-              <span className="px-2 py-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded text-xs">{converter.to}</span>
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex space-x-1.5 sm:space-x-2 min-w-0">
+              <span className="px-2 py-0.5 sm:py-1 bg-gray-100 text-gray-700 rounded text-[10px] sm:text-xs truncate">{converter.from}</span>
+              <ArrowRight size={10} className="text-gray-400 mt-1 flex-shrink-0" />
+              <span className="px-2 py-0.5 sm:py-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded text-[10px] sm:text-xs truncate">{converter.to}</span>
             </div>
-            <span className="text-xs text-gray-500">Click to convert</span>
+            <span className="text-[10px] sm:text-xs text-gray-500 whitespace-nowrap hidden sm:inline">Click to convert</span>
           </div>
         </Card>
       </Link>
@@ -364,70 +364,70 @@ export function FormatGrid() {
   };
 
   return (
-    <section id="format-grid" className="bg-white py-16">
+    <section id="format-grid" className="bg-white py-12 sm:py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-5xl font-bold text-gray-900 mb-4">Choose Your Conversion</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">Select the format conversion you need. Each converter is optimized for the best quality and performance.</p>
+        <div className="text-center mb-8 sm:mb-12">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4 px-4">Choose Your Conversion</h2>
+          <p className="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto px-4">Select the format conversion you need. Each converter is optimized for the best quality and performance.</p>
         </div>
 
         {/* Image Converters */}
-        <div className="mb-12">
-          <h3 className="text-xl font-semibold text-gray-900 mb-6 flex items-center">
-            <ImageIcon className="mr-2" size={24} />
+        <div className="mb-8 sm:mb-12">
+          <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6 flex items-center">
+            <ImageIcon className="mr-2" size={20} />
             Image Converters
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">{imageConverters.map(renderConverterCard)}</div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">{imageConverters.map(renderConverterCard)}</div>
         </div>
 
         {/* PDF Tools */}
-        <div className="mb-12">
-          <h3 className="text-xl font-semibold text-gray-900 mb-6 flex items-center">
-            <FileText className="mr-2" size={24} />
+        <div className="mb-8 sm:mb-12">
+          <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6 flex items-center">
+            <FileText className="mr-2" size={20} />
             PDF Tools
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">{pdfConverters.map(renderConverterCard)}</div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">{pdfConverters.map(renderConverterCard)}</div>
         </div>
 
         {/* Color Tools */}
-        <div className="mb-12">
-          <h3 className="text-xl font-semibold text-gray-900 mb-6 flex items-center">
-            <Palette className="mr-2" size={24} />
+        <div className="mb-8 sm:mb-12">
+          <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6 flex items-center">
+            <Palette className="mr-2" size={20} />
             Color Tools
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">{colorTools.map(renderConverterCard)}</div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">{colorTools.map(renderConverterCard)}</div>
         </div>
 
         {/* Font Tools */}
-        <div className="mb-12">
-          <h3 className="text-xl font-semibold text-gray-900 mb-6 flex items-center">
-            <Type className="mr-2" size={24} />
+        <div className="mb-8 sm:mb-12">
+          <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6 flex items-center">
+            <Type className="mr-2" size={20} />
             Font Tools
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">{fontTools.map(renderConverterCard)}</div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">{fontTools.map(renderConverterCard)}</div>
         </div>
 
         {/* Text Tools */}
-        <div className="mb-12">
-          <h3 className="text-xl font-semibold text-gray-900 mb-6 flex items-center">
-            <Sparkles className="mr-2" size={24} />
+        <div className="mb-8 sm:mb-12">
+          <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6 flex items-center">
+            <Sparkles className="mr-2" size={20} />
             Text & Symbol Tools
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">{textTools.map(renderConverterCard)}</div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">{textTools.map(renderConverterCard)}</div>
         </div>
 
-        <div className="mt-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="mt-8 sm:mt-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {/* Explore Color Tools */}
-            <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl p-8 border border-purple-100">
-              <h3 className="font-bold text-gray-900 mb-2 flex items-center">
-                <Palette className="mr-2" size={24} />
+            <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-xl sm:rounded-2xl p-6 sm:p-8 border border-purple-100">
+              <h3 className="font-bold text-gray-900 mb-2 flex items-center text-base sm:text-lg">
+                <Palette className="mr-2 flex-shrink-0" size={20} />
                 Explore Color Tools
               </h3>
-              <p className="text-gray-600 mb-4">Discover our complete suite of color utilities for designers and developers.</p>
+              <p className="text-gray-600 mb-4 text-sm sm:text-base">Discover our complete suite of color utilities for designers and developers.</p>
               <Link
                 href="/colors"
-                className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-medium hover:shadow-lg transition-all duration-200"
+                className="inline-flex items-center px-5 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-medium hover:shadow-lg transition-all duration-200 text-sm sm:text-base w-full sm:w-auto justify-center active:scale-95 touch-manipulation"
               >
                 View All Color Tools
                 <ArrowRight className="ml-2" size={16} />
@@ -435,15 +435,15 @@ export function FormatGrid() {
             </div>
 
             {/* Explore Font Tools */}
-            <div className="bg-gradient-to-br from-orange-50 to-red-50 rounded-2xl p-8 border border-orange-100">
-              <h3 className="font-bold text-gray-900 mb-2 flex items-center">
-                <Type className="mr-2" size={24} />
+            <div className="bg-gradient-to-br from-orange-50 to-red-50 rounded-xl sm:rounded-2xl p-6 sm:p-8 border border-orange-100">
+              <h3 className="font-bold text-gray-900 mb-2 flex items-center text-base sm:text-lg">
+                <Type className="mr-2 flex-shrink-0" size={20} />
                 Explore Font Tools
               </h3>
-              <p className="text-gray-600 mb-4">Master typography with our font preview, pairing, and scale generators.</p>
+              <p className="text-gray-600 mb-4 text-sm sm:text-base">Master typography with our font preview, pairing, and scale generators.</p>
               <Link
                 href="/texts/fonts"
-                className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-orange-600 to-red-600 text-white rounded-lg font-medium hover:shadow-lg transition-all duration-200"
+                className="inline-flex items-center px-5 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-orange-600 to-red-600 text-white rounded-lg font-medium hover:shadow-lg transition-all duration-200 text-sm sm:text-base w-full sm:w-auto justify-center active:scale-95 touch-manipulation"
               >
                 View All Font Tools
                 <ArrowRight className="ml-2" size={16} />
@@ -451,15 +451,15 @@ export function FormatGrid() {
             </div>
 
             {/* Explore Text Tools */}
-            <div className="bg-gradient-to-br from-green-50 to-teal-50 rounded-2xl p-8 border border-green-100">
-              <h3 className="font-bold text-gray-900 mb-2 flex items-center">
-                <Sparkles className="mr-2" size={24} />
+            <div className="bg-gradient-to-br from-green-50 to-teal-50 rounded-xl sm:rounded-2xl p-6 sm:p-8 border border-green-100">
+              <h3 className="font-bold text-gray-900 mb-2 flex items-center text-base sm:text-lg">
+                <Sparkles className="mr-2 flex-shrink-0" size={20} />
                 Explore Text Tools
               </h3>
-              <p className="text-gray-600 mb-4">Access emojis, symbols, and special characters for your projects.</p>
+              <p className="text-gray-600 mb-4 text-sm sm:text-base">Access emojis, symbols, and special characters for your projects.</p>
               <Link
                 href="/texts"
-                className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-600 to-teal-600 text-white rounded-lg font-medium hover:shadow-lg transition-all duration-200"
+                className="inline-flex items-center px-5 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-green-600 to-teal-600 text-white rounded-lg font-medium hover:shadow-lg transition-all duration-200 text-sm sm:text-base w-full sm:w-auto justify-center active:scale-95 touch-manipulation"
               >
                 View All Text Tools
                 <ArrowRight className="ml-2" size={16} />
@@ -467,11 +467,11 @@ export function FormatGrid() {
             </div>
           </div>
 
-          <div className="mt-6">
+          <div className="mt-4 sm:mt-6">
             {/* Learn More */}
-            <div className="bg-gray-50 rounded-2xl p-8">
-              <h3 className="font-bold text-gray-900 mb-2">Need a different format?</h3>
-              <p className="text-gray-600 mb-4">We support many more image and PDF formats. Upload your files and see all available conversion options.</p>
+            <div className="bg-gray-50 rounded-xl sm:rounded-2xl p-6 sm:p-8">
+              <h3 className="font-bold text-gray-900 mb-2 text-base sm:text-lg">Need a different format?</h3>
+              <p className="text-gray-600 mb-4 text-sm sm:text-base">We support many more image and PDF formats. Upload your files and see all available conversion options.</p>
               <button
                 onClick={() => {
                   const element = document.getElementById('how-to');

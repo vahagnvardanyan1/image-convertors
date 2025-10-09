@@ -211,29 +211,29 @@ export function ImageCropper() {
     <>
       {/* Header */}
       <div className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center space-x-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
             <Link href="/">
-              <Button variant="outline" className="flex items-center">
+              <Button variant="outline" size="lg" className="flex items-center w-full sm:w-auto">
                 <ArrowLeft className="mr-2" size={16} />
                 Back to Home
               </Button>
             </Link>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Free Online Image Cropper</h1>
-              <p className="text-gray-600">Crop, rotate, and resize images with precision</p>
+              <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Free Online Image Cropper</h1>
+              <p className="text-sm sm:text-base text-gray-600">Crop, rotate, and resize images with precision</p>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {!imageUrl ? (
           <>
             {/* Upload Area */}
-            <Card className="mb-8">
+            <Card className="mb-6 sm:mb-8">
               <div
-                className={`relative border-2 border-dashed rounded-xl p-12 text-center transition-colors cursor-pointer ${isDragOver ? 'border-blue-500 bg-blue-50' : 'border-gray-300 hover:border-gray-400'}`}
+                className={`relative border-2 border-dashed rounded-lg sm:rounded-xl p-8 sm:p-12 text-center transition-colors cursor-pointer touch-manipulation min-h-[240px] flex items-center justify-center ${isDragOver ? 'border-blue-500 bg-blue-50' : 'border-gray-300 hover:border-gray-400 active:bg-gray-50'}`}
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
                 onDrop={handleDrop}
@@ -241,91 +241,91 @@ export function ImageCropper() {
               >
                 <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileSelect} className="hidden" />
 
-                <div className="flex flex-col items-center">
-                  <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mb-6">
-                    <Upload className="text-white" size={40} />
+                <div className="flex flex-col items-center w-full">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mb-4 sm:mb-6">
+                    <Upload className="text-white" size={32} />
                   </div>
 
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">Upload an Image to Crop</h3>
-                  <p className="text-gray-600 mb-6 max-w-md">Drag and drop your image here, or click anywhere in this area to browse</p>
+                  <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">Upload an Image to Crop</h3>
+                  <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6 max-w-md px-4">Drag and drop your image here, or click anywhere in this area to browse</p>
 
-                  <div className="inline-block px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium">
-                    <Upload className="inline mr-2" size={20} />
+                  <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-lg">
+                    <Upload className="mr-2" size={20} />
                     Click or Drop Image Here
-                  </div>
+                  </Button>
 
-                  <p className="text-sm text-gray-500 mt-4">Supports: JPG, PNG, WebP, GIF, HEIC</p>
+                  <p className="text-xs sm:text-sm text-gray-500 mt-3 sm:mt-4">Supports: JPG, PNG, WebP, GIF, HEIC</p>
                 </div>
               </div>
             </Card>
 
             {/* Features */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-              <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <Crop className="text-blue-600" size={24} />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-12">
+              <Card className="p-5 sm:p-6 text-center hover:shadow-lg transition-shadow">
+                <div className="w-11 h-11 sm:w-12 sm:h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                  <Crop className="text-blue-600" size={20} />
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-2">Precise Cropping</h3>
-                <p className="text-gray-600 text-sm">Crop images to exact dimensions with pixel-perfect accuracy</p>
+                <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">Precise Cropping</h3>
+                <p className="text-gray-600 text-xs sm:text-sm">Crop images to exact dimensions with pixel-perfect accuracy</p>
               </Card>
 
-              <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <Maximize className="text-purple-600" size={24} />
+              <Card className="p-5 sm:p-6 text-center hover:shadow-lg transition-shadow">
+                <div className="w-11 h-11 sm:w-12 sm:h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                  <Maximize className="text-purple-600" size={20} />
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-2">Aspect Ratios</h3>
-                <p className="text-gray-600 text-sm">Choose from preset ratios or crop freely</p>
+                <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">Aspect Ratios</h3>
+                <p className="text-gray-600 text-xs sm:text-sm">Choose from preset ratios or crop freely</p>
               </Card>
 
-              <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <Move className="text-green-600" size={24} />
+              <Card className="p-5 sm:p-6 text-center hover:shadow-lg transition-shadow">
+                <div className="w-11 h-11 sm:w-12 sm:h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                  <Move className="text-green-600" size={20} />
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-2">Rotate & Flip</h3>
-                <p className="text-gray-600 text-sm">Rotate, flip, and adjust your images easily</p>
+                <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">Rotate & Flip</h3>
+                <p className="text-gray-600 text-xs sm:text-sm">Rotate, flip, and adjust your images easily</p>
               </Card>
 
-              <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-                <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle className="text-orange-600" size={24} />
+              <Card className="p-5 sm:p-6 text-center hover:shadow-lg transition-shadow">
+                <div className="w-11 h-11 sm:w-12 sm:h-12 bg-orange-100 rounded-lg flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                  <CheckCircle className="text-orange-600" size={20} />
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-2">100% Private</h3>
-                <p className="text-gray-600 text-sm">All processing happens in your browser</p>
+                <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">100% Private</h3>
+                <p className="text-gray-600 text-xs sm:text-sm">All processing happens in your browser</p>
               </Card>
             </div>
           </>
         ) : (
           <>
             {/* Cropper Interface */}
-            <div className="mb-4 sm:mb-6 flex items-center justify-between">
-              <Button onClick={handleNewImage} variant="outline" size="sm">
-                <Upload className="mr-2" size={16} />
+            <div className="mb-4 sm:mb-6 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+              <Button onClick={handleNewImage} variant="outline" size="lg" className="w-full sm:w-auto">
+                <Upload className="mr-2" size={18} />
                 Upload Different Image
               </Button>
-              <p className="text-sm text-gray-600 hidden lg:block">Use the controls on the right to adjust your crop</p>
+              <p className="text-xs sm:text-sm text-gray-600 text-center sm:text-right bg-blue-50 px-3 py-2 rounded-lg lg:bg-transparent lg:px-0 lg:py-0">Use the controls below to adjust your crop</p>
             </div>
 
-            <div className="flex flex-col lg:flex-row gap-6">
+            <div className="flex flex-col lg:flex-row gap-4 sm:gap-6">
               {/* Cropper Canvas - Main Area */}
-              <div className="flex-1">
-                <Card className="p-4 sm:p-6">
+              <div className="flex-1 order-2 lg:order-1">
+                <Card className="p-3 sm:p-4 lg:p-6">
                   <div className="max-w-full overflow-hidden">
                     <img ref={imageRef} src={imageUrl} alt="Crop preview" className="max-w-full block" />
                   </div>
                 </Card>
               </div>
 
-              {/* Desktop Controls Sidebar - Hidden on Mobile */}
-              <div className="hidden lg:block w-80 flex-shrink-0">
-                <div className="sticky top-4 space-y-4">
+              {/* Controls - Mobile & Desktop */}
+              <div className="w-full lg:w-80 flex-shrink-0 order-1 lg:order-2">
+                <div className="space-y-3 sm:space-y-4 lg:sticky lg:top-4">
                   {/* Actions - Always Visible */}
                   <Card className="p-4 bg-gradient-to-br from-blue-50 to-purple-50 border-2 border-blue-200">
-                    <div className="flex flex-col sm:flex-row lg:flex-col gap-2">
-                      <Button onClick={handleCrop} className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white" disabled={isCropping}>
+                    <div className="flex flex-col gap-2">
+                      <Button onClick={handleCrop} size="lg" className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white" disabled={isCropping}>
                         <Download className="mr-2" size={18} />
                         {isCropping ? 'Cropping...' : 'Crop & Download'}
                       </Button>
-                      <Button onClick={handleReset} variant="outline" className="flex-1 border-2">
+                      <Button onClick={handleReset} variant="outline" size="lg" className="w-full border-2">
                         <RotateCcw className="mr-2" size={16} />
                         Reset
                       </Button>
@@ -334,14 +334,14 @@ export function ImageCropper() {
 
                   {/* Aspect Ratio */}
                   <Card className="p-4">
-                    <h3 className="font-semibold text-gray-900 mb-3 text-sm">Aspect Ratio</h3>
-                    <div className="grid grid-cols-3 sm:grid-cols-6 lg:grid-cols-3 gap-2">
+                    <h3 className="font-semibold text-gray-900 mb-3 text-sm sm:text-base">Aspect Ratio</h3>
+                    <div className="grid grid-cols-3 gap-2">
                       {aspectRatios.map(ratio => (
                         <button
                           key={ratio.label}
                           onClick={() => handleSetAspectRatio(ratio.value)}
-                          className={`px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
-                            aspectRatio === ratio.value ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                          className={`px-3 py-2.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors touch-manipulation active:scale-95 ${
+                            aspectRatio === ratio.value ? 'bg-blue-600 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200 active:bg-gray-300'
                           }`}
                         >
                           {ratio.label}
@@ -352,13 +352,13 @@ export function ImageCropper() {
 
                   {/* Zoom */}
                   <Card className="p-4">
-                    <h3 className="font-semibold text-gray-900 mb-3 text-sm">Zoom</h3>
+                    <h3 className="font-semibold text-gray-900 mb-3 text-sm sm:text-base">Zoom</h3>
                     <div className="grid grid-cols-2 gap-2">
-                      <Button onClick={handleZoomIn} variant="outline" className="w-full" size="sm">
+                      <Button onClick={handleZoomIn} variant="outline" size="lg" className="w-full">
                         <ZoomIn className="mr-1" size={16} />
                         In
                       </Button>
-                      <Button onClick={handleZoomOut} variant="outline" className="w-full" size="sm">
+                      <Button onClick={handleZoomOut} variant="outline" size="lg" className="w-full">
                         <ZoomOut className="mr-1" size={16} />
                         Out
                       </Button>
@@ -367,9 +367,9 @@ export function ImageCropper() {
 
                   {/* Transform */}
                   <Card className="p-4">
-                    <h3 className="font-semibold text-gray-900 mb-3 text-sm">Transform</h3>
+                    <h3 className="font-semibold text-gray-900 mb-3 text-sm sm:text-base">Transform</h3>
                     <div className="grid grid-cols-2 gap-2">
-                      <Button onClick={handleRotateLeft} variant="outline" className="w-full" size="sm">
+                      <Button onClick={handleRotateLeft} variant="outline" size="lg" className="w-full">
                         <RotateCcw className="mr-1" size={16} />
                         Left
                       </Button>

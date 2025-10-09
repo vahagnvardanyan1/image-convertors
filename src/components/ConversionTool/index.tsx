@@ -114,18 +114,18 @@ export function ConversionTool() {
   };
 
   return (
-    <section className="bg-gray-50 py-16">
+    <section className="bg-gray-50 py-12 sm:py-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Convert Your Images</h2>
-          <p className="text-gray-600">Upload your image and select the output format to get started</p>
+        <div className="text-center mb-8 sm:mb-12">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 sm:mb-4">Convert Your Images</h2>
+          <p className="text-sm sm:text-base text-gray-600">Upload your image and select the output format to get started</p>
         </div>
 
-        <Card className="p-8 bg-white shadow-lg rounded-2xl">
+        <Card className="p-4 sm:p-6 lg:p-8 bg-white shadow-lg rounded-xl sm:rounded-2xl">
           {/* Drag and Drop Area */}
           <div
-            className={`border-2 border-dashed rounded-xl p-8 mb-6 text-center transition-all duration-200 cursor-pointer ${
-              isDragOver ? 'border-blue-500 bg-blue-50 scale-105' : selectedFile ? 'border-green-500 bg-green-50' : 'border-gray-300 hover:border-gray-400 hover:bg-gray-50'
+            className={`border-2 border-dashed rounded-lg sm:rounded-xl p-6 sm:p-8 mb-4 sm:mb-6 text-center transition-all duration-200 cursor-pointer touch-manipulation min-h-[200px] flex items-center justify-center ${
+              isDragOver ? 'border-blue-500 bg-blue-50 scale-[1.02]' : selectedFile ? 'border-green-500 bg-green-50' : 'border-gray-300 hover:border-gray-400 hover:bg-gray-50 active:bg-gray-100'
             }`}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
@@ -133,25 +133,26 @@ export function ConversionTool() {
             onClick={() => !selectedFile && fileInputRef.current?.click()}
           >
             {selectedFile ? (
-              <div className="flex items-center justify-center space-x-4">
-                <FileImage className="text-green-600" size={48} />
-                <div className="text-left">
-                  <p className="font-medium text-gray-900">{selectedFile.name}</p>
-                  <p className="text-sm text-gray-500">{(selectedFile.size / 1024 / 1024).toFixed(2)} MB</p>
+              <div className="flex flex-col sm:flex-row items-center justify-center space-y-3 sm:space-y-0 sm:space-x-4 w-full">
+                <FileImage className="text-green-600 flex-shrink-0" size={40} />
+                <div className="text-center sm:text-left">
+                  <p className="font-medium text-gray-900 text-sm sm:text-base break-all px-2">{selectedFile.name}</p>
+                  <p className="text-xs sm:text-sm text-gray-500">{(selectedFile.size / 1024 / 1024).toFixed(2)} MB</p>
                 </div>
               </div>
             ) : (
               <div>
-                <Upload className={`mx-auto mb-4 transition-all duration-200 ${isDragOver ? 'text-blue-500 scale-110' : 'text-gray-400'}`} size={48} />
-                <p className={`text-lg font-medium mb-2 transition-colors duration-200 ${isDragOver ? 'text-blue-600' : 'text-gray-900'}`}>
+                <Upload className={`mx-auto mb-3 sm:mb-4 transition-all duration-200 ${isDragOver ? 'text-blue-500 scale-110' : 'text-gray-400'}`} size={40} />
+                <p className={`text-base sm:text-lg font-medium mb-2 transition-colors duration-200 px-2 ${isDragOver ? 'text-blue-600' : 'text-gray-900'}`}>
                   {isDragOver ? 'Drop your image here!' : 'Drag and drop your image here'}
                 </p>
-                <p className={`text-gray-500 mb-4 transition-colors duration-200 ${isDragOver ? 'text-blue-500' : 'text-gray-500'}`}>
+                <p className={`text-xs sm:text-sm text-gray-500 mb-4 transition-colors duration-200 ${isDragOver ? 'text-blue-500' : 'text-gray-500'}`}>
                   {isDragOver ? 'Release to upload' : 'or click anywhere to browse your files'}
                 </p>
                 {!isDragOver && (
                   <Button
                     variant="outline"
+                    size="lg"
                     onClick={e => {
                       e.stopPropagation();
                       fileInputRef.current?.click();
@@ -168,11 +169,11 @@ export function ConversionTool() {
           </div>
 
           {/* Format Selection */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Input Format</label>
+              <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-2">Input Format</label>
               <Select value={inputFormat} onValueChange={setInputFormat}>
-                <SelectTrigger className="rounded-lg">
+                <SelectTrigger className="rounded-lg h-11 sm:h-10">
                   <SelectValue placeholder="Auto-detected" />
                 </SelectTrigger>
                 <SelectContent>
@@ -186,7 +187,7 @@ export function ConversionTool() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Output Format</label>
+              <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-2">Output Format</label>
               <Select value={outputFormat} onValueChange={setOutputFormat}>
                 <SelectTrigger className="rounded-lg">
                   <SelectValue placeholder="Choose output format" />
