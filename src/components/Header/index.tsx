@@ -119,6 +119,7 @@ export function Header() {
   ];
 
   const blogGuides = [
+    { name: 'AI Image Generator Guide', href: '/blog/ai-image-generator-guide', popular: true },
     { name: 'QR Code Generator Guide', href: '/blog/qr-code-generator-guide', popular: true },
     { name: 'Crop Image Guide', href: '/blog/crop-image-guide', popular: true },
     { name: 'Resize Image Guide', href: '/blog/resize-image-guide', popular: true },

@@ -79,6 +79,16 @@ interface BlogPost {
 
 const blogPosts: BlogPost[] = [
   {
+    title: 'AI Image Generator Guide: Create Stunning Images from Text',
+    description: 'Complete guide to generating AI images from text prompts. Learn how to create amazing artwork, photos, and designs using our free AI image generator with advanced models.',
+    slug: 'ai-image-generator-guide',
+    publishDate: '2025-01-15',
+    readTime: '8 min read',
+    category: 'AI Tools',
+    icon: Sparkles,
+    featured: true,
+  },
+  {
     title: 'Free QR Code Generator — Create Custom QR Codes Instantly',
     description: 'Learn how to create custom QR codes for URLs, WiFi, contacts, and more. Complete guide with best practices, use cases, and customization options. No signup required.',
     slug: 'qr-code-generator-guide',
