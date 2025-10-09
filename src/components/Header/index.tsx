@@ -63,6 +63,7 @@ export function Header() {
     { name: 'Crop Image', href: '/crop-image', popular: true },
     { name: 'Resize Image', href: '/resize-image', popular: true },
     { name: 'Image Analyzer', href: '/analyze', popular: true },
+    { name: 'QR Code Generator', href: '/qr-code-generator', popular: true },
   ];
 
   const imageConverters = [
@@ -115,6 +116,7 @@ export function Header() {
   ];
 
   const blogGuides = [
+    { name: 'QR Code Generator Guide', href: '/blog/qr-code-generator-guide', popular: true },
     { name: 'Crop Image Guide', href: '/blog/crop-image-guide', popular: true },
     { name: 'Resize Image Guide', href: '/blog/resize-image-guide', popular: true },
     { name: 'Remove Background Guide', href: '/blog/remove-background-guide', popular: true },

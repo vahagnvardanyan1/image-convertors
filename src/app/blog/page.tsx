@@ -79,6 +79,16 @@ interface BlogPost {
 
 const blogPosts: BlogPost[] = [
   {
+    title: 'Free QR Code Generator — Create Custom QR Codes Instantly',
+    description: 'Learn how to create custom QR codes for URLs, WiFi, contacts, and more. Complete guide with best practices, use cases, and customization options. No signup required.',
+    slug: 'qr-code-generator-guide',
+    publishDate: '2025-10-09',
+    readTime: '12 min read',
+    category: 'Utilities',
+    icon: ImageIcon,
+    featured: true,
+  },
+  {
     title: 'Free Online Image Resizer — Resize & Scale Photos Perfectly',
     description: 'Complete guide to resizing images online for free. Learn professional techniques, optimal dimensions, and best practices for perfect image scaling. No signup required.',
     slug: 'resize-image-guide',
@@ -86,7 +96,7 @@ const blogPosts: BlogPost[] = [
     readTime: '11 min read',
     category: 'Image Editing',
     icon: Maximize2,
-    featured: true,
+    featured: false,
   },
   {
     title: 'Free Online Image Cropper — Crop & Resize Photos Perfectly',

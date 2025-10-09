@@ -116,6 +116,11 @@ export function Footer() {
                   Image Analyzer
                 </Link>
               </li>
+              <li>
+                <Link href="/qr-code-generator" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  QR Code Generator
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -269,6 +274,11 @@ export function Footer() {
               <li>
                 <Link href="/blog" className="text-gray-400 hover:text-white transition-colors text-sm">
                   Blog Home
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog/qr-code-generator-guide" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  QR Code Generator Guide
                 </Link>
               </li>
               <li>

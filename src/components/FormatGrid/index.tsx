@@ -20,6 +20,7 @@ import {
   Hash,
   Eraser,
   Maximize2,
+  QrCode,
 } from 'lucide-react';
 import Link from 'next/link';
 import { Card } from '../Card';
@@ -211,6 +212,15 @@ const converters = [
     route: '/resize-image',
     icon: Maximize2,
     description: 'Resize images by percentage, pixels, or presets',
+    popular: true,
+    category: 'image',
+  },
+  {
+    from: 'QR Code',
+    to: 'Generator',
+    route: '/qr-code-generator',
+    icon: QrCode,
+    description: 'Create custom QR codes for URLs, WiFi, contacts, and more',
     popular: true,
     category: 'image',
   },
