@@ -327,7 +327,7 @@ export function FormatGrid() {
     const IconComponent = converter.icon;
     return (
       <Link key={`${converter.from}-${converter.to}`} href={converter.route}>
-        <Card className="relative p-4 sm:p-5 lg:p-6 bg-white border border-gray-200 rounded-xl sm:rounded-2xl shadow-sm hover:shadow-lg transition-all duration-200 cursor-pointer group active:scale-[0.98] touch-manipulation">
+        <Card className="relative p-4 sm:p-5 lg:p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl sm:rounded-2xl shadow-sm hover:shadow-lg dark:hover:shadow-blue-500/20 transition-all duration-200 cursor-pointer group active:scale-[0.98] touch-manipulation">
           {converter.popular && (
             <div className="absolute -top-2.5 sm:-top-3 left-4 sm:left-6">
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-medium shadow-md">Popular</span>
@@ -336,27 +336,29 @@ export function FormatGrid() {
 
           <div className="flex items-center justify-between mb-3 sm:mb-4">
             <div className="flex items-center space-x-2 sm:space-x-3 min-w-0 flex-1">
-              <div className="w-9 h-9 sm:w-10 sm:h-10 bg-gray-100 rounded-lg flex items-center justify-center group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600 transition-all duration-200 flex-shrink-0">
-                <IconComponent className="text-gray-600 group-hover:text-white" size={18} />
+              <div className="w-9 h-9 sm:w-10 sm:h-10 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600 transition-all duration-200 flex-shrink-0">
+                <IconComponent className="text-gray-600 dark:text-gray-300 group-hover:text-white" size={18} />
               </div>
               <div className="text-left min-w-0">
-                <div className="font-bold text-gray-900 text-sm sm:text-base truncate">
+                <div className="font-bold text-gray-900 dark:text-white text-sm sm:text-base truncate">
                   {converter.from} → {converter.to}
                 </div>
               </div>
             </div>
-            <ArrowRight className="text-gray-400 group-hover:text-blue-600 transition-colors duration-200 flex-shrink-0" size={18} />
+            <ArrowRight className="text-gray-400 dark:text-gray-500 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200 flex-shrink-0" size={18} />
           </div>
 
-          <p className="text-gray-600 text-xs sm:text-sm leading-relaxed mb-3 sm:mb-4 line-clamp-2">{converter.description}</p>
+          <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm leading-relaxed mb-3 sm:mb-4 line-clamp-2">{converter.description}</p>
 
           <div className="flex items-center justify-between gap-2">
             <div className="flex space-x-1.5 sm:space-x-2 min-w-0">
-              <span className="px-2 py-0.5 sm:py-1 bg-gray-100 text-gray-700 rounded text-[10px] sm:text-xs truncate">{converter.from}</span>
-              <ArrowRight size={10} className="text-gray-400 mt-1 flex-shrink-0" />
-              <span className="px-2 py-0.5 sm:py-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded text-[10px] sm:text-xs truncate">{converter.to}</span>
+              <span className="px-2 py-0.5 sm:py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded text-[10px] sm:text-xs truncate">{converter.from}</span>
+              <ArrowRight size={10} className="text-gray-400 dark:text-gray-600 mt-1 flex-shrink-0" />
+              <span className="px-2 py-0.5 sm:py-1 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 text-white rounded text-[10px] sm:text-xs truncate">
+                {converter.to}
+              </span>
             </div>
-            <span className="text-[10px] sm:text-xs text-gray-500 whitespace-nowrap hidden sm:inline">Click to convert</span>
+            <span className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap hidden sm:inline">Click to convert</span>
           </div>
         </Card>
       </Link>
@@ -364,17 +366,19 @@ export function FormatGrid() {
   };
 
   return (
-    <section id="format-grid" className="bg-white py-12 sm:py-16">
+    <section id="format-grid" className="bg-white dark:bg-gray-900 py-12 sm:py-16 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8 sm:mb-12">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4 px-4">Choose Your Conversion</h2>
-          <p className="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto px-4">Select the format conversion you need. Each converter is optimized for the best quality and performance.</p>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 px-4">Choose Your Conversion</h2>
+          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 max-w-2xl mx-auto px-4">
+            Select the format conversion you need. Each converter is optimized for the best quality and performance.
+          </p>
         </div>
 
         {/* Image Converters */}
         <div className="mb-8 sm:mb-12">
-          <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6 flex items-center">
-            <ImageIcon className="mr-2" size={20} />
+          <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-4 sm:mb-6 flex items-center">
+            <ImageIcon className="mr-2 text-blue-600 dark:text-blue-400" size={20} />
             Image Converters
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">{imageConverters.map(renderConverterCard)}</div>
@@ -382,8 +386,8 @@ export function FormatGrid() {
 
         {/* PDF Tools */}
         <div className="mb-8 sm:mb-12">
-          <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6 flex items-center">
-            <FileText className="mr-2" size={20} />
+          <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-4 sm:mb-6 flex items-center">
+            <FileText className="mr-2 text-red-600 dark:text-red-400" size={20} />
             PDF Tools
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">{pdfConverters.map(renderConverterCard)}</div>
@@ -391,8 +395,8 @@ export function FormatGrid() {
 
         {/* Color Tools */}
         <div className="mb-8 sm:mb-12">
-          <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6 flex items-center">
-            <Palette className="mr-2" size={20} />
+          <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-4 sm:mb-6 flex items-center">
+            <Palette className="mr-2 text-purple-600 dark:text-purple-400" size={20} />
             Color Tools
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">{colorTools.map(renderConverterCard)}</div>
@@ -400,8 +404,8 @@ export function FormatGrid() {
 
         {/* Font Tools */}
         <div className="mb-8 sm:mb-12">
-          <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6 flex items-center">
-            <Type className="mr-2" size={20} />
+          <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-4 sm:mb-6 flex items-center">
+            <Type className="mr-2 text-orange-600 dark:text-orange-400" size={20} />
             Font Tools
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">{fontTools.map(renderConverterCard)}</div>
@@ -409,8 +413,8 @@ export function FormatGrid() {
 
         {/* Text Tools */}
         <div className="mb-8 sm:mb-12">
-          <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6 flex items-center">
-            <Sparkles className="mr-2" size={20} />
+          <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-4 sm:mb-6 flex items-center">
+            <Sparkles className="mr-2 text-green-600 dark:text-green-400" size={20} />
             Text & Symbol Tools
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">{textTools.map(renderConverterCard)}</div>

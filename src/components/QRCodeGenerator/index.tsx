@@ -219,16 +219,18 @@ export function QRCodeGenerator() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="text-center mb-12">
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Free QR Code Generator</h1>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto">Create custom QR codes for URLs, text, WiFi, contact cards, and more. Customize colors, download as PNG or SVG. 100% free and secure.</p>
+        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">Free QR Code Generator</h1>
+        <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+          Create custom QR codes for URLs, text, WiFi, contact cards, and more. Customize colors, download as PNG or SVG. 100% free and secure.
+        </p>
       </div>
 
       <div className="grid lg:grid-cols-2 gap-8">
         {/* Left Column - Controls */}
         <div ref={controlsRef} className="space-y-6">
           {/* QR Type Selection */}
-          <Card className="p-6">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Select QR Code Type</h2>
+          <Card className="p-6 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Select QR Code Type</h2>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {qrTypes.map(({ type, label, icon: Icon }) => (
                 <button
@@ -244,18 +246,18 @@ export function QRCodeGenerator() {
           </Card>
 
           {/* Content Input */}
-          <Card className="p-6">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Enter Content</h2>
+          <Card className="p-6 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Enter Content</h2>
 
             {qrType === 'url' && (
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Website URL</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Website URL</label>
                 <input
                   type="url"
                   value={qrData.url || ''}
                   onChange={e => updateQRData('url', e.target.value)}
                   placeholder="https://example.com"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-gray-500"
                 />
               </div>
             )}

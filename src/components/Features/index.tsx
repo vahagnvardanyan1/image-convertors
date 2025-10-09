@@ -26,7 +26,7 @@ const features = [
 
 export function Features() {
   return (
-    <section className="bg-white py-12 sm:py-16">
+    <section className="bg-white dark:bg-gray-900 py-12 sm:py-16 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8 sm:mb-12">
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 sm:mb-4">Why Choose Our Image Converter?</h2>
@@ -39,12 +39,12 @@ export function Features() {
           {features.map((feature, index) => {
             const IconComponent = feature.icon;
             return (
-              <Card key={index} className="p-5 sm:p-6 text-center border-0 shadow-lg hover:shadow-xl transition-shadow duration-200 rounded-xl sm:rounded-2xl">
-                <div className="inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl sm:rounded-2xl mb-3 sm:mb-4">
+              <Card key={index} className="p-5 sm:p-6 text-center border border-gray-100 dark:border-gray-800 shadow-lg hover:shadow-xl dark:hover:shadow-blue-500/20 transition-all duration-200 rounded-xl sm:rounded-2xl bg-white dark:bg-gray-800">
+                <div className="inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 rounded-xl sm:rounded-2xl mb-3 sm:mb-4 shadow-md">
                   <IconComponent className="text-white" size={28} />
                 </div>
-                <h3 className="font-bold text-gray-900 mb-2 text-base sm:text-lg">{feature.title}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">{feature.description}</p>
+                <h3 className="font-bold text-gray-900 dark:text-white mb-2 text-base sm:text-lg">{feature.title}</h3>
+                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">{feature.description}</p>
               </Card>
             );
           })}

@@ -40,7 +40,7 @@ const faqs = [
 
 export function FAQ() {
   return (
-    <section id="faq" className="bg-white py-12 sm:py-16">
+    <section id="faq" className="bg-white dark:bg-gray-900 py-12 sm:py-16 transition-colors">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8 sm:mb-12">
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 sm:mb-4">Frequently Asked Questions</h2>
@@ -55,18 +55,18 @@ export function FAQ() {
                 <AccordionItem
                   key={index}
                   value={`item-${index}`}
-                  className="bg-white border border-gray-200 rounded-xl sm:rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-200 px-4 sm:px-6 py-2 data-[state=open]:bg-gradient-to-r data-[state=open]:from-blue-50 data-[state=open]:to-purple-50 data-[state=open]:border-blue-200"
+                  className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl sm:rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-200 px-4 sm:px-6 py-2 data-[state=open]:bg-gradient-to-r data-[state=open]:from-blue-50 data-[state=open]:to-purple-50 dark:data-[state=open]:from-blue-900/30 dark:data-[state=open]:to-purple-900/30 data-[state=open]:border-blue-200 dark:data-[state=open]:border-blue-700"
                 >
                   <AccordionTrigger className="text-left hover:no-underline py-3 sm:py-4 [&[data-state=open]>svg]:rotate-180">
                     <div className="flex items-center space-x-3 sm:space-x-4 pr-2 sm:pr-4">
                       <div className="flex-shrink-0 w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
                         <IconComponent className="text-white" size={18} />
                       </div>
-                      <span className="font-bold text-gray-900 text-sm sm:text-base">{faq.question}</span>
+                      <span className="font-bold text-gray-900 dark:text-white text-sm sm:text-base">{faq.question}</span>
                     </div>
                   </AccordionTrigger>
                   <AccordionContent className="pb-4 ml-12 sm:ml-14">
-                    <p className="text-gray-600 leading-relaxed text-sm sm:text-base">{faq.answer}</p>
+                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-sm sm:text-base">{faq.answer}</p>
                   </AccordionContent>
                 </AccordionItem>
               );

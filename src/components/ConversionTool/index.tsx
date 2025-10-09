@@ -114,14 +114,14 @@ export function ConversionTool() {
   };
 
   return (
-    <section className="bg-gray-50 py-12 sm:py-16">
+    <section className="bg-gray-50 dark:bg-gray-800 py-12 sm:py-16 transition-colors">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8 sm:mb-12">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 sm:mb-4">Convert Your Images</h2>
-          <p className="text-sm sm:text-base text-gray-600">Upload your image and select the output format to get started</p>
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">Convert Your Images</h2>
+          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">Upload your image and select the output format to get started</p>
         </div>
 
-        <Card className="p-4 sm:p-6 lg:p-8 bg-white shadow-lg rounded-xl sm:rounded-2xl">
+        <Card className="p-4 sm:p-6 lg:p-8 bg-white dark:bg-gray-900 shadow-lg rounded-xl sm:rounded-2xl border border-gray-100 dark:border-gray-800">
           {/* Drag and Drop Area */}
           <div
             className={`border-2 border-dashed rounded-lg sm:rounded-xl p-6 sm:p-8 mb-4 sm:mb-6 text-center transition-all duration-200 cursor-pointer touch-manipulation min-h-[200px] flex items-center justify-center ${
@@ -171,7 +171,7 @@ export function ConversionTool() {
           {/* Format Selection */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
             <div>
-              <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-2">Input Format</label>
+              <label className="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Input Format</label>
               <Select value={inputFormat} onValueChange={setInputFormat}>
                 <SelectTrigger className="rounded-lg h-11 sm:h-10">
                   <SelectValue placeholder="Auto-detected" />
@@ -187,7 +187,7 @@ export function ConversionTool() {
             </div>
 
             <div>
-              <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-2">Output Format</label>
+              <label className="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Output Format</label>
               <Select value={outputFormat} onValueChange={setOutputFormat}>
                 <SelectTrigger className="rounded-lg">
                   <SelectValue placeholder="Choose output format" />

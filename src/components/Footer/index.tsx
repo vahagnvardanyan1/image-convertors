@@ -12,40 +12,68 @@ export function Footer() {
   };
 
   return (
-    <footer className="bg-gray-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    <footer className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white overflow-hidden">
+      {/* Background decorations */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-30">
+        <div className="absolute top-0 left-1/4 w-64 h-64 bg-blue-500/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-purple-500/20 rounded-full blur-3xl" />
+      </div>
+
+      {/* Gradient divider */}
+      <div className="h-1 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600" />
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-6 sm:gap-8">
-          {/* Brand */}
-          <div className="sm:col-span-2 lg:col-span-1 pb-6 border-b border-gray-800 sm:border-b-0 sm:pb-0">
-            <div className="flex items-center mb-3 sm:mb-4">
-              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center">
-                <span className="text-white font-bold text-xs sm:text-sm">IC</span>
+          {/* Brand - Enhanced */}
+          <div className="sm:col-span-2 lg:col-span-2 pb-8 border-b border-gray-700/50 sm:border-b-0 sm:pb-0">
+            <div className="flex items-center mb-5">
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl blur opacity-75" />
+                <div className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center shadow-lg">
+                  <span className="text-white font-bold text-sm sm:text-base">IC</span>
+                </div>
               </div>
-              <span className="ml-2 text-lg sm:text-xl font-bold">ImageConverter</span>
+              <div className="ml-3">
+                <span className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+                  ImageConverter
+                </span>
+                <div className="text-xs text-gray-400 font-medium">Fast & Secure Tools</div>
+              </div>
             </div>
-            <p className="text-gray-400 mb-4 sm:mb-6 max-w-md text-xs sm:text-sm leading-relaxed">
-              The fastest and most secure way to convert images and PDFs online. Built for developers, designers, and everyone who works with digital files.
+            <p className="text-gray-400 mb-6 max-w-md text-sm sm:text-base leading-relaxed">
+              The fastest and most secure way to convert images and PDFs online. Built with ❤️ for developers, designers, and creators worldwide.
             </p>
-            <div className="flex items-center space-x-2">
-              <Mail className="text-gray-400 flex-shrink-0" size={14} />
-              <a href="mailto:cropimage@gmail.com" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm break-all">
-                cropimage@gmail.com
-              </a>
+            <div className="space-y-3">
+              <div className="flex items-center space-x-3 group">
+                <div className="w-8 h-8 rounded-lg bg-gray-800/50 flex items-center justify-center group-hover:bg-blue-600/20 transition-colors">
+                  <Mail className="text-gray-400 group-hover:text-blue-400 transition-colors" size={16} />
+                </div>
+                <a href="mailto:cropimage@gmail.com" className="text-gray-400 hover:text-white transition-colors text-sm break-all">
+                  cropimage@gmail.com
+                </a>
+              </div>
+              <div className="flex items-center space-x-2 text-xs text-gray-500">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                <span>100% Browser-Based • No Data Uploaded</span>
+              </div>
             </div>
           </div>
 
           {/* AI Tools */}
-          <div className="border-b border-gray-800 pb-4 sm:border-b-0 sm:pb-0">
+          <div className="border-b border-gray-700/50 pb-4 sm:border-b-0 sm:pb-0">
             <button
               onClick={() => toggleSection('ai')}
-              className="flex items-center justify-between w-full sm:cursor-default sm:pointer-events-none py-2 sm:py-0 -mx-2 px-2 sm:mx-0 sm:px-0 rounded-lg active:bg-gray-800 sm:active:bg-transparent touch-manipulation"
+              className="flex items-center justify-between w-full sm:cursor-default sm:pointer-events-none py-2 sm:py-0 -mx-2 px-2 sm:mx-0 sm:px-0 rounded-lg active:bg-gray-800/50 sm:active:bg-transparent touch-manipulation group"
             >
-              <h3 className="font-semibold mb-0 sm:mb-4 text-base sm:text-lg">AI Tools</h3>
-              <ChevronDown className={`sm:hidden transition-transform ${openSection === 'ai' ? 'rotate-180' : ''}`} size={22} />
+              <h3 className="font-bold mb-0 sm:mb-5 text-base sm:text-lg bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+                ✨ AI Tools
+              </h3>
+              <ChevronDown className={`sm:hidden transition-transform text-gray-400 group-hover:text-white ${openSection === 'ai' ? 'rotate-180' : ''}`} size={22} />
             </button>
-            <ul className={`space-y-2 mt-3 sm:mt-0 ${openSection === 'ai' ? 'block' : 'hidden sm:block'}`}>
+            <ul className={`space-y-2.5 mt-3 sm:mt-0 ${openSection === 'ai' ? 'block' : 'hidden sm:block'}`}>
               <li>
-                <Link href="/remove-background" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm block py-1 active:text-white touch-manipulation">
+                <Link href="/remove-background" className="text-gray-400 hover:text-white hover:translate-x-1 transition-all text-sm block py-1 inline-flex items-center group">
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
                   Remove Background
                 </Link>
               </li>
@@ -53,17 +81,20 @@ export function Footer() {
           </div>
 
           {/* Image Converters */}
-          <div className="border-b border-gray-800 pb-4 sm:border-b-0 sm:pb-0">
+          <div className="border-b border-gray-700/50 pb-4 sm:border-b-0 sm:pb-0">
             <button
               onClick={() => toggleSection('image')}
-              className="flex items-center justify-between w-full sm:cursor-default sm:pointer-events-none py-2 sm:py-0 -mx-2 px-2 sm:mx-0 sm:px-0 rounded-lg active:bg-gray-800 sm:active:bg-transparent touch-manipulation"
+              className="flex items-center justify-between w-full sm:cursor-default sm:pointer-events-none py-2 sm:py-0 -mx-2 px-2 sm:mx-0 sm:px-0 rounded-lg active:bg-gray-800/50 sm:active:bg-transparent touch-manipulation group"
             >
-              <h3 className="font-semibold mb-0 sm:mb-4 text-base sm:text-lg">Image Converters</h3>
-              <ChevronDown className={`sm:hidden transition-transform ${openSection === 'image' ? 'rotate-180' : ''}`} size={22} />
+              <h3 className="font-bold mb-0 sm:mb-5 text-base sm:text-lg bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+                🖼️ Image Tools
+              </h3>
+              <ChevronDown className={`sm:hidden transition-transform text-gray-400 group-hover:text-white ${openSection === 'image' ? 'rotate-180' : ''}`} size={22} />
             </button>
-            <ul className={`space-y-2 mt-3 sm:mt-0 ${openSection === 'image' ? 'block' : 'hidden sm:block'}`}>
+            <ul className={`space-y-2.5 mt-3 sm:mt-0 ${openSection === 'image' ? 'block' : 'hidden sm:block'} max-h-64 overflow-y-auto scrollbar-hide`}>
               <li>
-                <Link href="/crop-image" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm block py-1 active:text-white touch-manipulation">
+                <Link href="/crop-image" className="text-gray-400 hover:text-white hover:translate-x-1 transition-all text-sm block py-1 inline-flex items-center group">
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
                   Crop Image
                 </Link>
               </li>
@@ -428,32 +459,41 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Legal Links - Centered */}
-        <div className="mt-8 pt-8">
-          <div className="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 mb-6">
-            <Link href="/privacy-policy" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm block py-1 active:text-white touch-manipulation">
+        {/* Bottom Section */}
+        <div className="mt-12 pt-8 border-t border-gray-700/50">
+          {/* Legal Links */}
+          <div className="flex flex-wrap justify-center items-center gap-x-6 gap-y-3 mb-8">
+            <Link href="/privacy-policy" className="text-gray-400 hover:text-white transition-colors text-sm font-medium hover:underline underline-offset-4">
               Privacy Policy
             </Link>
             <span className="text-gray-600 hidden sm:inline">•</span>
-            <Link href="/terms-of-use" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm block py-1 active:text-white touch-manipulation">
+            <Link href="/terms-of-use" className="text-gray-400 hover:text-white transition-colors text-sm font-medium hover:underline underline-offset-4">
               Terms of Use
             </Link>
             <span className="text-gray-600 hidden sm:inline">•</span>
-            <Link href="/terms-of-service" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm block py-1 active:text-white touch-manipulation">
+            <Link href="/terms-of-service" className="text-gray-400 hover:text-white transition-colors text-sm font-medium hover:underline underline-offset-4">
               Terms of Service
             </Link>
             <span className="text-gray-600 hidden sm:inline">•</span>
-            <Link href="/cookie-policy" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm block py-1 active:text-white touch-manipulation">
+            <Link href="/cookie-policy" className="text-gray-400 hover:text-white transition-colors text-sm font-medium hover:underline underline-offset-4">
               Cookie Policy
             </Link>
           </div>
 
           {/* Bottom Bar */}
-          <div className="flex flex-col sm:flex-row justify-between items-center space-y-3 sm:space-y-0 gap-2">
-            <p className="text-gray-400 text-xs sm:text-sm text-center sm:text-left">© 2025 ImageConverter. All rights reserved.</p>
-            <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4 text-center">
-              <span className="text-gray-400 text-xs sm:text-sm">Made with ❤️ for the web</span>
-              <span className="text-gray-500 text-[10px] sm:text-xs">100% Client-Side Processing</span>
+          <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0 gap-4">
+            <p className="text-gray-400 text-sm text-center sm:text-left">
+              © 2025 <span className="font-semibold text-white">ImageConverter</span>. All rights reserved.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-6 text-center">
+              <div className="flex items-center gap-2">
+                <span className="text-2xl">❤️</span>
+                <span className="text-gray-400 text-sm">Made for the web</span>
+              </div>
+              <div className="px-3 py-1.5 bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-full border border-blue-500/30">
+                <span className="text-blue-400 text-xs font-semibold">🔒 100% Client-Side Processing</span>
+              </div>
             </div>
           </div>
         </div>

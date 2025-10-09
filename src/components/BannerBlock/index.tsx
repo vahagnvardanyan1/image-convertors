@@ -2,7 +2,7 @@ import { ArrowRight, Zap, Shield, Star } from 'lucide-react';
 
 export function BannerBlocks() {
   return (
-    <section className="bg-gray-50 py-12 sm:py-16">
+    <section className="bg-gray-50 dark:bg-gray-800 py-12 sm:py-16 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
         {/* First Banner - Advanced Tools */}
         <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl">
@@ -23,7 +23,7 @@ export function BannerBlocks() {
         </div>
 
         {/* Second Banner - Security & Privacy */}
-        <div className="bg-white rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl border border-gray-200">
+        <div className="bg-white dark:bg-gray-900 rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl border border-gray-200 dark:border-gray-700">
           <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
             <div className="h-48 sm:h-64 lg:h-full order-2 lg:order-1">
               <div className="w-full h-full bg-gradient-to-br from-green-100 to-blue-100 flex items-center justify-center">
@@ -47,22 +47,22 @@ export function BannerBlocks() {
                 <Shield className="mr-2 sm:mr-3 text-green-600" size={20} />
                 <span className="bg-green-100 text-green-800 px-2.5 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium">100% Secure</span>
               </div>
-              <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 sm:mb-4">Your Privacy is Our Priority</h3>
-              <p className="text-gray-600 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">
+              <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">Your Privacy is Our Priority</h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">
                 All conversions happen locally in your browser. Your images never leave your device, ensuring complete privacy and security. No servers, no uploads, no data collection.
               </p>
               <div className="space-y-2">
-                <div className="flex items-center text-green-600">
-                  <div className="w-2 h-2 bg-green-600 rounded-full mr-2 sm:mr-3 flex-shrink-0"></div>
-                  <span className="text-gray-700 text-sm sm:text-base">Client-side processing only</span>
+                <div className="flex items-center text-green-600 dark:text-green-400">
+                  <div className="w-2 h-2 bg-green-600 dark:bg-green-400 rounded-full mr-2 sm:mr-3 flex-shrink-0"></div>
+                  <span className="text-gray-700 dark:text-gray-300 text-sm sm:text-base">Client-side processing only</span>
                 </div>
-                <div className="flex items-center text-green-600">
-                  <div className="w-2 h-2 bg-green-600 rounded-full mr-2 sm:mr-3 flex-shrink-0"></div>
-                  <span className="text-gray-700 text-sm sm:text-base">No data collection or tracking</span>
+                <div className="flex items-center text-green-600 dark:text-green-400">
+                  <div className="w-2 h-2 bg-green-600 dark:bg-green-400 rounded-full mr-2 sm:mr-3 flex-shrink-0"></div>
+                  <span className="text-gray-700 dark:text-gray-300 text-sm sm:text-base">No data collection or tracking</span>
                 </div>
-                <div className="flex items-center text-green-600">
-                  <div className="w-2 h-2 bg-green-600 rounded-full mr-2 sm:mr-3 flex-shrink-0"></div>
-                  <span className="text-gray-700 text-sm sm:text-base">Works offline after initial load</span>
+                <div className="flex items-center text-green-600 dark:text-green-400">
+                  <div className="w-2 h-2 bg-green-600 dark:bg-green-400 rounded-full mr-2 sm:mr-3 flex-shrink-0"></div>
+                  <span className="text-gray-700 dark:text-gray-300 text-sm sm:text-base">Works offline after initial load</span>
                 </div>
               </div>
             </div>

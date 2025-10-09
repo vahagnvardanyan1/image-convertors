@@ -1,11 +1,14 @@
-import { Hero } from '@/components/Hero';
-import { FormatGrid } from '@/components/FormatGrid';
-import { HowTo } from '@/components/HowTo';
-import { Features } from '@/components/Features';
-import { BannerBlocks } from '@/components/BannerBlock';
-import { FAQ } from '@/components/FAQ';
-import ToolsPreview from '@/components/ToolsPreview';
-import { Metadata } from 'next';
+import { Hero } from '@/components/Hero'
+import { Stats } from '@/components/Stats'
+import { FormatGrid } from '@/components/FormatGrid'
+import { HowTo } from '@/components/HowTo'
+import { Features } from '@/components/Features'
+import { Testimonials } from '@/components/Testimonials'
+import { CTA } from '@/components/CTA'
+import { BannerBlocks } from '@/components/BannerBlock'
+import { FAQ } from '@/components/FAQ'
+import ToolsPreview from '@/components/ToolsPreview'
+import { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Free Online Tools: Image, Fonts & Colors | ImageConvertors',
@@ -50,18 +53,21 @@ export const metadata: Metadata = {
     shortcut: [{ url: '/favicon.ico' }],
     apple: [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
   },
-};
+}
 
 export default function HomePage() {
   return (
     <>
-      <FormatGrid />
       <Hero />
+      <Stats />
+      <FormatGrid />
       <HowTo />
-      <ToolsPreview />
       <Features />
-      <BannerBlocks />
+      <ToolsPreview />
+      <Testimonials />
+      <CTA />
       <FAQ />
+      <BannerBlocks />
     </>
-  );
+  )
 }
