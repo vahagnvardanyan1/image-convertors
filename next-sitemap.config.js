@@ -45,6 +45,7 @@ module.exports = {
 
       // AI tools
       await config.transform(config, '/remove-background'),
+      await config.transform(config, '/ai-image-generator'),
 
       // Blog pages
       await config.transform(config, '/blog'),
@@ -74,6 +75,7 @@ module.exports = {
       await config.transform(config, '/blog/crop-image-guide'),
       await config.transform(config, '/blog/resize-image-guide'),
       await config.transform(config, '/blog/qr-code-generator-guide'),
+      await config.transform(config, '/blog/ai-image-generator-guide'),
 
       // Color tools
       await config.transform(config, '/colors'),

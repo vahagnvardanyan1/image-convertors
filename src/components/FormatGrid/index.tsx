@@ -21,11 +21,21 @@ import {
   Eraser,
   Maximize2,
   QrCode,
+  Wand2,
 } from 'lucide-react';
 import Link from 'next/link';
 import { Card } from '../Card';
 
 const converters = [
+  {
+    from: 'AI Image',
+    to: 'Generator',
+    route: '/ai-image-generator',
+    icon: Wand2,
+    description: 'Generate stunning images from text using AI technology',
+    popular: true,
+    category: 'image',
+  },
   {
     from: 'Remove',
     to: 'Background',

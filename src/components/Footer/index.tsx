@@ -42,6 +42,11 @@ export function Footer() {
             </button>
             <ul className={`space-y-2 ${openSection === 'ai' ? 'block' : 'hidden sm:block'}`}>
               <li>
+                <Link href="/ai-image-generator" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  AI Image Generator
+                </Link>
+              </li>
+              <li>
                 <Link href="/remove-background" className="text-gray-400 hover:text-white transition-colors text-sm">
                   Remove Background
                 </Link>
