@@ -1,50 +1,51 @@
+'use client';
 import { FileImage, Shield, HardDrive, Layers, Settings, Heart } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../Accordion';
-
-const faqs = [
-  {
-    question: 'What image formats do you support?',
-    answer: 'We support all major image formats including PNG, JPG, JPEG, WebP, GIF, BMP, and TIFF. You can convert between any of these formats with maintained quality and optimal file sizes.',
-    icon: FileImage,
-  },
-  {
-    question: 'Is my data secure and private?',
-    answer:
-      'Absolutely! All image conversions happen directly in your browser using client-side processing. Your images never leave your device or get uploaded to our servers, ensuring complete privacy and security.',
-    icon: Shield,
-  },
-  {
-    question: 'Are there any file size limits?',
-    answer:
-      'Our tool can handle images up to 50MB in size. For optimal performance, we recommend images under 25MB. If you need to process larger files, consider resizing them first or contact our support team.',
-    icon: HardDrive,
-  },
-  {
-    question: 'Can I convert multiple images at once?',
-    answer:
-      'Currently, our tool processes one image at a time to ensure the best quality and performance. However, you can quickly convert multiple images by repeating the simple 4-step process for each file.',
-    icon: Layers,
-  },
-  {
-    question: 'Do you compress images during conversion?',
-    answer:
-      'We offer quality control options for certain formats like JPG and WebP. By default, we maintain high quality (95%) while optimizing file size. You can adjust compression settings before conversion if needed.',
-    icon: Settings,
-  },
-  {
-    question: 'Is this service really free?',
-    answer: 'Yes! Our image converter is completely free to use with no hidden fees, subscriptions, or usage limits. We believe in providing accessible tools for everyone who works with images.',
-    icon: Heart,
-  },
-];
+import { useTranslations } from 'next-intl';
 
 export function FAQ() {
+  const t = useTranslations('faq');
+  const tCommon = useTranslations('common');
+
+  const faqs = [
+    {
+      question: t('question1'),
+      answer: t('answer1'),
+      icon: FileImage,
+    },
+    {
+      question: t('question2'),
+      answer: t('answer2'),
+      icon: Shield,
+    },
+    {
+      question: t('question3'),
+      answer: t('answer3'),
+      icon: HardDrive,
+    },
+    {
+      question: t('question4'),
+      answer: t('answer4'),
+      icon: Layers,
+    },
+    {
+      question: t('question5'),
+      answer: t('answer5'),
+      icon: Settings,
+    },
+    {
+      question: t('question6'),
+      answer: t('answer6'),
+      icon: Heart,
+    },
+  ];
+
   return (
     <section id="faq" className="bg-white py-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">Have questions about our image converter? Find answers to the most common questions below.</p>
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('title')}</h2>
+          <p className="text-gray-600 max-w-2xl mx-auto">{t('description')}</p>
         </div>
 
         <div className="space-y-4">
@@ -77,10 +78,10 @@ export function FAQ() {
         {/* Contact CTA */}
         <div className="mt-12 text-center">
           <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white">
-            <h3 className="font-bold mb-2">Still have questions?</h3>
-            <p className="mb-4 text-blue-100">Our support team is here to help you with any questions about image conversion.</p>
+            <h3 className="font-bold mb-2">{t('stillHaveQuestions')}</h3>
+            <p className="mb-4 text-blue-100">{t('stillHaveQuestionsDescription')}</p>
             <a href="#" className="inline-flex items-center px-6 py-3 bg-white text-gray-900 rounded-lg font-medium hover:bg-gray-100 transition-colors duration-200">
-              Contact Support
+              {tCommon('contactSupport')}
             </a>
           </div>
         </div>

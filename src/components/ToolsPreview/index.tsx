@@ -1,12 +1,16 @@
+'use client';
 import Link from 'next/link';
 import { Palette, Type, Smile, FileJson } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 const ToolsPreview = () => {
+  const t = useTranslations('toolsPreview');
+
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="mb-8 text-center">
-        <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Professional Design Tools</h2>
-        <p className="text-gray-600 dark:text-gray-400">Access powerful color, typography, and text tools for your creative projects</p>
+        <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{t('title')}</h2>
+        <p className="text-gray-600 dark:text-gray-400">{t('description')}</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -20,8 +24,8 @@ const ToolsPreview = () => {
               <Palette className="w-8 h-8 text-white" />
             </div>
             <div className="flex-1">
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-2">Color Tools</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-300">Color picker, palette generator, gradient creator, and format converter</p>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-2">{t('colorTools')}</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-300">{t('colorToolsDesc')}</p>
             </div>
           </div>
         </Link>
@@ -36,8 +40,8 @@ const ToolsPreview = () => {
               <Type className="w-8 h-8 text-white" />
             </div>
             <div className="flex-1">
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors mb-2">Font Tools</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-300">Font preview, pairing suggestions, and typographic scale generator</p>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors mb-2">{t('fontTools')}</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-300">{t('fontToolsDesc')}</p>
             </div>
           </div>
         </Link>
@@ -52,8 +56,8 @@ const ToolsPreview = () => {
               <Smile className="w-8 h-8 text-white" />
             </div>
             <div className="flex-1">
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors mb-2">Text Tools</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-300">Browse emojis, symbols, and special characters for your projects</p>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors mb-2">{t('textTools')}</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-300">{t('textToolsDesc')}</p>
             </div>
           </div>
         </Link>
@@ -68,8 +72,8 @@ const ToolsPreview = () => {
               <FileJson className="w-8 h-8 text-white" />
             </div>
             <div className="flex-1">
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors mb-2">JSON Tools</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-300">Validate, compare, and parse JSON with powerful online tools</p>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors mb-2">{t('jsonTools')}</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-300">{t('jsonToolsDesc')}</p>
             </div>
           </div>
         </Link>

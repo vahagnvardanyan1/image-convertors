@@ -25,308 +25,312 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { Card } from '../Card';
-
-const converters = [
-  {
-    from: 'AI Image',
-    to: 'Generator',
-    route: '/ai-image-generator',
-    icon: Wand2,
-    description: 'Generate stunning images from text using AI technology',
-    popular: true,
-    category: 'image',
-  },
-  {
-    from: 'Remove',
-    to: 'Background',
-    route: '/remove-background',
-    icon: Eraser,
-    description: 'Remove image backgrounds automatically with AI technology',
-    popular: true,
-    category: 'image',
-  },
-  {
-    from: 'PNG',
-    to: 'WebP',
-    route: '/png-to-webp',
-    icon: Globe,
-    description: 'Reduce file size by up to 30% while maintaining quality',
-    popular: true,
-    category: 'image',
-  },
-  {
-    from: 'JPG',
-    to: 'PNG',
-    route: '/jpg-to-png',
-    icon: ImageIcon,
-    description: 'Add transparency support to your images',
-    popular: true,
-    category: 'image',
-  },
-  {
-    from: 'WebP',
-    to: 'PNG',
-    route: '/webp-to-png',
-    icon: FileImage,
-    description: 'Convert modern WebP to widely supported PNG',
-    popular: false,
-    category: 'image',
-  },
-  {
-    from: 'JPG',
-    to: 'WebP',
-    route: '/jpg-to-webp',
-    icon: Globe,
-    description: 'Optimize for web with smaller file sizes',
-    popular: true,
-    category: 'image',
-  },
-  {
-    from: 'PNG',
-    to: 'JPG',
-    route: '/png-to-jpg',
-    icon: Camera,
-    description: 'Remove transparency and reduce file size',
-    popular: false,
-    category: 'image',
-  },
-  {
-    from: 'WebP',
-    to: 'JPG',
-    route: '/webp-to-jpg',
-    icon: Camera,
-    description: 'Convert to universally compatible JPG format',
-    popular: false,
-    category: 'image',
-  },
-  {
-    from: 'HEIC',
-    to: 'JPG',
-    route: '/heic-to-jpg',
-    icon: Camera,
-    description: 'Convert Apple HEIC photos to JPG format',
-    popular: true,
-    category: 'image',
-  },
-  {
-    from: 'HEIC',
-    to: 'PNG',
-    route: '/heic-to-png',
-    icon: ImageIcon,
-    description: 'Convert HEIC to PNG with transparency support',
-    popular: false,
-    category: 'image',
-  },
-  {
-    from: 'HEIC',
-    to: 'WebP',
-    route: '/heic-to-webp',
-    icon: Globe,
-    description: 'Convert HEIC to modern WebP format',
-    popular: false,
-    category: 'image',
-  },
-  {
-    from: 'HEIC',
-    to: 'PDF',
-    route: '/heic-to-pdf',
-    icon: FileText,
-    description: 'Convert Apple HEIC photos to PDF documents',
-    popular: false,
-    category: 'image',
-  },
-  {
-    from: 'PDF',
-    to: 'JPG',
-    route: '/pdf-to-jpg',
-    icon: FileText,
-    description: 'Extract PDF pages as high-quality JPG images',
-    popular: true,
-    category: 'pdf',
-  },
-  {
-    from: 'PDF',
-    to: 'PNG',
-    route: '/pdf-to-png',
-    icon: FileText,
-    description: 'Convert PDF pages to PNG with transparency support',
-    popular: true,
-    category: 'pdf',
-  },
-  {
-    from: 'Images',
-    to: 'PDF',
-    route: '/images-to-pdf',
-    icon: FileImage,
-    description: 'Combine multiple images into a single PDF document',
-    popular: true,
-    category: 'pdf',
-  },
-  {
-    from: 'PNG',
-    to: 'PDF',
-    route: '/png-to-pdf',
-    icon: FileImage,
-    description: 'Convert PNG images to PDF with transparency support',
-    popular: true,
-    category: 'pdf',
-  },
-  {
-    from: 'JPG',
-    to: 'PDF',
-    route: '/jpg-to-pdf',
-    icon: FileImage,
-    description: 'Convert JPG images to PDF with optimized quality',
-    popular: true,
-    category: 'pdf',
-  },
-  {
-    from: 'WebP',
-    to: 'PDF',
-    route: '/webp-to-pdf',
-    icon: FileImage,
-    description: 'Convert WebP images to PDF with excellent compression',
-    popular: false,
-    category: 'pdf',
-  },
-  {
-    from: 'Merge',
-    to: 'PDF',
-    route: '/merge-pdf',
-    icon: Merge,
-    description: 'Combine multiple PDF files into one document',
-    popular: false,
-    category: 'pdf',
-  },
-  {
-    from: 'Split',
-    to: 'PDF',
-    route: '/split-pdf',
-    icon: Split,
-    description: 'Extract specific pages or split PDF into multiple files',
-    popular: false,
-    category: 'pdf',
-  },
-  {
-    from: 'Crop',
-    to: 'Image',
-    route: '/crop-image',
-    icon: ImageIcon,
-    description: 'Crop, resize, and rotate images with precision controls',
-    popular: true,
-    category: 'image',
-  },
-  {
-    from: 'Resize',
-    to: 'Image',
-    route: '/resize-image',
-    icon: Maximize2,
-    description: 'Resize images by percentage, pixels, or presets',
-    popular: true,
-    category: 'image',
-  },
-  {
-    from: 'QR Code',
-    to: 'Generator',
-    route: '/qr-code-generator',
-    icon: QrCode,
-    description: 'Create custom QR codes for URLs, WiFi, contacts, and more',
-    popular: true,
-    category: 'image',
-  },
-  {
-    from: 'Analyze',
-    to: 'PDF',
-    route: '/pdf-info',
-    icon: Info,
-    description: 'View PDF metadata, properties, and detailed information',
-    popular: false,
-    category: 'pdf',
-  },
-  {
-    from: 'Color',
-    to: 'Picker',
-    route: '/colors/picker',
-    icon: Droplet,
-    description: 'Pick colors and get instant HEX, RGB, HSL format conversions',
-    popular: true,
-    category: 'colors',
-  },
-  {
-    from: 'Color',
-    to: 'Palettes',
-    route: '/colors/palettes',
-    icon: Palette,
-    description: 'Generate beautiful color palettes with complementary schemes',
-    popular: true,
-    category: 'colors',
-  },
-  {
-    from: 'Gradient',
-    to: 'Generator',
-    route: '/colors/gradients',
-    icon: Blend,
-    description: 'Create stunning gradients with CSS and Tailwind code',
-    popular: true,
-    category: 'colors',
-  },
-  {
-    from: 'Color',
-    to: 'Converter',
-    route: '/colors/converter',
-    icon: Shuffle,
-    description: 'Convert between HEX, RGB, HSL, and all color formats',
-    popular: false,
-    category: 'colors',
-  },
-  {
-    from: 'Font',
-    to: 'Preview',
-    route: '/texts/fonts/preview',
-    icon: Type,
-    description: 'Test Google Fonts with live preview and customization options',
-    popular: true,
-    category: 'fonts',
-  },
-  {
-    from: 'Font',
-    to: 'Pairings',
-    route: '/texts/fonts/pairings',
-    icon: Sparkles,
-    description: 'Discover perfect font combinations with curated pairings',
-    popular: true,
-    category: 'fonts',
-  },
-  {
-    from: 'Typographic',
-    to: 'Scale',
-    route: '/texts/fonts/scales',
-    icon: Ruler,
-    description: 'Generate harmonious font size systems using musical ratios',
-    popular: true,
-    category: 'fonts',
-  },
-  {
-    from: 'Emoji',
-    to: 'Browser',
-    route: '/texts/emojis',
-    icon: Smile,
-    description: 'Browse, search, and copy emojis from our comprehensive collection',
-    popular: true,
-    category: 'texts',
-  },
-  {
-    from: 'Symbol',
-    to: 'Browser',
-    route: '/texts/symbols',
-    icon: Hash,
-    description: 'Find and copy special symbols, characters, and Unicode glyphs',
-    popular: true,
-    category: 'texts',
-  },
-];
+import { useTranslations } from 'next-intl';
 
 export function FormatGrid() {
+  const t = useTranslations('formatGrid');
+  const tTools = useTranslations('tools');
+  const tCommon = useTranslations('common');
+
+  const converters = [
+    {
+      from: 'AI Image',
+      to: 'Generator',
+      route: '/ai-image-generator',
+      icon: Wand2,
+      description: tTools('aiImageGeneratorDesc'),
+      popular: true,
+      category: 'image',
+    },
+    {
+      from: 'Remove',
+      to: 'Background',
+      route: '/remove-background',
+      icon: Eraser,
+      description: tTools('removeBackgroundDesc'),
+      popular: true,
+      category: 'image',
+    },
+    {
+      from: 'PNG',
+      to: 'WebP',
+      route: '/png-to-webp',
+      icon: Globe,
+      description: tTools('pngToWebpDesc'),
+      popular: true,
+      category: 'image',
+    },
+    {
+      from: 'JPG',
+      to: 'PNG',
+      route: '/jpg-to-png',
+      icon: ImageIcon,
+      description: tTools('jpgToPngDesc'),
+      popular: true,
+      category: 'image',
+    },
+    {
+      from: 'WebP',
+      to: 'PNG',
+      route: '/webp-to-png',
+      icon: FileImage,
+      description: tTools('webpToPngDesc'),
+      popular: false,
+      category: 'image',
+    },
+    {
+      from: 'JPG',
+      to: 'WebP',
+      route: '/jpg-to-webp',
+      icon: Globe,
+      description: tTools('jpgToWebpDesc'),
+      popular: true,
+      category: 'image',
+    },
+    {
+      from: 'PNG',
+      to: 'JPG',
+      route: '/png-to-jpg',
+      icon: Camera,
+      description: tTools('pngToJpgDesc'),
+      popular: false,
+      category: 'image',
+    },
+    {
+      from: 'WebP',
+      to: 'JPG',
+      route: '/webp-to-jpg',
+      icon: Camera,
+      description: tTools('webpToJpgDesc'),
+      popular: false,
+      category: 'image',
+    },
+    {
+      from: 'HEIC',
+      to: 'JPG',
+      route: '/heic-to-jpg',
+      icon: Camera,
+      description: tTools('heicToJpgDesc'),
+      popular: true,
+      category: 'image',
+    },
+    {
+      from: 'HEIC',
+      to: 'PNG',
+      route: '/heic-to-png',
+      icon: ImageIcon,
+      description: tTools('heicToPngDesc'),
+      popular: false,
+      category: 'image',
+    },
+    {
+      from: 'HEIC',
+      to: 'WebP',
+      route: '/heic-to-webp',
+      icon: Globe,
+      description: tTools('heicToWebpDesc'),
+      popular: false,
+      category: 'image',
+    },
+    {
+      from: 'HEIC',
+      to: 'PDF',
+      route: '/heic-to-pdf',
+      icon: FileText,
+      description: tTools('heicToPdfDesc'),
+      popular: false,
+      category: 'image',
+    },
+    {
+      from: 'PDF',
+      to: 'JPG',
+      route: '/pdf-to-jpg',
+      icon: FileText,
+      description: tTools('pdfToJpgDesc'),
+      popular: true,
+      category: 'pdf',
+    },
+    {
+      from: 'PDF',
+      to: 'PNG',
+      route: '/pdf-to-png',
+      icon: FileText,
+      description: tTools('pdfToPngDesc'),
+      popular: true,
+      category: 'pdf',
+    },
+    {
+      from: 'Images',
+      to: 'PDF',
+      route: '/images-to-pdf',
+      icon: FileImage,
+      description: tTools('imagesToPdfDesc'),
+      popular: true,
+      category: 'pdf',
+    },
+    {
+      from: 'PNG',
+      to: 'PDF',
+      route: '/png-to-pdf',
+      icon: FileImage,
+      description: tTools('pngToPdfDesc'),
+      popular: true,
+      category: 'pdf',
+    },
+    {
+      from: 'JPG',
+      to: 'PDF',
+      route: '/jpg-to-pdf',
+      icon: FileImage,
+      description: tTools('jpgToPdfDesc'),
+      popular: true,
+      category: 'pdf',
+    },
+    {
+      from: 'WebP',
+      to: 'PDF',
+      route: '/webp-to-pdf',
+      icon: FileImage,
+      description: tTools('webpToPdfDesc'),
+      popular: false,
+      category: 'pdf',
+    },
+    {
+      from: 'Merge',
+      to: 'PDF',
+      route: '/merge-pdf',
+      icon: Merge,
+      description: tTools('mergePdfDesc'),
+      popular: false,
+      category: 'pdf',
+    },
+    {
+      from: 'Split',
+      to: 'PDF',
+      route: '/split-pdf',
+      icon: Split,
+      description: tTools('splitPdfDesc'),
+      popular: false,
+      category: 'pdf',
+    },
+    {
+      from: 'Crop',
+      to: 'Image',
+      route: '/crop-image',
+      icon: ImageIcon,
+      description: tTools('cropImageDesc'),
+      popular: true,
+      category: 'image',
+    },
+    {
+      from: 'Resize',
+      to: 'Image',
+      route: '/resize-image',
+      icon: Maximize2,
+      description: tTools('resizeImageDesc'),
+      popular: true,
+      category: 'image',
+    },
+    {
+      from: 'QR Code',
+      to: 'Generator',
+      route: '/qr-code-generator',
+      icon: QrCode,
+      description: tTools('qrCodeGeneratorDesc'),
+      popular: true,
+      category: 'image',
+    },
+    {
+      from: 'Analyze',
+      to: 'PDF',
+      route: '/pdf-info',
+      icon: Info,
+      description: tTools('analyzePdfDesc'),
+      popular: false,
+      category: 'pdf',
+    },
+    {
+      from: 'Color',
+      to: 'Picker',
+      route: '/colors/picker',
+      icon: Droplet,
+      description: tTools('colorPickerDesc'),
+      popular: true,
+      category: 'colors',
+    },
+    {
+      from: 'Color',
+      to: 'Palettes',
+      route: '/colors/palettes',
+      icon: Palette,
+      description: tTools('colorPalettesDesc'),
+      popular: true,
+      category: 'colors',
+    },
+    {
+      from: 'Gradient',
+      to: 'Generator',
+      route: '/colors/gradients',
+      icon: Blend,
+      description: tTools('gradientGeneratorDesc'),
+      popular: true,
+      category: 'colors',
+    },
+    {
+      from: 'Color',
+      to: 'Converter',
+      route: '/colors/converter',
+      icon: Shuffle,
+      description: tTools('colorConverterDesc'),
+      popular: false,
+      category: 'colors',
+    },
+    {
+      from: 'Font',
+      to: 'Preview',
+      route: '/texts/fonts/preview',
+      icon: Type,
+      description: tTools('fontPreviewDesc'),
+      popular: true,
+      category: 'fonts',
+    },
+    {
+      from: 'Font',
+      to: 'Pairings',
+      route: '/texts/fonts/pairings',
+      icon: Sparkles,
+      description: tTools('fontPairingsDesc'),
+      popular: true,
+      category: 'fonts',
+    },
+    {
+      from: 'Typographic',
+      to: 'Scale',
+      route: '/texts/fonts/scales',
+      icon: Ruler,
+      description: tTools('typographicScaleDesc'),
+      popular: true,
+      category: 'fonts',
+    },
+    {
+      from: 'Emoji',
+      to: 'Browser',
+      route: '/texts/emojis',
+      icon: Smile,
+      description: tTools('emojiBrowserDesc'),
+      popular: true,
+      category: 'texts',
+    },
+    {
+      from: 'Symbol',
+      to: 'Browser',
+      route: '/texts/symbols',
+      icon: Hash,
+      description: tTools('symbolBrowserDesc'),
+      popular: true,
+      category: 'texts',
+    },
+  ];
   const imageConverters = converters.filter(c => c.category === 'image');
   const pdfConverters = converters.filter(c => c.category === 'pdf');
   const colorTools = converters.filter(c => c.category === 'colors');
@@ -340,7 +344,7 @@ export function FormatGrid() {
         <Card className="relative p-6 bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-200 cursor-pointer group">
           {converter.popular && (
             <div className="absolute -top-3 left-6">
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-3 py-1 rounded-full text-xs font-medium">Popular</span>
+              <span className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-3 py-1 rounded-full text-xs font-medium">{tCommon('popular')}</span>
             </div>
           )}
 
@@ -366,7 +370,7 @@ export function FormatGrid() {
               <ArrowRight size={12} className="text-gray-400 mt-1" />
               <span className="px-2 py-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded text-xs">{converter.to}</span>
             </div>
-            <span className="text-xs text-gray-500">Click to convert</span>
+            <span className="text-xs text-gray-500">{tCommon('clickToConvert')}</span>
           </div>
         </Card>
       </Link>
@@ -377,15 +381,15 @@ export function FormatGrid() {
     <section id="format-grid" className="bg-white py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-5xl font-bold text-gray-900 mb-4">Choose Your Conversion</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">Select the format conversion you need. Each converter is optimized for the best quality and performance.</p>
+          <h2 className="text-5xl font-bold text-gray-900 mb-4">{t('title')}</h2>
+          <p className="text-gray-600 max-w-2xl mx-auto">{t('description')}</p>
         </div>
 
         {/* Image Converters */}
         <div className="mb-12">
           <h3 className="text-xl font-semibold text-gray-900 mb-6 flex items-center">
             <ImageIcon className="mr-2" size={24} />
-            Image Converters
+            {t('imageConverters')}
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">{imageConverters.map(renderConverterCard)}</div>
         </div>
@@ -394,7 +398,7 @@ export function FormatGrid() {
         <div className="mb-12">
           <h3 className="text-xl font-semibold text-gray-900 mb-6 flex items-center">
             <FileText className="mr-2" size={24} />
-            PDF Tools
+            {t('pdfTools')}
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">{pdfConverters.map(renderConverterCard)}</div>
         </div>
@@ -403,7 +407,7 @@ export function FormatGrid() {
         <div className="mb-12">
           <h3 className="text-xl font-semibold text-gray-900 mb-6 flex items-center">
             <Palette className="mr-2" size={24} />
-            Color Tools
+            {t('colorTools')}
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">{colorTools.map(renderConverterCard)}</div>
         </div>
@@ -412,7 +416,7 @@ export function FormatGrid() {
         <div className="mb-12">
           <h3 className="text-xl font-semibold text-gray-900 mb-6 flex items-center">
             <Type className="mr-2" size={24} />
-            Font Tools
+            {t('fontTools')}
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">{fontTools.map(renderConverterCard)}</div>
         </div>
@@ -421,7 +425,7 @@ export function FormatGrid() {
         <div className="mb-12">
           <h3 className="text-xl font-semibold text-gray-900 mb-6 flex items-center">
             <Sparkles className="mr-2" size={24} />
-            Text & Symbol Tools
+            {t('textSymbolTools')}
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">{textTools.map(renderConverterCard)}</div>
         </div>
@@ -432,14 +436,14 @@ export function FormatGrid() {
             <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl p-8 border border-purple-100">
               <h3 className="font-bold text-gray-900 mb-2 flex items-center">
                 <Palette className="mr-2" size={24} />
-                Explore Color Tools
+                {t('exploreColorTools')}
               </h3>
-              <p className="text-gray-600 mb-4">Discover our complete suite of color utilities for designers and developers.</p>
+              <p className="text-gray-600 mb-4">{t('exploreColorDescription')}</p>
               <Link
                 href="/colors"
                 className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-medium hover:shadow-lg transition-all duration-200"
               >
-                View All Color Tools
+                {tCommon('viewAll')} {t('colorTools')}
                 <ArrowRight className="ml-2" size={16} />
               </Link>
             </div>
@@ -448,14 +452,14 @@ export function FormatGrid() {
             <div className="bg-gradient-to-br from-orange-50 to-red-50 rounded-2xl p-8 border border-orange-100">
               <h3 className="font-bold text-gray-900 mb-2 flex items-center">
                 <Type className="mr-2" size={24} />
-                Explore Font Tools
+                {t('exploreFontTools')}
               </h3>
-              <p className="text-gray-600 mb-4">Master typography with our font preview, pairing, and scale generators.</p>
+              <p className="text-gray-600 mb-4">{t('exploreFontDescription')}</p>
               <Link
                 href="/texts/fonts"
                 className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-orange-600 to-red-600 text-white rounded-lg font-medium hover:shadow-lg transition-all duration-200"
               >
-                View All Font Tools
+                {tCommon('viewAll')} {t('fontTools')}
                 <ArrowRight className="ml-2" size={16} />
               </Link>
             </div>
@@ -464,14 +468,14 @@ export function FormatGrid() {
             <div className="bg-gradient-to-br from-green-50 to-teal-50 rounded-2xl p-8 border border-green-100">
               <h3 className="font-bold text-gray-900 mb-2 flex items-center">
                 <Sparkles className="mr-2" size={24} />
-                Explore Text Tools
+                {t('exploreTextTools')}
               </h3>
-              <p className="text-gray-600 mb-4">Access emojis, symbols, and special characters for your projects.</p>
+              <p className="text-gray-600 mb-4">{t('exploreTextDescription')}</p>
               <Link
                 href="/texts"
                 className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-600 to-teal-600 text-white rounded-lg font-medium hover:shadow-lg transition-all duration-200"
               >
-                View All Text Tools
+                {tCommon('viewAll')} {t('exploreTextTools')}
                 <ArrowRight className="ml-2" size={16} />
               </Link>
             </div>
@@ -480,8 +484,8 @@ export function FormatGrid() {
           <div className="mt-6">
             {/* Learn More */}
             <div className="bg-gray-50 rounded-2xl p-8">
-              <h3 className="font-bold text-gray-900 mb-2">Need a different format?</h3>
-              <p className="text-gray-600 mb-4">We support many more image and PDF formats. Upload your files and see all available conversion options.</p>
+              <h3 className="font-bold text-gray-900 mb-2">{t('needDifferentFormat')}</h3>
+              <p className="text-gray-600 mb-4">{t('needDifferentFormatDescription')}</p>
               <button
                 onClick={() => {
                   const element = document.getElementById('how-to');
@@ -489,7 +493,7 @@ export function FormatGrid() {
                 }}
                 className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium hover:shadow-lg transition-all duration-200"
               >
-                Learn More
+                {tCommon('learnMore')}
                 <ArrowRight className="ml-2" size={16} />
               </button>
             </div>

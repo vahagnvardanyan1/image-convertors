@@ -1,6 +1,11 @@
+'use client';
 import { ArrowRight, Zap, Shield, Star } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 export function BannerBlocks() {
+  const t = useTranslations('banner');
+  const tCommon = useTranslations('common');
+
   return (
     <section className="bg-gray-50 py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
@@ -9,14 +14,12 @@ export function BannerBlocks() {
           <div className="p-8 lg:p-12 text-white text-center">
             <div className="flex items-center justify-center mb-4">
               <Zap className="mr-3" size={24} />
-              <span className="bg-white/20 text-white px-3 py-1 rounded-full text-sm font-medium">Pro Tools</span>
+              <span className="bg-white/20 text-white px-3 py-1 rounded-full text-sm font-medium">{t('proTools')}</span>
             </div>
-            <h3 className="text-3xl font-bold mb-4">Batch Processing & Advanced Options</h3>
-            <p className="text-blue-100 mb-6 leading-relaxed max-w-2xl mx-auto">
-              Convert multiple images at once, adjust quality settings, resize images, and access advanced compression options. Perfect for professionals and power users.
-            </p>
+            <h3 className="text-3xl font-bold mb-4">{t('batchProcessing')}</h3>
+            <p className="text-blue-100 mb-6 leading-relaxed max-w-2xl mx-auto">{t('batchProcessingDesc')}</p>
             <button className="inline-flex items-center px-6 py-3 bg-white text-gray-900 rounded-lg font-medium hover:bg-gray-100 transition-colors duration-200">
-              Coming Soon
+              {tCommon('comingSoon')}
               <ArrowRight className="ml-2" size={16} />
             </button>
           </div>
@@ -37,7 +40,7 @@ export function BannerBlocks() {
                       <Star className="text-yellow-500 fill-current" size={16} />
                       <Star className="text-yellow-500 fill-current" size={16} />
                     </div>
-                    <p className="text-gray-600">Trusted by 100,000+ users</p>
+                    <p className="text-gray-600">{t('trustedByUsers')}</p>
                   </div>
                 </div>
               </div>
@@ -45,24 +48,22 @@ export function BannerBlocks() {
             <div className="p-8 lg:p-12 order-1 lg:order-2">
               <div className="flex items-center mb-4">
                 <Shield className="mr-3 text-green-600" size={24} />
-                <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">100% Secure</span>
+                <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">{t('secure')}</span>
               </div>
-              <h3 className="text-3xl font-bold text-gray-900 mb-4">Your Privacy is Our Priority</h3>
-              <p className="text-gray-600 mb-6 leading-relaxed">
-                All conversions happen locally in your browser. Your images never leave your device, ensuring complete privacy and security. No servers, no uploads, no data collection.
-              </p>
+              <h3 className="text-3xl font-bold text-gray-900 mb-4">{t('privacyPriority')}</h3>
+              <p className="text-gray-600 mb-6 leading-relaxed">{t('privacyPriorityDesc')}</p>
               <div className="space-y-2">
                 <div className="flex items-center text-green-600">
                   <div className="w-2 h-2 bg-green-600 rounded-full mr-3"></div>
-                  <span className="text-gray-700">Client-side processing only</span>
+                  <span className="text-gray-700">{t('clientSideProcessing')}</span>
                 </div>
                 <div className="flex items-center text-green-600">
                   <div className="w-2 h-2 bg-green-600 rounded-full mr-3"></div>
-                  <span className="text-gray-700">No data collection or tracking</span>
+                  <span className="text-gray-700">{t('noDataCollection')}</span>
                 </div>
                 <div className="flex items-center text-green-600">
                   <div className="w-2 h-2 bg-green-600 rounded-full mr-3"></div>
-                  <span className="text-gray-700">Works offline after initial load</span>
+                  <span className="text-gray-700">{t('worksOffline')}</span>
                 </div>
               </div>
             </div>

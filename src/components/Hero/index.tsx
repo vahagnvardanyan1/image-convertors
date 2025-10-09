@@ -2,8 +2,12 @@
 import Image from 'next/image';
 import { Upload, ArrowRight } from 'lucide-react';
 import { Button } from '../ui/button';
+import { useTranslations } from 'next-intl';
 
 export function Hero() {
+  const t = useTranslations('hero');
+  const tCommon = useTranslations('common');
+
   const scrollToConverter = () => {
     const element = document.getElementById('format-grid');
     if (element) {
@@ -18,14 +22,14 @@ export function Hero() {
           {/* Content */}
           <div className="text-center lg:text-left">
             <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6">
-              Free Online Image, Font & Color
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"> Tools</span>
+              {t('title')}
+              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"> {t('titleHighlight')}</span>
             </h1>
 
-            <p className="text-lg lg:text-xl text-gray-600 mb-6 max-w-xl">Convert images, create fancy text, and pick color palettes instantly—all without installing any software.</p>
+            <p className="text-lg lg:text-xl text-gray-600 mb-6 max-w-xl">{t('description')}</p>
 
             <div className="mb-8">
-              <p className="text-gray-700 mb-2">Popular conversions:</p>
+              <p className="text-gray-700 mb-2">{t('popularConversions')}</p>
               <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
                 {['PNG → WebP', 'JPG → PNG', 'WebP → PNG', 'JPG → WebP', 'PNG → JPG', 'WebP → JPG'].map(format => (
                   <span key={format} className="px-3 py-1 bg-white rounded-full text-sm text-gray-600 shadow-sm border">
@@ -42,7 +46,7 @@ export function Hero() {
                 className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
               >
                 <Upload className="mr-2" size={20} />
-                Upload Your Image
+                {tCommon('uploadYourImage')}
               </Button>
 
               <Button
@@ -54,13 +58,15 @@ export function Hero() {
                 }}
                 className="px-8 py-4 rounded-xl border-2 hover:bg-gray-50"
               >
-                Learn How
+                {tCommon('learnHow')}
                 <ArrowRight className="ml-2" size={20} />
               </Button>
             </div>
 
             <div className="mt-8 text-sm text-gray-500">
-              <p>✓ No registration required • ✓ Browser-based processing • ✓ 100% secure</p>
+              <p>
+                ✓ {t('features.noRegistration')} • ✓ {t('features.browserBased')} • ✓ {t('features.secure')}
+              </p>
             </div>
           </div>
 
@@ -82,7 +88,7 @@ export function Hero() {
 
               <div className="absolute left-1/2 -bottom-12 w-full max-w-md -translate-x-1/2">
                 <div className="bg-white/95 backdrop-blur-md rounded-2xl shadow-xl border border-blue-100/60 p-6">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-blue-500 mb-3">Popular conversions</p>
+                  <p className="text-xs font-semibold uppercase tracking-wider text-blue-500 mb-3">{t('popularConversions')}</p>
                   <div className="grid grid-cols-2 gap-3 mb-4">
                     {[
                       { label: 'PNG', color: 'text-blue-600' },
@@ -97,7 +103,7 @@ export function Hero() {
                   </div>
                   <div className="flex items-center justify-center gap-2 text-gray-500 text-sm">
                     <ArrowRight className="text-blue-500" size={20} />
-                    <span>Instant conversions in your browser</span>
+                    <span>{t('instantConversions')}</span>
                   </div>
                 </div>
               </div>
