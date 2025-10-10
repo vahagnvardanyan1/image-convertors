@@ -154,10 +154,7 @@ export function CookieConsent() {
           </button>
 
           <div className="mt-4 flex flex-col gap-2">
-            <Button
-              onClick={handleAcceptAll}
-              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-2 text-sm font-medium"
-            >
+            <Button onClick={handleAcceptAll} className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-2 text-sm font-medium">
               Accept all cookies
             </Button>
 
