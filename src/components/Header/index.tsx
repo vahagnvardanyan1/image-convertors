@@ -155,7 +155,7 @@ export function Header() {
   return (
     <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-16 gap-2">
           {/* Logo */}
           <Link href="/" className="flex items-center cursor-pointer">
             <ImageWithFallback src="/logo.png" alt="ImageConverter Logo" className="rounded-lg" height={50} width={50} />
@@ -429,19 +429,14 @@ export function Header() {
             </div>
           </nav>
 
-          {/* Desktop CTA & Language Switcher */}
-          <div className="hidden lg:flex items-center gap-4">
-            <LanguageSwitcher />
-            <Button onClick={() => scrollToSection('format-grid')} className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white">
-              {tCommon('startConverting')}
-            </Button>
-          </div>
-
           {/* Mobile menu button */}
           <div className="lg:hidden">
             <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-gray-600 hover:text-gray-900">
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
+          </div>
+          <div className="hidden lg:flex">
+            <LanguageSwitcher />
           </div>
         </div>
 
