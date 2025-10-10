@@ -9,7 +9,6 @@ import { Card } from '@/components/Card';
 import { useTranslations } from 'next-intl';
 
 export function ImageCropper() {
-  const t = useTranslations('cropper');
   const tConverter = useTranslations('converter');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);

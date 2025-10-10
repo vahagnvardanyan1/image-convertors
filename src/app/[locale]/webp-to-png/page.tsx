@@ -37,6 +37,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function WebpToPngPage() {
-  return <ConverterPage from="WebP" to="PNG" title="Convert WebP to PNG" />;
+export default async function WebpToPngPage({ params }: Props) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'converterHeaders' });
+
+  return <ConverterPage from="WebP" to="PNG" title={t('webpToPng.title')} description={t('webpToPng.description')} />;
 }

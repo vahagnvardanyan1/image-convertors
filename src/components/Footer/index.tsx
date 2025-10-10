@@ -4,6 +4,7 @@ import { Mail, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { LanguageSwitcher } from '../LanguageSwitcher';
 
 export function Footer() {
   const t = useTranslations('footer');
@@ -437,11 +438,14 @@ export function Footer() {
           </div>
 
           {/* Bottom Bar */}
-          <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-gray-400 text-sm text-center sm:text-left">{t('copyright')}</p>
-            <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4">
+            <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-center sm:text-left">
               <span className="text-gray-400 text-sm">{t('madeWithLove')}</span>
               <span className="text-gray-500 text-xs">{t('clientSideProcessing')}</span>
+            </div>
+            <div className="flex justify-center sm:justify-end">
+              <LanguageSwitcher triggerClassName="bg-gray-800 text-gray-100 border-gray-700 hover:border-gray-500 focus-visible:border-gray-400" />
             </div>
           </div>
         </div>

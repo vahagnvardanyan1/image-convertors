@@ -37,6 +37,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function HeicToPngPage() {
-  return <ConverterPage from="HEIC" to="PNG" title="Convert HEIC to PNG" />;
+export default async function HeicToPngPage({ params }: Props) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'converterHeaders' });
+
+  return <ConverterPage from="HEIC" to="PNG" title={t('heicToPng.title')} description={t('heicToPng.description')} />;
 }

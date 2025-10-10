@@ -14,9 +14,10 @@ interface ConverterPageProps {
   from: string;
   to: string;
   title: string;
+  description: string;
 }
 
-export function ConverterPage({ from, to, title }: ConverterPageProps) {
+export function ConverterPage({ from, to, title, description }: ConverterPageProps) {
   const t = useTranslations('converterPage');
   const tConverter = useTranslations('converter');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -191,7 +192,7 @@ export function ConverterPage({ from, to, title }: ConverterPageProps) {
             </Link>
             <div>
               <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
-              <p className="text-gray-600">{tConverter('fastSecureFree')}</p>
+              <p className="text-gray-600">{description}</p>
             </div>
           </div>
         </div>

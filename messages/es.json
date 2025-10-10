@@ -356,6 +356,44 @@
       "gifAnimation": "GIF - Soporte de animación"
     }
   },
+  "converterHeaders": {
+    "webpToJpg": {
+      "title": "Convertir WebP a JPG",
+      "description": "Convierte imágenes WebP en archivos JPG compatibles directamente en tu navegador."
+    },
+    "webpToPng": {
+      "title": "Convertir WebP a PNG",
+      "description": "Convierte imágenes WebP a PNG manteniendo la transparencia y la calidad."
+    },
+    "pngToJpg": {
+      "title": "Convertir PNG a JPG",
+      "description": "Transforma archivos PNG en imágenes JPG ligeras para compartir más fácilmente."
+    },
+    "pngToWebp": {
+      "title": "Convertir PNG a WebP",
+      "description": "Comprime imágenes PNG en archivos WebP modernos sin pérdida apreciable de calidad."
+    },
+    "jpgToPng": {
+      "title": "Convertir JPG a PNG",
+      "description": "Añade soporte de transparencia convirtiendo tus fotos JPG a PNG."
+    },
+    "jpgToWebp": {
+      "title": "Convertir JPG a WebP",
+      "description": "Reduce el tamaño de tus JPG con la excelente compresión del formato WebP."
+    },
+    "heicToJpg": {
+      "title": "Convertir HEIC a JPG",
+      "description": "Haz que las fotos HEIC sean compatibles convirtiéndolas a JPG."
+    },
+    "heicToPng": {
+      "title": "Convertir HEIC a PNG",
+      "description": "Conserva la transparencia convirtiendo imágenes HEIC a PNG."
+    },
+    "heicToWebp": {
+      "title": "Convertir HEIC a WebP",
+      "description": "Optimiza las fotos HEIC generando archivos WebP más pequeños y de gran calidad."
+    }
+  },
   "converterPage": {
     "howToConvert": "Cómo convertir",
     "to": "a",
@@ -679,19 +717,33 @@
     "mergePdfs": "Fusionar archivos PDF",
     "splitPdf": "Dividir PDF",
     "analyzePdf": "Analizar PDF",
-    "process": "Proceso",
-    "pdfToJpgTitle": "Convertidor de PDF a JPG",
-    "pdfToJpgDescription": "Convierta sus documentos PDF en imágenes JPG de alta calidad. ",
-    "pdfToPngTitle": "Convertidor de PDF a PNG",
-    "pdfToPngDescription": "Convierta sus documentos PDF en imágenes PNG de alta calidad con soporte de transparencia. ",
-    "imagesToPdfTitle": "Convertidor de imágenes a PDF",
-    "imagesToPdfDescription": "Convierta varias imágenes en un solo documento PDF. ",
-    "mergePdfTitle": "Fusionar archivos PDF",
-    "mergePdfDescription": "Combine varios documentos PDF en un solo archivo. ",
-    "splitPdfTitle": "Dividir archivos PDF",
-    "splitPdfDescription": "Divida su documento PDF en archivos separados. ",
-    "pdfInfoTitle": "Analizador de información PDF",
-    "pdfInfoDescription": "Analice su documento PDF para ver información detallada, incluidos metadatos, recuento de páginas, tamaño de archivo, autor, fecha de creación y más."
+    "process": "Proceso"
+  },
+  "pdfToolHeaders": {
+    "pdfToJpg": {
+      "title": "Convertidor de PDF a JPG",
+      "description": "Convierte tus documentos PDF en imágenes JPG de alta calidad. Extrae todas las páginas o selecciona páginas específicas para convertir."
+    },
+    "pdfToPng": {
+      "title": "Convertidor de PDF a PNG",
+      "description": "Convierte tus documentos PDF en imágenes PNG de alta calidad con soporte de transparencia. Extrae todas las páginas o selecciona páginas específicas para convertir."
+    },
+    "imagesToPdf": {
+      "title": "Convertidor de imágenes a PDF",
+      "description": "Convierte varias imágenes en un solo documento PDF. Sube tus archivos JPG, PNG o WebP y personaliza el diseño del PDF."
+    },
+    "mergePdf": {
+      "title": "Fusionar archivos PDF",
+      "description": "Combina varios documentos PDF en un solo archivo. Sube tus archivos PDF y se fusionarán en el orden que elijas."
+    },
+    "splitPdf": {
+      "title": "Dividir archivos PDF",
+      "description": "Divide tu documento PDF en archivos independientes. Define rangos de páginas personalizados y crea varios PDF a partir de un solo documento."
+    },
+    "pdfInfo": {
+      "title": "Analizador de información PDF",
+      "description": "Analiza tu documento PDF para ver información detallada, incluidos metadatos, número de páginas, tamaño del archivo, autor, fecha de creación y más."
+    }
   },
   "pdfResult": {
     "processingComplete": "Procesamiento completo",

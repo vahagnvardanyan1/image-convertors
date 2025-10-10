@@ -356,6 +356,44 @@
       "gifAnimation": "GIF – Animationsunterstützung"
     }
   },
+  "converterHeaders": {
+    "webpToJpg": {
+      "title": "WebP in JPG konvertieren",
+      "description": "Wandeln Sie WebP-Bilder direkt in Ihrem Browser in weit verbreitete JPG-Dateien um."
+    },
+    "webpToPng": {
+      "title": "WebP in PNG konvertieren",
+      "description": "Konvertieren Sie WebP-Bilder in PNG und behalten Sie Transparenz sowie Qualität bei."
+    },
+    "pngToJpg": {
+      "title": "PNG in JPG konvertieren",
+      "description": "Verwandeln Sie PNG-Dateien in leichte JPG-Bilder für einfaches Teilen."
+    },
+    "pngToWebp": {
+      "title": "PNG in WebP konvertieren",
+      "description": "Komprimieren Sie PNG-Bilder in moderne WebP-Dateien ohne sichtbaren Qualitätsverlust."
+    },
+    "jpgToPng": {
+      "title": "JPG in PNG konvertieren",
+      "description": "Fügen Sie Transparenzunterstützung hinzu, indem Sie Ihre JPG-Fotos in PNG umwandeln."
+    },
+    "jpgToWebp": {
+      "title": "JPG in WebP konvertieren",
+      "description": "Reduzieren Sie die Größe Ihrer JPGs mithilfe der hervorragenden Kompression des WebP-Formats."
+    },
+    "heicToJpg": {
+      "title": "HEIC in JPG konvertieren",
+      "description": "Machen Sie HEIC-Fotos kompatibel, indem Sie sie in JPG konvertieren."
+    },
+    "heicToPng": {
+      "title": "HEIC in PNG konvertieren",
+      "description": "Bewahren Sie Transparenz, indem Sie HEIC-Bilder in PNG umwandeln."
+    },
+    "heicToWebp": {
+      "title": "HEIC in WebP konvertieren",
+      "description": "Optimieren Sie HEIC-Fotos mit kleineren WebP-Dateien bei hoher Qualität."
+    }
+  },
   "converterPage": {
     "howToConvert": "So konvertieren Sie",
     "to": "Zu",
@@ -679,19 +717,33 @@
     "mergePdfs": "PDFs zusammenführen",
     "splitPdf": "PDF teilen",
     "analyzePdf": "PDF analysieren",
-    "process": "Verfahren",
-    "pdfToJpgTitle": "PDF-zu-JPG-Konverter",
-    "pdfToJpgDescription": "Konvertieren Sie Ihre PDF-Dokumente in hochwertige JPG-Bilder. ",
-    "pdfToPngTitle": "PDF-zu-PNG-Konverter",
-    "pdfToPngDescription": "Konvertieren Sie Ihre PDF-Dokumente in hochwertige PNG-Bilder mit Transparenzunterstützung. ",
-    "imagesToPdfTitle": "Bilder-zu-PDF-Konverter",
-    "imagesToPdfDescription": "Konvertieren Sie mehrere Bilder in ein einziges PDF-Dokument. ",
-    "mergePdfTitle": "PDF-Dateien zusammenführen",
-    "mergePdfDescription": "Kombinieren Sie mehrere PDF-Dokumente in einer einzigen Datei. ",
-    "splitPdfTitle": "Teilen Sie PDF-Dateien",
-    "splitPdfDescription": "Teilen Sie Ihr PDF-Dokument in separate Dateien auf. ",
-    "pdfInfoTitle": "PDF-Informationsanalysator",
-    "pdfInfoDescription": "Analysieren Sie Ihr PDF-Dokument, um detaillierte Informationen wie Metadaten, Seitenzahl, Dateigröße, Autor, Erstellungsdatum und mehr anzuzeigen."
+    "process": "Verfahren"
+  },
+  "pdfToolHeaders": {
+    "pdfToJpg": {
+      "title": "PDF-zu-JPG-Konverter",
+      "description": "Konvertieren Sie Ihre PDF-Dokumente in hochwertige JPG-Bilder. Extrahieren Sie alle Seiten oder wählen Sie bestimmte Seiten zur Konvertierung."
+    },
+    "pdfToPng": {
+      "title": "PDF-zu-PNG-Konverter",
+      "description": "Konvertieren Sie Ihre PDF-Dokumente in hochwertige PNG-Bilder mit Transparenzunterstützung. Extrahieren Sie alle Seiten oder wählen Sie nur die benötigten."
+    },
+    "imagesToPdf": {
+      "title": "Bilder-zu-PDF-Konverter",
+      "description": "Konvertieren Sie mehrere Bilder in ein einziges PDF-Dokument. Laden Sie JPG-, PNG- oder WebP-Dateien hoch und passen Sie das PDF-Layout an."
+    },
+    "mergePdf": {
+      "title": "PDF-Dateien zusammenführen",
+      "description": "Kombinieren Sie mehrere PDF-Dokumente in einer einzigen Datei. Laden Sie Ihre PDFs hoch und bestimmen Sie die Reihenfolge der Zusammenführung."
+    },
+    "splitPdf": {
+      "title": "PDF-Dateien teilen",
+      "description": "Teilen Sie Ihr PDF-Dokument in separate Dateien auf. Definieren Sie individuelle Seitenbereiche und erstellen Sie mehrere PDFs aus einem Dokument."
+    },
+    "pdfInfo": {
+      "title": "PDF-Informationsanalysator",
+      "description": "Analysieren Sie Ihr PDF-Dokument, um detaillierte Informationen wie Metadaten, Seitenzahl, Dateigröße, Autor, Erstellungsdatum und mehr anzuzeigen."
+    }
   },
   "pdfResult": {
     "processingComplete": "Verarbeitung abgeschlossen",

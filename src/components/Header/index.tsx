@@ -5,7 +5,6 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '../ui/button';
 import { ImageWithFallback } from '../ImageWithFallback';
-import { LanguageSwitcher } from '../LanguageSwitcher';
 import { useTranslations } from 'next-intl';
 
 export function Header() {
@@ -157,18 +156,21 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 gap-2">
           {/* Logo */}
-          <Link href="/" className="flex items-center cursor-pointer">
+          <Link href="/" className="flex items-center cursor-pointer min-w-0">
             <ImageWithFallback src="/logo.png" alt="ImageConverter Logo" className="rounded-lg" height={50} width={50} />
-            <span className="ml-2 text-xl font-bold text-gray-900">ImageConverter</span>
+            <span className="ml-2 text-xl font-bold text-gray-900 truncate max-w-[10rem] sm:max-w-none">ImageConverter</span>
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
             {/* AI Tools Dropdown */}
             <div className="relative group dropdown-container" onMouseEnter={() => setIsAIDropdownOpen(true)} onMouseLeave={() => setIsAIDropdownOpen(false)}>
-              <button className="flex items-center space-x-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors py-2" onClick={() => setIsAIDropdownOpen(!isAIDropdownOpen)}>
+              <button
+                className="flex min-w-0 items-center space-x-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors py-2"
+                onClick={() => setIsAIDropdownOpen(!isAIDropdownOpen)}
+              >
                 <Sparkles size={16} />
-                <span>{t('aiTools')}</span>
+                <span className="truncate max-w-[9rem]">{t('aiTools')}</span>
                 <ChevronDown size={16} className={`transition-transform ${isAIDropdownOpen ? 'rotate-180' : ''}`} />
               </button>
 
@@ -191,9 +193,12 @@ export function Header() {
 
             {/* Image Tools Dropdown */}
             <div className="relative group dropdown-container" onMouseEnter={() => setIsImageDropdownOpen(true)} onMouseLeave={() => setIsImageDropdownOpen(false)}>
-              <button className="flex items-center space-x-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors py-2" onClick={() => setIsImageDropdownOpen(!isImageDropdownOpen)}>
+              <button
+                className="flex min-w-0 items-center space-x-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors py-2"
+                onClick={() => setIsImageDropdownOpen(!isImageDropdownOpen)}
+              >
                 <ImageIcon size={16} />
-                <span>{t('imageTools')}</span>
+                <span className="truncate max-w-[9rem]">{t('imageTools')}</span>
                 <ChevronDown size={16} className={`transition-transform ${isImageDropdownOpen ? 'rotate-180' : ''}`} />
               </button>
 
@@ -242,9 +247,12 @@ export function Header() {
 
             {/* PDF Tools Dropdown */}
             <div className="relative group dropdown-container" onMouseEnter={() => setIsPDFDropdownOpen(true)} onMouseLeave={() => setIsPDFDropdownOpen(false)}>
-              <button className="flex items-center space-x-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors py-2" onClick={() => setIsPDFDropdownOpen(!isPDFDropdownOpen)}>
+              <button
+                className="flex min-w-0 items-center space-x-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors py-2"
+                onClick={() => setIsPDFDropdownOpen(!isPDFDropdownOpen)}
+              >
                 <FileText size={16} />
-                <span>{t('pdfTools')}</span>
+                <span className="truncate max-w-[9rem]">{t('pdfTools')}</span>
                 <ChevronDown size={16} className={`transition-transform ${isPDFDropdownOpen ? 'rotate-180' : ''}`} />
               </button>
 
@@ -282,9 +290,12 @@ export function Header() {
 
             {/* Color Tools Dropdown */}
             <div className="relative group dropdown-container" onMouseEnter={() => setIsColorDropdownOpen(true)} onMouseLeave={() => setIsColorDropdownOpen(false)}>
-              <button className="flex items-center space-x-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors py-2" onClick={() => setIsColorDropdownOpen(!isColorDropdownOpen)}>
+              <button
+                className="flex min-w-0 items-center space-x-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors py-2"
+                onClick={() => setIsColorDropdownOpen(!isColorDropdownOpen)}
+              >
                 <Palette size={16} />
-                <span>{t('colorTools')}</span>
+                <span className="truncate max-w-[9rem]">{t('colorTools')}</span>
                 <ChevronDown size={16} className={`transition-transform ${isColorDropdownOpen ? 'rotate-180' : ''}`} />
               </button>
 
@@ -329,9 +340,12 @@ export function Header() {
 
             {/* Text Tools Dropdown */}
             <div className="relative group dropdown-container" onMouseEnter={() => setIsTextDropdownOpen(true)} onMouseLeave={() => setIsTextDropdownOpen(false)}>
-              <button className="flex items-center space-x-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors py-2" onClick={() => setIsTextDropdownOpen(!isTextDropdownOpen)}>
+              <button
+                className="flex min-w-0 items-center space-x-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors py-2"
+                onClick={() => setIsTextDropdownOpen(!isTextDropdownOpen)}
+              >
                 <Type size={16} />
-                <span>{t('textTools')}</span>
+                <span className="truncate max-w-[9rem]">{t('textTools')}</span>
                 <ChevronDown size={16} className={`transition-transform ${isTextDropdownOpen ? 'rotate-180' : ''}`} />
               </button>
 
@@ -383,9 +397,12 @@ export function Header() {
 
             {/* Blog Dropdown */}
             <div className="relative group dropdown-container" onMouseEnter={() => setIsBlogDropdownOpen(true)} onMouseLeave={() => setIsBlogDropdownOpen(false)}>
-              <button className="flex items-center space-x-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors py-2" onClick={() => setIsBlogDropdownOpen(!isBlogDropdownOpen)}>
+              <button
+                className="flex min-w-0 items-center space-x-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors py-2"
+                onClick={() => setIsBlogDropdownOpen(!isBlogDropdownOpen)}
+              >
                 <BookOpen size={16} />
-                <span>{tCommon('blog')}</span>
+                <span className="truncate max-w-[9rem]">{tCommon('blog')}</span>
                 <ChevronDown size={16} className={`transition-transform ${isBlogDropdownOpen ? 'rotate-180' : ''}`} />
               </button>
 
@@ -435,9 +452,6 @@ export function Header() {
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
-          <div className="hidden lg:flex">
-            <LanguageSwitcher />
-          </div>
         </div>
 
         {/* Mobile Navigation - Full Screen Menu */}
@@ -445,10 +459,6 @@ export function Header() {
           <div className="lg:hidden fixed inset-0 top-16 z-50 bg-white">
             <div className="h-full overflow-y-auto">
               <div className="px-4 py-6">
-                {/* Language Switcher at the top of mobile menu */}
-                <div className="mb-6 pb-4 border-b border-gray-200">
-                  <LanguageSwitcher />
-                </div>
                 <div className="grid grid-cols-2 gap-6">
                   {/* AI Tools Section */}
                   <div>

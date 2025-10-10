@@ -37,6 +37,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function JpgToPngPage() {
-  return <ConverterPage from="JPG" to="PNG" title="Convert JPG to PNG" />;
+export default async function JpgToPngPage({ params }: Props) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'converterHeaders' });
+
+  return <ConverterPage from="JPG" to="PNG" title={t('jpgToPng.title')} description={t('jpgToPng.description')} />;
 }

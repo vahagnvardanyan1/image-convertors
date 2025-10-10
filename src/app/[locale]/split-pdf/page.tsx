@@ -38,10 +38,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function SplitPDFPage() {
+export default async function SplitPDFPage({ params }: Props) {
+  const { locale } = await params;
+  const headers = await getTranslations({ locale, namespace: 'pdfToolHeaders' });
+
   return (
     <PDFErrorBoundary>
-      <PDFTool mode="split-pdf" title="Split PDF Files" description="Split your PDF document into separate files. Define custom page ranges and create multiple PDF files from a single document." />
+      <PDFTool mode="split-pdf" title={headers('splitPdf.title')} description={headers('splitPdf.description')} />
     </PDFErrorBoundary>
   );
 }

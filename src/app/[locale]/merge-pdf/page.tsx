@@ -40,11 +40,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function MergePDFPage({ params }: Props) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'pdfTool' });
+  const headers = await getTranslations({ locale, namespace: 'pdfToolHeaders' });
 
   return (
     <PDFErrorBoundary>
-      <PDFTool mode="merge-pdf" title={t('mergePdfFiles')} description={t('mergePdfDescription')} />
+      <PDFTool mode="merge-pdf" title={headers('mergePdf.title')} description={headers('mergePdf.description')} />
     </PDFErrorBoundary>
   );
 }

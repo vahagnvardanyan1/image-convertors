@@ -37,6 +37,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function HeicToWebpPage() {
-  return <ConverterPage from="HEIC" to="WebP" title="Convert HEIC to WebP" />;
+export default async function HeicToWebpPage({ params }: Props) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'converterHeaders' });
+
+  return <ConverterPage from="HEIC" to="WebP" title={t('heicToWebp.title')} description={t('heicToWebp.description')} />;
 }

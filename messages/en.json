@@ -356,6 +356,44 @@
       "gifAnimation": "GIF - Animation support"
     }
   },
+  "converterHeaders": {
+    "webpToJpg": {
+      "title": "Convert WebP to JPG",
+      "description": "Turn WebP images into widely supported JPG files right in your browser."
+    },
+    "webpToPng": {
+      "title": "Convert WebP to PNG",
+      "description": "Convert WebP images to PNG while keeping transparency and quality intact."
+    },
+    "pngToJpg": {
+      "title": "Convert PNG to JPG",
+      "description": "Change PNG files into lightweight JPG images for easier sharing."
+    },
+    "pngToWebp": {
+      "title": "Convert PNG to WebP",
+      "description": "Compress PNG images into modern WebP files without noticeable quality loss."
+    },
+    "jpgToPng": {
+      "title": "Convert JPG to PNG",
+      "description": "Add transparency support by converting your JPG photos to PNG."
+    },
+    "jpgToWebp": {
+      "title": "Convert JPG to WebP",
+      "description": "Shrink JPG images with excellent compression using the WebP format."
+    },
+    "heicToJpg": {
+      "title": "Convert HEIC to JPG",
+      "description": "Make HEIC photos universally compatible by converting them to JPG."
+    },
+    "heicToPng": {
+      "title": "Convert HEIC to PNG",
+      "description": "Preserve transparency by converting HEIC images to PNG format."
+    },
+    "heicToWebp": {
+      "title": "Convert HEIC to WebP",
+      "description": "Optimize HEIC photos with smaller WebP files that keep great quality."
+    }
+  },
   "converterPage": {
     "howToConvert": "How to Convert",
     "to": "to",
@@ -679,19 +717,33 @@
     "mergePdfs": "Merge PDFs",
     "splitPdf": "Split PDF",
     "analyzePdf": "Analyze PDF",
-    "process": "Process",
-    "pdfToJpgTitle": "PDF to JPG Converter",
-    "pdfToJpgDescription": "Convert your PDF documents to high-quality JPG images. Extract all pages or select specific pages to convert.",
-    "pdfToPngTitle": "PDF to PNG Converter",
-    "pdfToPngDescription": "Convert your PDF documents to high-quality PNG images with transparency support. Extract all pages or select specific pages to convert.",
-    "imagesToPdfTitle": "Images to PDF Converter",
-    "imagesToPdfDescription": "Convert multiple images into a single PDF document. Upload your JPG, PNG, or WebP files and customize the PDF layout.",
-    "mergePdfTitle": "Merge PDF Files",
-    "mergePdfDescription": "Combine multiple PDF documents into a single file. Upload your PDF files and they will be merged in the order you select them.",
-    "splitPdfTitle": "Split PDF Files",
-    "splitPdfDescription": "Split your PDF document into separate files. Define custom page ranges and create multiple PDF files from a single document.",
-    "pdfInfoTitle": "PDF Information Analyzer",
-    "pdfInfoDescription": "Analyze your PDF document to view detailed information including metadata, page count, file size, author, creation date, and more."
+    "process": "Process"
+  },
+  "pdfToolHeaders": {
+    "pdfToJpg": {
+      "title": "PDF to JPG Converter",
+      "description": "Convert your PDF documents to high-quality JPG images. Extract all pages or select specific pages to convert."
+    },
+    "pdfToPng": {
+      "title": "PDF to PNG Converter",
+      "description": "Convert your PDF documents to high-quality PNG images with transparency support. Extract all pages or select specific pages to convert."
+    },
+    "imagesToPdf": {
+      "title": "Images to PDF Converter",
+      "description": "Convert multiple images into a single PDF document. Upload your JPG, PNG, or WebP files and customize the PDF layout."
+    },
+    "mergePdf": {
+      "title": "Merge PDF Files",
+      "description": "Combine multiple PDF documents into a single file. Upload your PDF files and they will be merged in the order you select them."
+    },
+    "splitPdf": {
+      "title": "Split PDF Files",
+      "description": "Split your PDF document into separate files. Define custom page ranges and create multiple PDF files from a single document."
+    },
+    "pdfInfo": {
+      "title": "PDF Information Analyzer",
+      "description": "Analyze your PDF document to view detailed information including metadata, page count, file size, author, creation date, and more."
+    }
   },
   "pdfResult": {
     "processingComplete": "Processing Complete",

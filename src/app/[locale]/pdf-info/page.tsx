@@ -38,14 +38,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function PDFInfoPage() {
+export default async function PDFInfoPage({ params }: Props) {
+  const { locale } = await params;
+  const headers = await getTranslations({ locale, namespace: 'pdfToolHeaders' });
+
   return (
     <PDFErrorBoundary>
-      <PDFTool
-        mode="pdf-info"
-        title="PDF Information Analyzer"
-        description="Analyze your PDF document to view detailed information including metadata, page count, file size, author, creation date, and more."
-      />
+      <PDFTool mode="pdf-info" title={headers('pdfInfo.title')} description={headers('pdfInfo.description')} />
     </PDFErrorBoundary>
   );
 }

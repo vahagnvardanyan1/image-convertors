@@ -356,6 +356,44 @@
       "gifAnimation": "GIF - 动画支持"
     }
   },
+  "converterHeaders": {
+    "webpToJpg": {
+      "title": "将 WebP 转换为 JPG",
+      "description": "直接在浏览器中把 WebP 图片转换成广泛支持的 JPG 文件。"
+    },
+    "webpToPng": {
+      "title": "将 WebP 转换为 PNG",
+      "description": "把 WebP 图片转换成 PNG，同时保留透明度和画质。"
+    },
+    "pngToJpg": {
+      "title": "将 PNG 转换为 JPG",
+      "description": "把 PNG 文件转换成轻量级的 JPG 图片，更便于分享。"
+    },
+    "pngToWebp": {
+      "title": "将 PNG 转换为 WebP",
+      "description": "在不明显损失画质的情况下，把 PNG 图片压缩成现代的 WebP 格式。"
+    },
+    "jpgToPng": {
+      "title": "将 JPG 转换为 PNG",
+      "description": "把 JPG 照片转换成 PNG，以获得透明背景支持。"
+    },
+    "jpgToWebp": {
+      "title": "将 JPG 转换为 WebP",
+      "description": "利用 WebP 格式的高效压缩大幅减小 JPG 图片体积。"
+    },
+    "heicToJpg": {
+      "title": "将 HEIC 转换为 JPG",
+      "description": "把 HEIC 照片转换为 JPG，以获得更广泛的兼容性。"
+    },
+    "heicToPng": {
+      "title": "将 HEIC 转换为 PNG",
+      "description": "把 HEIC 图片转换成 PNG，保留透明效果。"
+    },
+    "heicToWebp": {
+      "title": "将 HEIC 转换为 WebP",
+      "description": "把 HEIC 照片优化为更小的 WebP 文件，同时保持出色画质。"
+    }
+  },
   "converterPage": {
     "howToConvert": "如何转换",
     "to": "到",
@@ -679,19 +717,33 @@
     "mergePdfs": "合并 PDF",
     "splitPdf": "分割PDF",
     "analyzePdf": "分析 PDF",
-    "process": "过程",
-    "pdfToJpgTitle": "PDF 到 JPG 转换器",
-    "pdfToJpgDescription": "将您的 PDF 文档转换为高质量的 JPG 图像。",
-    "pdfToPngTitle": "PDF 到 PNG 转换器",
-    "pdfToPngDescription": "将您的 PDF 文档转换为具有透明度支持的高质量 PNG 图像。",
-    "imagesToPdfTitle": "图像到 PDF 转换器",
-    "imagesToPdfDescription": "将多个图像转换为单个 PDF 文档。",
-    "mergePdfTitle": "合并 PDF 文件",
-    "mergePdfDescription": "将多个 PDF 文档合并为一个文件。",
-    "splitPdfTitle": "分割 PDF 文件",
-    "splitPdfDescription": "将您的 PDF 文档拆分为单独的文件。",
-    "pdfInfoTitle": "PDF信息分析器",
-    "pdfInfoDescription": "分析您的 PDF 文档以查看详细信息，包括元数据、页数、文件大小、作者、创建日期等。"
+    "process": "过程"
+  },
+  "pdfToolHeaders": {
+    "pdfToJpg": {
+      "title": "PDF 到 JPG 转换器",
+      "description": "将您的 PDF 文档转换为高质量的 JPG 图像。提取全部页面或选择特定页面进行转换。"
+    },
+    "pdfToPng": {
+      "title": "PDF 到 PNG 转换器",
+      "description": "将您的 PDF 文档转换为具有透明度支持的高质量 PNG 图像。提取全部页面或选择特定页面进行转换。"
+    },
+    "imagesToPdf": {
+      "title": "图像到 PDF 转换器",
+      "description": "将多个图像转换为单个 PDF 文档。上传 JPG、PNG 或 WebP 文件并自定义 PDF 布局。"
+    },
+    "mergePdf": {
+      "title": "合并 PDF 文件",
+      "description": "将多个 PDF 文档合并为一个文件。上传 PDF 并按照所需顺序合并。"
+    },
+    "splitPdf": {
+      "title": "分割 PDF 文件",
+      "description": "将您的 PDF 文档拆分为独立文件。自定义页面范围，从一个文档生成多个 PDF。"
+    },
+    "pdfInfo": {
+      "title": "PDF 信息分析器",
+      "description": "分析 PDF 文档以查看详细信息，包括元数据、页数、文件大小、作者、创建日期等。"
+    }
   },
   "pdfResult": {
     "processingComplete": "加工完成",

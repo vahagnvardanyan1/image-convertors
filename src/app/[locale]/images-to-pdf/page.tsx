@@ -40,10 +40,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ImagesToPDFPage({ params }: Props) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'pdfTool' });
+  const headers = await getTranslations({ locale, namespace: 'pdfToolHeaders' });
   return (
     <PDFErrorBoundary>
-      <PDFTool mode="images-to-pdf" title={t('imagesToPdfTitle')} description={t('imagesToPdfDescription')} />
+      <PDFTool mode="images-to-pdf" title={headers('imagesToPdf.title')} description={headers('imagesToPdf.description')} />
     </PDFErrorBoundary>
   );
 }
