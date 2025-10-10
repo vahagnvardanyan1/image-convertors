@@ -77,148 +77,118 @@ export function CookieConsent() {
   if (!isVisible) return null;
 
   return (
-    <>
-      {/* Backdrop */}
-      <div className="fixed inset-0 bg-opacity-20 z-40" />
-
-      {/* Cookie Consent Popup */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 p-4 sm:p-6">
-        <div className="max-w-4xl mx-auto">
-          <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
-            {/* Header */}
-            <div className="bg-gradient-to-r from-orange-50 to-yellow-50 border-b border-orange-100 p-4 sm:p-6">
-              <div className="flex items-start justify-between">
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
-                    <Cookie className="text-orange-600" size={20} />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-gray-900">We Value Your Privacy</h3>
-                    <p className="text-orange-700 text-sm">Choose your cookie preferences</p>
-                  </div>
-                </div>
-                <button onClick={() => setIsVisible(false)} className="text-gray-400 hover:text-gray-600 transition-colors" aria-label="Close cookie consent">
-                  <X size={20} />
-                </button>
+    <div className="fixed bottom-4 right-4 z-50 w-full max-w-sm sm:max-w-md">
+      <div className="bg-white/95 backdrop-blur rounded-xl shadow-xl border border-gray-200 overflow-hidden">
+        <div className="p-4">
+          <div className="flex items-start justify-between gap-3">
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center shrink-0">
+                <Cookie className="text-orange-600" size={18} />
               </div>
-            </div>
-
-            {/* Content */}
-            <div className="p-4 sm:p-6">
-              <div className="mb-4">
-                <p className="text-gray-700 text-sm leading-relaxed">
-                  We use cookies to enhance your experience on ImageConverter. Your images are processed
-                  <strong> 100% client-side</strong> - we never store or access your files. Choose which cookies you&apos;re comfortable with:
+              <div className="text-sm text-gray-700 leading-relaxed">
+                <h3 className="text-base font-semibold text-gray-900">Cookie preferences</h3>
+                <p className="mt-1 text-xs text-gray-600">
+                  We use cookies to improve ImageConverter. Processing stays <strong>100% on your device</strong>. Pick what you&apos;re okay with:
                 </p>
               </div>
+            </div>
+            <button onClick={() => setIsVisible(false)} className="text-gray-400 hover:text-gray-600 transition-colors" aria-label="Close cookie consent">
+              <X size={18} />
+            </button>
+          </div>
 
-              {/* Cookie Details */}
-              {showDetails && (
-                <div className="mb-6 space-y-4">
-                  {/* Essential Cookies */}
-                  <div className="border border-green-200 rounded-lg p-4 bg-green-50">
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center space-x-2">
-                        <Shield className="text-green-600" size={16} />
-                        <span className="font-semibold text-green-900">Essential Cookies</span>
-                        <span className="text-xs bg-green-200 text-green-800 px-2 py-1 rounded-full">Required</span>
-                      </div>
-                      <div className="w-10 h-6 bg-green-500 rounded-full flex items-center justify-end pr-1">
-                        <div className="w-4 h-4 bg-white rounded-full"></div>
-                      </div>
-                    </div>
-                    <p className="text-green-800 text-sm">Necessary for basic website functionality, security, and performance. Cannot be disabled.</p>
+          {showDetails && (
+            <div className="mt-4 space-y-3">
+              <div className="border border-green-200 rounded-lg p-3 bg-green-50">
+                <div className="flex items-center justify-between mb-1.5">
+                  <div className="flex items-center gap-2">
+                    <Shield className="text-green-600" size={16} />
+                    <span className="font-medium text-green-900 text-sm">Essential cookies</span>
+                    <span className="text-[10px] bg-green-200 text-green-800 px-2 py-0.5 rounded-full uppercase tracking-wide">Required</span>
                   </div>
-
-                  {/* Analytics Cookies */}
-                  <div className="border border-gray-200 rounded-lg p-4">
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center space-x-2">
-                        <Eye className="text-blue-600" size={16} />
-                        <span className="font-semibold text-gray-900">Analytics Cookies</span>
-                        <span className="text-xs bg-gray-200 text-gray-600 px-2 py-1 rounded-full">Optional</span>
-                      </div>
-                      <button
-                        onClick={() => togglePreference('analytics')}
-                        className={`w-10 h-6 rounded-full flex items-center transition-colors ${preferences.analytics ? 'bg-blue-500 justify-end pr-1' : 'bg-gray-300 justify-start pl-1'}`}
-                      >
-                        <div className="w-4 h-4 bg-white rounded-full"></div>
-                      </button>
-                    </div>
-                    <p className="text-gray-700 text-sm">Help us understand how visitors use our website to improve performance and user experience.</p>
-                  </div>
-
-                  {/* Preference Cookies */}
-                  <div className="border border-gray-200 rounded-lg p-4">
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center space-x-2">
-                        <Settings className="text-purple-600" size={16} />
-                        <span className="font-semibold text-gray-900">Preference Cookies</span>
-                        <span className="text-xs bg-gray-200 text-gray-600 px-2 py-1 rounded-full">Optional</span>
-                      </div>
-                      <button
-                        onClick={() => togglePreference('preferences')}
-                        className={`w-10 h-6 rounded-full flex items-center transition-colors ${preferences.preferences ? 'bg-purple-500 justify-end pr-1' : 'bg-gray-300 justify-start pl-1'}`}
-                      >
-                        <div className="w-4 h-4 bg-white rounded-full"></div>
-                      </button>
-                    </div>
-                    <p className="text-gray-700 text-sm">Remember your settings like quality preferences and theme choices for a personalized experience.</p>
+                  <div className="w-8 h-5 bg-green-500 rounded-full flex items-center justify-end pr-0.5">
+                    <div className="w-3.5 h-3.5 bg-white rounded-full" />
                   </div>
                 </div>
-              )}
-
-              {/* Toggle Details Button */}
-              <div className="mb-4">
-                <button onClick={() => setShowDetails(!showDetails)} className="text-blue-600 hover:text-blue-800 text-sm font-medium transition-colors">
-                  {showDetails ? 'Hide Details' : 'Customize Settings'}
-                </button>
+                <p className="text-green-800 text-xs leading-relaxed">Keep the site secure and working. Always on.</p>
               </div>
 
-              {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3">
-                <Button
-                  onClick={handleAcceptAll}
-                  className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-2.5 rounded-lg font-medium transition-all duration-200"
-                >
-                  Accept All Cookies
-                </Button>
-
-                {showDetails && (
-                  <Button
-                    onClick={handleAcceptSelected}
-                    variant="outline"
-                    className="flex-1 border-2 border-blue-600 text-blue-600 hover:bg-blue-50 py-2.5 rounded-lg font-medium transition-all duration-200"
+              <div className="border border-gray-200 rounded-lg p-3">
+                <div className="flex items-center justify-between mb-1.5">
+                  <div className="flex items-center gap-2">
+                    <Eye className="text-blue-600" size={16} />
+                    <span className="font-medium text-sm text-gray-900">Analytics cookies</span>
+                    <span className="text-[10px] bg-gray-200 text-gray-600 px-2 py-0.5 rounded-full uppercase tracking-wide">Optional</span>
+                  </div>
+                  <button
+                    onClick={() => togglePreference('analytics')}
+                    className={`w-9 h-5 rounded-full flex items-center transition-colors ${preferences.analytics ? 'bg-blue-500 justify-end pr-0.5' : 'bg-gray-300 justify-start pl-0.5'}`}
                   >
-                    Save My Preferences
-                  </Button>
-                )}
-
-                <Button onClick={handleRejectAll} variant="outline" className="flex-1 border-gray-300 text-gray-700 hover:bg-gray-50 py-2.5 rounded-lg font-medium transition-all duration-200">
-                  Essential Only
-                </Button>
-              </div>
-
-              {/* Footer Links */}
-              <div className="mt-4 pt-4 border-t border-gray-200">
-                <div className="flex flex-wrap justify-center gap-4 text-xs text-gray-600">
-                  <Link href="/privacy-policy" className="hover:text-blue-600 transition-colors">
-                    Privacy Policy
-                  </Link>
-                  <span className="text-gray-400">•</span>
-                  <Link href="/cookie-policy" className="hover:text-blue-600 transition-colors">
-                    Cookie Policy
-                  </Link>
-                  <span className="text-gray-400">•</span>
-                  <Link href="/terms-of-use" className="hover:text-blue-600 transition-colors">
-                    Terms of Use
-                  </Link>
+                    <div className="w-3.5 h-3.5 bg-white rounded-full" />
+                  </button>
                 </div>
+                <p className="text-gray-700 text-xs leading-relaxed">Help us learn which tools people use so we can improve.</p>
               </div>
+
+              <div className="border border-gray-200 rounded-lg p-3">
+                <div className="flex items-center justify-between mb-1.5">
+                  <div className="flex items-center gap-2">
+                    <Settings className="text-purple-600" size={16} />
+                    <span className="font-medium text-sm text-gray-900">Preference cookies</span>
+                    <span className="text-[10px] bg-gray-200 text-gray-600 px-2 py-0.5 rounded-full uppercase tracking-wide">Optional</span>
+                  </div>
+                  <button
+                    onClick={() => togglePreference('preferences')}
+                    className={`w-9 h-5 rounded-full flex items-center transition-colors ${preferences.preferences ? 'bg-purple-500 justify-end pr-0.5' : 'bg-gray-300 justify-start pl-0.5'}`}
+                  >
+                    <div className="w-3.5 h-3.5 bg-white rounded-full" />
+                  </button>
+                </div>
+                <p className="text-gray-700 text-xs leading-relaxed">Remember layout, quality, and theme choices for next time.</p>
+              </div>
+            </div>
+          )}
+
+          <button onClick={() => setShowDetails(!showDetails)} className="mt-4 text-blue-600 hover:text-blue-800 text-xs font-medium transition-colors">
+            {showDetails ? 'Hide details' : 'Customize settings'}
+          </button>
+
+          <div className="mt-4 flex flex-col gap-2">
+            <Button
+              onClick={handleAcceptAll}
+              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-2 text-sm font-medium"
+            >
+              Accept all cookies
+            </Button>
+
+            {showDetails && (
+              <Button onClick={handleAcceptSelected} variant="outline" className="w-full border-blue-500 text-blue-600 hover:bg-blue-50 py-2 text-sm font-medium">
+                Save my preferences
+              </Button>
+            )}
+
+            <Button onClick={handleRejectAll} variant="outline" className="w-full border-gray-300 text-gray-700 hover:bg-gray-50 py-2 text-sm font-medium">
+              Essential only
+            </Button>
+          </div>
+
+          <div className="mt-4 pt-3 border-t border-gray-200">
+            <div className="flex flex-wrap justify-center gap-3 text-[11px] text-gray-500">
+              <Link href="/privacy-policy" className="hover:text-blue-600 transition-colors">
+                Privacy Policy
+              </Link>
+              <span className="text-gray-300">•</span>
+              <Link href="/cookie-policy" className="hover:text-blue-600 transition-colors">
+                Cookie Policy
+              </Link>
+              <span className="text-gray-300">•</span>
+              <Link href="/terms-of-use" className="hover:text-blue-600 transition-colors">
+                Terms of Use
+              </Link>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
