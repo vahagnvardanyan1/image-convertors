@@ -1,31 +1,42 @@
 import { Metadata } from 'next';
 import { ImageCropper } from '@/components/ImageCropper';
+import { getTranslations } from 'next-intl/server';
 import './cropper.css';
+import { localeMap } from '@/i18n/config';
 
-export const metadata: Metadata = {
-  title: 'Free Online Image Cropper - Crop Photos & Pictures | ImageConvertors',
-  description: 'Crop images online for free with our easy-to-use image cropper tool. Resize, rotate, and crop photos to perfect dimensions. No signup required, works in your browser.',
-  keywords: ['image cropper', 'crop image online', 'photo cropper', 'crop pictures', 'resize image', 'cut image', 'image crop tool', 'free image cropper', 'crop photo online'],
-  alternates: {
-    canonical: 'https://imageconvertors.com/crop-image',
-  },
-  openGraph: {
-    title: 'Free Online Image Cropper - Crop & Resize Photos Instantly',
-    description: 'Crop images online for free. Easy-to-use image cropper with zoom, rotate, and flip options. Perfect dimensions every time. No signup required.',
-    url: 'https://imageconvertors.com/crop-image',
-    siteName: 'ImageConvertors',
-    type: 'website',
-    locale: 'en_US',
-    images: [
-      {
-        url: '/crop.webp',
-        width: 1200,
-        height: 630,
-        alt: 'Free Online Image Cropper Tool - Crop Images Instantly',
-      },
-    ],
-  },
+type Props = {
+  params: Promise<{ locale: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'metadata.cropImage' });
+
+  return {
+    title: t('title'),
+    description: t('description'),
+    keywords: t('keywords'),
+    alternates: {
+      canonical: `https://imageconvertors.com/${locale}/crop-image`,
+    },
+    openGraph: {
+      title: t('ogTitle'),
+      description: t('ogDescription'),
+      url: `https://imageconvertors.com/${locale}/crop-image`,
+      siteName: 'ImageConvertors',
+      type: 'website',
+      locale: localeMap[locale] || 'en_US',
+      images: [
+        {
+          url: '/crop.webp',
+          width: 1200,
+          height: 630,
+          alt: t('ogImageAlt'),
+        },
+      ],
+    },
+  };
+}
 
 export default function CropImagePage() {
   return <ImageCropper />;

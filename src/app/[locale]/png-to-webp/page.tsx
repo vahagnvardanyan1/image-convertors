@@ -1,14 +1,41 @@
 import { Metadata } from 'next';
 import { ConverterPage } from '@/components/ConverterPage';
+import { getTranslations } from 'next-intl/server';
+import { localeMap } from '@/i18n/config';
 
-export const metadata: Metadata = {
-  title: 'Convert PNG to WebP - Free Online Converter | ImageConvertors',
-  description: 'Convert PNG images to WebP format online for free. Reduce file size by up to 30% while maintaining excellent quality. Fast, secure, and easy to use.',
-  keywords: 'PNG to WebP, image converter, PNG converter, WebP converter, compress images',
-  alternates: {
-    canonical: 'https://imageconvertors.com/png-to-webp',
-  },
+type Props = {
+  params: Promise<{ locale: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'metadata.pngToWebp' });
+
+  return {
+    title: t('title'),
+    description: t('description'),
+    keywords: t('keywords'),
+    alternates: {
+      canonical: `https://imageconvertors.com/${locale}/png-to-webp`,
+    },
+    openGraph: {
+      title: t('ogTitle'),
+      description: t('ogDescription'),
+      url: `https://imageconvertors.com/${locale}/png-to-webp`,
+      siteName: 'ImageConvertors',
+      type: 'website',
+      locale: localeMap[locale] || 'en_US',
+      images: [
+        {
+          url: '/convert.webp',
+          width: 1200,
+          height: 630,
+          alt: t('ogImageAlt'),
+        },
+      ],
+    },
+  };
+}
 
 export default function PngToWebpPage() {
   return <ConverterPage from="PNG" to="WebP" title="Convert PNG to WebP" />;

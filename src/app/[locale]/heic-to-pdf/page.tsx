@@ -1,40 +1,42 @@
 import { Metadata } from 'next';
 import { PDFTool } from '@/components/PDFTool';
 import { PDFErrorBoundary } from '@/components/PDFErrorBoundary';
+import { getTranslations } from 'next-intl/server';
+import { localeMap } from '@/i18n/config';
 
-export const metadata: Metadata = {
-  title: 'HEIC to PDF Converter - Convert HEIC Images to PDF Online Free',
-  description:
-    'Convert HEIC/HEIF images to PDF documents instantly. Transform Apple photos to PDF format. Maintain high quality and optimize file size. Customize page size, orientation, and margins. Fast, secure, and completely free HEIC to PDF conversion tool.',
-  keywords: [
-    'HEIC to PDF',
-    'HEIF to PDF',
-    'convert HEIC to PDF',
-    'convert HEIF to PDF',
-    'HEIC PDF converter',
-    'HEIF PDF converter',
-    'HEIC to PDF online',
-    'HEIF to PDF free',
-    'Apple photos to PDF',
-    'batch HEIC to PDF',
-    'HEIC to PDF tool',
-    'HEIF document converter',
-  ],
-  openGraph: {
-    title: 'HEIC to PDF Converter - Free Online Tool',
-    description:
-      'Convert HEIC/HEIF images to PDF documents instantly. Transform Apple photos to PDF format. Maintain high quality and optimize file size. Customize page size, orientation, and margins.',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'HEIC to PDF Converter - Free Online Tool',
-    description: 'Convert HEIC/HEIF images to PDF documents instantly. Transform Apple photos to PDF format. Maintain high quality and optimize file size.',
-  },
-  alternates: {
-    canonical: 'https://imageconvertors.com/heic-to-pdf',
-  },
+type Props = {
+  params: Promise<{ locale: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'metadata.heicToPdf' });
+
+  return {
+    title: t('title'),
+    description: t('description'),
+    keywords: t('keywords'),
+    alternates: {
+      canonical: `https://imageconvertors.com/${locale}/heic-to-pdf`,
+    },
+    openGraph: {
+      title: t('ogTitle'),
+      description: t('ogDescription'),
+      url: `https://imageconvertors.com/${locale}/heic-to-pdf`,
+      siteName: 'ImageConvertors',
+      type: 'website',
+      locale: localeMap[locale] || 'en_US',
+      images: [
+        {
+          url: '/convert.webp',
+          width: 1200,
+          height: 630,
+          alt: t('ogImageAlt'),
+        },
+      ],
+    },
+  };
+}
 
 export default function HeicToPDFPage() {
   return (

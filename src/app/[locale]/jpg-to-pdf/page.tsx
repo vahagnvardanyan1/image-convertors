@@ -1,39 +1,42 @@
 import { Metadata } from 'next';
 import { PDFTool } from '@/components/PDFTool';
 import { PDFErrorBoundary } from '@/components/PDFErrorBoundary';
+import { getTranslations } from 'next-intl/server';
+import { localeMap } from '@/i18n/config';
 
-export const metadata: Metadata = {
-  title: 'JPG to PDF Converter - Convert JPEG Images to PDF Online Free',
-  description:
-    'Convert JPG/JPEG images to PDF documents instantly. Maintain high quality and optimize file size. Customize page size, orientation, and margins. Fast, secure, and completely free JPG to PDF conversion tool.',
-  keywords: [
-    'JPG to PDF',
-    'JPEG to PDF',
-    'convert JPG to PDF',
-    'convert JPEG to PDF',
-    'JPG PDF converter',
-    'JPEG PDF converter',
-    'JPG to PDF online',
-    'JPEG to PDF free',
-    'online JPG converter',
-    'batch JPG to PDF',
-    'JPG to PDF tool',
-    'JPEG document converter',
-  ],
-  openGraph: {
-    title: 'JPG to PDF Converter - Free Online Tool',
-    description: 'Convert JPG/JPEG images to PDF documents instantly. Maintain high quality and optimize file size. Customize page size, orientation, and margins.',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'JPG to PDF Converter - Free Online Tool',
-    description: 'Convert JPG/JPEG images to PDF documents instantly. Maintain high quality and optimize file size.',
-  },
-  alternates: {
-    canonical: 'https://imageconvertors.com/jpg-to-pdf',
-  },
+type Props = {
+  params: Promise<{ locale: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'metadata.jpgToPdf' });
+
+  return {
+    title: t('title'),
+    description: t('description'),
+    keywords: t('keywords'),
+    alternates: {
+      canonical: `https://imageconvertors.com/${locale}/jpg-to-pdf`,
+    },
+    openGraph: {
+      title: t('ogTitle'),
+      description: t('ogDescription'),
+      url: `https://imageconvertors.com/${locale}/jpg-to-pdf`,
+      siteName: 'ImageConvertors',
+      type: 'website',
+      locale: localeMap[locale] || 'en_US',
+      images: [
+        {
+          url: '/convert.webp',
+          width: 1200,
+          height: 630,
+          alt: t('ogImageAlt'),
+        },
+      ],
+    },
+  };
+}
 
 export default function JpgToPDFPage() {
   return (

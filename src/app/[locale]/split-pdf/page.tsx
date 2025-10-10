@@ -1,25 +1,42 @@
 import { Metadata } from 'next';
 import { PDFTool } from '@/components/PDFTool';
 import { PDFErrorBoundary } from '@/components/PDFErrorBoundary';
+import { getTranslations } from 'next-intl/server';
+import { localeMap } from '@/i18n/config';
 
-export const metadata: Metadata = {
-  title: 'Split PDF Files - Extract Pages from PDF Documents Online Free',
-  description: 'Split PDF documents into separate files by page ranges. Extract specific pages or split into individual pages. Fast, secure, and completely free PDF splitter tool.',
-  keywords: ['split PDF', 'PDF splitter', 'extract PDF pages', 'separate PDF pages', 'divide PDF', 'break PDF', 'PDF page extractor', 'online PDF split', 'free PDF splitter', 'PDF page separator'],
-  openGraph: {
-    title: 'Split PDF Files - Free Online PDF Splitter',
-    description: 'Split PDF documents into separate files by page ranges. Extract specific pages or split into individual pages.',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Split PDF Files - Free Online PDF Splitter',
-    description: 'Split PDF documents into separate files by page ranges. Extract specific pages or split into individual pages.',
-  },
-  alternates: {
-    canonical: 'https://imageconvertors.com/split-pdf',
-  },
+type Props = {
+  params: Promise<{ locale: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'metadata.splitPdf' });
+
+  return {
+    title: t('title'),
+    description: t('description'),
+    keywords: t('keywords'),
+    alternates: {
+      canonical: `https://imageconvertors.com/${locale}/split-pdf`,
+    },
+    openGraph: {
+      title: t('ogTitle'),
+      description: t('ogDescription'),
+      url: `https://imageconvertors.com/${locale}/split-pdf`,
+      siteName: 'ImageConvertors',
+      type: 'website',
+      locale: localeMap[locale] || 'en_US',
+      images: [
+        {
+          url: '/convert.webp',
+          width: 1200,
+          height: 630,
+          alt: t('ogImageAlt'),
+        },
+      ],
+    },
+  };
+}
 
 export default function SplitPDFPage() {
   return (

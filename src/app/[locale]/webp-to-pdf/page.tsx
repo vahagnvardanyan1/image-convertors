@@ -1,37 +1,42 @@
 import { Metadata } from 'next';
 import { PDFTool } from '@/components/PDFTool';
 import { PDFErrorBoundary } from '@/components/PDFErrorBoundary';
+import { getTranslations } from 'next-intl/server';
+import { localeMap } from '@/i18n/config';
 
-export const metadata: Metadata = {
-  title: 'WebP to PDF Converter - Convert WebP Images to PDF Online Free',
-  description:
-    'Convert WebP images to PDF documents instantly. Maintain excellent quality and compression. Customize page size, orientation, and margins. Fast, secure, and completely free WebP to PDF conversion tool.',
-  keywords: [
-    'WebP to PDF',
-    'convert WebP to PDF',
-    'WebP PDF converter',
-    'WebP to PDF online',
-    'WebP to PDF free',
-    'WebP compression PDF',
-    'online WebP converter',
-    'batch WebP to PDF',
-    'WebP to PDF tool',
-    'WebP document converter',
-  ],
-  openGraph: {
-    title: 'WebP to PDF Converter - Free Online Tool',
-    description: 'Convert WebP images to PDF documents instantly. Maintain excellent quality and compression. Customize page size, orientation, and margins.',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'WebP to PDF Converter - Free Online Tool',
-    description: 'Convert WebP images to PDF documents instantly. Maintain excellent quality and compression.',
-  },
-  alternates: {
-    canonical: 'https://imageconvertors.com/webp-to-pdf',
-  },
+type Props = {
+  params: Promise<{ locale: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'metadata.webpToPdf' });
+
+  return {
+    title: t('title'),
+    description: t('description'),
+    keywords: t('keywords'),
+    alternates: {
+      canonical: `https://imageconvertors.com/${locale}/webp-to-pdf`,
+    },
+    openGraph: {
+      title: t('ogTitle'),
+      description: t('ogDescription'),
+      url: `https://imageconvertors.com/${locale}/webp-to-pdf`,
+      siteName: 'ImageConvertors',
+      type: 'website',
+      locale: localeMap[locale] || 'en_US',
+      images: [
+        {
+          url: '/convert.webp',
+          width: 1200,
+          height: 630,
+          alt: t('ogImageAlt'),
+        },
+      ],
+    },
+  };
+}
 
 export default function WebpToPDFPage() {
   return (

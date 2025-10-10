@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Type, Smile, Hash, FileJson, GitCompare, FileSearch } from 'lucide-react';
 import { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
+import { localeMap } from '@/i18n/config';
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -10,11 +11,6 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'metadata.texts' });
-
-  const localeMap: Record<string, string> = {
-    en: 'en_US',
-    hi: 'hi_IN',
-  };
 
   return {
     title: t('title'),

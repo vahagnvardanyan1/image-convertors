@@ -1,25 +1,42 @@
 import { Metadata } from 'next';
 import { PDFTool } from '@/components/PDFTool';
 import { PDFErrorBoundary } from '@/components/PDFErrorBoundary';
+import { getTranslations } from 'next-intl/server';
+import { localeMap } from '@/i18n/config';
 
-export const metadata: Metadata = {
-  title: 'PDF Information Analyzer - View PDF Metadata and Properties Online Free',
-  description: 'Analyze PDF documents to view detailed information including page count, file size, metadata, creation date, author, and more. Fast, secure, and completely free PDF analyzer tool.',
-  keywords: ['PDF info', 'PDF analyzer', 'PDF metadata', 'PDF properties', 'PDF information', 'analyze PDF', 'PDF details', 'PDF inspector', 'online PDF analyzer', 'free PDF info'],
-  openGraph: {
-    title: 'PDF Information Analyzer - Free Online Tool',
-    description: 'Analyze PDF documents to view detailed information including page count, file size, metadata, creation date, author, and more.',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'PDF Information Analyzer - Free Online Tool',
-    description: 'Analyze PDF documents to view detailed information including page count, file size, metadata, creation date, author, and more.',
-  },
-  alternates: {
-    canonical: 'https://imageconvertors.com/pdf-info',
-  },
+type Props = {
+  params: Promise<{ locale: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'metadata.pdfInfo' });
+
+  return {
+    title: t('title'),
+    description: t('description'),
+    keywords: t('keywords'),
+    alternates: {
+      canonical: `https://imageconvertors.com/${locale}/pdf-info`,
+    },
+    openGraph: {
+      title: t('ogTitle'),
+      description: t('ogDescription'),
+      url: `https://imageconvertors.com/${locale}/pdf-info`,
+      siteName: 'ImageConvertors',
+      type: 'website',
+      locale: localeMap[locale] || 'en_US',
+      images: [
+        {
+          url: '/convert.webp',
+          width: 1200,
+          height: 630,
+          alt: t('ogImageAlt'),
+        },
+      ],
+    },
+  };
+}
 
 export default function PDFInfoPage() {
   return (

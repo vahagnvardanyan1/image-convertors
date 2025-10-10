@@ -2,18 +2,30 @@ import Link from 'next/link';
 import { ArrowLeft, Cookie, Settings, Eye, Shield, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/Card';
+import { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
 
-export const metadata = {
-  title: 'Cookie Policy - ImageConvertors',
-  description: 'Cookie policy for ImageConvertors - Learn about how we use cookies and similar technologies.',
-  robots: {
-    index: false,
-    follow: true,
-  },
-  alternates: {
-    canonical: 'https://imageconvertors.com/cookie-policy',
-  },
+type Props = {
+  params: Promise<{ locale: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'metadata.cookiePolicy' });
+
+  return {
+    title: t('title'),
+    description: t('description'),
+    keywords: t('keywords'),
+    robots: {
+      index: false,
+      follow: true,
+    },
+    alternates: {
+      canonical: `https://imageconvertors.com/${locale}/cookie-policy`,
+    },
+  };
+}
 
 export default function CookiePolicyPage() {
   return (

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Type, Sparkles, Ruler } from 'lucide-react';
 import { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
+import { localeMap } from '@/i18n/config';
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -10,43 +11,22 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'metadata.fonts' });
 
   return {
-    title: 'Font Tools - Free Typography Playground, Font Pairing & Scale Generator | ImageConvertors',
-    description: 'Professional font tools for designers and developers. Preview Google Fonts, discover perfect font pairings, and generate typographic scales. Free online typography utilities.',
-    keywords: [
-      'font tools',
-      'typography',
-      'font preview',
-      'font pairing',
-      'typographic scale',
-      'Google Fonts',
-      'font generator',
-      'CSS fonts',
-      'web typography',
-      'design tools',
-      'font combinations',
-      'typography tools',
-      'web fonts',
-      'font size calculator',
-      'typography scale',
-      'font tester',
-    ],
+    title: t('title'),
+    description: t('description'),
+    keywords: t('keywords'),
     alternates: {
       canonical: `https://imageconvertors.com/${locale}/texts/fonts`,
     },
     openGraph: {
-      title: 'Font Tools - Free Typography Playground, Font Pairing & Scale Generator | ImageConvertors',
-      description: 'Professional font tools for designers and developers. Preview Google Fonts, discover perfect font pairings, and generate typographic scales.',
+      title: t('ogTitle'),
+      description: t('ogDescription'),
       url: `https://imageconvertors.com/${locale}/texts/fonts`,
       siteName: 'ImageConvertors',
       type: 'website',
-      images: ['/font-generator.webp'],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: 'Font Tools - Free Typography Playground, Font Pairing & Scale Generator | ImageConvertors',
-      description: 'Professional font tools for designers and developers. Preview Google Fonts, discover perfect font pairings, and generate typographic scales.',
+      locale: localeMap[locale] || 'en_US',
       images: ['/font-generator.webp'],
     },
   };

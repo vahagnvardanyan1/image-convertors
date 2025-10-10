@@ -1,14 +1,41 @@
 import { Metadata } from 'next';
 import { ConverterPage } from '@/components/ConverterPage';
+import { getTranslations } from 'next-intl/server';
+import { localeMap } from '@/i18n/config';
 
-export const metadata: Metadata = {
-  title: 'Convert HEIC to WebP - Free Online Converter | ImageConvertors',
-  description: 'Convert HEIC/HEIF images to WebP format online for free. Transform Apple photos to modern WebP format for optimal web performance. Fast, secure, and easy to use.',
-  keywords: 'HEIC to WebP, HEIF to WebP, image converter, HEIC converter, WebP converter, Apple photos converter',
-  alternates: {
-    canonical: 'https://imageconvertors.com/heic-to-webp',
-  },
+type Props = {
+  params: Promise<{ locale: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'metadata.heicToWebp' });
+
+  return {
+    title: t('title'),
+    description: t('description'),
+    keywords: t('keywords'),
+    alternates: {
+      canonical: `https://imageconvertors.com/${locale}/heic-to-webp`,
+    },
+    openGraph: {
+      title: t('ogTitle'),
+      description: t('ogDescription'),
+      url: `https://imageconvertors.com/${locale}/heic-to-webp`,
+      siteName: 'ImageConvertors',
+      type: 'website',
+      locale: localeMap[locale] || 'en_US',
+      images: [
+        {
+          url: '/convert.webp',
+          width: 1200,
+          height: 630,
+          alt: t('ogImageAlt'),
+        },
+      ],
+    },
+  };
+}
 
 export default function HeicToWebpPage() {
   return <ConverterPage from="HEIC" to="WebP" title="Convert HEIC to WebP" />;

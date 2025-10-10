@@ -2,39 +2,45 @@ import { Metadata } from 'next';
 import { PDFTool } from '@/components/PDFTool';
 import { PDFErrorBoundary } from '@/components/PDFErrorBoundary';
 import { getTranslations } from 'next-intl/server';
+import { localeMap } from '@/i18n/config';
 
-export const metadata: Metadata = {
-  title: 'PDF to PNG Converter - Convert PDF Pages to PNG Images Online Free',
-  description:
-    'Convert PDF documents to high-quality PNG images with transparency support. Extract all pages or specific pages from PDF files. Fast, secure, and completely free PDF to PNG conversion tool.',
-  keywords: [
-    'PDF to PNG',
-    'convert PDF to PNG',
-    'PDF to image converter',
-    'extract PDF pages',
-    'PDF page to PNG',
-    'online PDF converter',
-    'free PDF to PNG',
-    'PDF image extraction',
-    'PNG with transparency',
-  ],
-  openGraph: {
-    title: 'PDF to PNG Converter - Free Online Tool',
-    description: 'Convert PDF documents to high-quality PNG images with transparency support. Extract all pages or specific pages from PDF files.',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'PDF to PNG Converter - Free Online Tool',
-    description: 'Convert PDF documents to high-quality PNG images with transparency support. Extract all pages or specific pages from PDF files.',
-  },
-  alternates: {
-    canonical: 'https://imageconvertors.com/pdf-to-png',
-  },
+type Props = {
+  params: Promise<{ locale: string }>;
 };
 
-export default async function PDFToPNGPage() {
-  const t = await getTranslations('pdfTool');
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'metadata.pdfToPng' });
+
+  return {
+    title: t('title'),
+    description: t('description'),
+    keywords: t('keywords'),
+    alternates: {
+      canonical: `https://imageconvertors.com/${locale}/pdf-to-png`,
+    },
+    openGraph: {
+      title: t('ogTitle'),
+      description: t('ogDescription'),
+      url: `https://imageconvertors.com/${locale}/pdf-to-png`,
+      siteName: 'ImageConvertors',
+      type: 'website',
+      locale: localeMap[locale] || 'en_US',
+      images: [
+        {
+          url: '/convert.webp',
+          width: 1200,
+          height: 630,
+          alt: t('ogImageAlt'),
+        },
+      ],
+    },
+  };
+}
+
+export default async function PDFToPNGPage({ params }: Props) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'pdfTool' });
   return (
     <PDFErrorBoundary>
       <PDFTool mode="pdf-to-images" title={t('pdfToPngTitle')} description={t('pdfToPngDescription')} />

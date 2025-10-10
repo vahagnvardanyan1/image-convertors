@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 
-const locales = ['en', 'hi'];
+const locales = ['en', 'hi', 'de', 'ru', 'es', 'zh'];
 const defaultLocale = 'en';
 
 // Define all routes

@@ -746,6 +746,16 @@
     "downloadPdfFile": "Download PDF"
   },
   "metadata": {
+    "home": {
+      "title": "Free Online Image Converter, Font & Color Tools | ImageConvertors",
+      "description": "Free online image converter & font generator. Convert PNG/JPG/WebP images, create fancy text, and design color schemes—all without installing any software.",
+      "keywords": "free image converter, online image tools, font generator, fancy text, color palette generator, color picker, PNG to JPG, WebP converter, free online tools",
+      "ogTitle": "Free Online Image Converter, Font & Color Tools",
+      "ogDescription": "Free online image converter & font generator. Convert images, create fancy text, and design color schemes instantly.",
+      "ogImageAlt": "Free Online Image Converter Tools",
+      "twitterTitle": "Free Online Image Converter, Font & Color Tools",
+      "twitterDescription": "Convert images, create fancy text, and design color schemes instantly. No software installation required."
+    },
     "aiImageGenerator": {
       "title": "Free AI Image Generator - Create Images from Text | ImageConvertors",
       "description": "Generate stunning AI images from text descriptions. Free AI image generator with advanced models. Create artwork, photos, and designs instantly. No signup required.",
@@ -765,6 +775,190 @@
       "ogImageAlt": "AI Background Remover Tool",
       "twitterTitle": "Remove Image Background - Free AI Background Remover",
       "twitterDescription": "Remove image backgrounds automatically with AI. Free, fast, and privacy-focused."
+    },
+    "cropImage": {
+      "title": "Crop Image Online - Free Image Cropper & Rotator | ImageConvertors",
+      "description": "Crop, rotate, and resize images online for free. Professional image cropping tool with aspect ratio presets. Flip, zoom, and edit images instantly in your browser.",
+      "keywords": "crop image, image cropper, crop photo online, rotate image, flip image, resize image, aspect ratio, image editor, free image cropper",
+      "ogTitle": "Crop Image Online - Free Image Cropper Tool",
+      "ogDescription": "Crop, rotate, and resize images with precision controls. Professional image editing in your browser.",
+      "ogImageAlt": "Free Image Cropper Tool"
+    },
+    "resizeImage": {
+      "title": "Resize Image Online - Free Image Resizer Tool | ImageConvertors",
+      "description": "Resize images by percentage, pixels, or presets. Free online image resizer with maintain aspect ratio option. Fast, easy, and no quality loss.",
+      "keywords": "resize image, image resizer, resize photo, scale image, image dimensions, resize by percentage, resize by pixels, maintain aspect ratio",
+      "ogTitle": "Resize Image Online - Free Image Resizer",
+      "ogDescription": "Resize images by percentage, pixels, or presets. Maintain quality and aspect ratio.",
+      "ogImageAlt": "Free Image Resizer Tool"
+    },
+    "analyze": {
+      "title": "Image Analyzer - Analyze Image Properties & Metadata | ImageConvertors",
+      "description": "Analyze your images instantly. Get detailed information about image format, dimensions, file size, color depth, and metadata. Free online image analysis tool.",
+      "keywords": "image analyzer, image analysis, image properties, image metadata, EXIF data, image dimensions, file size analyzer",
+      "ogTitle": "Image Analyzer - Analyze Image Properties & Metadata",
+      "ogDescription": "Analyze your images instantly. Get detailed information about format, dimensions, and metadata.",
+      "ogImageAlt": "Image Analyzer Tool"
+    },
+    "qrCodeGenerator": {
+      "title": "QR Code Generator - Create Custom QR Codes Free | ImageConvertors",
+      "description": "Create custom QR codes for URLs, WiFi, contacts, and more. Free QR code generator with customizable colors and sizes. Download as SVG or PNG.",
+      "keywords": "qr code generator, create qr code, custom qr code, qr code maker, free qr code, wifi qr code, vcard qr code",
+      "ogTitle": "QR Code Generator - Create Custom QR Codes Free",
+      "ogDescription": "Create custom QR codes for URLs, WiFi, contacts, and more. Download as SVG or PNG.",
+      "ogImageAlt": "QR Code Generator Tool"
+    },
+    "pngToWebp": {
+      "title": "PNG to WebP Converter - Convert PNG to WebP Online Free | ImageConvertors",
+      "description": "Convert PNG images to WebP format online for free. Reduce file size by up to 80% while maintaining quality. Fast, secure PNG to WebP conversion.",
+      "keywords": "PNG to WebP, PNG converter, WebP converter, image compression, optimize images, reduce file size",
+      "ogTitle": "PNG to WebP Converter - Free Online Tool",
+      "ogDescription": "Convert PNG to WebP online. Reduce file size while maintaining quality.",
+      "ogImageAlt": "PNG to WebP Converter"
+    },
+    "jpgToPng": {
+      "title": "JPG to PNG Converter - Convert JPEG to PNG Online Free | ImageConvertors",
+      "description": "Convert JPG/JPEG images to PNG format online for free. Add transparency support. Fast, secure JPG to PNG conversion tool.",
+      "keywords": "JPG to PNG, JPEG to PNG, JPG converter, PNG converter, add transparency, image format converter",
+      "ogTitle": "JPG to PNG Converter - Free Online Tool",
+      "ogDescription": "Convert JPG to PNG online. Add transparency support to your images.",
+      "ogImageAlt": "JPG to PNG Converter"
+    },
+    "webpToPng": {
+      "title": "WebP to PNG Converter - Convert WebP to PNG Online Free | ImageConvertors",
+      "description": "Convert WebP images to PNG format online for free. Maintain quality and transparency. Fast, secure WebP to PNG conversion tool.",
+      "keywords": "WebP to PNG, WebP converter, PNG converter, image format converter, convert WebP",
+      "ogTitle": "WebP to PNG Converter - Free Online Tool",
+      "ogDescription": "Convert WebP to PNG online. Maintain quality and transparency.",
+      "ogImageAlt": "WebP to PNG Converter"
+    },
+    "jpgToWebp": {
+      "title": "JPG to WebP Converter - Convert JPEG to WebP Online Free | ImageConvertors",
+      "description": "Convert JPG/JPEG images to WebP format online for free. Reduce file size significantly. Fast, secure JPG to WebP conversion tool.",
+      "keywords": "JPG to WebP, JPEG to WebP, JPG converter, WebP converter, compress images, optimize images",
+      "ogTitle": "JPG to WebP Converter - Free Online Tool",
+      "ogDescription": "Convert JPG to WebP online. Reduce file size significantly.",
+      "ogImageAlt": "JPG to WebP Converter"
+    },
+    "pngToJpg": {
+      "title": "PNG to JPG Converter - Convert PNG to JPEG Online Free | ImageConvertors",
+      "description": "Convert PNG images to JPG/JPEG format online for free. Optimize for web use and reduce file size. Fast, secure PNG to JPG conversion.",
+      "keywords": "PNG to JPG, PNG to JPEG, PNG converter, JPG converter, image optimization, compress images",
+      "ogTitle": "PNG to JPG Converter - Free Online Tool",
+      "ogDescription": "Convert PNG to JPG online. Optimize for web use and reduce file size.",
+      "ogImageAlt": "PNG to JPG Converter"
+    },
+    "webpToJpg": {
+      "title": "WebP to JPG Converter - Convert WebP to JPEG Online Free | ImageConvertors",
+      "description": "Convert WebP images to JPG/JPEG format online for free. Ensure compatibility across all devices. Fast, secure WebP to JPG conversion.",
+      "keywords": "WebP to JPG, WebP to JPEG, WebP converter, JPG converter, image compatibility",
+      "ogTitle": "WebP to JPG Converter - Free Online Tool",
+      "ogDescription": "Convert WebP to JPG online. Ensure compatibility across all devices.",
+      "ogImageAlt": "WebP to JPG Converter"
+    },
+    "heicToJpg": {
+      "title": "HEIC to JPG Converter - Convert HEIC to JPEG Online Free | ImageConvertors",
+      "description": "Convert Apple HEIC photos to JPG format online for free. Universal compatibility. Fast, secure HEIC to JPG conversion tool.",
+      "keywords": "HEIC to JPG, HEIC converter, JPG converter, Apple photos, convert HEIC, iPhone photos",
+      "ogTitle": "HEIC to JPG Converter - Free Online Tool",
+      "ogDescription": "Convert Apple HEIC photos to JPG online. Universal compatibility.",
+      "ogImageAlt": "HEIC to JPG Converter"
+    },
+    "heicToPng": {
+      "title": "HEIC to PNG Converter - Convert HEIC to PNG Online Free | ImageConvertors",
+      "description": "Convert HEIC images to PNG format online for free. Preserve transparency. Fast, secure HEIC to PNG conversion tool.",
+      "keywords": "HEIC to PNG, HEIC converter, PNG converter, Apple photos, convert HEIC, transparency support",
+      "ogTitle": "HEIC to PNG Converter - Free Online Tool",
+      "ogDescription": "Convert HEIC to PNG online. Preserve transparency and quality.",
+      "ogImageAlt": "HEIC to PNG Converter"
+    },
+    "heicToWebp": {
+      "title": "HEIC to WebP Converter - Convert HEIC to WebP Online Free | ImageConvertors",
+      "description": "Convert HEIC images to modern WebP format online for free. Excellent compression. Fast, secure HEIC to WebP conversion.",
+      "keywords": "HEIC to WebP, HEIC converter, WebP converter, Apple photos, convert HEIC, optimize images",
+      "ogTitle": "HEIC to WebP Converter - Free Online Tool",
+      "ogDescription": "Convert HEIC to WebP online. Excellent compression and quality.",
+      "ogImageAlt": "HEIC to WebP Converter"
+    },
+    "pdfToJpg": {
+      "title": "PDF to JPG Converter - Convert PDF to JPEG Online Free | ImageConvertors",
+      "description": "Convert PDF documents to high-quality JPG images online. Extract all pages or select specific pages. Fast, secure PDF to JPG conversion.",
+      "keywords": "PDF to JPG, PDF to JPEG, PDF converter, JPG converter, extract PDF pages, PDF to image",
+      "ogTitle": "PDF to JPG Converter - Free Online Tool",
+      "ogDescription": "Convert PDF to JPG online. Extract pages as high-quality images.",
+      "ogImageAlt": "PDF to JPG Converter"
+    },
+    "pdfToPng": {
+      "title": "PDF to PNG Converter - Convert PDF to PNG Online Free | ImageConvertors",
+      "description": "Convert PDF documents to high-quality PNG images online. Transparency support. Fast, secure PDF to PNG conversion tool.",
+      "keywords": "PDF to PNG, PDF converter, PNG converter, extract PDF pages, PDF to image, transparency support",
+      "ogTitle": "PDF to PNG Converter - Free Online Tool",
+      "ogDescription": "Convert PDF to PNG online. High-quality images with transparency support.",
+      "ogImageAlt": "PDF to PNG Converter"
+    },
+    "imagesToPdf": {
+      "title": "Images to PDF Converter - Combine Images to PDF Online Free | ImageConvertors",
+      "description": "Convert multiple images into a single PDF document online. Supports JPG, PNG, WebP. Customize layout and order. Fast, secure conversion.",
+      "keywords": "images to PDF, combine images, merge images to PDF, JPG to PDF, PNG to PDF, create PDF from images",
+      "ogTitle": "Images to PDF Converter - Free Online Tool",
+      "ogDescription": "Combine multiple images into a single PDF document online.",
+      "ogImageAlt": "Images to PDF Converter"
+    },
+    "pngToPdf": {
+      "title": "PNG to PDF Converter - Convert PNG to PDF Online Free | ImageConvertors",
+      "description": "Convert PNG images to PDF documents online. Maintain transparency. Customize page size and layout. Fast, secure PNG to PDF conversion.",
+      "keywords": "PNG to PDF, PNG converter, PDF converter, create PDF, PNG to PDF online, transparency support",
+      "ogTitle": "PNG to PDF Converter - Free Online Tool",
+      "ogDescription": "Convert PNG to PDF online. Maintain transparency and quality.",
+      "ogImageAlt": "PNG to PDF Converter"
+    },
+    "jpgToPdf": {
+      "title": "JPG to PDF Converter - Convert JPEG to PDF Online Free | ImageConvertors",
+      "description": "Convert JPG/JPEG images to PDF documents online. Optimize quality and file size. Customize layout. Fast, secure JPG to PDF conversion.",
+      "keywords": "JPG to PDF, JPEG to PDF, JPG converter, PDF converter, create PDF from images",
+      "ogTitle": "JPG to PDF Converter - Free Online Tool",
+      "ogDescription": "Convert JPG to PDF online. Optimize quality and customize layout.",
+      "ogImageAlt": "JPG to PDF Converter"
+    },
+    "webpToPdf": {
+      "title": "WebP to PDF Converter - Convert WebP to PDF Online Free | ImageConvertors",
+      "description": "Convert WebP images to PDF documents online. Excellent compression. Customize page size and layout. Fast, secure WebP to PDF conversion.",
+      "keywords": "WebP to PDF, WebP converter, PDF converter, create PDF, WebP to PDF online, image compression",
+      "ogTitle": "WebP to PDF Converter - Free Online Tool",
+      "ogDescription": "Convert WebP to PDF online. Excellent compression and quality.",
+      "ogImageAlt": "WebP to PDF Converter"
+    },
+    "heicToPdf": {
+      "title": "HEIC to PDF Converter - Convert HEIC to PDF Online Free | ImageConvertors",
+      "description": "Convert Apple HEIC photos to PDF documents online. Universal compatibility. Customize layout. Fast, secure HEIC to PDF conversion.",
+      "keywords": "HEIC to PDF, HEIC converter, PDF converter, Apple photos to PDF, iPhone photos to PDF",
+      "ogTitle": "HEIC to PDF Converter - Free Online Tool",
+      "ogDescription": "Convert Apple HEIC photos to PDF online. Universal compatibility.",
+      "ogImageAlt": "HEIC to PDF Converter"
+    },
+    "mergePdf": {
+      "title": "Merge PDF - Combine PDF Files Online Free | ImageConvertors",
+      "description": "Merge multiple PDF files into one document online. Arrange order and combine PDFs instantly. Fast, secure PDF merger tool.",
+      "keywords": "merge PDF, combine PDF, PDF merger, join PDF files, merge PDF online, PDF combiner",
+      "ogTitle": "Merge PDF - Combine PDF Files Online Free",
+      "ogDescription": "Merge multiple PDF files into one document. Arrange and combine instantly.",
+      "ogImageAlt": "Merge PDF Tool"
+    },
+    "splitPdf": {
+      "title": "Split PDF - Separate PDF Pages Online Free | ImageConvertors",
+      "description": "Split PDF documents into separate files online. Extract specific pages or split by page ranges. Fast, secure PDF splitter tool.",
+      "keywords": "split PDF, separate PDF, PDF splitter, extract PDF pages, divide PDF, split PDF online",
+      "ogTitle": "Split PDF - Separate PDF Pages Online Free",
+      "ogDescription": "Split PDF documents into separate files. Extract pages or split by ranges.",
+      "ogImageAlt": "Split PDF Tool"
+    },
+    "pdfInfo": {
+      "title": "PDF Info Analyzer - View PDF Properties & Metadata | ImageConvertors",
+      "description": "Analyze PDF documents and view detailed metadata online. See file size, pages, author, creation date, and more. Free PDF information tool.",
+      "keywords": "PDF info, PDF metadata, PDF properties, analyze PDF, PDF details, PDF information",
+      "ogTitle": "PDF Info Analyzer - View PDF Properties Online",
+      "ogDescription": "Analyze PDF documents and view detailed metadata instantly.",
+      "ogImageAlt": "PDF Info Analyzer"
     },
     "colors": {
       "title": "Free Color Tools: Palette Generator & Picker | ImageConvertors",
@@ -803,6 +997,89 @@
       "ogTitle": "Text Tools Hub - Fonts, Emojis, Symbols & JSON Tools | ImageConvertors",
       "ogDescription": "Comprehensive text tools including font previews, emoji browsers with device support, special symbols, JSON validator, JSON comparer, and JSON parser.",
       "ogImageAlt": "Text Tools Hub - Typography and Data Tools"
+    },
+    "emojis": {
+      "title": "Emoji Picker - Browse & Copy Emojis with Device Preview | ImageConvertors",
+      "description": "Browse thousands of emojis with device-specific rendering. Filter by category and see how emojis appear on Apple, Google, Microsoft, and Samsung. Copy instantly.",
+      "keywords": "emoji picker, emoji browser, copy emoji, device emoji, Apple emoji, Google emoji, Microsoft emoji, Samsung emoji, emoji categories",
+      "ogTitle": "Emoji Picker - Browse & Copy Emojis",
+      "ogDescription": "Browse thousands of emojis with device-specific rendering. Copy instantly."
+    },
+    "symbols": {
+      "title": "Symbol Library - Unicode Symbols & Special Characters | ImageConvertors",
+      "description": "Explore and copy special Unicode symbols and characters. Browse mathematical symbols, arrows, currency signs, shapes, and more.",
+      "keywords": "unicode symbols, special characters, mathematical symbols, arrows, currency symbols, shapes, copy symbols",
+      "ogTitle": "Symbol Library - Unicode Symbols & Special Characters",
+      "ogDescription": "Explore and copy special Unicode symbols and characters instantly."
+    },
+    "fonts": {
+      "title": "Font Tools - Typography Playground & Font Utilities | ImageConvertors",
+      "description": "Professional font tools including preview, pairing suggestions, and typographic scale generators. Test Google Fonts with live customization.",
+      "keywords": "font tools, typography, font preview, font pairing, typographic scale, Google Fonts, web fonts",
+      "ogTitle": "Font Tools - Typography Playground & Utilities",
+      "ogDescription": "Professional font tools including preview, pairing, and scale generators."
+    },
+    "fontPreview": {
+      "title": "Font Preview - Interactive Typography Playground | ImageConvertors",
+      "description": "Test Google Fonts with live preview. Customize font size, weight, spacing, and colors. Generate CSS code instantly.",
+      "keywords": "font preview, Google Fonts, typography playground, font tester, CSS fonts, web fonts",
+      "ogTitle": "Font Preview - Interactive Typography Playground",
+      "ogDescription": "Test Google Fonts with live preview and customization options."
+    },
+    "fontPairings": {
+      "title": "Font Pairings - Discover Perfect Typography Combinations | ImageConvertors",
+      "description": "Browse curated font pairings for web design. Find complementary Google Font combinations with use case recommendations.",
+      "keywords": "font pairing, font combinations, typography pairing, Google Font pairs, complementary fonts",
+      "ogTitle": "Font Pairings - Perfect Typography Combinations",
+      "ogDescription": "Browse curated font pairings with use case recommendations."
+    },
+    "fontScales": {
+      "title": "Typographic Scale Generator - Create Font Size Systems | ImageConvertors",
+      "description": "Generate typographic scales using musical ratios. Create consistent font size hierarchies for your design system.",
+      "keywords": "typographic scale, font scale, type scale, modular scale, font size system, design system",
+      "ogTitle": "Typographic Scale Generator - Font Size Systems",
+      "ogDescription": "Generate typographic scales using musical ratios and design principles."
+    },
+    "jsonValidator": {
+      "title": "JSON Validator - Validate & Format JSON Online Free | ImageConvertors",
+      "description": "Validate and format JSON data with detailed error reporting. Perfect for debugging APIs and configuration files. Free online JSON validator.",
+      "keywords": "json validator, validate json, json formatter, json syntax checker, json beautifier, format json",
+      "ogTitle": "JSON Validator - Validate & Format JSON Online",
+      "ogDescription": "Validate and format JSON data with detailed error reporting."
+    },
+    "jsonComparer": {
+      "title": "JSON Comparer - Compare Two JSON Objects Online Free | ImageConvertors",
+      "description": "Compare two JSON objects and visualize differences. Track added, removed, and modified fields with color-coded highlighting.",
+      "keywords": "json comparer, compare json, json diff, json comparison, json differences, json change tracker",
+      "ogTitle": "JSON Comparer - Compare JSON Objects Online",
+      "ogDescription": "Compare two JSON objects and visualize differences instantly."
+    },
+    "jsonParser": {
+      "title": "JSON Parser - Explore JSON with Interactive Tree View | ImageConvertors",
+      "description": "Parse and explore JSON data with interactive tree view. Navigate nested structures, view data types, and copy values instantly.",
+      "keywords": "json parser, parse json, json explorer, json tree view, json viewer, json navigator",
+      "ogTitle": "JSON Parser - Explore JSON with Tree View",
+      "ogDescription": "Parse and explore JSON data with interactive tree view."
+    },
+    "privacyPolicy": {
+      "title": "Privacy Policy - ImageConvertors",
+      "description": "Learn how ImageConvertors protects your privacy and handles your data. We prioritize user privacy and data security.",
+      "keywords": "privacy policy, data protection, user privacy, privacy statement"
+    },
+    "termsOfService": {
+      "title": "Terms of Service - ImageConvertors",
+      "description": "Read the terms of service for ImageConvertors. Understand your rights and responsibilities when using our services.",
+      "keywords": "terms of service, terms and conditions, service agreement, user terms"
+    },
+    "termsOfUse": {
+      "title": "Terms of Use - ImageConvertors",
+      "description": "Read the terms of use for ImageConvertors. Understand your rights and responsibilities when using our free online tools.",
+      "keywords": "terms of use, user agreement, usage terms, terms and conditions"
+    },
+    "cookiePolicy": {
+      "title": "Cookie Policy - ImageConvertors",
+      "description": "Learn about how ImageConvertors uses cookies to improve your experience. Understand our cookie usage and privacy practices.",
+      "keywords": "cookie policy, cookies, website cookies, privacy, data collection"
     }
   },
   "colorTools": {

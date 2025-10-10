@@ -2,28 +2,45 @@ import { Metadata } from 'next';
 import { PDFTool } from '@/components/PDFTool';
 import { PDFErrorBoundary } from '@/components/PDFErrorBoundary';
 import { getTranslations } from 'next-intl/server';
+import { localeMap } from '@/i18n/config';
 
-export const metadata: Metadata = {
-  title: 'Merge PDF Files - Combine Multiple PDF Documents Online Free',
-  description: 'Merge multiple PDF files into a single document instantly. Combine PDFs in any order while maintaining quality. Fast, secure, and completely free PDF merger tool.',
-  keywords: ['merge PDF', 'combine PDF', 'PDF merger', 'join PDF files', 'concatenate PDF', 'unite PDF documents', 'online PDF merge', 'free PDF merger', 'combine PDF files', 'PDF joiner'],
-  openGraph: {
-    title: 'Merge PDF Files - Free Online PDF Merger',
-    description: 'Merge multiple PDF files into a single document instantly. Combine PDFs in any order while maintaining quality.',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Merge PDF Files - Free Online PDF Merger',
-    description: 'Merge multiple PDF files into a single document instantly. Combine PDFs in any order while maintaining quality.',
-  },
-  alternates: {
-    canonical: 'https://imageconvertors.com/merge-pdf',
-  },
+type Props = {
+  params: Promise<{ locale: string }>;
 };
 
-export default async function MergePDFPage() {
-  const t = await getTranslations('pdfTool');
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'metadata.mergePdf' });
+
+  return {
+    title: t('title'),
+    description: t('description'),
+    keywords: t('keywords'),
+    alternates: {
+      canonical: `https://imageconvertors.com/${locale}/merge-pdf`,
+    },
+    openGraph: {
+      title: t('ogTitle'),
+      description: t('ogDescription'),
+      url: `https://imageconvertors.com/${locale}/merge-pdf`,
+      siteName: 'ImageConvertors',
+      type: 'website',
+      locale: localeMap[locale] || 'en_US',
+      images: [
+        {
+          url: '/convert.webp',
+          width: 1200,
+          height: 630,
+          alt: t('ogImageAlt'),
+        },
+      ],
+    },
+  };
+}
+
+export default async function MergePDFPage({ params }: Props) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'pdfTool' });
 
   return (
     <PDFErrorBoundary>

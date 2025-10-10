@@ -1,14 +1,41 @@
 import { Metadata } from 'next';
 import { ConverterPage } from '@/components/ConverterPage';
+import { getTranslations } from 'next-intl/server';
+import { localeMap } from '@/i18n/config';
 
-export const metadata: Metadata = {
-  title: 'Convert WebP to JPG - Free Online Converter | ImageConvertors',
-  description: 'Convert WebP images to JPG/JPEG format online for free. Convert to universally compatible JPG format for maximum compatibility. Fast, secure, and easy to use.',
-  keywords: 'WebP to JPG, WebP to JPEG, image converter, WebP converter, JPG converter, universal compatibility',
-  alternates: {
-    canonical: 'https://imageconvertors.com/webp-to-jpg',
-  },
+type Props = {
+  params: Promise<{ locale: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'metadata.webpToJpg' });
+
+  return {
+    title: t('title'),
+    description: t('description'),
+    keywords: t('keywords'),
+    alternates: {
+      canonical: `https://imageconvertors.com/${locale}/webp-to-jpg`,
+    },
+    openGraph: {
+      title: t('ogTitle'),
+      description: t('ogDescription'),
+      url: `https://imageconvertors.com/${locale}/webp-to-jpg`,
+      siteName: 'ImageConvertors',
+      type: 'website',
+      locale: localeMap[locale] || 'en_US',
+      images: [
+        {
+          url: '/convert.webp',
+          width: 1200,
+          height: 630,
+          alt: t('ogImageAlt'),
+        },
+      ],
+    },
+  };
+}
 
 export default function WebpToJpgPage() {
   return <ConverterPage from="WebP" to="JPG" title="Convert WebP to JPG" />;
