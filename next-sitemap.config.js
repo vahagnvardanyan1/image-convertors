@@ -3,6 +3,15 @@
 const locales = ['en', 'hi', 'de', 'ru', 'es', 'zh'];
 const defaultLocale = 'en';
 
+const localeHrefLangMap = {
+  en: 'en-US',
+  hi: 'hi-IN',
+  de: 'de-DE',
+  ru: 'ru-RU',
+  es: 'es-ES',
+  zh: 'zh-CN',
+};
+
 // Define all routes
 const routes = [
   '',
@@ -103,7 +112,7 @@ const routes = [
 module.exports = {
   siteUrl: 'https://imageconvertors.com',
   generateRobotsTxt: true,
-  exclude: ['/api/*', '/404', '/500', '/hi/server-sitemap.xml', '/en/server-sitemap.xml'],
+  exclude: ['/api/*', '/404', '/500', '/hi/server-sitemap.xml', '/en/server-sitemap.xml', '/manifest.webmanifest'],
   robotsTxtOptions: {
     policies: [
       { userAgent: '*', allow: '/' },
@@ -113,38 +122,55 @@ module.exports = {
 
   // Transform function to add hreflang alternates for each URL
   transform: async (config, path) => {
-    // Remove locale prefix from path if exists to get the base route
-    let baseRoute = path;
-    locales.forEach(locale => {
-      if (path.startsWith(`/${locale}/`)) {
-        baseRoute = path.substring(locale.length + 1);
-      } else if (path === `/${locale}`) {
-        baseRoute = '';
+    const normalisePath = input => {
+      if (!input || input === '/') {
+        return '';
       }
-    });
+      return input.startsWith('/') ? input : `/${input}`;
+    };
 
-    // Create alternates object with all language versions
-    const alternateRefs = [];
-    locales.forEach(locale => {
-      const localeCode = locale === 'en' ? 'en-US' : 'hi-IN';
-      const href = locale === defaultLocale ? `https://imageconvertors.com${baseRoute}` : `https://imageconvertors.com/${locale}${baseRoute}`;
+    const stripLocalePrefix = pathname => {
+      if (!pathname || pathname === '/') return '';
 
-      alternateRefs.push({
-        hreflang: localeCode,
-        href: href,
-      });
-    });
+      for (const locale of locales) {
+        if (locale === defaultLocale) continue;
 
-    // Add x-default for the default locale
+        const localePrefix = `/${locale}`;
+        if (pathname === localePrefix) {
+          return '';
+        }
+        if (pathname.startsWith(`${localePrefix}/`)) {
+          return pathname.slice(localePrefix.length);
+        }
+      }
+
+      return pathname;
+    };
+
+    const basePath = normalisePath(stripLocalePrefix(path));
+
+    const buildHref = locale => {
+      const suffix = basePath || '';
+      if (locale === defaultLocale) {
+        return `${config.siteUrl}${suffix || '/'}`;
+      }
+      return `${config.siteUrl}/${locale}${suffix}`;
+    };
+
+    const alternateRefs = locales.map(locale => ({
+      hreflang: localeHrefLangMap[locale] ?? locale,
+      href: buildHref(locale),
+    }));
+
     alternateRefs.push({
       hreflang: 'x-default',
-      href: `https://imageconvertors.com${baseRoute}`,
+      href: `${config.siteUrl}${basePath || '/'}`,
     });
 
     return {
       loc: path,
       changefreq: config.changefreq,
-      priority: baseRoute === '' ? 1.0 : config.priority,
+      priority: basePath === '' ? 1.0 : config.priority,
       lastmod: config.autoLastmod ? new Date().toISOString() : undefined,
       alternateRefs,
     };
