@@ -6,6 +6,7 @@ import { fontScaleRatios, generateFontScale } from '@/lib/fontTools';
 import { copyToClipboard } from '@/lib/colorUtils';
 import { Button } from '@/components/ui/button';
 import { Copy, Sparkles } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 const metadata = {
   title: 'Typographic Scale Generator - Create Harmonious Font Size Systems',
@@ -28,6 +29,7 @@ const presets: Preset[] = [
 ];
 
 export default function FontScalesPage() {
+  const t = useTranslations('textTools.fontScalesPage');
   const [baseSize, setBaseSize] = useState(16);
   const [selectedRatio, setSelectedRatio] = useState('minor-third');
   const [steps, setSteps] = useState(6);
@@ -75,15 +77,15 @@ export default function FontScalesPage() {
       <DynamicMetadata title={metadata.title} description={metadata.description} keywords={metadata.keywords} />
 
       <div className="mb-4 sm:mb-6 lg:mb-8">
-        <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2">Typographic Scale Generator</h2>
-        <p className="text-gray-600 dark:text-gray-400">Create harmonious font size systems using mathematical ratios</p>
+        <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2">{t('title')}</h2>
+        <p className="text-gray-600 dark:text-gray-400">{t('subtitle')}</p>
       </div>
 
       {/* Quick Presets */}
       <div className="mb-6 sm:mb-8 p-4 sm:p-6 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 rounded-xl border border-blue-100 dark:border-gray-600">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
           <Sparkles size={20} />
-          Quick Presets
+          {t('quickPresets')}
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
           {presets.map(preset => (
@@ -92,7 +94,15 @@ export default function FontScalesPage() {
               onClick={() => handlePreset(preset)}
               className="px-4 py-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-600 hover:shadow-lg hover:border-blue-500 transition-all text-left"
             >
-              <div className="font-semibold text-gray-900 dark:text-white text-sm">{preset.name}</div>
+              <div className="font-semibold text-gray-900 dark:text-white text-sm">
+                {preset.name === 'Editorial'
+                  ? t('presets.editorial')
+                  : preset.name === 'UI/App'
+                    ? t('presets.uiApp')
+                    : preset.name === 'Display/Marketing'
+                      ? t('presets.displayMarketing')
+                      : t('presets.compact')}
+              </div>
               <div className="text-xs text-gray-600 dark:text-gray-400 mt-1 break-words">
                 {preset.baseSize}px • {fontScaleRatios.find(r => r.id === preset.ratioId)?.label}
               </div>

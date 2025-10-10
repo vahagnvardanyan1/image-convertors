@@ -4,17 +4,23 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Palette, Droplet, Blend, ArrowLeftRight, Home } from 'lucide-react';
-
-const navigation = [
-  { name: 'Dashboard', href: '/colors', icon: Home },
-  { name: 'Picker', href: '/colors/picker', icon: Droplet },
-  { name: 'Palettes', href: '/colors/palettes', icon: Palette },
-  { name: 'Gradients', href: '/colors/gradients', icon: Blend },
-  { name: 'Converter', href: '/colors/converter', icon: ArrowLeftRight },
-];
+import { useTranslations } from 'next-intl';
 
 export default function ColorsLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const t = useTranslations('colorTools.layout');
+
+  // Extract locale from pathname
+  const pathSegments = pathname.split('/');
+  const locale = pathSegments[1];
+
+  const navigation = [
+    { name: t('dashboard'), href: `/${locale}/colors`, icon: Home },
+    { name: t('picker'), href: `/${locale}/colors/picker`, icon: Droplet },
+    { name: t('palettes'), href: `/${locale}/colors/palettes`, icon: Palette },
+    { name: t('gradients'), href: `/${locale}/colors/gradients`, icon: Blend },
+    { name: t('converter'), href: `/${locale}/colors/converter`, icon: ArrowLeftRight },
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
@@ -22,8 +28,8 @@ export default function ColorsLayout({ children }: { children: React.ReactNode }
         {/* Header */}
         <div className="mb-8">
           <div className="mb-6">
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Free Color Palette Generator & Picker</h1>
-            <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">Design color schemes and find any color code instantly</p>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{t('title')}</h1>
+            <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">{t('subtitle')}</p>
           </div>
 
           {/* Responsive Navigation */}

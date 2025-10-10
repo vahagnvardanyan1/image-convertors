@@ -8,6 +8,7 @@ import JSONEditor from '@/components/JSONEditor';
 import JSONToolHero from '@/components/JSONToolHero';
 import JSONToolFeatures from '@/components/JSONToolFeatures';
 import JSONToolHowTo from '@/components/JSONToolHowTo';
+import { useTranslations } from 'next-intl';
 
 const metadata = {
   title: 'JSON Comparer - Compare & Diff JSON Online | ImageConvertors',
@@ -53,6 +54,7 @@ interface DiffItem {
 }
 
 export default function JsonComparerPage() {
+  const t = useTranslations('textTools.jsonComparer');
   const [jsonLeft, setJsonLeft] = useState('');
   const [jsonRight, setJsonRight] = useState('');
   const [leftErrorLine, setLeftErrorLine] = useState<number | undefined>();
@@ -73,7 +75,7 @@ export default function JsonComparerPage() {
     if (!jsonLeft.trim() || !jsonRight.trim()) {
       setComparisonResult({
         isValid: false,
-        error: 'Please enter JSON in both fields',
+        error: t('pleaseEnterBoth'),
       });
       return;
     }
@@ -272,31 +274,31 @@ export default function JsonComparerPage() {
     }
   };
 
-  const heroFeatures = ['Side-by-Side Compare', 'Deep Comparison', 'Color-Coded Diff', 'Free Tool'];
+  const heroFeatures = [t('heroFeatures.feature1'), t('heroFeatures.feature2'), t('heroFeatures.feature3'), t('heroFeatures.feature4')];
 
   const keyFeatures = [
     {
       icon: GitCompare,
-      title: 'Deep Comparison',
-      description: 'Compare complex nested JSON structures with accurate field-by-field analysis.',
+      title: t('keyFeatures.deepComparison.title'),
+      description: t('keyFeatures.deepComparison.description'),
       color: 'from-blue-500 to-cyan-500',
     },
     {
       icon: Diff,
-      title: 'Visual Differences',
-      description: 'See added, removed, and modified fields with color-coded highlighting.',
+      title: t('keyFeatures.visualDiff.title'),
+      description: t('keyFeatures.visualDiff.description'),
       color: 'from-green-500 to-emerald-500',
     },
     {
       icon: Layers,
-      title: 'Nested Support',
-      description: 'Handle deeply nested objects and arrays with path-based difference tracking.',
+      title: t('keyFeatures.nestedSupport.title'),
+      description: t('keyFeatures.nestedSupport.description'),
       color: 'from-purple-500 to-pink-500',
     },
     {
       icon: Code,
-      title: 'Validation First',
-      description: 'Automatically validates both JSON inputs before comparison with error highlighting.',
+      title: t('keyFeatures.validationFirst.title'),
+      description: t('keyFeatures.validationFirst.description'),
       color: 'from-orange-500 to-red-500',
     },
   ];
@@ -304,23 +306,23 @@ export default function JsonComparerPage() {
   const howToSteps = [
     {
       number: 1,
-      title: 'Paste First JSON',
-      description: 'Enter your original JSON in the left editor',
+      title: t('howToSteps.step1.title'),
+      description: t('howToSteps.step1.description'),
     },
     {
       number: 2,
-      title: 'Paste Second JSON',
-      description: 'Enter the JSON to compare in the right editor',
+      title: t('howToSteps.step2.title'),
+      description: t('howToSteps.step2.description'),
     },
     {
       number: 3,
-      title: 'Click Compare',
-      description: 'Press compare to see the differences',
+      title: t('howToSteps.step3.title'),
+      description: t('howToSteps.step3.description'),
     },
     {
       number: 4,
-      title: 'Review Changes',
-      description: 'View color-coded differences and statistics',
+      title: t('howToSteps.step4.title'),
+      description: t('howToSteps.step4.description'),
     },
   ];
 
@@ -330,8 +332,8 @@ export default function JsonComparerPage() {
 
       {/* Working Area */}
       <div className="mb-6">
-        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">JSON Comparer & Diff Tool</h2>
-        <p className="text-gray-600 dark:text-gray-400">Compare two JSON objects and visualize their differences</p>
+        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">{t('title')}</h2>
+        <p className="text-gray-600 dark:text-gray-400">{t('subtitle')}</p>
       </div>
 
       {/* Controls */}
@@ -347,20 +349,20 @@ export default function JsonComparerPage() {
           className="flex items-center gap-2 px-4 py-1.5 text-sm rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors"
         >
           <ArrowLeftRight size={16} />
-          Swap
+          {t('swap')}
         </button>
       </div>
 
       {/* Input Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
         <div>
-          <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">JSON 1 (Original)</label>
-          <JSONEditor value={jsonLeft} onChange={setJsonLeft} placeholder='Enter first JSON... e.g., {"name": "John"}' errorLine={leftErrorLine} height="320px" />
+          <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">{t('leftJson')}</label>
+          <JSONEditor value={jsonLeft} onChange={setJsonLeft} placeholder={t('pasteFirst')} errorLine={leftErrorLine} height="320px" />
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">JSON 2 (Comparing)</label>
-          <JSONEditor value={jsonRight} onChange={setJsonRight} placeholder='Enter second JSON... e.g., {"name": "Jane"}' errorLine={rightErrorLine} height="320px" />
+          <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">{t('rightJson')}</label>
+          <JSONEditor value={jsonRight} onChange={setJsonRight} placeholder={t('pasteSecond')} errorLine={rightErrorLine} height="320px" />
         </div>
       </div>
 
@@ -369,7 +371,7 @@ export default function JsonComparerPage() {
         className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl mb-6 flex items-center justify-center gap-2"
       >
         <GitCompare size={20} />
-        Compare JSON
+        {t('compare')}
       </button>
 
       {/* Results Section */}
@@ -387,7 +389,7 @@ export default function JsonComparerPage() {
                   <>
                     <Check className="text-green-600 dark:text-green-400" size={28} />
                     <div>
-                      <p className="font-bold text-lg text-green-900 dark:text-green-400">JSON Objects are Identical</p>
+                      <p className="font-bold text-lg text-green-900 dark:text-green-400">{t('identical')}</p>
                       <p className="text-sm text-green-700 dark:text-green-500">No differences found</p>
                     </div>
                   </>
@@ -395,7 +397,9 @@ export default function JsonComparerPage() {
                   <>
                     <X className="text-orange-600 dark:text-orange-400" size={28} />
                     <div>
-                      <p className="font-bold text-lg text-orange-900 dark:text-orange-400">Differences Found</p>
+                      <p className="font-bold text-lg text-orange-900 dark:text-orange-400">
+                        {comparisonResult.differences?.length} {t('differencesFound')}
+                      </p>
                       <p className="text-sm text-orange-700 dark:text-orange-500">
                         {comparisonResult.differences?.length} difference{comparisonResult.differences?.length !== 1 ? 's' : ''} detected
                       </p>
@@ -408,15 +412,15 @@ export default function JsonComparerPage() {
               {!comparisonResult.areEqual && comparisonResult.differences && (
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                   <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border border-green-200 dark:border-green-800">
-                    <p className="text-xs text-green-600 dark:text-green-400 font-medium">Added</p>
+                    <p className="text-xs text-green-600 dark:text-green-400 font-medium">{t('diffTypes.added')}</p>
                     <p className="text-2xl font-bold text-green-900 dark:text-green-300">{comparisonResult.differences.filter(d => d.type === 'added').length}</p>
                   </div>
                   <div className="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg border border-red-200 dark:border-red-800">
-                    <p className="text-xs text-red-600 dark:text-red-400 font-medium">Removed</p>
+                    <p className="text-xs text-red-600 dark:text-red-400 font-medium">{t('diffTypes.removed')}</p>
                     <p className="text-2xl font-bold text-red-900 dark:text-red-300">{comparisonResult.differences.filter(d => d.type === 'removed').length}</p>
                   </div>
                   <div className="bg-orange-50 dark:bg-orange-900/20 p-4 rounded-lg border border-orange-200 dark:border-orange-800">
-                    <p className="text-xs text-orange-600 dark:text-orange-400 font-medium">Modified</p>
+                    <p className="text-xs text-orange-600 dark:text-orange-400 font-medium">{t('diffTypes.modified')}</p>
                     <p className="text-2xl font-bold text-orange-900 dark:text-orange-300">{comparisonResult.differences.filter(d => d.type === 'modified').length}</p>
                   </div>
                   <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">

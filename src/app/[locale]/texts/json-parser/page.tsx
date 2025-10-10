@@ -9,6 +9,7 @@ import JSONEditor from '@/components/JSONEditor';
 import JSONToolHero from '@/components/JSONToolHero';
 import JSONToolFeatures from '@/components/JSONToolFeatures';
 import JSONToolHowTo from '@/components/JSONToolHowTo';
+import { useTranslations } from 'next-intl';
 
 const metadata = {
   title: 'JSON Parser - Parse & Explore JSON Online | ImageConvertors',
@@ -44,6 +45,7 @@ const metadata = {
 };
 
 export default function JsonParserPage() {
+  const t = useTranslations('textTools.jsonParser');
   const [jsonInput, setJsonInput] = useState('');
   const [parseResult, setParseResult] = useState<{
     isValid: boolean;
@@ -66,7 +68,7 @@ export default function JsonParserPage() {
     if (!jsonInput.trim()) {
       setParseResult({
         isValid: false,
-        error: 'Please enter JSON to parse',
+        error: t('pleaseEnter'),
       });
       return;
     }
@@ -301,31 +303,31 @@ export default function JsonParserPage() {
     );
   };
 
-  const heroFeatures = ['Interactive Tree View', 'Data Type Display', 'Copy Any Value', 'Free Tool'];
+  const heroFeatures = [t('heroFeatures.feature1'), t('heroFeatures.feature2'), t('heroFeatures.feature3'), t('heroFeatures.feature4')];
 
   const keyFeatures = [
     {
       icon: TreeDeciduous,
-      title: 'Tree View',
-      description: 'Navigate complex JSON structures with an expandable/collapsible tree interface.',
+      title: t('keyFeatures.treeView.title'),
+      description: t('keyFeatures.treeView.description'),
       color: 'from-green-500 to-emerald-500',
     },
     {
       icon: Info,
-      title: 'Type Indicators',
-      description: 'See data types for every value (string, number, boolean, object, array, null).',
+      title: t('keyFeatures.dataTypes.title'),
+      description: t('keyFeatures.dataTypes.description'),
       color: 'from-blue-500 to-cyan-500',
     },
     {
       icon: Copy,
-      title: 'Quick Copy',
-      description: 'Copy any value or entire subtree to clipboard with a single click.',
+      title: t('keyFeatures.copyValues.title'),
+      description: t('keyFeatures.copyValues.description'),
       color: 'from-purple-500 to-pink-500',
     },
     {
       icon: MousePointer,
-      title: 'Interactive',
-      description: 'Click to expand/collapse nodes, hover to reveal copy buttons, easy navigation.',
+      title: t('keyFeatures.statistics.title'),
+      description: t('keyFeatures.statistics.description'),
       color: 'from-orange-500 to-red-500',
     },
   ];
@@ -333,23 +335,23 @@ export default function JsonParserPage() {
   const howToSteps = [
     {
       number: 1,
-      title: 'Paste JSON',
-      description: 'Enter your JSON data in the editor',
+      title: t('howToSteps.step1.title'),
+      description: t('howToSteps.step1.description'),
     },
     {
       number: 2,
-      title: 'Click Parse',
-      description: 'Press parse to generate tree view',
+      title: t('howToSteps.step2.title'),
+      description: t('howToSteps.step2.description'),
     },
     {
       number: 3,
-      title: 'Explore Structure',
-      description: 'Click arrows to expand/collapse nodes',
+      title: t('howToSteps.step3.title'),
+      description: t('howToSteps.step3.description'),
     },
     {
       number: 4,
-      title: 'Copy Values',
-      description: 'Hover and click copy on any value',
+      title: t('howToSteps.step4.title'),
+      description: t('howToSteps.step4.description'),
     },
   ];
 
@@ -359,8 +361,8 @@ export default function JsonParserPage() {
 
       {/* Working Area */}
       <div className="mb-6">
-        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">JSON Parser & Explorer</h2>
-        <p className="text-gray-600 dark:text-gray-400">Parse and explore JSON data with an interactive tree view</p>
+        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">{t('title')}</h2>
+        <p className="text-gray-600 dark:text-gray-400">{t('subtitle')}</p>
       </div>
 
       {/* Controls */}
@@ -373,7 +375,7 @@ export default function JsonParserPage() {
         </button>
         <button onClick={handleClear} className="flex items-center gap-1 text-sm text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300">
           <Trash2 size={14} />
-          Clear
+          {t('clear')}
         </button>
       </div>
 
@@ -384,18 +386,13 @@ export default function JsonParserPage() {
             <label className="text-sm font-semibold text-gray-900 dark:text-white">Input JSON</label>
           </div>
 
-          <JSONEditor
-            value={jsonInput}
-            onChange={setJsonInput}
-            placeholder='Enter your JSON here... e.g., {"user": {"name": "John"}}'
-            errorLine={parseResult?.isValid === false ? parseResult.errorLine : undefined}
-          />
+          <JSONEditor value={jsonInput} onChange={setJsonInput} placeholder={t('pasteJson')} errorLine={parseResult?.isValid === false ? parseResult.errorLine : undefined} />
 
           <button
             onClick={parseJson}
             className="mt-3 w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl"
           >
-            Parse JSON
+            {t('parse')}
           </button>
         </div>
 
@@ -420,19 +417,19 @@ export default function JsonParserPage() {
                   {parseResult.stats && (
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                       <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg border border-blue-200 dark:border-blue-800">
-                        <p className="text-xs text-blue-600 dark:text-blue-400 font-medium">Type</p>
+                        <p className="text-xs text-blue-600 dark:text-blue-400 font-medium">{t('stats.type')}</p>
                         <p className="text-lg font-bold text-blue-900 dark:text-blue-300">{parseResult.stats.type}</p>
                       </div>
                       <div className="bg-purple-50 dark:bg-purple-900/20 p-3 rounded-lg border border-purple-200 dark:border-purple-800">
-                        <p className="text-xs text-purple-600 dark:text-purple-400 font-medium">Size</p>
+                        <p className="text-xs text-purple-600 dark:text-purple-400 font-medium">{t('stats.size')}</p>
                         <p className="text-lg font-bold text-purple-900 dark:text-purple-300">{parseResult.stats.size}</p>
                       </div>
                       <div className="bg-pink-50 dark:bg-pink-900/20 p-3 rounded-lg border border-pink-200 dark:border-pink-800">
-                        <p className="text-xs text-pink-600 dark:text-pink-400 font-medium">Depth</p>
+                        <p className="text-xs text-pink-600 dark:text-pink-400 font-medium">{t('stats.depth')}</p>
                         <p className="text-lg font-bold text-pink-900 dark:text-pink-300">{parseResult.stats.depth}</p>
                       </div>
                       <div className="bg-cyan-50 dark:bg-cyan-900/20 p-3 rounded-lg border border-cyan-200 dark:border-cyan-800">
-                        <p className="text-xs text-cyan-600 dark:text-cyan-400 font-medium">{parseResult.stats.keys !== undefined ? 'Keys' : 'Items'}</p>
+                        <p className="text-xs text-cyan-600 dark:text-cyan-400 font-medium">{parseResult.stats.keys !== undefined ? t('stats.keys') : t('stats.items')}</p>
                         <p className="text-lg font-bold text-cyan-900 dark:text-cyan-300">{parseResult.stats.keys ?? parseResult.stats.items ?? 'N/A'}</p>
                       </div>
                     </div>

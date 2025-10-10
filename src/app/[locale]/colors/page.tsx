@@ -2,91 +2,93 @@
 import Link from 'next/link';
 import { Palette, Droplet, Blend, ArrowLeftRight } from 'lucide-react';
 import { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
 
-export const metadata: Metadata = {
-  title: 'Free Color Tools: Palette Generator & Picker | ImageConvertors',
-  description: 'Create and explore color schemes online. Use our free color palette generator to design custom palettes or easily pick any color code for your projects.',
-  keywords: [
-    'color palette generator',
-    'color picker',
-    'color scheme tool',
-    'design color palettes',
-    'free online colors',
-    'hex color picker',
-    'trending color palettes',
-    'free color palette',
-    'design colors',
-    'online color tools',
-    'color tools',
-    'color scheme generator',
-    'palette maker',
-    'hex color tool',
-    'RGB color picker',
-    'HSL color tool',
-  ],
-  alternates: {
-    canonical: 'https://imageconvertors.com/colors',
-  },
-  openGraph: {
-    title: 'Free Color Tools: Palette Generator & Picker | ImageConvertors',
-    description: 'Create and explore color schemes online. Use our free color palette generator to design custom palettes or easily pick any color code for your projects.',
-    url: 'https://imageconvertors.com/colors',
-    siteName: 'ImageConvertors',
-    type: 'website',
-    images: [
-      {
-        url: '/color-picker.webp',
-        width: 810,
-        height: 821,
-        alt: 'Color Tools - Color Picker, Palette Generator, Gradient Creator',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Free Color Tools: Palette Generator & Picker | ImageConvertors',
-    description: 'Create and explore color schemes online. Use our free color palette generator to design custom palettes or easily pick any color code for your projects.',
-    images: ['/color-picker.webp'],
-  },
+type Props = {
+  params: Promise<{ locale: string }>;
 };
 
-const features = [
-  {
-    name: 'Color Picker',
-    description: 'Choose and explore colors with an interactive color picker. Get instant color codes in multiple formats.',
-    href: '/colors/picker',
-    icon: Droplet,
-    color: 'from-blue-500 to-cyan-500',
-  },
-  {
-    name: 'Color Palettes',
-    description: 'Create, save, and manage beautiful color palettes. Browse predefined palettes or build your own.',
-    href: '/colors/palettes',
-    icon: Palette,
-    color: 'from-purple-500 to-pink-500',
-  },
-  {
-    name: 'Gradient Generator',
-    description: 'Generate stunning gradients between colors. Preview and copy CSS code for your projects.',
-    href: '/colors/gradients',
-    icon: Blend,
-    color: 'from-orange-500 to-red-500',
-  },
-  {
-    name: 'Color Converter',
-    description: 'Convert colors between HEX, RGB, HSL, and more formats. Perfect for cross-platform development.',
-    href: '/colors/converter',
-    icon: ArrowLeftRight,
-    color: 'from-green-500 to-teal-500',
-  },
-];
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'metadata.colors' });
 
-export default function ColorsPage() {
+  const localeMap: Record<string, string> = {
+    en: 'en_US',
+    hi: 'hi_IN',
+  };
+
+  return {
+    title: t('title'),
+    description: t('description'),
+    keywords: t('keywords'),
+    alternates: {
+      canonical: `https://imageconvertors.com/${locale}/colors`,
+    },
+    openGraph: {
+      title: t('ogTitle'),
+      description: t('ogDescription'),
+      url: `https://imageconvertors.com/${locale}/colors`,
+      siteName: 'ImageConvertors',
+      type: 'website',
+      locale: localeMap[locale] || 'en_US',
+      images: [
+        {
+          url: '/color-picker.webp',
+          width: 810,
+          height: 821,
+          alt: t('ogImageAlt'),
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: t('twitterTitle'),
+      description: t('twitterDescription'),
+      images: ['/color-picker.webp'],
+    },
+  };
+}
+
+export default async function ColorsPage({ params }: Props) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'colorTools' });
+
+  const features = [
+    {
+      name: t('colorPicker.name'),
+      description: t('colorPicker.description'),
+      href: `/${locale}/colors/picker`,
+      icon: Droplet,
+      color: 'from-blue-500 to-cyan-500',
+    },
+    {
+      name: t('colorPalettes.name'),
+      description: t('colorPalettes.description'),
+      href: `/${locale}/colors/palettes`,
+      icon: Palette,
+      color: 'from-purple-500 to-pink-500',
+    },
+    {
+      name: t('gradientGenerator.name'),
+      description: t('gradientGenerator.description'),
+      href: `/${locale}/colors/gradients`,
+      icon: Blend,
+      color: 'from-orange-500 to-red-500',
+    },
+    {
+      name: t('colorConverter.name'),
+      description: t('colorConverter.description'),
+      href: `/${locale}/colors/converter`,
+      icon: ArrowLeftRight,
+      color: 'from-green-500 to-teal-500',
+    },
+  ];
+
   return (
     <div>
       <div className="mb-8">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Welcome to Colors</h2>
-        <p className="text-gray-600 dark:text-gray-400">Select a tool below to start working with colors, palettes, and gradients.</p>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{t('welcome')}</h2>
+        <p className="text-gray-600 dark:text-gray-400">{t('selectTool')}</p>
       </div>
 
       {/* Desktop Layout: Image on left, Links on right */}
@@ -123,23 +125,23 @@ export default function ColorsPage() {
       </div>
 
       <div className="mt-12 p-6 rounded-xl bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-700 dark:to-gray-600 border border-blue-100 dark:border-gray-600">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Quick Tips</h3>
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{t('quickTips')}</h3>
         <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
           <li className="flex items-start gap-2">
             <span className="text-blue-600 dark:text-blue-400 font-bold">•</span>
-            <span>Use the Color Picker to find the perfect color for your project</span>
+            <span>{t('tip1')}</span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-purple-600 dark:text-purple-400 font-bold">•</span>
-            <span>Save your favorite color combinations in Palettes for easy access</span>
+            <span>{t('tip2')}</span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-orange-600 dark:text-orange-400 font-bold">•</span>
-            <span>Generate smooth gradients and copy CSS code directly to your clipboard</span>
+            <span>{t('tip3')}</span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-green-600 dark:text-green-400 font-bold">•</span>
-            <span>Convert between different color formats with the Color Converter</span>
+            <span>{t('tip4')}</span>
           </li>
         </ul>
       </div>

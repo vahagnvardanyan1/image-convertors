@@ -765,6 +765,578 @@
       "ogImageAlt": "AI Background Remover Tool",
       "twitterTitle": "Remove Image Background - Free AI Background Remover",
       "twitterDescription": "Remove image backgrounds automatically with AI. Free, fast, and privacy-focused."
+    },
+    "colors": {
+      "title": "Free Color Tools: Palette Generator & Picker | ImageConvertors",
+      "description": "Create and explore color schemes online. Use our free color palette generator to design custom palettes or easily pick any color code for your projects.",
+      "keywords": "color palette generator, color picker, color scheme tool, design color palettes, free online colors, hex color picker, trending color palettes, free color palette, design colors, online color tools, color tools, color scheme generator, palette maker, hex color tool, RGB color picker, HSL color tool",
+      "ogTitle": "Free Color Tools: Palette Generator & Picker | ImageConvertors",
+      "ogDescription": "Create and explore color schemes online. Use our free color palette generator to design custom palettes or easily pick any color code for your projects.",
+      "ogImageAlt": "Color Tools - Color Picker, Palette Generator, Gradient Creator",
+      "twitterTitle": "Free Color Tools: Palette Generator & Picker | ImageConvertors",
+      "twitterDescription": "Create and explore color schemes online. Use our free color palette generator to design custom palettes or easily pick any color code for your projects."
+    },
+    "colorPicker": {
+      "title": "Color Picker - Interactive Color Selector & Format Converter",
+      "description": "Pick colors and get instant format conversions. Interactive color picker with HEX, RGB, RGBA, HSL, HSLA, and HSV outputs. Perfect for web designers and developers. Free online color picker tool.",
+      "keywords": "color picker, pick color, color selector, HEX color picker, RGB color picker, color formats, web colors, design colors, color tool, HSL color picker, RGBA color picker, HSV color picker, interactive color picker, online color selector, color code picker, eyedropper tool"
+    },
+    "colorPalettes": {
+      "title": "Color Palette Generator - Create & Save Custom Color Schemes",
+      "description": "Generate beautiful color palettes with complementary, analogous, and monochromatic schemes. Save your favorite palettes locally. Browse predefined palettes or create custom color combinations. Free palette generator.",
+      "keywords": "color palette, palette generator, color schemes, complementary colors, analogous colors, monochromatic palette, color combinations, design palette, color harmony, color scheme generator, custom palette, save color palette, triadic colors, split complementary, color wheel, palette creator"
+    },
+    "colorConverter": {
+      "title": "Color Converter - Convert Between HEX, RGB, HSL & Color Formats",
+      "description": "Convert colors between HEX, RGB, RGBA, HSL, HSLA, and HSV formats instantly. Supports color names and all CSS color formats. Perfect for cross-platform development. Free online color format converter.",
+      "keywords": "color converter, HEX to RGB, RGB to HSL, HSL to HEX, color format converter, convert colors, CSS colors, color transformation, color code converter, RGB to HEX, HEX to HSL, HSL to RGB, color format tool, RGBA converter, HSLA converter, color code conversion"
+    },
+    "gradientGenerator": {
+      "title": "Gradient Generator - Create CSS & Tailwind Gradients Online",
+      "description": "Generate stunning gradients between colors with instant CSS and Tailwind code. Customize direction, steps, and colors. Preview gradients in real-time. Copy code directly to your project. Free gradient generator.",
+      "keywords": "gradient generator, CSS gradient, Tailwind gradient, linear gradient, color gradient, gradient maker, web gradient, gradient tool, gradient CSS code, gradient creator, background gradient, gradient background, CSS gradient generator, Tailwind CSS gradient, gradient code, online gradient tool"
+    },
+    "texts": {
+      "title": "Text Tools Hub - Fonts, Emojis, Symbols & JSON Tools | ImageConvertors",
+      "description": "Comprehensive text tools including font previews, emoji browsers with device support, special symbols, JSON validator, JSON comparer, and JSON parser. Find the perfect typography, characters, and data tools for your projects.",
+      "keywords": "text tools, fonts, emojis, symbols, unicode characters, typography, font preview, emoji picker, special characters, text generator, json validator, json comparer, json parser, json formatter, json diff, json explorer",
+      "ogTitle": "Text Tools Hub - Fonts, Emojis, Symbols & JSON Tools | ImageConvertors",
+      "ogDescription": "Comprehensive text tools including font previews, emoji browsers with device support, special symbols, JSON validator, JSON comparer, and JSON parser.",
+      "ogImageAlt": "Text Tools Hub - Typography and Data Tools"
+    }
+  },
+  "colorTools": {
+    "welcome": "Welcome to Colors",
+    "selectTool": "Select a tool below to start working with colors, palettes, and gradients.",
+    "colorPicker": {
+      "name": "Color Picker",
+      "description": "Choose and explore colors with an interactive color picker. Get instant color codes in multiple formats.",
+      "heading": "Color Picker",
+      "subtitle": "Select a color and get instant format conversions",
+      "preview": "Preview",
+      "colorFormats": "Color Formats",
+      "quickTip": "💡 Quick Tip",
+      "quickTipText": "Click any format to copy it to your clipboard. Use the format that best suits your project needs."
+    },
+    "colorPalettes": {
+      "name": "Color Palettes",
+      "description": "Create, save, and manage beautiful color palettes. Browse predefined palettes or build your own.",
+      "heading": "Color Palettes",
+      "subtitle": "Create and manage your color palettes",
+      "createNew": "Create New Palette",
+      "showColorPicker": "Show Color Picker",
+      "hideColorPicker": "Hide Color Picker",
+      "addColor": "Add Color",
+      "quickGenerate": "Quick Generate:",
+      "complementary": "Complementary",
+      "analogous": "Analogous",
+      "monochromatic": "Monochromatic",
+      "paletteName": "Palette Name",
+      "noColors": "No colors added yet. Add colors to create a palette.",
+      "savePalette": "Save Palette",
+      "predefinedPalettes": "Predefined Palettes",
+      "yourSavedPalettes": "Your Saved Palettes",
+      "noPalettes": "No saved palettes yet. Create your first palette above!",
+      "oceanBreeze": "Ocean Breeze",
+      "sunsetGlow": "Sunset Glow",
+      "forestGreen": "Forest Green",
+      "purpleDream": "Purple Dream",
+      "monochrome": "Monochrome"
+    },
+    "gradientGenerator": {
+      "name": "Gradient Generator",
+      "description": "Generate stunning gradients between colors. Preview and copy CSS code for your projects.",
+      "heading": "Gradient Generator",
+      "subtitle": "Create beautiful gradients and get CSS code",
+      "startColor": "Start Color",
+      "endColor": "End Color",
+      "showPicker": "Show Picker",
+      "hidePicker": "Hide Picker",
+      "swapColors": "Swap Colors",
+      "steps": "Steps",
+      "direction": "Direction",
+      "right": "Right",
+      "bottom": "Bottom",
+      "left": "Left",
+      "top": "Top",
+      "bottomRight": "Bottom Right",
+      "bottomLeft": "Bottom Left",
+      "colorSteps": "Color Steps",
+      "clickToCopy": "Click any color to copy",
+      "preview": "Preview",
+      "cssCode": "CSS Code",
+      "tailwindCode": "Tailwind CSS (with arbitrary values)",
+      "quickPresets": "💡 Quick Presets",
+      "purpleDream": "Purple Dream",
+      "pinkPassion": "Pink Passion",
+      "oceanBlue": "Ocean Blue",
+      "freshMint": "Fresh Mint"
+    },
+    "colorConverter": {
+      "name": "Color Converter",
+      "description": "Convert colors between HEX, RGB, HSL, and more formats. Perfect for cross-platform development.",
+      "heading": "Color Converter",
+      "subtitle": "Convert colors between different formats (HEX, RGB, HSL, HSV)",
+      "inputFormat": "Input Format",
+      "colorValue": "Color Value",
+      "preview": "Preview",
+      "quickSelect": "Quick Select",
+      "convertedFormats": "Converted Formats",
+      "enterValid": "Enter a valid color to see conversions",
+      "supportedFormats": "📋 Supported Formats",
+      "hexFormat": "HEX: #RRGGBB or #RGB",
+      "rgbFormat": "RGB: rgb(r, g, b) or rgba(r, g, b, a)",
+      "hslFormat": "HSL: hsl(h, s%, l%) or hsla(h, s%, l%, a)",
+      "hsvFormat": "HSV: hsv(h, s%, v%)",
+      "namesFormat": "Names: red, blue, etc.",
+      "quickTip": "💡 Quick Tip",
+      "quickTipText": "You can paste any valid color format, and it will automatically detect and convert it to all other formats. Try pasting CSS color values directly!"
+    },
+    "quickTips": "Quick Tips",
+    "tip1": "Use the Color Picker to find the perfect color for your project",
+    "tip2": "Save your favorite color combinations in Palettes for easy access",
+    "tip3": "Generate smooth gradients and copy CSS code directly to your clipboard",
+    "tip4": "Convert between different color formats with the Color Converter",
+    "copy": "Copy",
+    "copied": "Copied",
+    "layout": {
+      "title": "Free Color Palette Generator & Picker",
+      "subtitle": "Design color schemes and find any color code instantly",
+      "dashboard": "Dashboard",
+      "picker": "Picker",
+      "palettes": "Palettes",
+      "gradients": "Gradients",
+      "converter": "Converter"
+    }
+  },
+  "textTools": {
+    "welcome": "Welcome to Text Tools Hub",
+    "description": "Everything you need for typography, emojis, special characters, and JSON data processing in one place.",
+    "fontGenerator": {
+      "name": "Font Generator",
+      "description": "Generate stylized text with Unicode fonts. Create fancy text for social media, bios, and more. Copy and paste styled fonts instantly.",
+      "count": "15+",
+      "countLabel": "Font Styles"
+    },
+    "emojis": {
+      "name": "Emojis",
+      "description": "Browse thousands of emojis with device-specific rendering. Filter by category and see how emojis appear on Apple, Google, Microsoft, and Samsung devices.",
+      "count": "100+",
+      "countLabel": "Emojis"
+    },
+    "symbols": {
+      "name": "Symbols",
+      "description": "Explore special Unicode symbols and characters. Copy mathematical symbols, arrows, shapes, currency signs, and more for your projects.",
+      "count": "100+",
+      "countLabel": "Symbols"
+    },
+    "jsonValidatorCard": {
+      "name": "JSON Validator",
+      "description": "Validate and format JSON data with detailed error reporting. Perfect for debugging APIs, configuration files, and data validation.",
+      "count": "Free",
+      "countLabel": "Online Tool"
+    },
+    "jsonComparerCard": {
+      "name": "JSON Comparer",
+      "description": "Compare two JSON objects and visualize differences. Track added, removed, and modified fields with color-coded highlighting.",
+      "count": "Free",
+      "countLabel": "Compare Tool"
+    },
+    "jsonParserCard": {
+      "name": "JSON Parser",
+      "description": "Parse and explore JSON data with an interactive tree view. Navigate nested structures, view data types, and copy any value instantly.",
+      "count": "Free",
+      "countLabel": "Parser Tool"
+    },
+    "featuresOverview": "✨ Features Overview",
+    "fontTools": {
+      "title": "🔤 Font Tools",
+      "features": {
+        "livePreview": "Live font preview",
+        "pairings": "Font pairing suggestions",
+        "scales": "Typographic scales",
+        "styledText": "Unicode styled text"
+      }
+    },
+    "emojiBrowser": {
+      "title": "😀 Emoji Browser",
+      "features": {
+        "categoryFilters": "8 category filters",
+        "deviceRendering": "Device-specific rendering",
+        "platforms": "Apple, Google, Microsoft, Samsung",
+        "copyClipboard": "Copy to clipboard"
+      }
+    },
+    "specialSymbols": {
+      "title": "⚡ Special Symbols",
+      "features": {
+        "math": "Mathematical symbols",
+        "arrows": "Arrows & shapes",
+        "currency": "Currency & punctuation",
+        "search": "Quick search & copy"
+      }
+    },
+    "jsonValidatorFeatures": {
+      "title": "📋 JSON Validator",
+      "features": {
+        "validate": "Validate JSON syntax",
+        "format": "Format with indentation",
+        "errors": "Detailed error messages",
+        "stats": "Statistics & data info"
+      }
+    },
+    "jsonComparerFeatures": {
+      "title": "🔄 JSON Comparer",
+      "features": {
+        "compare": "Compare two JSON files",
+        "colorCoded": "Color-coded differences",
+        "track": "Track changes & modifications",
+        "nested": "Deep nested comparison"
+      }
+    },
+    "jsonParserFeatures": {
+      "title": "🔍 JSON Parser",
+      "features": {
+        "treeView": "Interactive tree view",
+        "dataTypes": "Data type indicators",
+        "navigate": "Navigate nested structures",
+        "copy": "Copy any value instantly"
+      }
+    },
+    "layout": {
+      "title": "Text Tools Hub",
+      "subtitle": "Fonts, Emojis, Symbols & JSON Processing Tools",
+      "fonts": "Fonts",
+      "emojis": "Emojis",
+      "symbols": "Symbols",
+      "jsonTools": "JSON Tools",
+      "dashboard": "Dashboard"
+    },
+    "emojiPage": {
+      "title": "Emoji Browser",
+      "subtitle": "Browse and copy emojis with device-specific rendering preview",
+      "searchPlaceholder": "Search emojis...",
+      "devicePreview": "Device Preview:",
+      "native": "Native",
+      "apple": "Apple",
+      "google": "Google",
+      "microsoft": "Microsoft",
+      "samsung": "Samsung",
+      "all": "All",
+      "smileys": "Smileys & People",
+      "animals": "Animals & Nature",
+      "food": "Food & Drink",
+      "travel": "Travel & Places",
+      "activities": "Activities",
+      "objects": "Objects",
+      "symbols": "Symbols",
+      "flags": "Flags",
+      "noResults": "No emojis found matching your search",
+      "tryDifferent": "Try a different search term or category",
+      "totalEmojis": "emojis found",
+      "clickToCopy": "Click to copy"
+    },
+    "symbolPage": {
+      "title": "Symbol Library",
+      "subtitle": "Browse and copy special Unicode symbols and characters for your projects",
+      "searchPlaceholder": "Search symbols...",
+      "all": "All",
+      "math": "Math",
+      "arrows": "Arrows",
+      "currency": "Currency",
+      "punctuation": "Punctuation",
+      "shapes": "Shapes",
+      "greek": "Greek",
+      "technical": "Technical",
+      "misc": "Miscellaneous",
+      "noResults": "No symbols found matching your search",
+      "tryDifferent": "Try a different search term or category",
+      "totalSymbols": "symbols found",
+      "clickToCopy": "Click to copy",
+      "copyButton": "Copy",
+      "copied": "Copied!"
+    },
+    "fontPage": {
+      "title": "Welcome to Font Tools",
+      "subtitle": "Explore typography tools to preview fonts, discover pairings, and generate scales for your designs.",
+      "fontPreview": {
+        "name": "Font Preview",
+        "description": "Interactive font playground with live preview. Test Google Fonts with custom text, sizes, weights, and styling options."
+      },
+      "fontPairings": {
+        "name": "Font Pairings",
+        "description": "Discover perfect font combinations for your projects. Browse curated pairings with use case recommendations."
+      },
+      "typographicScale": {
+        "name": "Typographic Scale",
+        "description": "Generate harmonious font size scales using musical ratios. Export CSS custom properties for your design system."
+      },
+      "quickTips": "Quick Tips",
+      "tips": {
+        "tip1": "Test fonts with your actual content to see how they work in context",
+        "tip2": "Use font pairings to create visual hierarchy in your designs",
+        "tip3": "Apply typographic scales for consistent spacing across your project"
+      }
+    },
+    "fontPreviewPage": {
+      "title": "Font Preview Playground",
+      "subtitle": "Test Google Fonts with live preview and customization options",
+      "selectFont": "Select Font",
+      "customText": "Custom Text",
+      "textPlaceholder": "Type your text here...",
+      "fontSize": "Font Size",
+      "fontWeight": "Weight",
+      "lineHeight": "Line Height",
+      "letterSpacing": "Letter Spacing",
+      "textTransform": "Text Transform",
+      "textAlign": "Text Align",
+      "textColor": "Text Color",
+      "bgColor": "Background Color",
+      "none": "None",
+      "uppercase": "UPPERCASE",
+      "lowercase": "lowercase",
+      "capitalize": "Capitalize",
+      "left": "Left",
+      "center": "Center",
+      "right": "Right",
+      "justify": "Justify",
+      "preview": "Preview",
+      "cssCode": "CSS Code",
+      "copyCSS": "Copy CSS",
+      "copied": "Copied!",
+      "reset": "Reset"
+    },
+    "fontPairingsPage": {
+      "title": "Font Pairings",
+      "subtitle": "Discover curated font combinations for your projects",
+      "allPairings": "All Pairings",
+      "copyCSS": "Copy CSS",
+      "copied": "Copied!",
+      "heading": "Heading",
+      "body": "Body",
+      "bestFor": "Best for"
+    },
+    "fontScalesPage": {
+      "title": "Typographic Scale Generator",
+      "subtitle": "Create harmonious font size systems using mathematical ratios",
+      "quickPresets": "Quick Presets",
+      "baseSize": "Base Size",
+      "ratio": "Ratio",
+      "steps": "Steps",
+      "includeBody": "Include body size variable",
+      "previewScale": "Preview Scale",
+      "cssVariables": "CSS Variables",
+      "copyCSS": "Copy CSS",
+      "copied": "Copied!",
+      "presets": {
+        "editorial": "Editorial",
+        "uiApp": "UI/App",
+        "displayMarketing": "Display/Marketing",
+        "compact": "Compact"
+      }
+    },
+    "jsonValidator": {
+      "title": "JSON Validator",
+      "subtitle": "Validate and format your JSON data with detailed error reporting",
+      "pasteJson": "Paste your JSON here...",
+      "validate": "Validate JSON",
+      "clear": "Clear",
+      "format": "Format",
+      "copy": "Copy",
+      "copied": "Copied!",
+      "indentation": "Indentation:",
+      "spaces": "spaces",
+      "validJson": "Valid JSON!",
+      "invalidJson": "Invalid JSON",
+      "errorAt": "Error at line",
+      "column": "column",
+      "pleaseEnter": "Please enter JSON to validate",
+      "stats": {
+        "title": "JSON Statistics",
+        "lines": "Lines",
+        "size": "Size",
+        "type": "Type"
+      },
+      "heroFeatures": {
+        "feature1": "Real-time Validation",
+        "feature2": "Error Highlighting",
+        "feature3": "Auto Format",
+        "feature4": "Free Forever"
+      },
+      "keyFeatures": {
+        "instantValidation": {
+          "title": "Instant Validation",
+          "description": "Get immediate feedback on your JSON syntax with real-time error detection."
+        },
+        "errorHighlighting": {
+          "title": "Error Highlighting",
+          "description": "See exactly where errors occur with line-by-line highlighting and detailed messages."
+        },
+        "autoFormatting": {
+          "title": "Auto Formatting",
+          "description": "Beautify your JSON with customizable indentation (2, 4, or 8 spaces)."
+        },
+        "statistics": {
+          "title": "Statistics",
+          "description": "View detailed stats including lines, size, type, and structure information."
+        }
+      },
+      "howToSteps": {
+        "step1": {
+          "title": "Paste JSON",
+          "description": "Copy your JSON data and paste it into the editor"
+        },
+        "step2": {
+          "title": "Click Validate",
+          "description": "Press the validate button to check syntax"
+        },
+        "step3": {
+          "title": "View Results",
+          "description": "See validation results and error details"
+        },
+        "step4": {
+          "title": "Copy Formatted",
+          "description": "Copy the beautified JSON with one click"
+        }
+      }
+    },
+    "jsonComparer": {
+      "title": "JSON Comparer",
+      "subtitle": "Compare two JSON objects and visualize differences",
+      "leftJson": "Left JSON",
+      "rightJson": "Right JSON",
+      "pasteFirst": "Paste first JSON here...",
+      "pasteSecond": "Paste second JSON here...",
+      "compare": "Compare JSON",
+      "clear": "Clear",
+      "swap": "Swap",
+      "showOnlyDiff": "Show only differences",
+      "identical": "JSON objects are identical",
+      "differencesFound": "differences found",
+      "pleaseEnterBoth": "Please enter JSON in both fields",
+      "diffTypes": {
+        "added": "Added",
+        "removed": "Removed",
+        "modified": "Modified",
+        "unchanged": "Unchanged"
+      },
+      "path": "Path",
+      "oldValue": "Old Value",
+      "newValue": "New Value",
+      "type": "Type",
+      "heroFeatures": {
+        "feature1": "Side-by-Side Compare",
+        "feature2": "Deep Comparison",
+        "feature3": "Color-Coded Diff",
+        "feature4": "Free Tool"
+      },
+      "keyFeatures": {
+        "deepComparison": {
+          "title": "Deep Comparison",
+          "description": "Compare complex nested JSON structures with accurate field-by-field analysis."
+        },
+        "visualDiff": {
+          "title": "Visual Differences",
+          "description": "See added, removed, and modified fields with color-coded highlighting."
+        },
+        "nestedSupport": {
+          "title": "Nested Support",
+          "description": "Handle deeply nested objects and arrays with path-based difference tracking."
+        },
+        "validationFirst": {
+          "title": "Validation First",
+          "description": "Automatically validates both JSON inputs before comparison with error highlighting."
+        }
+      },
+      "howToSteps": {
+        "step1": {
+          "title": "Paste First JSON",
+          "description": "Enter your original JSON in the left editor"
+        },
+        "step2": {
+          "title": "Paste Second JSON",
+          "description": "Enter the JSON to compare in the right editor"
+        },
+        "step3": {
+          "title": "Click Compare",
+          "description": "Press compare to see the differences"
+        },
+        "step4": {
+          "title": "Review Changes",
+          "description": "View color-coded differences and statistics"
+        }
+      }
+    },
+    "jsonParser": {
+      "title": "JSON Parser",
+      "subtitle": "Parse and explore JSON with an interactive tree view",
+      "pasteJson": "Paste your JSON here...",
+      "parse": "Parse JSON",
+      "clear": "Clear",
+      "expandAll": "Expand All",
+      "collapseAll": "Collapse All",
+      "copy": "Copy",
+      "copied": "Copied!",
+      "pleaseEnter": "Please enter JSON to parse",
+      "clickToCopy": "Click to copy value",
+      "stats": {
+        "title": "JSON Statistics",
+        "type": "Type",
+        "size": "Size",
+        "depth": "Max Depth",
+        "keys": "Keys",
+        "items": "Items"
+      },
+      "types": {
+        "string": "String",
+        "number": "Number",
+        "boolean": "Boolean",
+        "null": "Null",
+        "array": "Array",
+        "object": "Object"
+      },
+      "heroFeatures": {
+        "feature1": "Interactive Tree View",
+        "feature2": "Data Type Display",
+        "feature3": "Copy Any Value",
+        "feature4": "Free Tool"
+      },
+      "keyFeatures": {
+        "treeView": {
+          "title": "Interactive Tree View",
+          "description": "Navigate through complex JSON structures with an expandable/collapsible tree interface."
+        },
+        "dataTypes": {
+          "title": "Data Type Indicators",
+          "description": "Instantly see the type of each value with color-coded badges (string, number, boolean, etc.)."
+        },
+        "copyValues": {
+          "title": "Quick Copy",
+          "description": "Copy any value directly from the tree with a single click for easy reuse."
+        },
+        "statistics": {
+          "title": "JSON Statistics",
+          "description": "View comprehensive stats including depth, size, number of keys/items, and structure type."
+        }
+      },
+      "howToSteps": {
+        "step1": {
+          "title": "Paste JSON",
+          "description": "Enter your JSON data in the editor"
+        },
+        "step2": {
+          "title": "Click Parse",
+          "description": "Press parse to generate tree view"
+        },
+        "step3": {
+          "title": "Explore Structure",
+          "description": "Click arrows to expand/collapse nodes"
+        },
+        "step4": {
+          "title": "Copy Values",
+          "description": "Hover and click copy on any value"
+        }
+      }
     }
   }
 }

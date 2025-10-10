@@ -8,6 +8,7 @@ import JSONEditor from '@/components/JSONEditor';
 import JSONToolHero from '@/components/JSONToolHero';
 import JSONToolFeatures from '@/components/JSONToolFeatures';
 import JSONToolHowTo from '@/components/JSONToolHowTo';
+import { useTranslations } from 'next-intl';
 
 const metadata = {
   title: 'JSON Validator - Validate & Format JSON Online | ImageConvertors',
@@ -44,6 +45,7 @@ const metadata = {
 };
 
 export default function JsonValidatorPage() {
+  const t = useTranslations('textTools.jsonValidator');
   const [jsonInput, setJsonInput] = useState('');
   const [validationResult, setValidationResult] = useState<{
     isValid: boolean;
@@ -64,7 +66,7 @@ export default function JsonValidatorPage() {
     if (!jsonInput.trim()) {
       setValidationResult({
         isValid: false,
-        error: 'Please enter JSON to validate',
+        error: t('pleaseEnter'),
       });
       return;
     }
@@ -277,31 +279,31 @@ export default function JsonValidatorPage() {
     setJsonInput(JSON.stringify(example, null, 2));
   };
 
-  const heroFeatures = ['Real-time Validation', 'Error Highlighting', 'Auto Format', 'Free Forever'];
+  const heroFeatures = [t('heroFeatures.feature1'), t('heroFeatures.feature2'), t('heroFeatures.feature3'), t('heroFeatures.feature4')];
 
   const keyFeatures = [
     {
       icon: Zap,
-      title: 'Instant Validation',
-      description: 'Get immediate feedback on your JSON syntax with real-time error detection.',
+      title: t('keyFeatures.instantValidation.title'),
+      description: t('keyFeatures.instantValidation.description'),
       color: 'from-yellow-500 to-orange-500',
     },
     {
       icon: AlertCircle,
-      title: 'Error Highlighting',
-      description: 'See exactly where errors occur with line-by-line highlighting and detailed messages.',
+      title: t('keyFeatures.errorHighlighting.title'),
+      description: t('keyFeatures.errorHighlighting.description'),
       color: 'from-red-500 to-pink-500',
     },
     {
       icon: FileJson,
-      title: 'Auto Formatting',
-      description: 'Beautify your JSON with customizable indentation (2, 4, or 8 spaces).',
+      title: t('keyFeatures.autoFormatting.title'),
+      description: t('keyFeatures.autoFormatting.description'),
       color: 'from-blue-500 to-cyan-500',
     },
     {
       icon: BarChart3,
-      title: 'Statistics',
-      description: 'View detailed stats including lines, size, type, and structure information.',
+      title: t('keyFeatures.statistics.title'),
+      description: t('keyFeatures.statistics.description'),
       color: 'from-purple-500 to-pink-500',
     },
   ];
@@ -309,23 +311,23 @@ export default function JsonValidatorPage() {
   const howToSteps = [
     {
       number: 1,
-      title: 'Paste JSON',
-      description: 'Copy your JSON data and paste it into the editor',
+      title: t('howToSteps.step1.title'),
+      description: t('howToSteps.step1.description'),
     },
     {
       number: 2,
-      title: 'Click Validate',
-      description: 'Press the validate button to check syntax',
+      title: t('howToSteps.step2.title'),
+      description: t('howToSteps.step2.description'),
     },
     {
       number: 3,
-      title: 'View Results',
-      description: 'See validation results and error details',
+      title: t('howToSteps.step3.title'),
+      description: t('howToSteps.step3.description'),
     },
     {
       number: 4,
-      title: 'Copy Formatted',
-      description: 'Copy the beautified JSON with one click',
+      title: t('howToSteps.step4.title'),
+      description: t('howToSteps.step4.description'),
     },
   ];
 
@@ -335,22 +337,22 @@ export default function JsonValidatorPage() {
 
       {/* Working Area */}
       <div className="mb-6">
-        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">JSON Validator & Formatter</h2>
-        <p className="text-gray-600 dark:text-gray-400">Validate and format your JSON data with detailed error reporting</p>
+        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">{t('title')}</h2>
+        <p className="text-gray-600 dark:text-gray-400">{t('subtitle')}</p>
       </div>
 
       {/* Controls */}
       <div className="mb-4 flex flex-wrap items-center gap-3">
         <div className="flex items-center gap-2">
-          <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Indent:</label>
+          <label className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('indentation')}</label>
           <select
             value={indentSize}
             onChange={e => setIndentSize(Number(e.target.value))}
             className="px-3 py-1.5 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
           >
-            <option value={2}>2 spaces</option>
-            <option value={4}>4 spaces</option>
-            <option value={8}>8 spaces</option>
+            <option value={2}>2 {t('spaces')}</option>
+            <option value={4}>4 {t('spaces')}</option>
+            <option value={8}>8 {t('spaces')}</option>
           </select>
         </div>
         <button
@@ -367,23 +369,18 @@ export default function JsonValidatorPage() {
           <label className="text-sm font-semibold text-gray-900 dark:text-white">JSON Editor</label>
           <button onClick={handleClear} className="flex items-center gap-1 text-sm text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300">
             <Trash2 size={14} />
-            Clear
+            {t('clear')}
           </button>
         </div>
 
         {/* JSON Editor */}
-        <JSONEditor
-          value={jsonInput}
-          onChange={setJsonInput}
-          placeholder='Enter your JSON here... e.g., {"name": "John", "age": 30}'
-          errorLine={validationResult?.isValid === false ? validationResult.errorLine : undefined}
-        />
+        <JSONEditor value={jsonInput} onChange={setJsonInput} placeholder={t('pasteJson')} errorLine={validationResult?.isValid === false ? validationResult.errorLine : undefined} />
 
         <button
           onClick={validateJson}
           className="mt-3 w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl"
         >
-          Validate & Format JSON
+          {t('validate')}
         </button>
 
         {/* Validation Results Below */}
@@ -395,7 +392,7 @@ export default function JsonValidatorPage() {
                 <div className="flex items-center gap-3 px-6 py-4 rounded-lg bg-green-50 dark:bg-green-900/20 border-2 border-green-500">
                   <Check className="text-green-600 dark:text-green-400 flex-shrink-0" size={28} />
                   <div>
-                    <p className="font-bold text-lg text-green-900 dark:text-green-400">Valid JSON ✓</p>
+                    <p className="font-bold text-lg text-green-900 dark:text-green-400">{t('validJson')} ✓</p>
                     <p className="text-sm text-green-700 dark:text-green-500">Your JSON is properly formatted</p>
                   </div>
                 </div>
@@ -404,15 +401,15 @@ export default function JsonValidatorPage() {
                 {validationResult.stats && (
                   <div className="grid grid-cols-3 gap-4">
                     <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
-                      <p className="text-xs text-blue-600 dark:text-blue-400 font-medium">Lines</p>
+                      <p className="text-xs text-blue-600 dark:text-blue-400 font-medium">{t('stats.lines')}</p>
                       <p className="text-2xl font-bold text-blue-900 dark:text-blue-300">{validationResult.stats.lines}</p>
                     </div>
                     <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg border border-purple-200 dark:border-purple-800">
-                      <p className="text-xs text-purple-600 dark:text-purple-400 font-medium">Size</p>
+                      <p className="text-xs text-purple-600 dark:text-purple-400 font-medium">{t('stats.size')}</p>
                       <p className="text-2xl font-bold text-purple-900 dark:text-purple-300">{validationResult.stats.size}</p>
                     </div>
                     <div className="bg-pink-50 dark:bg-pink-900/20 p-4 rounded-lg border border-pink-200 dark:border-pink-800">
-                      <p className="text-xs text-pink-600 dark:text-pink-400 font-medium">Type</p>
+                      <p className="text-xs text-pink-600 dark:text-pink-400 font-medium">{t('stats.type')}</p>
                       <p className="text-lg font-bold text-pink-900 dark:text-pink-300">{validationResult.stats.type}</p>
                     </div>
                   </div>
@@ -422,17 +419,17 @@ export default function JsonValidatorPage() {
                 {validationResult.formatted && (
                   <div>
                     <div className="flex items-center justify-between mb-2">
-                      <label className="text-sm font-semibold text-gray-900 dark:text-white">Formatted JSON</label>
+                      <label className="text-sm font-semibold text-gray-900 dark:text-white">{t('format')}</label>
                       <button onClick={handleCopyFormatted} className="flex items-center gap-1 px-3 py-1.5 text-sm text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors">
                         {copied ? (
                           <>
                             <Check size={14} />
-                            Copied!
+                            {t('copied')}
                           </>
                         ) : (
                           <>
                             <Copy size={14} />
-                            Copy
+                            {t('copy')}
                           </>
                         )}
                       </button>
@@ -451,11 +448,15 @@ export default function JsonValidatorPage() {
                 <div className="flex items-start gap-3 px-6 py-4 rounded-lg bg-red-50 dark:bg-red-900/20 border-2 border-red-500">
                   <X className="text-red-600 dark:text-red-400 flex-shrink-0 mt-1" size={28} />
                   <div className="flex-1">
-                    <p className="font-bold text-lg text-red-900 dark:text-red-400 mb-3">Invalid JSON</p>
+                    <p className="font-bold text-lg text-red-900 dark:text-red-400 mb-3">{t('invalidJson')}</p>
                     <div className="bg-red-100 dark:bg-red-900/40 border-l-4 border-red-600 p-4 rounded">
                       <pre className="text-sm text-red-800 dark:text-red-200 font-mono whitespace-pre-wrap break-all">{validationResult.error}</pre>
                     </div>
-                    {validationResult.errorColumn && <p className="text-sm text-red-700 dark:text-red-400 mt-3 font-semibold">Column {validationResult.errorColumn}</p>}
+                    {validationResult.errorColumn && (
+                      <p className="text-sm text-red-700 dark:text-red-400 mt-3 font-semibold">
+                        {t('column')} {validationResult.errorColumn}
+                      </p>
+                    )}
                   </div>
                 </div>
               </>

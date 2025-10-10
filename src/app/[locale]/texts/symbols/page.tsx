@@ -5,61 +5,22 @@ import { DynamicMetadata } from '@/components/DynamicMetadata';
 import { symbolCategories, type SymbolCategory, searchSymbols } from '@/lib/symbolsData';
 import { copyToClipboard } from '@/lib/colorUtils';
 import { Search, Copy, Check } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 const metadata = {
   title: 'Symbol Library - 300+ Unicode Symbols & Special Characters | ImageConvertors',
   description:
     'Explore and copy over 300 special Unicode symbols and characters instantly. Browse mathematical symbols, arrows, currency signs, punctuation marks, geometric shapes, Greek letters, technical symbols, and more. One-click copy to clipboard for easy use in documents, websites, and projects.',
-  keywords: [
-    'unicode symbols',
-    'special characters',
-    'copy symbols',
-    'symbol library',
-    'unicode characters',
-    'symbol picker',
-    'mathematical symbols',
-    'math symbols',
-    'arrows symbols',
-    'arrow characters',
-    'currency symbols',
-    'currency signs',
-    'dollar sign',
-    'euro sign',
-    'pound sign',
-    'yen sign',
-    'punctuation marks',
-    'special punctuation',
-    'geometric shapes',
-    'shape symbols',
-    'circle symbols',
-    'square symbols',
-    'triangle symbols',
-    'star symbols',
-    'Greek letters',
-    'Greek alphabet',
-    'alpha beta gamma',
-    'technical symbols',
-    'keyboard symbols',
-    'copyright symbol',
-    'trademark symbol',
-    'degree symbol',
-    'infinity symbol',
-    'checkmark symbol',
-    'bullet points',
-    'symbol copy paste',
-    'unicode copy paste',
-    'special characters for documents',
-    'symbols for website',
-  ],
+  keywords: ['unicode symbols', 'special characters', 'copy symbols', 'symbol library', 'unicode characters', 'symbol picker', 'mathematical symbols', 'arrows symbols', 'currency symbols'],
   openGraph: {
     title: 'Symbol Library - 300+ Unicode Symbols & Special Characters | ImageConvertors',
-    description:
-      'Explore and copy over 300 special Unicode symbols and characters instantly. Browse mathematical symbols, arrows, currency signs, punctuation marks, geometric shapes, Greek letters, technical symbols, and more. One-click copy to clipboard for easy use in your projects.',
+    description: 'Explore and copy over 300 special Unicode symbols and characters instantly. Browse mathematical symbols, arrows, currency signs, and more.',
     images: ['/symbol.webp'],
   },
 };
 
 export default function SymbolsPage() {
+  const t = useTranslations('textTools.symbolPage');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<SymbolCategory>('All');
   const [copiedSymbol, setCopiedSymbol] = useState<string | null>(null);
@@ -72,13 +33,25 @@ export default function SymbolsPage() {
     setTimeout(() => setCopiedSymbol(null), 1500);
   };
 
+  const categoryLabels: Record<SymbolCategory, string> = {
+    All: t('all'),
+    Mathematics: t('math'),
+    Arrows: t('arrows'),
+    Currency: t('currency'),
+    Punctuation: t('punctuation'),
+    Shapes: t('shapes'),
+    'Greek Letters': t('greek'),
+    Technical: t('technical'),
+    Miscellaneous: t('misc'),
+  };
+
   return (
     <div>
       <DynamicMetadata title={metadata.title} description={metadata.description} keywords={metadata.keywords} openGraph={metadata.openGraph} />
 
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Symbol Library</h2>
-        <p className="text-gray-600 dark:text-gray-400">Browse and copy special Unicode symbols and characters for your projects</p>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{t('title')}</h2>
+        <p className="text-gray-600 dark:text-gray-400">{t('subtitle')}</p>
       </div>
 
       {/* Search and Filters */}
@@ -90,7 +63,7 @@ export default function SymbolsPage() {
             type="text"
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            placeholder="Search symbols..."
+            placeholder={t('searchPlaceholder')}
             className="w-full pl-9 pr-3 py-2 sm:py-3 text-sm sm:text-base rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
@@ -101,119 +74,48 @@ export default function SymbolsPage() {
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all ${
-                selectedCategory === category
-                  ? 'bg-purple-600 text-white shadow-lg shadow-purple-500/30'
-                  : 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600'
+              className={`px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-medium rounded-lg whitespace-nowrap transition-all ${
+                selectedCategory === category ? 'bg-blue-600 text-white shadow-md' : 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600'
               }`}
             >
-              {category}
+              {categoryLabels[category]}
             </button>
           ))}
         </div>
-      </div>
-
-      {/* Results Count */}
-      <div className="mb-4">
-        <p className="text-sm text-gray-600 dark:text-gray-400">
-          Showing <span className="font-semibold text-gray-900 dark:text-white">{filteredSymbols.length}</span> symbol{filteredSymbols.length !== 1 ? 's' : ''}
-        </p>
       </div>
 
       {/* Symbols Grid */}
       {filteredSymbols.length > 0 ? (
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-3">
-          {filteredSymbols.map((item, index) => (
-            <button
-              key={`${item.symbol}-${index}`}
-              onClick={() => handleCopySymbol(item.symbol)}
-              className="relative group bg-white dark:bg-gray-700 rounded-lg p-3 sm:p-6 border-2 border-gray-200 dark:border-gray-600 hover:border-purple-500 dark:hover:border-purple-400 transition-all hover:scale-105 hover:shadow-xl"
-              title={`${item.name} - Click to copy`}
-            >
-              {/* Symbol Display */}
-              <div className="text-4xl sm:text-5xl text-center mb-2 sm:mb-3 text-gray-800 dark:text-gray-100 font-mono">{item.symbol}</div>
-
-              {/* Symbol Info */}
-              <div className="text-center">
-                <p className="text-[10px] sm:text-xs font-semibold text-gray-900 dark:text-white truncate">{item.name}</p>
-                <p className="text-[9px] sm:text-xs text-gray-500 dark:text-gray-400 mt-0.5 sm:mt-1">{item.unicode}</p>
-              </div>
-
-              {/* Copy Button (on hover) */}
-              <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                <div className="bg-purple-600 text-white p-1.5 rounded-full">
-                  <Copy size={14} />
-                </div>
-              </div>
-
-              {/* Copy Indicator */}
-              {copiedSymbol === item.symbol && (
-                <div className="absolute inset-0 flex items-center justify-center bg-green-500/90 rounded-lg">
-                  <div className="flex flex-col items-center gap-1 text-white">
-                    <Check size={28} />
-                    <span className="text-sm font-semibold">Copied!</span>
+        <div>
+          <div className="mb-3 text-sm text-gray-600 dark:text-gray-400">
+            {filteredSymbols.length} {t('totalSymbols')}
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 sm:gap-3">
+            {filteredSymbols.map((item, index) => (
+              <button
+                key={index}
+                onClick={() => handleCopySymbol(item.symbol)}
+                className="group relative p-3 sm:p-4 rounded-lg border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-blue-500 hover:shadow-lg transition-all duration-200"
+                title={`${item.name} - ${t('clickToCopy')}`}
+              >
+                <div className="flex flex-col items-center gap-2">
+                  <span className="text-3xl sm:text-4xl select-none">{item.symbol}</span>
+                  <span className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 text-center line-clamp-2">{item.name}</span>
+                  <div className="absolute top-1.5 right-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                    {copiedSymbol === item.symbol ? <Check className="text-green-500" size={16} /> : <Copy className="text-gray-400" size={16} />}
                   </div>
                 </div>
-              )}
-            </button>
-          ))}
-        </div>
-      ) : (
-        <div className="text-center py-16">
-          <div className="text-6xl mb-4">🔍</div>
-          <p className="text-xl text-gray-600 dark:text-gray-400">No symbols found</p>
-          <p className="text-sm text-gray-500 dark:text-gray-500 mt-2">Try adjusting your search or filter</p>
-        </div>
-      )}
-
-      {/* Category Overview */}
-      <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="p-6 rounded-xl bg-gradient-to-r from-purple-50 to-pink-50 dark:from-gray-700 dark:to-gray-600 border border-purple-100 dark:border-gray-600">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">⚡ Quick Guide</h3>
-          <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
-            <li className="flex items-start gap-2">
-              <span className="text-purple-600 dark:text-purple-400 font-bold">•</span>
-              <span>Click any symbol to copy it instantly to your clipboard</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-pink-600 dark:text-pink-400 font-bold">•</span>
-              <span>Search by symbol name or keyword for quick access</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-purple-600 dark:text-purple-400 font-bold">•</span>
-              <span>Use category filters to browse specific symbol types</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-pink-600 dark:text-pink-400 font-bold">•</span>
-              <span>Unicode values are displayed for reference</span>
-            </li>
-          </ul>
-        </div>
-
-        <div className="p-6 rounded-xl bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-gray-700 dark:to-gray-600 border border-blue-100 dark:border-gray-600">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">📚 Symbol Categories</h3>
-          <div className="grid grid-cols-2 gap-2 text-sm text-gray-700 dark:text-gray-300">
-            <div>
-              <span className="font-semibold text-blue-600 dark:text-blue-400">Mathematics:</span> ±, ∞, √, ∑
-            </div>
-            <div>
-              <span className="font-semibold text-cyan-600 dark:text-cyan-400">Arrows:</span> ←, →, ↑, ↓
-            </div>
-            <div>
-              <span className="font-semibold text-blue-600 dark:text-blue-400">Currency:</span> $, €, £, ¥
-            </div>
-            <div>
-              <span className="font-semibold text-cyan-600 dark:text-cyan-400">Shapes:</span> ■, ●, ▲, ★
-            </div>
-            <div>
-              <span className="font-semibold text-blue-600 dark:text-blue-400">Punctuation:</span> •, ©, ®, ™
-            </div>
-            <div>
-              <span className="font-semibold text-cyan-600 dark:text-cyan-400">Misc:</span> ✓, ✗, ☐, ☑
-            </div>
+                {copiedSymbol === item.symbol && <div className="absolute bottom-1.5 left-1/2 transform -translate-x-1/2 bg-green-500 text-white text-[10px] px-1.5 py-0.5 rounded">{t('copied')}</div>}
+              </button>
+            ))}
           </div>
         </div>
-      </div>
+      ) : (
+        <div className="text-center py-16 bg-gray-50 dark:bg-gray-900 rounded-lg">
+          <p className="text-gray-500 dark:text-gray-400 text-lg mb-2">{t('noResults')}</p>
+          <p className="text-gray-400 dark:text-gray-500 text-sm">{t('tryDifferent')}</p>
+        </div>
+      )}
     </div>
   );
 }
