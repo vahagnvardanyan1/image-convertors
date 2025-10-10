@@ -2,9 +2,9 @@ import { Hero } from '@/components/Hero';
 import { FormatGrid } from '@/components/FormatGrid';
 import { HowTo } from '@/components/HowTo';
 import { Features } from '@/components/Features';
-import { BannerBlocks } from '@/components/BannerBlock';
+import { BannerBlock } from '@/components/BannerBlock';
 import { FAQ } from '@/components/FAQ';
-import ToolsPreview from '@/components/ToolsPreview';
+import { ToolsPreview } from '@/components/ToolsPreview';
 import { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { localeMap } from '@/i18n/config';
@@ -71,7 +71,7 @@ export default function HomePage() {
       <HowTo />
       <ToolsPreview />
       <Features />
-      <BannerBlocks />
+      <BannerBlock />
       <FAQ />
     </>
   );

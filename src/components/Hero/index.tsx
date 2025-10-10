@@ -1,8 +1,10 @@
 'use client';
+
 import Image from 'next/image';
 import { Upload, ArrowRight } from 'lucide-react';
-import { Button } from '../ui/button';
 import { useTranslations } from 'next-intl';
+import { Container, Section, Heading, Text, Stack, Badge, GradientButton, Button, GradientText } from '@/components/ui';
+import { POPULAR_CONVERSIONS } from '@/types';
 
 export function Hero() {
   const t = useTranslations('hero');
@@ -15,65 +17,63 @@ export function Hero() {
     }
   };
 
+  const scrollToHowTo = () => {
+    const element = document.getElementById('how-to');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const popularFormats = ['PNG', 'JPG', 'WebP', 'PDF'];
+
   return (
-    <section className="relative bg-gradient-to-br from-blue-50 via-white to-purple-50 py-16 lg:py-24 overflow-hidden">
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <Section padding="xl" background="accent" className="relative overflow-hidden">
+      <Container size="xl">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
-          <div className="text-center lg:text-left">
-            <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6">
-              {t('title')}
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"> {t('titleHighlight')}</span>
-            </h1>
+          <Stack spacing={6} className="text-center lg:text-left">
+            <Heading level="h1" as="h1">
+              {t('title')} <GradientText gradient="primary">{t('titleHighlight')}</GradientText>
+            </Heading>
 
-            <p className="text-lg lg:text-xl text-gray-600 mb-6 max-w-xl">{t('description')}</p>
+            <Text size="lg" color="muted" className="max-w-xl lg:text-xl">
+              {t('description')}
+            </Text>
 
-            <div className="mb-8">
-              <p className="text-gray-700 mb-2">{t('popularConversions')}</p>
-              <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
-                {['PNG → WebP', 'JPG → PNG', 'WebP → PNG', 'JPG → WebP', 'PNG → JPG', 'WebP → JPG'].map(format => (
-                  <span key={format} className="px-3 py-1 bg-white rounded-full text-sm text-gray-600 shadow-sm border">
-                    {format}
-                  </span>
+            <Stack spacing={3}>
+              <Text weight="medium" className="text-gray-700 dark:text-gray-300">
+                {t('popularConversions')}
+              </Text>
+              <Stack direction="row" spacing={2} wrap className="justify-center lg:justify-start">
+                {POPULAR_CONVERSIONS.slice(0, 6).map(format => (
+                  <Badge key={format.label} variant="outline" size="md">
+                    {format.label}
+                  </Badge>
                 ))}
-              </div>
-            </div>
+              </Stack>
+            </Stack>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <Button
-                size="lg"
-                onClick={scrollToConverter}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
-              >
-                <Upload className="mr-2" size={20} />
+            <Stack direction="row" spacing={4} wrap className="justify-center lg:justify-start">
+              <GradientButton size="lg" onClick={scrollToConverter}>
+                <Upload size={20} />
                 {tCommon('uploadYourImage')}
-              </Button>
+              </GradientButton>
 
-              <Button
-                variant="outline"
-                size="lg"
-                onClick={() => {
-                  const element = document.getElementById('how-to');
-                  if (element) element.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className="px-8 py-4 rounded-xl border-2 hover:bg-gray-50"
-              >
+              <Button variant="outline" size="lg" onClick={scrollToHowTo} className="rounded-xl border-2">
                 {tCommon('learnHow')}
-                <ArrowRight className="ml-2" size={20} />
+                <ArrowRight size={20} />
               </Button>
-            </div>
+            </Stack>
 
-            <div className="mt-8 text-sm text-gray-500">
-              <p>
-                ✓ {t('features.noRegistration')} • ✓ {t('features.browserBased')} • ✓ {t('features.secure')}
-              </p>
-            </div>
-          </div>
+            <Text size="sm" color="muted">
+              ✓ {t('features.noRegistration')} • ✓ {t('features.browserBased')} • ✓ {t('features.secure')}
+            </Text>
+          </Stack>
 
           {/* Visual Element */}
           <div className="flex justify-center mt-12 lg:mt-0">
             <div className="relative w-full max-w-xl pb-20">
-              <div className="relative rounded-[32px] overflow-hidden shadow-2xl ring-1 ring-blue-200/60">
+              <div className="relative rounded-[32px] overflow-hidden shadow-2xl ring-1 ring-blue-200/60 dark:ring-blue-800/60">
                 <Image
                   src="/person-with-laptop.webp"
                   alt="Designer converting images on a laptop"
@@ -83,34 +83,40 @@ export function Hero() {
                   priority
                   sizes="(max-width: 1280px) 70vw, 480px"
                 />
-                <div className="absolute inset-0 bg-gradient-to-tr from-white/70 via-white/10 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-tr from-white/70 via-white/10 to-transparent dark:from-black/70 dark:via-black/10" />
               </div>
 
               <div className="absolute left-1/2 -bottom-12 w-full max-w-md -translate-x-1/2">
-                <div className="bg-white/95 backdrop-blur-md rounded-2xl shadow-xl border border-blue-100/60 p-6">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-blue-500 mb-3">{t('popularConversions')}</p>
+                <div className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-md rounded-2xl shadow-xl border border-blue-100/60 dark:border-blue-800/60 p-6">
+                  <Text size="xs" weight="semibold" className="uppercase tracking-wider text-blue-500 dark:text-blue-400 mb-3">
+                    {t('popularConversions')}
+                  </Text>
+
                   <div className="grid grid-cols-2 gap-3 mb-4">
-                    {[
-                      { label: 'PNG', color: 'text-blue-600' },
-                      { label: 'JPG', color: 'text-purple-600' },
-                      { label: 'WebP', color: 'text-green-600' },
-                      { label: 'PDF', color: 'text-red-500' },
-                    ].map(format => (
-                      <div key={format.label} className="bg-white rounded-xl p-4 shadow-md border border-gray-100 flex items-center justify-center">
-                        <span className={`text-2xl font-bold ${format.color}`}>{format.label}</span>
-                      </div>
-                    ))}
+                    {popularFormats.map((format, index) => {
+                      const colors = ['text-blue-600', 'text-purple-600', 'text-green-600', 'text-red-500'];
+                      return (
+                        <div key={format} className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-md border border-gray-100 dark:border-gray-700 flex items-center justify-center">
+                          <Text size="2xl" weight="bold" className={colors[index]}>
+                            {format}
+                          </Text>
+                        </div>
+                      );
+                    })}
                   </div>
-                  <div className="flex items-center justify-center gap-2 text-gray-500 text-sm">
-                    <ArrowRight className="text-blue-500" size={20} />
-                    <span>{t('instantConversions')}</span>
-                  </div>
+
+                  <Stack direction="row" spacing={2} align="center" justify="center">
+                    <ArrowRight className="text-blue-500 dark:text-blue-400" size={20} />
+                    <Text size="sm" color="muted">
+                      {t('instantConversions')}
+                    </Text>
+                  </Stack>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }

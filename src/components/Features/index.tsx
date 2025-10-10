@@ -1,75 +1,75 @@
 'use client';
+
 import { Zap, Shield, FileImage, Heart } from 'lucide-react';
-import { Card } from '../Card';
 import { useTranslations } from 'next-intl';
+import { Container, Section, Heading, Text, Stack, Card, IconBox, GradientBox } from '@/components/ui';
 
 export function Features() {
   const t = useTranslations('features');
 
   const features = [
-    {
-      icon: Zap,
-      title: t('lightningFast'),
-      description: t('lightningFastDesc'),
-    },
-    {
-      icon: Shield,
-      title: t('completelySecure'),
-      description: t('completelySecureDesc'),
-    },
-    {
-      icon: FileImage,
-      title: t('multipleFormats'),
-      description: t('multipleFormatsDesc'),
-    },
-    {
-      icon: Heart,
-      title: t('free'),
-      description: t('freeDesc'),
-    },
+    { icon: Zap, title: t('lightningFast'), description: t('lightningFastDesc') },
+    { icon: Shield, title: t('completelySecure'), description: t('completelySecureDesc') },
+    { icon: FileImage, title: t('multipleFormats'), description: t('multipleFormatsDesc') },
+    { icon: Heart, title: t('free'), description: t('freeDesc') },
+  ];
+
+  const stats = [
+    { value: '1M+', label: t('imagesConverted') },
+    { value: '15+', label: t('supportedFormats') },
+    { value: '99.9%', label: t('uptime') },
   ];
 
   return (
-    <section className="bg-white py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('title')}</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">{t('description')}</p>
-        </div>
+    <Section background="none" padding="lg">
+      <Container size="xl">
+        <Stack spacing={12}>
+          {/* Header */}
+          <Stack spacing={4} align="center" className="text-center">
+            <Heading level="h2" as="h2">
+              {t('title')}
+            </Heading>
+            <Text size="lg" color="muted" className="max-w-2xl">
+              {t('description')}
+            </Text>
+          </Stack>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {features.map((feature, index) => {
-            const IconComponent = feature.icon;
-            return (
+          {/* Features Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {features.map((feature, index) => (
               <Card key={index} className="p-6 text-center border-0 shadow-lg hover:shadow-xl transition-shadow duration-200 rounded-2xl">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl mb-4">
-                  <IconComponent className="text-white" size={32} />
-                </div>
-                <h3 className="font-bold text-gray-900 mb-2">{feature.title}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">{feature.description}</p>
+                <Stack spacing={4} align="center">
+                  <IconBox icon={feature.icon} size="xl" variant="gradient" rounded="2xl" />
+                  <Stack spacing={2} align="center">
+                    <Heading level="h5" weight="bold" align="center">
+                      {feature.title}
+                    </Heading>
+                    <Text size="sm" color="muted" align="center" className="leading-relaxed">
+                      {feature.description}
+                    </Text>
+                  </Stack>
+                </Stack>
               </Card>
-            );
-          })}
-        </div>
-
-        {/* Stats Section */}
-        <div className="mt-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            <div>
-              <div className="text-3xl font-bold mb-2">1M+</div>
-              <div className="text-blue-100">{t('imagesConverted')}</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold mb-2">15+</div>
-              <div className="text-blue-100">{t('supportedFormats')}</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold mb-2">99.9%</div>
-              <div className="text-blue-100">{t('uptime')}</div>
-            </div>
+            ))}
           </div>
-        </div>
-      </div>
-    </section>
+
+          {/* Stats Section */}
+          <GradientBox gradient="primary" rounded="2xl" padding="lg">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+              {stats.map((stat, index) => (
+                <Stack key={index} spacing={2} align="center">
+                  <Text size="2xl" weight="bold" color="inverse">
+                    {stat.value}
+                  </Text>
+                  <Text size="base" className="text-blue-100 dark:text-blue-200">
+                    {stat.label}
+                  </Text>
+                </Stack>
+              ))}
+            </div>
+          </GradientBox>
+        </Stack>
+      </Container>
+    </Section>
   );
 }
