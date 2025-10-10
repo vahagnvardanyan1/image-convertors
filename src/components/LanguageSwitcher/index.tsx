@@ -5,6 +5,7 @@ import { usePathname, useRouter } from '@/i18n/routing';
 import { locales, localeNames, type Locale } from '@/i18n/config';
 import { Globe } from 'lucide-react';
 import { useParams } from 'next/navigation';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/Select';
 
 export function LanguageSwitcher() {
   const locale = useLocale();
@@ -23,16 +24,19 @@ export function LanguageSwitcher() {
 
   return (
     <div className="relative inline-block">
-      <div className="flex items-center gap-2 rounded-lg bg-white px-3 py-2 shadow-sm border border-gray-200">
-        <Globe className="h-4 w-4 text-gray-600" />
-        <select value={locale} onChange={e => handleLanguageChange(e.target.value as Locale)} className="bg-transparent border-none outline-none cursor-pointer text-sm font-medium text-gray-700">
+      <Select value={locale} onValueChange={handleLanguageChange}>
+        <SelectTrigger aria-label="Select language" size="sm" className="w-auto gap-2 bg-white text-gray-700 shadow-sm border border-gray-200 font-medium">
+          <Globe className="h-4 w-4 text-gray-600" />
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
           {locales.map(loc => (
-            <option key={loc} value={loc}>
+            <SelectItem key={loc} value={loc}>
               {localeNames[loc]}
-            </option>
+            </SelectItem>
           ))}
-        </select>
-      </div>
+        </SelectContent>
+      </Select>
     </div>
   );
 }
