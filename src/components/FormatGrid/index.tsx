@@ -349,13 +349,19 @@ export function FormatGrid() {
           )}
 
           <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600 transition-all duration-200">
+            <div className="flex items-center space-x-3 min-w-0">
+              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600 transition-all duration-200 shrink-0">
                 <IconComponent className="text-gray-600 group-hover:text-white" size={20} />
               </div>
-              <div className="text-left">
-                <div className="font-bold text-gray-900">
-                  {converter.from} → {converter.to}
+              <div className="text-left min-w-0">
+                <div className="flex items-center gap-1 font-bold text-gray-900 text-sm sm:text-base min-w-0">
+                  <span className="truncate max-w-[6.5rem] sm:max-w-[8rem]" title={converter.from}>
+                    {converter.from}
+                  </span>
+                  <span className="text-gray-400">→</span>
+                  <span className="truncate max-w-[6.5rem] sm:max-w-[8rem]" title={converter.to}>
+                    {converter.to}
+                  </span>
                 </div>
               </div>
             </div>
@@ -364,13 +370,17 @@ export function FormatGrid() {
 
           <p className="text-gray-600 text-sm leading-relaxed mb-4">{converter.description}</p>
 
-          <div className="flex items-center justify-between">
-            <div className="flex space-x-2">
-              <span className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs">{converter.from}</span>
-              <ArrowRight size={12} className="text-gray-400 mt-1" />
-              <span className="px-2 py-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded text-xs">{converter.to}</span>
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center space-x-2 min-w-0">
+              <span className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs truncate max-w-[6rem] sm:max-w-[7rem]" title={converter.from}>
+                {converter.from}
+              </span>
+              <ArrowRight size={12} className="text-gray-400 shrink-0" />
+              <span className="px-2 py-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded text-xs truncate max-w-[6rem] sm:max-w-[7rem]" title={converter.to}>
+                {converter.to}
+              </span>
             </div>
-            <span className="text-xs text-gray-500">{tCommon('clickToConvert')}</span>
+            <span className="text-xs text-gray-500 shrink-0">{tCommon('clickToConvert')}</span>
           </div>
         </Card>
       </Link>
