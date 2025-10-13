@@ -128,6 +128,11 @@ export function Footer() {
                   {t('qrCodeGenerator')}
                 </Link>
               </li>
+              <li>
+                <Link href="/chart-generator" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  {t('chartGenerator')}
+                </Link>
+              </li>
             </ul>
           </div>
 

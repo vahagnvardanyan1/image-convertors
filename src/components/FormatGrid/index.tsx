@@ -22,6 +22,7 @@ import {
   Maximize2,
   QrCode,
   Wand2,
+  BarChart3,
 } from 'lucide-react';
 import Link from 'next/link';
 import { Card } from '../Card';
@@ -237,6 +238,15 @@ export function FormatGrid() {
       route: '/qr-code-generator',
       icon: QrCode,
       description: tTools('qrCodeGeneratorDesc'),
+      popular: true,
+      category: 'image',
+    },
+    {
+      from: 'Chart',
+      to: 'Generator',
+      route: '/chart-generator',
+      icon: BarChart3,
+      description: tTools('chartGeneratorDesc'),
       popular: true,
       category: 'image',
     },

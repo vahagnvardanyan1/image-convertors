@@ -70,6 +70,7 @@ export function Header() {
     { name: t('resizeImage'), href: '/resize-image', popular: true },
     { name: t('imageAnalyzer'), href: '/analyze', popular: true },
     { name: t('qrCodeGenerator'), href: '/qr-code-generator', popular: true },
+    { name: t('chartGenerator'), href: '/chart-generator', popular: true },
   ];
 
   const imageConverters = [
@@ -149,6 +150,7 @@ export function Header() {
     { name: t('jsonValidatorGuide'), href: '/blog/json-validator-guide', popular: false },
     { name: t('jsonComparerGuide'), href: '/blog/json-comparer-guide', popular: false },
     { name: t('jsonParserGuide'), href: '/blog/json-parser-guide', popular: false },
+    { name: t('chartGeneratorGuide'), href: '/blog/chart-generator-guide', popular: false },
   ];
 
   return (
