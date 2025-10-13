@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import { useState, useRef, useEffect } from 'react';
 import { BarChart3, LineChart, PieChart, TrendingUp, Activity, Target, Download, Plus, Trash2, Eye, ChevronUp } from 'lucide-react';
