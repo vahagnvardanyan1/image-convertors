@@ -12,11 +12,21 @@ export function StructuredData() {
   const howToData = generateHowToStructuredData(pathname);
 
   // Organization schema - appears on all pages
+  // Enhanced with logo information for Google Search results
   const organizationSchema = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
+    name: 'ImageConvertors',
+    alternateName: 'Image Converter',
     url: 'https://imageconvertors.com',
-    logo: 'https://imageconvertors.com/logo.png',
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://imageconvertors.com/logo.png',
+      width: 512,
+      height: 512,
+      caption: 'ImageConvertors Logo',
+    },
+    sameAs: ['https://imageconvertors.com'],
   };
 
   return (
