@@ -426,8 +426,8 @@ export default function JsonValidatorPage() {
                         <Check className="text-green-600 dark:text-green-400" size={18} />
                         {t('format')}
                       </label>
-                      <button 
-                        onClick={handleCopyFormatted} 
+                      <button
+                        onClick={handleCopyFormatted}
                         className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-white bg-green-600 hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600 rounded-lg transition-colors shadow-sm"
                       >
                         {copied ? (
