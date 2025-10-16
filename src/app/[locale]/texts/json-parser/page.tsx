@@ -3,7 +3,7 @@
 
 import { JSX, useState } from 'react';
 import { DynamicMetadata } from '@/components/DynamicMetadata';
-import { Check, X, ChevronRight, ChevronDown, Copy, Trash2, FileSearch, TreeDeciduous, Info, MousePointer } from 'lucide-react';
+import { Check, X, ChevronRight, ChevronDown, Copy, Trash2, FileSearch, TreeDeciduous, Info, MousePointer, Maximize2, Minimize2 } from 'lucide-react';
 import { copyToClipboard } from '@/lib/colorUtils';
 import JSONEditor from '@/components/JSONEditor';
 import JSONToolHero from '@/components/JSONToolHero';
@@ -223,6 +223,44 @@ export default function JsonParserPage() {
     setJsonInput(JSON.stringify(example, null, 2));
   };
 
+  const getAllPaths = (obj: any, currentPath = 'root'): string[] => {
+    const paths: string[] = [currentPath];
+
+    if (obj !== null && typeof obj === 'object') {
+      if (Array.isArray(obj)) {
+        obj.forEach((_, index) => {
+          paths.push(...getAllPaths(obj[index], `${currentPath}[${index}]`));
+        });
+      } else {
+        Object.keys(obj).forEach(key => {
+          paths.push(...getAllPaths(obj[key], `${currentPath}.${key}`));
+        });
+      }
+    }
+
+    return paths;
+  };
+
+  const expandAll = () => {
+    if (!parseResult?.parsed) return;
+    const allPaths = getAllPaths(parseResult.parsed);
+    setExpandedPaths(new Set(allPaths));
+  };
+
+  const collapseAll = () => {
+    setExpandedPaths(new Set());
+  };
+
+  const expandToLevel = (level: number) => {
+    if (!parseResult?.parsed) return;
+    const allPaths = getAllPaths(parseResult.parsed);
+    const pathsAtLevel = allPaths.filter(path => {
+      const depth = (path.match(/\./g) || []).length + (path.match(/\[/g) || []).length;
+      return depth <= level;
+    });
+    setExpandedPaths(new Set(pathsAtLevel));
+  };
+
   const renderValue = (value: any, path: string, key?: string | number): JSX.Element => {
     const isExpanded = expandedPaths.has(path);
 
@@ -379,26 +417,62 @@ export default function JsonParserPage() {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {/* Tree Controls - Show when parsed */}
+      {parseResult?.isValid && parseResult?.parsed && (
+        <div className="mb-4 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-lg p-3 border border-green-200 dark:border-green-800">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-sm font-semibold text-gray-700 dark:text-gray-300 mr-2">Tree Controls:</span>
+            <button onClick={expandAll} className="flex items-center gap-1.5 px-3 py-1.5 text-sm bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors">
+              <Maximize2 size={14} />
+              Expand All
+            </button>
+            <button onClick={collapseAll} className="flex items-center gap-1.5 px-3 py-1.5 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
+              <Minimize2 size={14} />
+              Collapse All
+            </button>
+            <div className="flex items-center gap-1.5">
+              <span className="text-sm text-gray-600 dark:text-gray-400">Expand to:</span>
+              {[1, 2, 3].map(level => (
+                <button
+                  key={level}
+                  onClick={() => expandToLevel(level)}
+                  className="px-2.5 py-1 text-sm bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 rounded border border-gray-300 dark:border-gray-600 transition-colors"
+                >
+                  L{level}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
         {/* Input Section */}
-        <div>
-          <div className="flex items-center justify-between mb-2">
-            <label className="text-sm font-semibold text-gray-900 dark:text-white">Input JSON</label>
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
+            <label className="text-sm font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+              <FileSearch size={18} />
+              Input JSON
+            </label>
           </div>
 
           <JSONEditor value={jsonInput} onChange={setJsonInput} placeholder={t('pasteJson')} errorLine={parseResult?.isValid === false ? parseResult.errorLine : undefined} />
 
           <button
             onClick={parseJson}
-            className="mt-3 w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl"
+            className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
           >
+            <FileSearch size={18} />
             {t('parse')}
           </button>
         </div>
 
         {/* Result Section */}
-        <div>
-          <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Parsed Structure</label>
+        <div className="space-y-2">
+          <label className="flex items-center gap-2 text-sm font-semibold text-gray-900 dark:text-white">
+            <TreeDeciduous size={18} />
+            Parsed Structure
+          </label>
 
           {parseResult ? (
             <div className="space-y-4">
@@ -436,9 +510,15 @@ export default function JsonParserPage() {
                   )}
 
                   {/* Tree View */}
-                  <div className="bg-white dark:bg-gray-800 rounded-lg border-2 border-gray-200 dark:border-gray-700 p-4 max-h-96 overflow-auto">
-                    <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-3">Structure Tree</h3>
-                    {renderValue(parseResult.parsed, 'root')}
+                  <div className="bg-white dark:bg-gray-800 rounded-lg border-2 border-blue-200 dark:border-blue-700 overflow-hidden">
+                    <div className="bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 px-4 py-3 border-b border-blue-200 dark:border-blue-700">
+                      <h3 className="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                        <TreeDeciduous size={18} className="text-blue-600 dark:text-blue-400" />
+                        Structure Tree
+                        <span className="ml-auto text-xs font-normal text-gray-600 dark:text-gray-400">Click to expand/collapse</span>
+                      </h3>
+                    </div>
+                    <div className="p-4 max-h-96 overflow-auto bg-gray-50 dark:bg-gray-900/50">{renderValue(parseResult.parsed, 'root')}</div>
                   </div>
                 </>
               ) : (

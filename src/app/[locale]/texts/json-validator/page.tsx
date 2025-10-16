@@ -364,10 +364,13 @@ export default function JsonValidatorPage() {
       </div>
 
       {/* Single Editor Section */}
-      <div className="max-w-5xl mx-auto">
-        <div className="flex items-center justify-between mb-2">
-          <label className="text-sm font-semibold text-gray-900 dark:text-white">JSON Editor</label>
-          <button onClick={handleClear} className="flex items-center gap-1 text-sm text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300">
+      <div className="max-w-6xl mx-auto space-y-2">
+        <div className="flex items-center justify-between">
+          <label className="text-sm font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+            <FileJson size={18} />
+            JSON Editor
+          </label>
+          <button onClick={handleClear} className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors">
             <Trash2 size={14} />
             {t('clear')}
           </button>
@@ -417,10 +420,16 @@ export default function JsonValidatorPage() {
 
                 {/* Formatted Output */}
                 {validationResult.formatted && (
-                  <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <label className="text-sm font-semibold text-gray-900 dark:text-white">{t('format')}</label>
-                      <button onClick={handleCopyFormatted} className="flex items-center gap-1 px-3 py-1.5 text-sm text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors">
+                  <div className="bg-white dark:bg-gray-800 rounded-lg border-2 border-green-300 dark:border-green-700 overflow-hidden">
+                    <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 px-4 sm:px-6 py-3 border-b border-green-200 dark:border-green-800 flex items-center justify-between">
+                      <label className="text-sm font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+                        <Check className="text-green-600 dark:text-green-400" size={18} />
+                        {t('format')}
+                      </label>
+                      <button 
+                        onClick={handleCopyFormatted} 
+                        className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-white bg-green-600 hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600 rounded-lg transition-colors shadow-sm"
+                      >
                         {copied ? (
                           <>
                             <Check size={14} />
@@ -435,7 +444,7 @@ export default function JsonValidatorPage() {
                       </button>
                     </div>
                     <div className="relative">
-                      <pre className="w-full max-h-96 px-4 py-3 text-sm font-mono rounded-lg border-2 border-green-300 dark:border-green-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 overflow-auto">
+                      <pre className="w-full max-h-96 px-4 py-4 text-xs sm:text-sm font-mono bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 overflow-auto">
                         {validationResult.formatted}
                       </pre>
                     </div>

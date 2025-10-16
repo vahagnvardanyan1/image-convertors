@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { DynamicMetadata } from '@/components/DynamicMetadata';
-import { GitCompare, Check, X, ArrowLeftRight, Eye, EyeOff, Diff, Layers, Code } from 'lucide-react';
+import { GitCompare, Check, X, ArrowLeftRight, Eye, EyeOff, Diff, Layers, Code, ChevronUp, ChevronDown, ChevronsUp, ChevronsDown } from 'lucide-react';
 import JSONEditor from '@/components/JSONEditor';
 import JSONToolHero from '@/components/JSONToolHero';
 import JSONToolFeatures from '@/components/JSONToolFeatures';
@@ -66,6 +66,7 @@ export default function JsonComparerPage() {
     areEqual?: boolean;
   } | null>(null);
   const [showOnlyDifferences, setShowOnlyDifferences] = useState(false);
+  const [currentDiffIndex, setCurrentDiffIndex] = useState(0);
 
   const compareJson = () => {
     // Reset error lines
@@ -240,6 +241,71 @@ export default function JsonComparerPage() {
     setJsonRight(JSON.stringify(example2, null, 2));
   };
 
+  const scrollToDifference = (index: number) => {
+    const diffElement = document.getElementById(`diff-${index}`);
+    if (diffElement) {
+      diffElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      // Add highlight effect
+      diffElement.classList.add('ring-4', 'ring-blue-500', 'ring-opacity-50');
+      setTimeout(() => {
+        diffElement.classList.remove('ring-4', 'ring-blue-500', 'ring-opacity-50');
+      }, 2000);
+    }
+  };
+
+  const goToNextDiff = useCallback(() => {
+    if (!comparisonResult?.differences) return;
+    const nextIndex = (currentDiffIndex + 1) % comparisonResult.differences.length;
+    setCurrentDiffIndex(nextIndex);
+    scrollToDifference(nextIndex);
+  }, [comparisonResult, currentDiffIndex]);
+
+  const goToPrevDiff = useCallback(() => {
+    if (!comparisonResult?.differences) return;
+    const prevIndex = currentDiffIndex === 0 ? comparisonResult.differences.length - 1 : currentDiffIndex - 1;
+    setCurrentDiffIndex(prevIndex);
+    scrollToDifference(prevIndex);
+  }, [comparisonResult, currentDiffIndex]);
+
+  const goToFirstDiff = useCallback(() => {
+    setCurrentDiffIndex(0);
+    scrollToDifference(0);
+  }, []);
+
+  const goToLastDiff = useCallback(() => {
+    if (!comparisonResult?.differences) return;
+    const lastIndex = comparisonResult.differences.length - 1;
+    setCurrentDiffIndex(lastIndex);
+    scrollToDifference(lastIndex);
+  }, [comparisonResult]);
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!comparisonResult?.differences || comparisonResult.differences.length === 0) return;
+
+      // Only handle navigation if not typing in input
+      if (e.target instanceof HTMLTextAreaElement || e.target instanceof HTMLInputElement) return;
+
+      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+        e.preventDefault();
+        goToNextDiff();
+      } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+        e.preventDefault();
+        goToPrevDiff();
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        goToFirstDiff();
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        goToLastDiff();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [comparisonResult, currentDiffIndex]);
+
   const formatValue = (value: any): string => {
     if (value === null) return 'null';
     if (value === undefined) return 'undefined';
@@ -354,14 +420,24 @@ export default function JsonComparerPage() {
       </div>
 
       {/* Input Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
-        <div>
-          <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">{t('leftJson')}</label>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 mb-6">
+        <div className="space-y-2">
+          <label className="block text-sm font-semibold text-gray-900 dark:text-white">
+            <span className="inline-flex items-center gap-2">
+              📄 {t('leftJson')}
+              <span className="text-xs font-normal text-gray-500 dark:text-gray-400">(Original)</span>
+            </span>
+          </label>
           <JSONEditor value={jsonLeft} onChange={setJsonLeft} placeholder={t('pasteFirst')} errorLine={leftErrorLine} height="320px" />
         </div>
 
-        <div>
-          <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">{t('rightJson')}</label>
+        <div className="space-y-2">
+          <label className="block text-sm font-semibold text-gray-900 dark:text-white">
+            <span className="inline-flex items-center gap-2">
+              📋 {t('rightJson')}
+              <span className="text-xs font-normal text-gray-500 dark:text-gray-400">(Compared)</span>
+            </span>
+          </label>
           <JSONEditor value={jsonRight} onChange={setJsonRight} placeholder={t('pasteSecond')} errorLine={rightErrorLine} height="320px" />
         </div>
       </div>
@@ -430,55 +506,132 @@ export default function JsonComparerPage() {
                 </div>
               )}
 
-              {/* Filter Toggle */}
-              {!comparisonResult.areEqual && (
-                <div className="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg">
-                  <button
-                    onClick={() => setShowOnlyDifferences(!showOnlyDifferences)}
-                    className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
-                  >
-                    {showOnlyDifferences ? <Eye size={16} /> : <EyeOff size={16} />}
-                    {showOnlyDifferences ? 'Show All' : 'Show Only Differences'}
-                  </button>
+              {/* Navigation Controls */}
+              {!comparisonResult.areEqual && comparisonResult.differences && comparisonResult.differences.length > 0 && (
+                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-lg p-4 border border-blue-200 dark:border-blue-800">
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    {/* Left Side - Navigation */}
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">Navigate Diffs:</span>
+                      <div className="flex items-center gap-1">
+                        <button
+                          onClick={goToFirstDiff}
+                          className="p-1.5 rounded hover:bg-blue-100 dark:hover:bg-blue-900/40 text-blue-700 dark:text-blue-300 transition-colors disabled:opacity-50"
+                          title="First difference"
+                          disabled={comparisonResult.differences.length === 0}
+                        >
+                          <ChevronsUp size={18} />
+                        </button>
+                        <button
+                          onClick={goToPrevDiff}
+                          className="p-1.5 rounded hover:bg-blue-100 dark:hover:bg-blue-900/40 text-blue-700 dark:text-blue-300 transition-colors disabled:opacity-50"
+                          title="Previous difference"
+                          disabled={comparisonResult.differences.length === 0}
+                        >
+                          <ChevronUp size={18} />
+                        </button>
+                        <span className="px-3 py-1 bg-white dark:bg-gray-800 rounded border border-blue-300 dark:border-blue-700 text-sm font-mono text-blue-900 dark:text-blue-100 min-w-[80px] text-center">
+                          {comparisonResult.differences.length > 0 ? `${currentDiffIndex + 1} / ${comparisonResult.differences.length}` : '0 / 0'}
+                        </span>
+                        <button
+                          onClick={goToNextDiff}
+                          className="p-1.5 rounded hover:bg-blue-100 dark:hover:bg-blue-900/40 text-blue-700 dark:text-blue-300 transition-colors disabled:opacity-50"
+                          title="Next difference"
+                          disabled={comparisonResult.differences.length === 0}
+                        >
+                          <ChevronDown size={18} />
+                        </button>
+                        <button
+                          onClick={goToLastDiff}
+                          className="p-1.5 rounded hover:bg-blue-100 dark:hover:bg-blue-900/40 text-blue-700 dark:text-blue-300 transition-colors disabled:opacity-50"
+                          title="Last difference"
+                          disabled={comparisonResult.differences.length === 0}
+                        >
+                          <ChevronsDown size={18} />
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Right Side - Filter Toggle */}
+                    <button
+                      onClick={() => setShowOnlyDifferences(!showOnlyDifferences)}
+                      className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg border border-gray-300 dark:border-gray-600 transition-colors"
+                    >
+                      {showOnlyDifferences ? <Eye size={16} /> : <EyeOff size={16} />}
+                      {showOnlyDifferences ? 'Show All' : 'Show Only Differences'}
+                    </button>
+                  </div>
+
+                  {/* Keyboard Hint */}
+                  <div className="mt-2 text-xs text-gray-600 dark:text-gray-400 flex items-center gap-2">
+                    <span className="inline-flex items-center gap-1">
+                      <kbd className="px-1.5 py-0.5 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded text-xs">↑</kbd>
+                      <kbd className="px-1.5 py-0.5 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded text-xs">↓</kbd>
+                      to navigate
+                    </span>
+                  </div>
                 </div>
               )}
 
               {/* Differences List */}
               {!comparisonResult.areEqual && comparisonResult.differences && (
-                <div className="bg-white dark:bg-gray-800 rounded-lg border-2 border-gray-200 dark:border-gray-700 p-6">
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                    <GitCompare size={20} />
-                    Detailed Differences
-                  </h3>
-                  <div className="space-y-2">
+                <div className="bg-white dark:bg-gray-800 rounded-lg border-2 border-gray-200 dark:border-gray-700 overflow-hidden">
+                  <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                      <GitCompare size={20} />
+                      Detailed Differences
+                      <span className="ml-auto text-sm font-normal text-gray-600 dark:text-gray-400">
+                        {comparisonResult.differences.length} change{comparisonResult.differences.length !== 1 ? 's' : ''}
+                      </span>
+                    </h3>
+                  </div>
+                  <div className="p-4 sm:p-6 space-y-3 max-h-[600px] overflow-y-auto">
                     {comparisonResult.differences.map((diff, index) => (
-                      <div key={index} className={`p-4 rounded-lg border-2 ${getDiffColor(diff.type)}`}>
+                      <div key={index} id={`diff-${index}`} className={`p-4 sm:p-5 rounded-lg border-2 ${getDiffColor(diff.type)} transition-all hover:shadow-md scroll-mt-4`}>
                         <div className="flex items-start gap-3">
-                          <div className="flex-shrink-0 mt-1">{getDiffIcon(diff.type)}</div>
-                          <div className="flex-1 min-w-0">
-                            <p className="font-semibold text-gray-900 dark:text-white mb-1">
-                              <span className="font-mono text-sm bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">{diff.path}</span>
-                            </p>
-                            <div className="space-y-1 text-sm">
+                          <div className="flex-shrink-0 mt-0.5 text-xl">{getDiffIcon(diff.type)}</div>
+                          <div className="flex-1 min-w-0 space-y-2">
+                            {/* Path */}
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <span className="font-mono text-xs sm:text-sm bg-gray-100 dark:bg-gray-700 px-2.5 py-1 rounded font-semibold text-gray-900 dark:text-white">{diff.path}</span>
+                              <span
+                                className={`text-xs font-medium px-2 py-0.5 rounded-full ${
+                                  diff.type === 'added'
+                                    ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300'
+                                    : diff.type === 'removed'
+                                      ? 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300'
+                                      : 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300'
+                                }`}
+                              >
+                                {diff.type.toUpperCase()}
+                              </span>
+                            </div>
+
+                            {/* Values */}
+                            <div className="space-y-2">
                               {diff.type === 'added' && (
-                                <p className="text-green-700 dark:text-green-400">
-                                  <span className="font-semibold">Added:</span> <span className="font-mono">{formatValue(diff.newValue)}</span>
-                                </p>
+                                <div className="bg-green-50 dark:bg-green-900/10 border-l-4 border-green-500 p-3 rounded">
+                                  <p className="text-xs font-semibold text-green-700 dark:text-green-400 mb-1">✓ ADDED</p>
+                                  <pre className="text-sm font-mono text-green-800 dark:text-green-300 whitespace-pre-wrap break-all">{formatValue(diff.newValue)}</pre>
+                                </div>
                               )}
                               {diff.type === 'removed' && (
-                                <p className="text-red-700 dark:text-red-400">
-                                  <span className="font-semibold">Removed:</span> <span className="font-mono">{formatValue(diff.oldValue)}</span>
-                                </p>
+                                <div className="bg-red-50 dark:bg-red-900/10 border-l-4 border-red-500 p-3 rounded">
+                                  <p className="text-xs font-semibold text-red-700 dark:text-red-400 mb-1">✗ REMOVED</p>
+                                  <pre className="text-sm font-mono text-red-800 dark:text-red-300 whitespace-pre-wrap break-all">{formatValue(diff.oldValue)}</pre>
+                                </div>
                               )}
                               {diff.type === 'modified' && (
-                                <>
-                                  <p className="text-red-700 dark:text-red-400">
-                                    <span className="font-semibold">Old:</span> <span className="font-mono">{formatValue(diff.oldValue)}</span>
-                                  </p>
-                                  <p className="text-green-700 dark:text-green-400">
-                                    <span className="font-semibold">New:</span> <span className="font-mono">{formatValue(diff.newValue)}</span>
-                                  </p>
-                                </>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                                  <div className="bg-red-50 dark:bg-red-900/10 border-l-4 border-red-500 p-3 rounded">
+                                    <p className="text-xs font-semibold text-red-700 dark:text-red-400 mb-1">- OLD VALUE</p>
+                                    <pre className="text-sm font-mono text-red-800 dark:text-red-300 whitespace-pre-wrap break-all">{formatValue(diff.oldValue)}</pre>
+                                  </div>
+                                  <div className="bg-green-50 dark:bg-green-900/10 border-l-4 border-green-500 p-3 rounded">
+                                    <p className="text-xs font-semibold text-green-700 dark:text-green-400 mb-1">+ NEW VALUE</p>
+                                    <pre className="text-sm font-mono text-green-800 dark:text-green-300 whitespace-pre-wrap break-all">{formatValue(diff.newValue)}</pre>
+                                  </div>
+                                </div>
                               )}
                             </div>
                           </div>
