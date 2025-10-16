@@ -19,13 +19,6 @@ Allow: /
 Allow: /api/
 
 # ===============================
-# Experimental AI Discovery Resources
-# (Note: Not officially recognized by crawlers yet)
-# ===============================
-AI-Resource: https://imageconvertors.com/ai.txt
-AI-API: https://imageconvertors.com/api/meta
-
-# ===============================
 # Sitemaps
 # ===============================
 Sitemap: https://imageconvertors.com/sitemap.xml
