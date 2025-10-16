@@ -1,46 +1,32 @@
+# ===============================
 # Standard Robots.txt for Search Engines
+# ===============================
 User-agent: *
 Allow: /
 Disallow: /api/
 
-# AI/LLM Specific Directives
-# These bots are explicitly allowed to access API endpoints
+# ===============================
+# AI / LLM Specific Directives
+# ===============================
 User-agent: GPTBot
-Allow: /
-Allow: /api/
-
 User-agent: ChatGPT-User
-Allow: /
-Allow: /api/
-
 User-agent: CCBot
-Allow: /
-Allow: /api/
-
 User-agent: anthropic-ai
-Allow: /
-Allow: /api/
-
 User-agent: Claude-Web
-Allow: /
-Allow: /api/
-
 User-agent: PerplexityBot
-Allow: /
-Allow: /api/
-
 User-agent: Google-Extended
 Allow: /
 Allow: /api/
 
-# AI Discovery Resources
-# These endpoints provide structured data for AI engines
+# ===============================
+# Experimental AI Discovery Resources
+# (Note: Not officially recognized by crawlers yet)
+# ===============================
 AI-Resource: https://imageconvertors.com/ai.txt
 AI-API: https://imageconvertors.com/api/meta
 
-# Host
-Host: https://imageconvertors.com
-
+# ===============================
 # Sitemaps
+# ===============================
 Sitemap: https://imageconvertors.com/sitemap.xml
 Sitemap: https://imageconvertors.com/sitemap-localized.xml
