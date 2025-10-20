@@ -22,7 +22,7 @@ interface UseUploadZoneReturn {
   addFiles: (files: File[]) => void;
 }
 
-export const useUploadZone = ({ onFilesSelect, accept = '*', multiple = false }: UseUploadZoneOptions): UseUploadZoneReturn => {
+export const useUploadZone = ({ onFilesSelect, multiple = false }: UseUploadZoneOptions): UseUploadZoneReturn => {
   const [isDragOver, setIsDragOver] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
