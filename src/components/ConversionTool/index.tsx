@@ -1,120 +1,103 @@
 'use client';
-import { useState, useRef } from 'react';
-import { Upload, FileImage, Zap, AlertCircle } from 'lucide-react';
+
+import { useState } from 'react';
+import { useTranslations } from 'next-intl';
+
+import { Zap, AlertCircle } from 'lucide-react';
+
 import { Button } from '../ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../Select';
 import { Card } from '../Card';
-import { convertImage, validateImageFile, cleanupImageUrl, type ConversionResult, type SupportedFormat } from '../../lib/imageConverter';
 import { ConversionResultModal } from '../ConversionResultModal';
-import { useTranslations } from 'next-intl';
+import { FileUploadZone } from '../FileUploadZone';
 
-export function ConversionTool() {
+import { useDragAndDrop } from '@/hooks/useDragAndDrop';
+import { useFileUpload } from '@/hooks/useFileUpload';
+import { useImageConversion } from '@/hooks/useImageConversion';
+
+import { validateImageFile } from '@/utils/fileValidation';
+import { getFileExtension, normalizeImageFormat } from '@/utils/fileValidation';
+
+import type { SupportedFormat } from '@/lib/imageConverter';
+
+export const ConversionTool = () => {
   const t = useTranslations('converter');
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [inputFormat, setInputFormat] = useState('');
   const [outputFormat, setOutputFormat] = useState('');
-  const [isDragOver, setIsDragOver] = useState(false);
-  const [isConverting, setIsConverting] = useState(false);
-  const [conversionResult, setConversionResult] = useState<ConversionResult | null>(null);
-  const [error, setError] = useState<string | null>(null);
   const [quality, setQuality] = useState(0.9);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [validationError, setValidationError] = useState<string | null>(null);
 
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragOver(true);
-  };
+  const {
+    isConverting,
+    conversionResult,
+    error: conversionError,
+    convert,
+    reset,
+  } = useImageConversion({
+    onSuccess: () => setIsModalOpen(true),
+  });
 
-  const handleDragLeave = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    // Only set dragOver to false if we're leaving the drop zone entirely
-    const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
-    const x = e.clientX;
-    const y = e.clientY;
-
-    if (x < rect.left || x > rect.right || y < rect.top || y > rect.bottom) {
-      setIsDragOver(false);
-    }
-  };
-
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragOver(false);
-    const files = e.dataTransfer.files;
-    if (files.length > 0) {
-      handleFileSelection(files[0]);
-    }
-  };
-
-  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (files && files.length > 0) {
-      handleFileSelection(files[0]);
-    }
-  };
-
-  const handleFileSelection = (file: File) => {
-    setError(null);
-    setConversionResult(null);
+  const handleFileSelect = (file: File) => {
+    setValidationError(null);
 
     if (!validateImageFile(file)) {
-      setError(t('selectValidImage'));
+      setValidationError(t('selectValidImage'));
       return;
     }
 
-    setSelectedFile(file);
-    const fileExtension = file.name.split('.').pop()?.toUpperCase();
+    const fileExtension = getFileExtension(file.name);
     if (fileExtension) {
-      setInputFormat(fileExtension === 'JPEG' ? 'JPG' : fileExtension);
+      setInputFormat(normalizeImageFormat(fileExtension));
     }
   };
+
+  const {
+    selectedFile,
+    fileInputRef,
+    handleFileSelect: onFileInputChange,
+    clearFile,
+    triggerFileInput,
+  } = useFileUpload({
+    onFileSelect: handleFileSelect,
+  });
+
+  const { isDragOver, handleDragOver, handleDragLeave, handleDrop } = useDragAndDrop({
+    onFilesDrop: files => {
+      if (files.length > 0) {
+        handleFileSelect(files[0]);
+      }
+    },
+  });
 
   const handleConvert = async () => {
     if (!selectedFile || !outputFormat) return;
 
-    setIsConverting(true);
-    setError(null);
-    setConversionResult(null);
-
-    try {
-      const result = await convertImage(selectedFile, outputFormat.toLowerCase() as SupportedFormat, {
+    await convert({
+      file: selectedFile,
+      targetFormat: outputFormat.toLowerCase() as SupportedFormat,
+      options: {
         quality,
         maxSizeMB: 10,
         maxWidthOrHeight: 4096,
         maintainAspectRatio: true,
-      });
-
-      setConversionResult(result);
-      setIsModalOpen(true);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : t('conversionFailed'));
-    } finally {
-      setIsConverting(false);
-    }
+      },
+    });
   };
 
   const handleConvertAnother = () => {
-    if (conversionResult) {
-      cleanupImageUrl(conversionResult.url);
-    }
-    setSelectedFile(null);
+    reset();
+    clearFile();
     setInputFormat('');
     setOutputFormat('');
-    setConversionResult(null);
-    setError(null);
     setIsModalOpen(false);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = '';
-    }
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
+
+  const error = validationError || conversionError;
 
   return (
     <section className="bg-gray-50 py-16">
@@ -126,48 +109,24 @@ export function ConversionTool() {
 
         <Card className="p-8 bg-white shadow-lg rounded-2xl">
           {/* Drag and Drop Area */}
-          <div
-            className={`border-2 border-dashed rounded-xl p-8 mb-6 text-center transition-all duration-200 cursor-pointer ${
-              isDragOver ? 'border-blue-500 bg-blue-50 scale-105' : selectedFile ? 'border-green-500 bg-green-50' : 'border-gray-300 hover:border-gray-400 hover:bg-gray-50'
-            }`}
+          <FileUploadZone
+            isDragOver={isDragOver}
+            selectedFile={selectedFile}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
             onDrop={handleDrop}
-            onClick={() => !selectedFile && fileInputRef.current?.click()}
-          >
-            {selectedFile ? (
-              <div className="flex items-center justify-center space-x-4">
-                <FileImage className="text-green-600" size={48} />
-                <div className="text-left">
-                  <p className="font-medium text-gray-900">{selectedFile.name}</p>
-                  <p className="text-sm text-gray-500">{(selectedFile.size / 1024 / 1024).toFixed(2)} MB</p>
-                </div>
-              </div>
-            ) : (
-              <div>
-                <Upload className={`mx-auto mb-4 transition-all duration-200 ${isDragOver ? 'text-blue-500 scale-110' : 'text-gray-400'}`} size={48} />
-                <p className={`text-lg font-medium mb-2 transition-colors duration-200 ${isDragOver ? 'text-blue-600' : 'text-gray-900'}`}>{isDragOver ? t('dropFileHere') : t('dragDropHere')}</p>
-                <p className={`text-gray-500 mb-4 transition-colors duration-200 ${isDragOver ? 'text-blue-500' : 'text-gray-500'}`}>{isDragOver ? t('releaseToUpload') : t('orClickBrowse')}</p>
-                {!isDragOver && (
-                  <Button
-                    variant="outline"
-                    onClick={e => {
-                      e.stopPropagation();
-                      fileInputRef.current?.click();
-                    }}
-                    className="rounded-lg"
-                  >
-                    {t('chooseFile')}
-                  </Button>
-                )}
-              </div>
-            )}
-
-            <input type="file" ref={fileInputRef} onChange={handleFileSelect} accept="image/*" className="hidden" />
-          </div>
+            onClick={triggerFileInput}
+            fileInputRef={fileInputRef}
+            onFileSelect={onFileInputChange}
+            dragOverText={t('dropFileHere')}
+            defaultText={t('dragDropHere')}
+            browseText={t('orClickBrowse')}
+            releaseText={t('releaseToUpload')}
+            chooseFileText={t('chooseFile')}
+          />
 
           {/* Format Selection */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 mt-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">{t('inputFormat')}</label>
               <Select value={inputFormat} onValueChange={setInputFormat}>
@@ -256,4 +215,4 @@ export function ConversionTool() {
       />
     </section>
   );
-}
+};

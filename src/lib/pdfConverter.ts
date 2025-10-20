@@ -67,25 +67,25 @@ export interface PDFSplitResult {
 /**
  * Validates if the file is a PDF
  */
-export function validatePDFFile(file: File): boolean {
+export const validatePDFFile = (file: File): boolean => {
   return file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
-}
+};
 
 /**
  * Validates if the file is a supported image format for PDF creation
  */
-export function validateImageForPDF(file: File): boolean {
+export const validateImageForPDF = (file: File): boolean => {
   const supportedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/heic', 'image/heif'];
   // Check both file.type and file name extension for HEIC files (sometimes HEIC files don't have the correct MIME type)
   const hasValidType = supportedTypes.includes(file.type);
   const hasHeicExtension = file.name.toLowerCase().endsWith('.heic') || file.name.toLowerCase().endsWith('.heif');
   return hasValidType || hasHeicExtension;
-}
+};
 
 /**
  * Initialize PDF.js with proper error handling
  */
-async function initializePDFJS() {
+const initializePDFJS = async () => {
   if (typeof window === 'undefined') {
     throw new Error('PDF operations are only available in the browser');
   }
@@ -117,12 +117,12 @@ async function initializePDFJS() {
     console.error('Failed to initialize PDF.js:', error);
     throw new Error('Failed to load PDF processing library. Please refresh the page and try again.');
   }
-}
+};
 
 /**
  * Convert PDF pages to images
  */
-export async function convertPDFToImages(file: File, options: PDFConversionOptions = {}): Promise<PDFConversionResult> {
+export const convertPDFToImages = async (file: File, options: PDFConversionOptions = {}): Promise<PDFConversionResult> => {
   if (!validatePDFFile(file)) {
     throw new Error('Please select a valid PDF file');
   }
@@ -216,7 +216,7 @@ export async function convertPDFToImages(file: File, options: PDFConversionOptio
 /**
  * Convert images to a single PDF
  */
-export async function convertImagesToPDF(files: File[], options: ImageToPDFOptions = {}): Promise<PDFCreationResult> {
+export const convertImagesToPDF = async (files: File[], options: ImageToPDFOptions = {}): Promise<PDFCreationResult> => {
   if (files.length === 0) {
     throw new Error('Please select at least one image file');
   }
@@ -324,12 +324,12 @@ export async function convertImagesToPDF(files: File[], options: ImageToPDFOptio
   } catch (error) {
     throw new Error(`PDF creation failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
-}
+};
 
 /**
  * Merge multiple PDF files
  */
-export async function mergePDFs(files: File[]): Promise<PDFMergeResult> {
+export const mergePDFs = async (files: File[]): Promise<PDFMergeResult> => {
   if (files.length < 2) {
     throw new Error('Please select at least 2 PDF files to merge');
   }
@@ -372,12 +372,12 @@ export async function mergePDFs(files: File[]): Promise<PDFMergeResult> {
   } catch (error) {
     throw new Error(`PDF merge failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
-}
+};
 
 /**
  * Split PDF into separate files
  */
-export async function splitPDF(file: File, splitRanges: { start: number; end: number; name?: string }[]): Promise<PDFSplitResult> {
+export const splitPDF = async (file: File, splitRanges: { start: number; end: number; name?: string }[]): Promise<PDFSplitResult> => {
   if (!validatePDFFile(file)) {
     throw new Error('Please select a valid PDF file');
   }
@@ -438,12 +438,12 @@ export async function splitPDF(file: File, splitRanges: { start: number; end: nu
   } catch (error) {
     throw new Error(`PDF split failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
-}
+};
 
 /**
  * Get PDF information
  */
-export async function getPDFInfo(file: File): Promise<{
+export const getPDFInfo = async (file: File): Promise<{
   pageCount: number;
   fileSize: number;
   title?: string;
@@ -453,7 +453,7 @@ export async function getPDFInfo(file: File): Promise<{
   producer?: string;
   creationDate?: Date;
   modificationDate?: Date;
-}> {
+}> => {
   if (!validatePDFFile(file)) {
     throw new Error('Please select a valid PDF file');
   }
@@ -485,40 +485,40 @@ export async function getPDFInfo(file: File): Promise<{
   } catch (error) {
     throw new Error(`Failed to read PDF info: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
-}
+};
 
 /**
  * Helper function to convert file to data URL
  */
-function fileToDataURL(file: File): Promise<string> {
+const fileToDataURL = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = () => resolve(reader.result as string);
     reader.onerror = reject;
     reader.readAsDataURL(file);
   });
-}
+};
 
 /**
  * Generate filename for converted images
  */
-function generateImageFileName(originalName: string, pageNumber: number, format: string): string {
+const generateImageFileName = (originalName: string, pageNumber: number, format: string): string => {
   const nameWithoutExt = originalName.replace(/\.[^/.]+$/, '');
   return `${nameWithoutExt}-page-${pageNumber}.${format}`;
-}
+};
 
 /**
  * Generate filename for PDF files
  */
-function generatePDFFileName(baseName: string): string {
+const generatePDFFileName = (baseName: string): string => {
   const timestamp = new Date().toISOString().slice(0, 19).replace(/:/g, '-');
   return `${baseName}-${timestamp}.pdf`;
-}
+};
 
 /**
  * Format file size for display
  */
-export function formatFileSize(bytes: number): string {
+export const formatFileSize = (bytes: number): string => {
   if (bytes === 0) return '0 Bytes';
 
   const k = 1024;
@@ -526,42 +526,42 @@ export function formatFileSize(bytes: number): string {
   const i = Math.floor(Math.log(bytes) / Math.log(k));
 
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-}
+};
 
 /**
  * Download a file
  */
-export function downloadFile(blob: Blob, fileName: string): void {
+export const downloadFile = (blob: Blob, fileName: string): void => {
   const link = document.createElement('a');
   link.href = URL.createObjectURL(blob);
   link.download = fileName;
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
-}
+};
 
 /**
  * Clean up object URLs to prevent memory leaks
  */
-export function cleanupUrls(urls: string[]): void {
+export const cleanupUrls = (urls: string[]): void => {
   urls.forEach(url => URL.revokeObjectURL(url));
-}
+};
 
 /**
  * Download multiple files as a ZIP (using JSZip if available)
  */
-export function downloadMultipleFiles(files: { blob: Blob; fileName: string }[]): void {
+export const downloadMultipleFiles = (files: { blob: Blob; fileName: string }[]): void => {
   // For now, download files individually
   // In a production app, you might want to add JSZip for creating ZIP files
   files.forEach((file, index) => {
     setTimeout(() => downloadFile(file.blob, file.fileName), index * 100);
   });
-}
+};
 
 /**
  * Convert PDF pages to images using canvas-based approach
  */
-export async function convertPDFToImagesCanvas(file: File, options: PDFConversionOptions = {}): Promise<PDFConversionResult> {
+export const convertPDFToImagesCanvas = async (file: File, options: PDFConversionOptions = {}): Promise<PDFConversionResult> => {
   if (!validatePDFFile(file)) {
     throw new Error('Please select a valid PDF file');
   }
@@ -623,4 +623,4 @@ export async function convertPDFToImagesCanvas(file: File, options: PDFConversio
   } catch (error) {
     throw new Error(`PDF conversion failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
-}
+};

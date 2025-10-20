@@ -22,7 +22,7 @@ export interface ConversionResult {
 /**
  * Detects the format of an image file
  */
-export async function detectImageFormat(file: File): Promise<string | null> {
+export const detectImageFormat = async (file: File): Promise<string | null> => {
   try {
     const buffer = await file.arrayBuffer();
     const type = await fileTypeFromBuffer(new Uint8Array(buffer));
@@ -31,23 +31,23 @@ export async function detectImageFormat(file: File): Promise<string | null> {
     console.error('Error detecting image format:', error);
     return null;
   }
-}
+};
 
 /**
  * Validates if the file is a supported image format
  */
-export function validateImageFile(file: File): boolean {
+export const validateImageFile = (file: File): boolean => {
   const supportedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/gif', 'image/heic', 'image/heif'];
   // Check both file.type and file name extension for HEIC files (sometimes HEIC files don't have the correct MIME type)
   const hasValidType = supportedTypes.includes(file.type);
   const hasHeicExtension = file.name.toLowerCase().endsWith('.heic') || file.name.toLowerCase().endsWith('.heif');
   return hasValidType || hasHeicExtension;
-}
+};
 
 /**
  * Converts an image file to the specified format
  */
-export async function convertImage(file: File, targetFormat: SupportedFormat, options: ConversionOptions = {}): Promise<ConversionResult> {
+export const convertImage = async (file: File, targetFormat: SupportedFormat, options: ConversionOptions = {}): Promise<ConversionResult> => {
   if (!validateImageFile(file)) {
     throw new Error('Unsupported file format. Please upload a PNG, JPG, WebP, GIF, or HEIC image.');
   }
@@ -173,12 +173,12 @@ export async function convertImage(file: File, targetFormat: SupportedFormat, op
   } catch (error) {
     throw new Error(`Conversion failed: ${error}`);
   }
-}
+};
 
 /**
  * Batch convert multiple images
  */
-export async function convertImages(files: File[], targetFormat: SupportedFormat, options: ConversionOptions = {}): Promise<ConversionResult[]> {
+export const convertImages = async (files: File[], targetFormat: SupportedFormat, options: ConversionOptions = {}): Promise<ConversionResult[]> => {
   const results: ConversionResult[] = [];
 
   for (const file of files) {
@@ -192,12 +192,12 @@ export async function convertImages(files: File[], targetFormat: SupportedFormat
   }
 
   return results;
-}
+};
 
 /**
  * Get MIME type for a format
  */
-function getMimeType(format: SupportedFormat): string {
+const getMimeType = (format: SupportedFormat): string => {
   const mimeTypes: Record<SupportedFormat, string> = {
     png: 'image/png',
     jpg: 'image/jpeg',
@@ -209,20 +209,20 @@ function getMimeType(format: SupportedFormat): string {
   };
 
   return mimeTypes[format];
-}
+};
 
 /**
  * Generate a new filename with the target format
  */
-function generateFileName(originalName: string, targetFormat: SupportedFormat): string {
+const generateFileName = (originalName: string, targetFormat: SupportedFormat): string => {
   const nameWithoutExt = originalName.replace(/\.[^/.]+$/, '');
   return `${nameWithoutExt}.${targetFormat}`;
-}
+};
 
 /**
  * Format file size for display
  */
-export function formatFileSize(bytes: number): string {
+export const formatFileSize = (bytes: number): string => {
   if (bytes === 0) return '0 Bytes';
 
   const k = 1024;
@@ -230,31 +230,31 @@ export function formatFileSize(bytes: number): string {
   const i = Math.floor(Math.log(bytes) / Math.log(k));
 
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-}
+};
 
 /**
  * Calculate compression ratio
  */
-export function getCompressionRatio(originalSize: number, convertedSize: number): number {
+export const getCompressionRatio = (originalSize: number, convertedSize: number): number => {
   if (originalSize === 0) return 0;
   return Math.round(((originalSize - convertedSize) / originalSize) * 100);
-}
+};
 
 /**
  * Download a converted image
  */
-export function downloadImage(result: ConversionResult): void {
+export const downloadImage = (result: ConversionResult): void => {
   const link = document.createElement('a');
   link.href = result.url;
   link.download = result.fileName;
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
-}
+};
 
 /**
  * Clean up object URLs to prevent memory leaks
  */
-export function cleanupImageUrl(url: string): void {
+export const cleanupImageUrl = (url: string): void => {
   URL.revokeObjectURL(url);
-}
+};

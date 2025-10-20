@@ -1,14 +1,25 @@
 'use client';
-import { useState, useRef } from 'react';
-import { ArrowLeft, Upload, FileImage, Settings, Zap, AlertCircle } from 'lucide-react';
+
+import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import Link from 'next/link';
+
+import { ArrowLeft, Upload, FileImage, Settings, Zap, AlertCircle } from 'lucide-react';
+
 import { Button } from '../ui/button';
 import { Card } from '@/components/Card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../Select';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../Accordion';
-import { convertImage, validateImageFile, cleanupImageUrl, type ConversionResult, type SupportedFormat } from '../../lib/imageConverter';
 import { ConversionResultModal } from '../ConversionResultModal';
-import { useTranslations } from 'next-intl';
+import { FileUploadZone } from '../FileUploadZone';
+
+import { useDragAndDrop } from '@/hooks/useDragAndDrop';
+import { useFileUpload } from '@/hooks/useFileUpload';
+import { useImageConversion } from '@/hooks/useImageConversion';
+
+import { validateImageFile } from '@/utils/fileValidation';
+
+import type { SupportedFormat } from '@/lib/imageConverter';
 
 interface ConverterPageProps {
   from: string;
@@ -17,102 +28,70 @@ interface ConverterPageProps {
   description: string;
 }
 
-export function ConverterPage({ from, to, title, description }: ConverterPageProps) {
+export const ConverterPage = ({ from, to, title, description }: ConverterPageProps) => {
   const t = useTranslations('converterPage');
   const tConverter = useTranslations('converter');
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [outputFormat, setOutputFormat] = useState(to.toLowerCase());
-  const [isConverting, setIsConverting] = useState(false);
-  const [conversionResult, setConversionResult] = useState<ConversionResult | null>(null);
-  const [error, setError] = useState<string | null>(null);
   const [quality, setQuality] = useState(0.9);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isDragOver, setIsDragOver] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [validationError, setValidationError] = useState<string | null>(null);
 
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragOver(true);
-  };
+  const {
+    isConverting,
+    conversionResult,
+    error: conversionError,
+    convert,
+    reset,
+  } = useImageConversion({
+    onSuccess: () => setIsModalOpen(true),
+  });
 
-  const handleDragLeave = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    // Only set dragOver to false if we're leaving the drop zone entirely
-    const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
-    const x = e.clientX;
-    const y = e.clientY;
-
-    if (x < rect.left || x > rect.right || y < rect.top || y > rect.bottom) {
-      setIsDragOver(false);
-    }
-  };
-
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragOver(false);
-    const files = e.dataTransfer.files;
-    if (files.length > 0) {
-      handleFileSelection(files[0]);
-    }
-  };
-
-  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      handleFileSelection(file);
-    }
-  };
-
-  const handleFileSelection = (file: File) => {
-    setError(null);
-    setConversionResult(null);
+  const handleFileSelect = (file: File) => {
+    setValidationError(null);
 
     if (!validateImageFile(file)) {
-      setError(tConverter('selectValidImageFormats'));
+      setValidationError(tConverter('selectValidImageFormats'));
       return;
     }
-
-    setSelectedFile(file);
   };
+
+  const {
+    selectedFile,
+    fileInputRef,
+    handleFileSelect: onFileInputChange,
+    clearFile,
+    triggerFileInput,
+  } = useFileUpload({
+    onFileSelect: handleFileSelect,
+  });
+
+  const { isDragOver, handleDragOver, handleDragLeave, handleDrop } = useDragAndDrop({
+    onFilesDrop: files => {
+      if (files.length > 0) {
+        handleFileSelect(files[0]);
+      }
+    },
+  });
 
   const handleConvert = async () => {
     if (!selectedFile) return;
 
-    setIsConverting(true);
-    setError(null);
-    setConversionResult(null);
-
-    try {
-      const result = await convertImage(selectedFile, outputFormat as SupportedFormat, {
+    await convert({
+      file: selectedFile,
+      targetFormat: outputFormat as SupportedFormat,
+      options: {
         quality,
         maxSizeMB: 10,
         maxWidthOrHeight: 4096,
         maintainAspectRatio: true,
-      });
-
-      setConversionResult(result);
-      setIsModalOpen(true);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : tConverter('conversionFailed'));
-    } finally {
-      setIsConverting(false);
-    }
+      },
+    });
   };
 
   const handleConvertAnother = () => {
-    if (conversionResult) {
-      cleanupImageUrl(conversionResult.url);
-    }
-    setSelectedFile(null);
-    setConversionResult(null);
-    setError(null);
+    reset();
+    clearFile();
     setIsModalOpen(false);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = '';
-    }
   };
 
   const handleCloseModal = () => {
@@ -178,6 +157,8 @@ export function ConverterPage({ from, to, title, description }: ConverterPagePro
     },
   ];
 
+  const error = validationError || conversionError;
+
   return (
     <>
       {/* Header */}
@@ -206,62 +187,36 @@ export function ConverterPage({ from, to, title, description }: ConverterPagePro
             <Card className="p-6">
               <h2 className="text-xl font-bold text-gray-900 mb-4">1. {tConverter('uploadYourImage')}</h2>
 
-              <div
-                className={`border-2 border-dashed rounded-xl p-8 text-center transition-all duration-200 cursor-pointer ${
-                  isDragOver ? 'border-blue-500 bg-blue-50 scale-105' : selectedFile ? 'border-green-500 bg-green-50' : 'border-gray-300 hover:border-blue-400 hover:bg-gray-50'
-                }`}
+              <FileUploadZone
+                isDragOver={isDragOver}
+                selectedFile={selectedFile}
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
                 onDrop={handleDrop}
-                onClick={() => !selectedFile && fileInputRef.current?.click()}
-              >
-                <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileSelect} className="hidden" />
+                onClick={triggerFileInput}
+                fileInputRef={fileInputRef}
+                onFileSelect={onFileInputChange}
+                dragOverText={tConverter('dropFileHere')}
+                defaultText={tConverter('dragDropHere')}
+                browseText={tConverter('orClickBrowse')}
+                releaseText={tConverter('releaseToUpload')}
+                chooseFileText={tConverter('chooseFile')}
+              />
 
-                {!selectedFile ? (
-                  <div>
-                    <Upload className={`mx-auto mb-4 transition-all duration-200 ${isDragOver ? 'text-blue-500 scale-110' : 'text-gray-400'}`} size={48} />
-                    <p className={`text-lg font-medium mb-2 transition-colors duration-200 ${isDragOver ? 'text-blue-600' : 'text-gray-900'}`}>
-                      {isDragOver ? tConverter('dropFileHere') : tConverter('dragDropHere')}
-                    </p>
-                    <p className={`text-sm transition-colors duration-200 ${isDragOver ? 'text-blue-500' : 'text-gray-500'}`}>
-                      {isDragOver ? tConverter('releaseToUpload') : tConverter('orClickBrowse')}
-                    </p>
-                    {!isDragOver && (
-                      <Button
-                        variant="outline"
-                        onClick={e => {
-                          e.stopPropagation();
-                          fileInputRef.current?.click();
-                        }}
-                        className="mt-4 rounded-lg"
-                      >
-                        {tConverter('chooseFile')}
-                      </Button>
-                    )}
-                  </div>
-                ) : (
-                  <div className="flex items-center justify-center space-x-4">
-                    <FileImage className="text-green-600" size={48} />
-                    <div className="text-left">
-                      <p className="font-medium text-gray-900">{selectedFile.name}</p>
-                      <p className="text-sm text-gray-500">{(selectedFile.size / 1024 / 1024).toFixed(2)} MB</p>
-                    </div>
-                    <Button
-                      variant="outline"
-                      onClick={e => {
-                        e.stopPropagation();
-                        setSelectedFile(null);
-                        if (fileInputRef.current) {
-                          fileInputRef.current.value = '';
-                        }
-                      }}
-                      className="text-red-600 hover:text-red-700"
-                    >
-                      {tConverter('remove')}
-                    </Button>
-                  </div>
-                )}
-              </div>
+              {selectedFile && (
+                <div className="mt-4 flex justify-end">
+                  <Button
+                    variant="outline"
+                    onClick={e => {
+                      e.stopPropagation();
+                      clearFile();
+                    }}
+                    className="text-red-600 hover:text-red-700"
+                  >
+                    {tConverter('remove')}
+                  </Button>
+                </div>
+              )}
 
               {/* Error Display */}
               {error && (
@@ -418,4 +373,4 @@ export function ConverterPage({ from, to, title, description }: ConverterPagePro
       />
     </>
   );
-}
+};

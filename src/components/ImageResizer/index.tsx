@@ -1,86 +1,57 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
-import { ArrowLeft, Upload, Download, RotateCcw, Maximize2, Image as ImageIcon, CheckCircle, Settings, Sliders } from 'lucide-react';
+import { useEffect } from 'react';
+import { useTranslations } from 'next-intl';
 import Link from 'next/link';
+
+import { ArrowLeft, Upload, Download, RotateCcw, Maximize2, Image as ImageIcon, CheckCircle, Settings, Sliders } from 'lucide-react';
+
 import { Button } from '../ui/button';
 import { Card } from '@/components/Card';
-import { useTranslations } from 'next-intl';
 
-type ResizeMode = 'percentage' | 'pixels' | 'preset';
-type PresetSize = 'thumbnail' | 'small' | 'medium' | 'large' | 'hd' | 'fullhd' | '4k';
+import { useDragAndDrop } from '@/hooks/useDragAndDrop';
+import { useFileUpload } from '@/hooks/useFileUpload';
+import { useImageResize, presets } from '@/hooks/useImageResize';
+import { useBottomSheet } from '@/hooks/useBottomSheet';
 
-interface PresetDimensions {
-  width: number;
-  height: number;
-  label: string;
-  description: string;
-}
+import { validateImageFile } from '@/utils/fileValidation';
+import { getImageDimensions } from '@/utils/imageProcessing';
 
-const presets: Record<PresetSize, PresetDimensions> = {
-  thumbnail: { width: 150, height: 150, label: 'Thumbnail', description: '150×150' },
-  small: { width: 640, height: 480, label: 'Small', description: '640×480' },
-  medium: { width: 1280, height: 720, label: 'Medium (HD)', description: '1280×720' },
-  large: { width: 1920, height: 1080, label: 'Large (Full HD)', description: '1920×1080' },
-  hd: { width: 1280, height: 720, label: 'HD', description: '1280×720' },
-  fullhd: { width: 1920, height: 1080, label: 'Full HD', description: '1920×1080' },
-  '4k': { width: 3840, height: 2160, label: '4K', description: '3840×2160' },
-};
+import type { PresetSize } from '@/hooks/useImageResize';
 
-export function ImageResizer() {
+export const ImageResizer = () => {
   const t = useTranslations('resizer');
   const tConverter = useTranslations('converter');
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
-  const [originalDimensions, setOriginalDimensions] = useState({ width: 0, height: 0 });
-  const [resizeMode, setResizeMode] = useState<ResizeMode>('percentage');
-  const [percentage, setPercentage] = useState(50);
-  const [customWidth, setCustomWidth] = useState(800);
-  const [customHeight, setCustomHeight] = useState(600);
-  const [maintainAspectRatio, setMaintainAspectRatio] = useState(true);
-  const [selectedPreset, setSelectedPreset] = useState<PresetSize>('medium');
-  const [isResizing, setIsResizing] = useState(false);
-  const [isDragOver, setIsDragOver] = useState(false);
-  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragOver(true);
-  };
+  const {
+    imageUrl,
+    originalDimensions,
+    resizeMode,
+    percentage,
+    customWidth,
+    customHeight,
+    maintainAspectRatio,
+    selectedPreset,
+    isResizing,
+    setImageUrl,
+    setOriginalDimensions,
+    setResizeMode,
+    setPercentage,
+    setCustomWidth,
+    setCustomHeight,
+    setMaintainAspectRatio,
+    setSelectedPreset,
+    handleWidthChange,
+    handleHeightChange,
+    handleResize,
+    handleReset,
+    getOutputDimensions,
+  } = useImageResize();
 
-  const handleDragLeave = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
-    const x = e.clientX;
-    const y = e.clientY;
+  const { isOpen: isBottomSheetOpen, open: openBottomSheet, close: closeBottomSheet } = useBottomSheet();
 
-    if (x < rect.left || x > rect.right || y < rect.top || y > rect.bottom) {
-      setIsDragOver(false);
-    }
-  };
-
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragOver(false);
-    const files = e.dataTransfer.files;
-    if (files.length > 0) {
-      handleFileSelection(files[0]);
-    }
-  };
-
-  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      handleFileSelection(file);
-    }
-  };
-
-  const handleFileSelection = (file: File) => {
-    if (!file.type.startsWith('image/')) {
+  const handleFileSelect = async (file: File) => {
+    if (!validateImageFile(file)) {
       alert(tConverter('selectValidImage'));
       return;
     }
@@ -89,120 +60,53 @@ export function ImageResizer() {
       URL.revokeObjectURL(imageUrl);
     }
 
-    setSelectedFile(file);
     const url = URL.createObjectURL(file);
     setImageUrl(url);
 
-    // Get original dimensions
-    const img = new Image();
-    img.onload = () => {
-      setOriginalDimensions({ width: img.width, height: img.height });
-      setCustomWidth(img.width);
-      setCustomHeight(img.height);
-    };
-    img.src = url;
-  };
-
-  const handleWidthChange = (width: number) => {
-    setCustomWidth(width);
-    if (maintainAspectRatio && originalDimensions.width > 0) {
-      const aspectRatio = originalDimensions.height / originalDimensions.width;
-      setCustomHeight(Math.round(width * aspectRatio));
-    }
-  };
-
-  const handleHeightChange = (height: number) => {
-    setCustomHeight(height);
-    if (maintainAspectRatio && originalDimensions.height > 0) {
-      const aspectRatio = originalDimensions.width / originalDimensions.height;
-      setCustomWidth(Math.round(height * aspectRatio));
-    }
-  };
-
-  const handleResize = async () => {
-    if (!imageUrl) return;
-
-    setIsResizing(true);
-
     try {
-      let targetWidth: number;
-      let targetHeight: number;
-
-      if (resizeMode === 'percentage') {
-        targetWidth = Math.round((originalDimensions.width * percentage) / 100);
-        targetHeight = Math.round((originalDimensions.height * percentage) / 100);
-      } else if (resizeMode === 'preset') {
-        const preset = presets[selectedPreset];
-        targetWidth = preset.width;
-        targetHeight = preset.height;
-      } else {
-        targetWidth = customWidth;
-        targetHeight = customHeight;
-      }
-
-      // Create a canvas to resize the image
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      if (!ctx) throw new Error('Could not get canvas context');
-
-      canvas.width = targetWidth;
-      canvas.height = targetHeight;
-
-      // Load and draw the image
-      const img = new Image();
-      img.crossOrigin = 'anonymous';
-
-      await new Promise((resolve, reject) => {
-        img.onload = resolve;
-        img.onerror = reject;
-        img.src = imageUrl;
-      });
-
-      // Use high-quality image smoothing
-      ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = 'high';
-      ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
-
-      // Convert to blob and download
-      canvas.toBlob(
-        blob => {
-          if (blob) {
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `resized-${selectedFile?.name.replace(/\.[^/.]+$/, '') || 'image'}.png`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-          }
-          setIsResizing(false);
-        },
-        'image/png',
-        1.0,
-      );
+      const dimensions = await getImageDimensions(file);
+      setOriginalDimensions(dimensions);
+      setCustomWidth(dimensions.width);
+      setCustomHeight(dimensions.height);
     } catch (error) {
-      console.error('Error resizing image:', error);
-      alert('Failed to resize image. Please try again.');
-      setIsResizing(false);
+      console.error('Error getting image dimensions:', error);
+      alert('Failed to load image dimensions');
     }
   };
 
-  const handleReset = () => {
-    setPercentage(50);
-    setCustomWidth(originalDimensions.width);
-    setCustomHeight(originalDimensions.height);
-    setMaintainAspectRatio(true);
-  };
+  const {
+    selectedFile,
+    fileInputRef,
+    handleFileSelect: onFileInputChange,
+    clearFile,
+    triggerFileInput,
+  } = useFileUpload({
+    onFileSelect: handleFileSelect,
+  });
+
+  const { isDragOver, handleDragOver, handleDragLeave, handleDrop } = useDragAndDrop({
+    onFilesDrop: files => {
+      if (files.length > 0) {
+        handleFileSelect(files[0]);
+      }
+    },
+  });
 
   const handleNewImage = () => {
     if (imageUrl) {
       URL.revokeObjectURL(imageUrl);
     }
     setImageUrl(null);
-    setSelectedFile(null);
+    clearFile();
     setOriginalDimensions({ width: 0, height: 0 });
   };
+
+  const handleResizeClick = async () => {
+    if (!imageUrl || !selectedFile) return;
+    await handleResize({ imageUrl, fileName: selectedFile.name });
+  };
+
+  const outputDims = getOutputDimensions();
 
   // Prevent body scroll when bottom sheet is open
   useEffect(() => {
@@ -218,20 +122,6 @@ export function ImageResizer() {
       document.body.style.overflow = '';
     };
   }, [isBottomSheetOpen]);
-
-  const getOutputDimensions = () => {
-    if (resizeMode === 'percentage') {
-      return {
-        width: Math.round((originalDimensions.width * percentage) / 100),
-        height: Math.round((originalDimensions.height * percentage) / 100),
-      };
-    } else if (resizeMode === 'preset') {
-      return { width: presets[selectedPreset].width, height: presets[selectedPreset].height };
-    }
-    return { width: customWidth, height: customHeight };
-  };
-
-  const outputDims = getOutputDimensions();
 
   return (
     <>
@@ -263,9 +153,9 @@ export function ImageResizer() {
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
                 onDrop={handleDrop}
-                onClick={() => fileInputRef.current?.click()}
+                onClick={triggerFileInput}
               >
-                <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileSelect} className="hidden" />
+                <input ref={fileInputRef} type="file" accept="image/*" onChange={onFileInputChange} className="hidden" />
 
                 <div className="flex flex-col items-center">
                   <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center mb-6">
@@ -319,6 +209,28 @@ export function ImageResizer() {
                 <p className="text-gray-600 text-sm">All processing happens in your browser</p>
               </Card>
             </div>
+
+            {/* How It Works */}
+            <Card className="p-8 bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-100">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">How to Resize Images Online</h2>
+              <div className="grid md:grid-cols-3 gap-6">
+                <div>
+                  <div className="w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center font-bold mb-3">1</div>
+                  <h3 className="font-semibold text-gray-900 mb-2">Upload Image</h3>
+                  <p className="text-gray-600 text-sm">Choose an image from your device or drag and drop it into the upload area</p>
+                </div>
+                <div>
+                  <div className="w-10 h-10 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold mb-3">2</div>
+                  <h3 className="font-semibold text-gray-900 mb-2">Choose Size</h3>
+                  <p className="text-gray-600 text-sm">Select percentage, enter custom dimensions, or pick a preset size</p>
+                </div>
+                <div>
+                  <div className="w-10 h-10 bg-teal-600 text-white rounded-full flex items-center justify-center font-bold mb-3">3</div>
+                  <h3 className="font-semibold text-gray-900 mb-2">Download</h3>
+                  <p className="text-gray-600 text-sm">Click resize & download to save your perfectly sized image</p>
+                </div>
+              </div>
+            </Card>
           </>
         ) : (
           <>
@@ -363,7 +275,11 @@ export function ImageResizer() {
                 <div className="space-y-4 sticky top-4">
                   {/* Actions */}
                   <Card className="p-4 bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200">
-                    <Button onClick={handleResize} className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white mb-2" disabled={isResizing}>
+                    <Button
+                      onClick={handleResizeClick}
+                      className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white mb-2"
+                      disabled={isResizing}
+                    >
                       <Download className="mr-2" size={18} />
                       {isResizing ? 'Resizing...' : 'Resize & Download'}
                     </Button>
@@ -474,7 +390,7 @@ export function ImageResizer() {
               </div>
             </div>
 
-            {/* Mobile Bottom Sheet */}
+            {/* Mobile Bottom Sheet Controls - Show on Mobile Only */}
             <div className="lg:hidden">
               {/* Mobile Instructions */}
               <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg text-sm text-green-800">
@@ -485,25 +401,23 @@ export function ImageResizer() {
               {/* Floating Action Buttons */}
               <div className="fixed bottom-6 right-4 z-40 flex flex-col gap-3">
                 <Button
-                  onClick={handleResize}
+                  onClick={handleResizeClick}
                   className="h-14 w-14 rounded-full shadow-2xl bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white p-0"
                   disabled={isResizing}
                 >
                   <Download size={24} />
                 </Button>
-                <Button onClick={() => setIsBottomSheetOpen(true)} className="h-14 w-14 rounded-full shadow-2xl bg-white hover:bg-gray-50 text-gray-900 p-0 border-2 border-gray-200">
+                <Button onClick={openBottomSheet} className="h-14 w-14 rounded-full shadow-2xl bg-white hover:bg-gray-50 text-gray-900 p-0 border-2 border-gray-200">
                   <Sliders size={24} />
                 </Button>
               </div>
 
               {/* Bottom Sheet Overlay */}
-              {isBottomSheetOpen && <div className="fixed inset-0 bg-transparent z-50 transition-opacity" onClick={() => setIsBottomSheetOpen(false)} />}
+              {isBottomSheetOpen && <div className="fixed inset-0 bg-transparent z-50 transition-opacity" onClick={closeBottomSheet} />}
 
               {/* Bottom Sheet */}
               <div
-                className={`fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl shadow-2xl z-50 transition-transform duration-300 ease-out ${
-                  isBottomSheetOpen ? 'translate-y-0' : 'translate-y-full'
-                }`}
+                className={`fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl shadow-2xl z-50 transition-transform duration-300 ease-out ${isBottomSheetOpen ? 'translate-y-0' : 'translate-y-full'}`}
               >
                 <div className="p-4 max-h-[80vh] overflow-y-auto">
                   {/* Handle Bar */}
@@ -514,7 +428,7 @@ export function ImageResizer() {
                   {/* Bottom Sheet Header */}
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="text-lg font-semibold text-gray-900">Resize Settings</h3>
-                    <button onClick={() => setIsBottomSheetOpen(false)} className="text-gray-500 hover:text-gray-700 p-2">
+                    <button onClick={closeBottomSheet} className="text-gray-500 hover:text-gray-700 p-2">
                       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                       </svg>
@@ -528,8 +442,8 @@ export function ImageResizer() {
                       <div className="flex gap-2">
                         <Button
                           onClick={() => {
-                            handleResize();
-                            setIsBottomSheetOpen(false);
+                            handleResizeClick();
+                            closeBottomSheet();
                           }}
                           className="flex-1 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white"
                           disabled={isResizing}
@@ -549,9 +463,7 @@ export function ImageResizer() {
                       <h4 className="font-semibold text-gray-900 mb-3 text-sm">Resize Mode</h4>
                       <div className="grid grid-cols-3 gap-2">
                         <button
-                          onClick={() => {
-                            setResizeMode('percentage');
-                          }}
+                          onClick={() => setResizeMode('percentage')}
                           className={`px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
                             resizeMode === 'percentage' ? 'bg-green-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                           }`}
@@ -559,9 +471,7 @@ export function ImageResizer() {
                           %
                         </button>
                         <button
-                          onClick={() => {
-                            setResizeMode('pixels');
-                          }}
+                          onClick={() => setResizeMode('pixels')}
                           className={`px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
                             resizeMode === 'pixels' ? 'bg-green-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                           }`}
@@ -569,9 +479,7 @@ export function ImageResizer() {
                           Pixels
                         </button>
                         <button
-                          onClick={() => {
-                            setResizeMode('preset');
-                          }}
+                          onClick={() => setResizeMode('preset')}
                           className={`px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
                             resizeMode === 'preset' ? 'bg-green-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                           }`}
@@ -639,11 +547,9 @@ export function ImageResizer() {
                               key={key}
                               onClick={() => {
                                 setSelectedPreset(key);
-                                setTimeout(() => setIsBottomSheetOpen(false), 300);
+                                setTimeout(() => closeBottomSheet(), 300);
                               }}
-                              className={`w-full px-4 py-2 rounded-lg text-left transition-colors ${
-                                selectedPreset === key ? 'bg-green-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                              }`}
+                              className={`w-full px-4 py-2 rounded-lg text-left transition-colors ${selectedPreset === key ? 'bg-green-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
                             >
                               <div className="font-medium text-sm">{presets[key].label}</div>
                               <div className={`text-xs ${selectedPreset === key ? 'text-green-100' : 'text-gray-500'}`}>{presets[key].description}</div>
@@ -654,7 +560,7 @@ export function ImageResizer() {
                     )}
 
                     {/* Close Button */}
-                    <Button onClick={() => setIsBottomSheetOpen(false)} variant="outline" className="w-full mt-4">
+                    <Button onClick={closeBottomSheet} variant="outline" className="w-full mt-4">
                       Close Settings
                     </Button>
                   </div>
@@ -663,71 +569,7 @@ export function ImageResizer() {
             </div>
           </>
         )}
-
-        {/* How It Works */}
-        {!imageUrl && (
-          <Card className="p-8 bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-100">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">How to Resize Images Online</h2>
-            <div className="grid md:grid-cols-3 gap-6">
-              <div>
-                <div className="w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center font-bold mb-3">1</div>
-                <h3 className="font-semibold text-gray-900 mb-2">Upload Image</h3>
-                <p className="text-gray-600 text-sm">Choose an image from your device or drag and drop it into the upload area</p>
-              </div>
-              <div>
-                <div className="w-10 h-10 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold mb-3">2</div>
-                <h3 className="font-semibold text-gray-900 mb-2">Choose Size</h3>
-                <p className="text-gray-600 text-sm">Select percentage, enter custom dimensions, or pick a preset size</p>
-              </div>
-              <div>
-                <div className="w-10 h-10 bg-teal-600 text-white rounded-full flex items-center justify-center font-bold mb-3">3</div>
-                <h3 className="font-semibold text-gray-900 mb-2">Download</h3>
-                <p className="text-gray-600 text-sm">Click resize & download to save your perfectly sized image</p>
-              </div>
-            </div>
-          </Card>
-        )}
-
-        {/* Benefits */}
-        {!imageUrl && (
-          <div className="mt-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Why Use Our Image Resizer?</h2>
-            <div className="grid md:grid-cols-2 gap-6">
-              <Card className="p-6 border-l-4 border-green-500">
-                <h3 className="font-semibold text-gray-900 mb-2 flex items-center">
-                  <CheckCircle className="text-green-600 mr-2" size={20} />
-                  Multiple Resize Options
-                </h3>
-                <p className="text-gray-600 text-sm">Choose from percentage scaling, exact pixel dimensions, or convenient presets for common sizes.</p>
-              </Card>
-
-              <Card className="p-6 border-l-4 border-emerald-500">
-                <h3 className="font-semibold text-gray-900 mb-2 flex items-center">
-                  <CheckCircle className="text-emerald-600 mr-2" size={20} />
-                  Maintain Quality
-                </h3>
-                <p className="text-gray-600 text-sm">Smart resizing algorithms preserve image quality while reducing or increasing dimensions.</p>
-              </Card>
-
-              <Card className="p-6 border-l-4 border-teal-500">
-                <h3 className="font-semibold text-gray-900 mb-2 flex items-center">
-                  <CheckCircle className="text-teal-600 mr-2" size={20} />
-                  Free & Unlimited
-                </h3>
-                <p className="text-gray-600 text-sm">Resize as many images as you want, completely free. No signup, no hidden costs, no watermarks.</p>
-              </Card>
-
-              <Card className="p-6 border-l-4 border-cyan-500">
-                <h3 className="font-semibold text-gray-900 mb-2 flex items-center">
-                  <CheckCircle className="text-cyan-600 mr-2" size={20} />
-                  Privacy First
-                </h3>
-                <p className="text-gray-600 text-sm">All image processing happens locally in your browser. Your images never leave your device.</p>
-              </Card>
-            </div>
-          </div>
-        )}
       </div>
     </>
   );
-}
+};
