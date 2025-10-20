@@ -36,6 +36,7 @@
     "removeBackground": "Remove Background",
     "cropImage": "Crop Image",
     "resizeImage": "Resize Image",
+    "compressImage": "Compress Image",
     "imageAnalyzer": "Image Analyzer",
     "qrCodeGenerator": "QR Code Generator",
     "chartGenerator": "Chart Generator",
@@ -177,6 +178,8 @@
     "cropImageDesc": "Crop, resize, and rotate images with precision controls",
     "resizeImage": "Resize Image",
     "resizeImageDesc": "Resize images by percentage, pixels, or presets",
+    "compressImage": "Compress Image",
+    "compressImageDesc": "Reduce image file size without losing quality",
     "qrCodeGenerator": "QR Code Generator",
     "qrCodeGeneratorDesc": "Create custom QR codes for URLs, WiFi, contacts, and more",
     "chartGenerator": "Chart Generator",
@@ -283,6 +286,7 @@
     "imageConverters": "Image Converters",
     "cropImage": "Crop Image",
     "resizeImage": "Resize Image",
+    "compressImage": "Compress Image",
     "pngToWebp": "PNG to WebP",
     "jpgToPng": "JPG to PNG",
     "webpToPng": "WebP to PNG",
@@ -483,6 +487,40 @@
     "resizing": "Resizing...",
     "downloadResized": "Download Resized Image",
     "resizeAnother": "Resize Another Image"
+  },
+  "compressor": {
+    "title": "Compress Image Online Free",
+    "description": "Reduce image file size without losing quality. Fast image compression tool.",
+    "uploadImage": "Upload Image to Compress",
+    "compressionSettings": "Compression Settings",
+    "compressionMode": "Compression Mode",
+    "byQuality": "By Quality",
+    "byFileSize": "Target File Size",
+    "custom": "Custom",
+    "quality": "Quality",
+    "targetFileSize": "Target File Size",
+    "lowerQuality": "Smaller file",
+    "higherQuality": "Better quality",
+    "customSizeKb": "Enter custom size in KB",
+    "compressImage": "Compress Image",
+    "compressNow": "Compress Now",
+    "compressing": "Compressing...",
+    "compressionComplete": "Compression Complete!",
+    "compressedSize": "Compressed Size",
+    "savedSpace": "Saved",
+    "downloadCompressed": "Download Compressed Image",
+    "compressAnother": "Compress Another Image",
+    "compressionFailed": "Compression failed. Please try again.",
+    "whyCompress": "Why Compress Images?",
+    "benefit1": "Faster website loading times and better user experience",
+    "benefit2": "Reduce bandwidth usage and server costs",
+    "benefit3": "Improve SEO rankings with optimized images",
+    "benefit4": "Easy sharing via email and social media",
+    "compressionTips": "Compression Tips",
+    "tip1": "For web use, 70-80% quality is usually sufficient",
+    "tip2": "Target 20KB for thumbnails, 100KB for regular images",
+    "tip3": "Always keep a backup of your original images",
+    "originalSize": "Original Size"
   },
   "qrcode": {
     "title": "QR Code Generator",
@@ -804,14 +842,14 @@
   },
   "metadata": {
     "home": {
-      "title": "Free Online Image Converter, Font & Color Tools | ImageConvertors",
-      "description": "Free online image converter & font generator. Convert PNG/JPG/WebP images, create fancy text, and design color schemes—all without installing any software.",
-      "keywords": "free image converter, online image tools, font generator, fancy text, color palette generator, color picker, PNG to JPG, WebP converter, free online tools",
-      "ogTitle": "Free Online Image Converter, Font & Color Tools",
-      "ogDescription": "Free online image converter & font generator. Convert images, create fancy text, and design color schemes instantly.",
+      "title": "Free Image Converter - Convert PNG, JPG, WebP Online",
+      "description": "Free online image converter. Convert JPG to PNG, PNG to JPG, WebP to JPG. Resize image, compress image, crop image online. Fast, secure, no signup.",
+      "keywords": "image converter, free image converter, convert jpg to png, convert png to jpg, webp to jpg, resize image, compress image, image compressor, jpg to png, png to jpg converter, online image tools",
+      "ogTitle": "Free Image Converter - JPG, PNG, WebP Conversion",
+      "ogDescription": "Convert, resize, and compress images online free. Support for JPG, PNG, WebP formats.",
       "ogImageAlt": "Free Online Image Converter Tools",
-      "twitterTitle": "Free Online Image Converter, Font & Color Tools",
-      "twitterDescription": "Convert images, create fancy text, and design color schemes instantly. No software installation required."
+      "twitterTitle": "Free Image Converter - Convert Images Online",
+      "twitterDescription": "Convert JPG to PNG, PNG to JPG, WebP to JPG online free. Fast image conversion with no signup."
     },
     "aiImageGenerator": {
       "title": "Free AI Image Generator - Create Images from Text | ImageConvertors",
@@ -842,12 +880,20 @@
       "ogImageAlt": "Free Image Cropper Tool"
     },
     "resizeImage": {
-      "title": "Resize Image Online - Free Image Resizer Tool | ImageConvertors",
-      "description": "Resize images by percentage, pixels, or presets. Free online image resizer with maintain aspect ratio option. Fast, easy, and no quality loss.",
-      "keywords": "resize image, image resizer, resize photo, scale image, image dimensions, resize by percentage, resize by pixels, maintain aspect ratio",
+      "title": "Resize Image Online Free - Image Resizer Tool",
+      "description": "Resize image online free. Resize by pixels, percentage, or presets. Maintain aspect ratio and quality. Fast image resizer for photos. No signup needed.",
+      "keywords": "resize image, resize image online, image resizer, resize photo, resize image online free, scale image, image dimensions, resize by percentage, resize by pixels, maintain aspect ratio, photo resizer",
       "ogTitle": "Resize Image Online - Free Image Resizer",
-      "ogDescription": "Resize images by percentage, pixels, or presets. Maintain quality and aspect ratio.",
+      "ogDescription": "Resize images instantly by pixels, percentage, or presets. Free tool with quality preservation.",
       "ogImageAlt": "Free Image Resizer Tool"
+    },
+    "compressImage": {
+      "title": "Compress Image Online Free - Image Compressor Tool",
+      "description": "Compress image online free. Reduce image size to 20KB, 50KB, 100KB. Fast image compressor with quality control. Optimize images for web. No signup.",
+      "keywords": "compress image, image compressor, compress image online, compress image to 20kb, compress image to 50kb, reduce image size, image compression, compress image online free, optimize image, reduce photo size, compress jpg, compress png",
+      "ogTitle": "Compress Image Online - Free Image Compressor",
+      "ogDescription": "Compress images instantly. Reduce file size to 20KB, 50KB or custom. Free tool with quality control.",
+      "ogImageAlt": "Free Image Compressor Tool"
     },
     "analyze": {
       "title": "Image Analyzer - Analyze Image Properties & Metadata | ImageConvertors",
@@ -882,12 +928,12 @@
       "ogImageAlt": "PNG to WebP Converter"
     },
     "jpgToPng": {
-      "title": "JPG to PNG Converter - Convert JPEG to PNG Online Free | ImageConvertors",
-      "description": "Convert JPG/JPEG images to PNG format online for free. Add transparency support. Fast, secure JPG to PNG conversion tool.",
-      "keywords": "JPG to PNG, JPEG to PNG, JPG converter, PNG converter, add transparency, image format converter",
-      "ogTitle": "JPG to PNG Converter - Free Online Tool",
-      "ogDescription": "Convert JPG to PNG online. Add transparency support to your images.",
-      "ogImageAlt": "JPG to PNG Converter"
+      "title": "JPG to PNG Converter - Convert JPEG to PNG Free Online",
+      "description": "Convert JPG to PNG online free. Add transparency, maintain quality. Fast JPEG to PNG converter with lossless conversion. No signup required.",
+      "keywords": "jpg to png, jpeg to png, jpg to png converter, convert jpg to png online, jpg to png online free, jpeg to png converter, image converter, add transparency to jpg, jpg png converter, convert jpeg to png free",
+      "ogTitle": "JPG to PNG - Free Online Converter",
+      "ogDescription": "Convert JPG to PNG instantly. Free tool with transparency support and lossless quality.",
+      "ogImageAlt": "JPG to PNG Converter Tool"
     },
     "webpToPng": {
       "title": "WebP to PNG Converter - Convert WebP to PNG Online Free | ImageConvertors",
@@ -906,28 +952,28 @@
       "ogImageAlt": "JPG to WebP Converter"
     },
     "pngToJpg": {
-      "title": "PNG to JPG Converter - Convert PNG to JPEG Online Free | ImageConvertors",
-      "description": "Convert PNG images to JPG/JPEG format online for free. Optimize for web use and reduce file size. Fast, secure PNG to JPG conversion.",
-      "keywords": "PNG to JPG, PNG to JPEG, PNG converter, JPG converter, image optimization, compress images",
-      "ogTitle": "PNG to JPG Converter - Free Online Tool",
-      "ogDescription": "Convert PNG to JPG online. Optimize for web use and reduce file size.",
-      "ogImageAlt": "PNG to JPG Converter"
+      "title": "PNG to JPG Converter - Convert PNG to JPEG Free Online",
+      "description": "Convert PNG to JPG online free. Reduce image size, optimize for web. Fast PNG to JPEG converter with quality control. No software needed.",
+      "keywords": "png to jpg, png to jpeg, png to jpg converter, convert png to jpg online, png to jpg online free, png jpeg converter, image converter, reduce image size, compress png to jpg, convert png to jpeg free",
+      "ogTitle": "PNG to JPG - Free Online Converter",
+      "ogDescription": "Convert PNG to JPG instantly. Free tool to reduce file size and optimize images for web.",
+      "ogImageAlt": "PNG to JPG Converter Tool"
     },
     "webpToJpg": {
-      "title": "WebP to JPG Converter - Convert WebP to JPEG Online Free | ImageConvertors",
-      "description": "Convert WebP images to JPG/JPEG format online for free. Ensure compatibility across all devices. Fast, secure WebP to JPG conversion.",
-      "keywords": "WebP to JPG, WebP to JPEG, WebP converter, JPG converter, image compatibility",
-      "ogTitle": "WebP to JPG Converter - Free Online Tool",
-      "ogDescription": "Convert WebP to JPG online. Ensure compatibility across all devices.",
-      "ogImageAlt": "WebP to JPG Converter"
+      "title": "WebP to JPG Converter - Convert WebP to JPEG Free Online",
+      "description": "Convert WebP to JPG online free. Universal compatibility for all devices. Fast WebP to JPEG converter. No upload limits, secure conversion.",
+      "keywords": "webp to jpg, webp to jpeg, webp to jpg converter, convert webp to jpg online, webp to jpg online free, webp jpeg converter, image converter, webp compatibility, webp to jpg free, convert webp images",
+      "ogTitle": "WebP to JPG - Free Online Converter",
+      "ogDescription": "Convert WebP to JPG instantly. Free tool with universal device compatibility.",
+      "ogImageAlt": "WebP to JPG Converter Tool"
     },
     "heicToJpg": {
-      "title": "HEIC to JPG Converter - Convert HEIC to JPEG Online Free | ImageConvertors",
-      "description": "Convert Apple HEIC photos to JPG format online for free. Universal compatibility. Fast, secure HEIC to JPG conversion tool.",
-      "keywords": "HEIC to JPG, HEIC converter, JPG converter, Apple photos, convert HEIC, iPhone photos",
-      "ogTitle": "HEIC to JPG Converter - Free Online Tool",
-      "ogDescription": "Convert Apple HEIC photos to JPG online. Universal compatibility.",
-      "ogImageAlt": "HEIC to JPG Converter"
+      "title": "HEIC to JPG Converter - Convert HEIC to JPEG Free Online",
+      "description": "Convert HEIC to JPG online free. iPhone photos to JPEG converter. Fast HEIC to JPG conversion for Apple photos. Works on any device, no app needed.",
+      "keywords": "heic to jpg, heic to jpeg, heic to jpg converter, convert heic to jpg online, heic to jpg online free, iphone photos to jpg, apple heic converter, heic jpeg converter, convert heic photos, heic image converter",
+      "ogTitle": "HEIC to JPG - Free iPhone Photo Converter",
+      "ogDescription": "Convert HEIC to JPG instantly. Free tool for Apple photos with universal compatibility.",
+      "ogImageAlt": "HEIC to JPG Converter Tool"
     },
     "heicToPng": {
       "title": "HEIC to PNG Converter - Convert HEIC to PNG Online Free | ImageConvertors",
@@ -962,28 +1008,28 @@
       "ogImageAlt": "PDF to PNG Converter"
     },
     "imagesToPdf": {
-      "title": "Images to PDF Converter - Combine Images to PDF Online Free | ImageConvertors",
-      "description": "Convert multiple images into a single PDF document online. Supports JPG, PNG, WebP. Customize layout and order. Fast, secure conversion.",
-      "keywords": "images to PDF, combine images, merge images to PDF, JPG to PDF, PNG to PDF, create PDF from images",
-      "ogTitle": "Images to PDF Converter - Free Online Tool",
-      "ogDescription": "Combine multiple images into a single PDF document online.",
-      "ogImageAlt": "Images to PDF Converter"
+      "title": "Images to PDF Converter - Convert Multiple Images to PDF",
+      "description": "Convert images to PDF online free. Combine multiple JPG, PNG, WebP into one PDF. Image to PDF converter with custom layout. No upload limits.",
+      "keywords": "images to pdf, image to pdf, convert images to pdf, multiple images to pdf, jpg to pdf, png to pdf, combine images pdf, photos to pdf, image to pdf converter, convert pictures to pdf",
+      "ogTitle": "Images to PDF - Free Multi-Image Converter",
+      "ogDescription": "Convert multiple images to PDF instantly. Free tool to combine images into one document.",
+      "ogImageAlt": "Images to PDF Converter Tool"
     },
     "pngToPdf": {
-      "title": "PNG to PDF Converter - Convert PNG to PDF Online Free | ImageConvertors",
-      "description": "Convert PNG images to PDF documents online. Maintain transparency. Customize page size and layout. Fast, secure PNG to PDF conversion.",
-      "keywords": "PNG to PDF, PNG converter, PDF converter, create PDF, PNG to PDF online, transparency support",
-      "ogTitle": "PNG to PDF Converter - Free Online Tool",
-      "ogDescription": "Convert PNG to PDF online. Maintain transparency and quality.",
-      "ogImageAlt": "PNG to PDF Converter"
+      "title": "PNG to PDF Converter - Convert PNG to PDF Free Online",
+      "description": "Convert PNG to PDF online free. Maintain transparency and quality. Fast PNG to PDF converter with custom settings. Create PDF from images instantly.",
+      "keywords": "png to pdf, png to pdf converter, convert png to pdf online, png to pdf online free, image to pdf, png pdf converter, convert png images to pdf, png to pdf free, photos to pdf",
+      "ogTitle": "PNG to PDF - Free Image to PDF Converter",
+      "ogDescription": "Convert PNG to PDF instantly. Free tool with transparency support and custom layouts.",
+      "ogImageAlt": "PNG to PDF Converter Tool"
     },
     "jpgToPdf": {
-      "title": "JPG to PDF Converter - Convert JPEG to PDF Online Free | ImageConvertors",
-      "description": "Convert JPG/JPEG images to PDF documents online. Optimize quality and file size. Customize layout. Fast, secure JPG to PDF conversion.",
-      "keywords": "JPG to PDF, JPEG to PDF, JPG converter, PDF converter, create PDF from images",
-      "ogTitle": "JPG to PDF Converter - Free Online Tool",
-      "ogDescription": "Convert JPG to PDF online. Optimize quality and customize layout.",
-      "ogImageAlt": "JPG to PDF Converter"
+      "title": "JPG to PDF Converter - Convert JPEG to PDF Free Online",
+      "description": "Convert JPG to PDF online free. Fast JPEG to PDF converter. Customize page size, orientation. No quality loss. Secure image to PDF conversion.",
+      "keywords": "jpg to pdf, jpeg to pdf, jpg to pdf converter, convert jpg to pdf online, jpg to pdf online free, jpeg to pdf converter, image to pdf, jpg pdf converter, convert jpeg to pdf free, photos to pdf",
+      "ogTitle": "JPG to PDF - Free Image to PDF Converter",
+      "ogDescription": "Convert JPG to PDF instantly. Free tool to create PDF from images with custom settings.",
+      "ogImageAlt": "JPG to PDF Converter Tool"
     },
     "webpToPdf": {
       "title": "WebP to PDF Converter - Convert WebP to PDF Online Free | ImageConvertors",

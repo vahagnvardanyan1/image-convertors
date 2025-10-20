@@ -35,6 +35,15 @@ export function FormatGrid() {
 
   const converters = [
     {
+      from: 'Compress',
+      to: 'Image',
+      route: '/compress-image',
+      icon: Maximize2,
+      description: tTools('compressImageDesc'),
+      popular: true,
+      category: 'image',
+    },
+    {
       from: 'AI Image',
       to: 'Generator',
       route: '/ai-image-generator',

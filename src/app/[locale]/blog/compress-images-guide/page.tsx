@@ -5,15 +5,29 @@ import { Card } from '@/components/Card';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Compress Images Without Losing Quality – Free Image Compressor | ImageConvertors',
-  description: 'Reduce image file size for faster websites and SEO. Compress JPG, PNG, and WebP images online without losing quality.',
-  keywords: ['compress images', 'image compression', 'reduce file size', 'image optimizer', 'lossless compression', 'web optimization', 'SEO images'],
+  title: 'How to Compress Image to 20KB, 50KB, 100KB Without Losing Quality',
+  description: 'Complete guide to compress images online free. Reduce image size to 20KB, 50KB, 100KB. Best image compressor tool for web, social media. No signup required.',
+  keywords: [
+    'compress image',
+    'compress image online',
+    'compress image to 20kb',
+    'compress image to 50kb',
+    'compress image to 100kb',
+    'image compressor',
+    'reduce image size',
+    'compress image without losing quality',
+    'image compression',
+    'optimize images for web',
+    'reduce photo size',
+    'compress jpg',
+    'compress png',
+  ],
   alternates: {
     canonical: 'https://imageconvertors.com/blog/compress-images-guide',
   },
   openGraph: {
-    title: 'Best Way to Compress Images for the Web Without Losing Quality | ImageConvertors',
-    description: 'Reduce image file size for faster websites and SEO. Compress JPG, PNG, and WebP images online without losing quality.',
+    title: 'How to Compress Image to 20KB, 50KB Without Losing Quality - Complete Guide',
+    description: 'Complete guide to compress images online free. Reduce image size to 20KB, 50KB, 100KB with our free image compressor tool.',
     url: 'https://imageconvertors.com/blog/compress-images-guide',
     siteName: 'ImageConvertors',
     type: 'article',
@@ -22,14 +36,14 @@ export const metadata: Metadata = {
         url: '/og-image.webp',
         width: 1200,
         height: 630,
-        alt: 'Image Compression Guide',
+        alt: 'How to Compress Images Guide',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Best Way to Compress Images for the Web Without Losing Quality',
-    description: 'Reduce image file size for faster websites and SEO. Compress JPG, PNG, and WebP images online without losing quality.',
+    title: 'How to Compress Image to 20KB, 50KB Without Losing Quality',
+    description: 'Complete guide to compress images online free. Reduce image size with our free image compressor tool.',
     images: ['/og-image.webp'],
   },
 };
@@ -51,8 +65,8 @@ export default function CompressImagesGuidePage() {
               <TrendingDown className="text-white" size={32} />
             </div>
             <div>
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">Compress Images for the Web Without Losing Quality</h1>
-              <p className="text-gray-600 text-lg">Speed up your website and improve SEO with proper image compression</p>
+              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">How to Compress Image to 20KB, 50KB, 100KB Without Losing Quality</h1>
+              <p className="text-gray-600 text-lg">Complete guide to compress images online free with our image compressor tool</p>
             </div>
           </div>
           <div className="flex items-center text-sm text-gray-600">
@@ -67,12 +81,16 @@ export default function CompressImagesGuidePage() {
         {/* Introduction */}
         <div className="prose prose-lg max-w-none mb-12">
           <p className="text-xl text-gray-700 leading-relaxed mb-6">
-            Images are essential for engaging web content, but they can significantly slow down your website if not optimized properly. <strong>Large images mean slow websites</strong>, which leads to
-            poor user experience, higher bounce rates, and lower search engine rankings.
+            Need to <strong>compress image to 20KB</strong> for a profile picture? Want to <strong>reduce image size to 50KB</strong> for faster website loading? Or perhaps you need to{' '}
+            <strong>compress image to 100KB</strong> for email attachments? You are in the right place!
+          </p>
+          <p className="text-gray-700 leading-relaxed mb-6">
+            <strong>Image compression</strong> is the process of reducing file size without significant quality loss. Whether you are optimizing images for web, social media, email, or storage, proper
+            compression can reduce file sizes by 50-90% while maintaining excellent visual quality.
           </p>
           <p className="text-gray-700 leading-relaxed mb-8">
-            The good news? You can <strong>compress images without losing visible quality</strong>. In this guide, we&apos;ll show you how to reduce image file sizes dramatically while maintaining
-            professional-looking results that keep visitors happy and search engines satisfied.
+            In this comprehensive guide, we will show you exactly <strong>how to compress images online free</strong> using our powerful image compressor tool, explain different compression
+            techniques, and provide tips for achieving specific file size targets like 20KB, 50KB, or 100KB.
           </p>
         </div>
 
@@ -140,25 +158,23 @@ export default function CompressImagesGuidePage() {
 
         {/* How to Compress - Step by Step */}
         <Card className="p-8 mb-8 border-2 border-emerald-200 bg-emerald-50">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">How to Compress Images Using ImageConvertors</h2>
-          <p className="text-gray-700 mb-6">Our online image compressor makes it easy to reduce file sizes while preserving quality. Here&apos;s how:</p>
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">How to Compress Images Online Free (Step-by-Step)</h2>
+          <p className="text-gray-700 mb-6">
+            Our free online image compressor makes it easy to compress images to any target size. Here&apos;s how to compress image to 20KB, 50KB, or any custom size:
+          </p>
 
           <div className="space-y-6">
             <div className="bg-white p-6 rounded-lg shadow-sm">
               <div className="flex items-start">
                 <div className="w-10 h-10 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold mr-4 flex-shrink-0">1</div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 text-lg mb-2">Open the Image Compressor Tool</h3>
+                  <h3 className="font-semibold text-gray-900 text-lg mb-2">Open the Free Image Compressor</h3>
                   <p className="text-gray-700 mb-3">
-                    Visit ImageConvertors and select the appropriate format converter (
-                    <Link href="/png-to-jpg" className="text-emerald-600 hover:text-emerald-800 font-medium underline">
-                      PNG to JPG
+                    Visit our{' '}
+                    <Link href="/compress-image" className="text-emerald-600 hover:text-emerald-800 font-medium underline">
+                      Free Image Compressor Tool
                     </Link>
-                    ,{' '}
-                    <Link href="/jpg-to-webp" className="text-emerald-600 hover:text-emerald-800 font-medium underline">
-                      JPG to WebP
-                    </Link>
-                    , etc.) for automatic compression.
+                    . No signup required, completely free, works in your browser.
                   </p>
                 </div>
               </div>
@@ -181,10 +197,19 @@ export default function CompressImagesGuidePage() {
               <div className="flex items-start">
                 <div className="w-10 h-10 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold mr-4 flex-shrink-0">3</div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 text-lg mb-2">Choose Lossless or Lossy</h3>
-                  <p className="text-gray-700">
-                    Select your compression level based on your needs. Convert to WebP or use JPG with quality settings for optimal results (see compression levels explained below).
-                  </p>
+                  <h3 className="font-semibold text-gray-900 text-lg mb-2">Choose Compression Mode</h3>
+                  <p className="text-gray-700 mb-3">Select your compression method:</p>
+                  <ul className="text-gray-700 space-y-2 ml-4">
+                    <li>
+                      • <strong>Target File Size</strong> — Set exact target like 20KB, 50KB, or 100KB
+                    </li>
+                    <li>
+                      • <strong>By Quality</strong> — Adjust quality slider (10-100%)
+                    </li>
+                    <li>
+                      • <strong>Custom</strong> — Advanced settings for specific needs
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
@@ -193,22 +218,100 @@ export default function CompressImagesGuidePage() {
               <div className="flex items-start">
                 <div className="w-10 h-10 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold mr-4 flex-shrink-0">4</div>
                 <div>
+                  <h3 className="font-semibold text-gray-900 text-lg mb-2">Set Target Size (Optional)</h3>
+                  <p className="text-gray-700">
+                    For specific file size requirements, select target file size mode and choose from presets (20KB, 50KB, 100KB, 200KB) or enter a custom value. The tool will automatically adjust
+                    compression to reach your target.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <div className="flex items-start">
+                <div className="w-10 h-10 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold mr-4 flex-shrink-0">5</div>
+                <div>
                   <h3 className="font-semibold text-gray-900 text-lg mb-2 flex items-center">
-                    Download Optimized Images
+                    Compress & Download
                     <Download className="ml-2 text-emerald-600" size={20} />
                   </h3>
-                  <p className="text-gray-700">Get your compressed images and upload them to your website for instant performance improvements.</p>
+                  <p className="text-gray-700">Click &quot;Compress Now&quot; and download your optimized image. See before/after comparison and file size reduction percentage.</p>
                 </div>
               </div>
             </div>
           </div>
 
           <div className="mt-6 text-center">
-            <Link href="/png-to-jpg">
+            <Link href="/compress-image">
               <Button size="lg" className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-3">
-                Start Compressing Images Now →
+                Try Free Image Compressor Now →
               </Button>
             </Link>
+          </div>
+        </Card>
+
+        {/* Target File Size Guide */}
+        <Card className="p-8 mb-8 border-l-4 border-blue-500">
+          <div className="flex items-center mb-6">
+            <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mr-4">
+              <Gauge className="text-blue-600" size={24} />
+            </div>
+            <h2 className="text-2xl font-bold text-gray-900">How to Compress Image to Specific Sizes</h2>
+          </div>
+          <p className="text-gray-700 leading-relaxed mb-6">Different use cases require different file sizes. Here is how to achieve specific target sizes:</p>
+
+          <div className="space-y-4">
+            <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-6 rounded-lg border border-green-200">
+              <h3 className="font-semibold text-gray-900 mb-3 text-lg">🎯 Compress Image to 20KB</h3>
+              <p className="text-gray-700 mb-3">
+                <strong>Perfect for:</strong> Profile pictures, avatars, thumbnails, icons
+              </p>
+              <p className="text-gray-600 text-sm mb-2">
+                <strong>How to achieve:</strong> Use target file size mode and select 20KB. The tool will optimize quality automatically. Alternatively, start with 40-50% quality and adjust.
+              </p>
+              <p className="text-gray-600 text-sm">
+                <strong>Pro tip:</strong> For 20KB targets, resize image to 400-600px first for better results.
+              </p>
+            </div>
+
+            <div className="bg-gradient-to-r from-blue-50 to-cyan-50 p-6 rounded-lg border border-blue-200">
+              <h3 className="font-semibold text-gray-900 mb-3 text-lg">🎯 Compress Image to 50KB</h3>
+              <p className="text-gray-700 mb-3">
+                <strong>Perfect for:</strong> Email attachments, blog thumbnails, social media posts
+              </p>
+              <p className="text-gray-600 text-sm mb-2">
+                <strong>How to achieve:</strong> Select 50KB target size preset. The compressor will find the optimal balance between quality and size.
+              </p>
+              <p className="text-gray-600 text-sm">
+                <strong>Pro tip:</strong> 50KB is ideal for images displayed at 800px wide or smaller.
+              </p>
+            </div>
+
+            <div className="bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-lg border border-purple-200">
+              <h3 className="font-semibold text-gray-900 mb-3 text-lg">🎯 Compress Image to 100KB</h3>
+              <p className="text-gray-700 mb-3">
+                <strong>Perfect for:</strong> Website images, product photos, blog featured images
+              </p>
+              <p className="text-gray-600 text-sm mb-2">
+                <strong>How to achieve:</strong> Use 100KB preset or set quality to 70-80%. This provides excellent quality for full-width web images.
+              </p>
+              <p className="text-gray-600 text-sm">
+                <strong>Pro tip:</strong> 100KB is the sweet spot for most website images under 1920px wide.
+              </p>
+            </div>
+
+            <div className="bg-gradient-to-r from-orange-50 to-red-50 p-6 rounded-lg border border-orange-200">
+              <h3 className="font-semibold text-gray-900 mb-3 text-lg">🎯 Compress Image to 200KB</h3>
+              <p className="text-gray-700 mb-3">
+                <strong>Perfect for:</strong> High-quality photos, hero images, portfolio images
+              </p>
+              <p className="text-gray-600 text-sm mb-2">
+                <strong>How to achieve:</strong> Select 200KB preset or use 80-85% quality setting.
+              </p>
+              <p className="text-gray-600 text-sm">
+                <strong>Pro tip:</strong> Great for images that need to look sharp at full HD (1920×1080px) resolution.
+              </p>
+            </div>
           </div>
         </Card>
 
@@ -333,39 +436,67 @@ export default function CompressImagesGuidePage() {
         <Card className="p-8 mb-8 bg-gray-50">
           <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
             <HelpCircle className="mr-2 text-blue-600" size={28} />
-            FAQs
+            Frequently Asked Questions
           </h2>
 
           <div className="space-y-6">
             <div className="bg-white p-6 rounded-lg shadow-sm">
+              <h3 className="font-semibold text-gray-900 mb-3 text-lg">Q: How to compress image to 20KB?</h3>
+              <p className="text-gray-700">
+                <strong>A:</strong> To compress an image to 20KB: 1) Upload your image to our compressor tool, 2) Select &quot;Target File Size&quot; mode, 3) Choose 20KB preset or enter 20 manually,
+                4) Click &quot;Compress Now&quot;. Our tool will automatically optimize the image to reach approximately 20KB while maintaining the best possible quality. For better results with 20KB
+                targets, resize your image to 400-600px first.
+              </p>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <h3 className="font-semibold text-gray-900 mb-3 text-lg">Q: How to compress image without losing quality?</h3>
+              <p className="text-gray-700">
+                <strong>A:</strong> To compress images without noticeable quality loss: 1) Use our image compressor tool, 2) Select &quot;By Quality&quot; mode, 3) Set quality to 80-90%, 4) Click
+                &quot;Compress Now&quot;. This range provides excellent balance between file size reduction and visual quality. For web images, 80% quality is usually optimal and the difference from
+                100% is imperceptible to most viewers.
+              </p>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <h3 className="font-semibold text-gray-900 mb-3 text-lg">Q: What is the best image compressor online?</h3>
+              <p className="text-gray-700">
+                <strong>A:</strong> ImageConvertors offers one of the best free image compressors online with quality control, target file size compression (20KB, 50KB, 100KB, 200KB presets), and
+                instant browser-based processing. All compression happens locally in your browser, ensuring complete privacy and security. No signup required, unlimited use, and works with JPG, PNG,
+                and WebP formats.
+              </p>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <h3 className="font-semibold text-gray-900 mb-3 text-lg">Q: How do I reduce image file size?</h3>
+              <p className="text-gray-700">
+                <strong>A:</strong> To reduce image file size: 1) Use our image compressor, 2) Choose between quality-based or target file size compression, 3) Set your desired output (e.g., 50KB or
+                80% quality), 4) Compress and download. You can typically reduce file sizes by 50-90% while maintaining good visual quality. Combine compression with resizing for maximum file size
+                reduction.
+              </p>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-sm">
               <h3 className="font-semibold text-gray-900 mb-3 text-lg">Q: Will compressing images hurt SEO?</h3>
               <p className="text-gray-700">
-                <strong>A:</strong> No, quite the opposite! Compressing images improves page speed, which is a direct ranking factor for Google. Faster sites rank better and retain more visitors. Just
-                maintain reasonable quality so images remain clear and professional.
+                <strong>A:</strong> No! Compressing images actually improves SEO by making your website load faster. Page speed is a direct ranking factor for Google. Compressed images mean faster
+                loading times, better user experience, lower bounce rates, and improved Core Web Vitals scores—all of which help your search engine rankings.
               </p>
             </div>
 
             <div className="bg-white p-6 rounded-lg shadow-sm">
-              <h3 className="font-semibold text-gray-900 mb-3 text-lg">Q: Can I compress multiple images?</h3>
+              <h3 className="font-semibold text-gray-900 mb-3 text-lg">Q: Can I compress JPG and PNG images?</h3>
               <p className="text-gray-700">
-                <strong>A:</strong> Absolutely! Our tool supports batch processing, allowing you to compress dozens or even hundreds of images at once. This is perfect for optimizing entire photo
-                galleries or product catalogs.
+                <strong>A:</strong> Yes! Our image compressor works with JPG, PNG, and WebP formats. JPG images compress well with lossy compression (50-90% size reduction). PNG images can be
+                compressed losslessly or converted to JPG/WebP for better compression ratios. Upload any image format and get optimized output with our free tool.
               </p>
             </div>
 
             <div className="bg-white p-6 rounded-lg shadow-sm">
-              <h3 className="font-semibold text-gray-900 mb-3 text-lg">Q: Which is better, JPG or WebP?</h3>
+              <h3 className="font-semibold text-gray-900 mb-3 text-lg">Q: Is your image compressor really free?</h3>
               <p className="text-gray-700">
-                <strong>A:</strong> WebP is superior for web use—it offers better compression and quality than JPG. However, JPG has universal support. Best practice: use WebP with JPG fallback, or
-                simply convert all your images to WebP if you&apos;re targeting modern browsers (95%+ support as of 2025).
-              </p>
-            </div>
-
-            <div className="bg-white p-6 rounded-lg shadow-sm">
-              <h3 className="font-semibold text-gray-900 mb-3 text-lg">Q: How much can I compress an image before quality suffers?</h3>
-              <p className="text-gray-700">
-                <strong>A:</strong> It depends on the image type. For photos, 75-85% quality is usually perfect for web use. For graphics and screenshots, use higher quality (90-100%) or lossless
-                formats like PNG. Always preview before finalizing to ensure quality meets your standards.
+                <strong>A:</strong> Yes, completely free! No hidden costs, no watermarks, no signup required, and unlimited compressions. All processing happens directly in your browser for maximum
+                privacy and security. Your images never leave your device, ensuring complete confidentiality.
               </p>
             </div>
           </div>
@@ -373,29 +504,29 @@ export default function CompressImagesGuidePage() {
 
         {/* CTA Section */}
         <Card className="p-8 text-center bg-gradient-to-r from-emerald-600 to-teal-600 text-white">
-          <h2 className="text-3xl font-bold mb-4">Ready to Speed Up Your Website?</h2>
-          <p className="text-xl mb-6 text-emerald-100">Try our free image converter and start optimizing your images today. Fast, secure, and no sign-up required!</p>
-          <Link href="/png-to-jpg">
+          <h2 className="text-3xl font-bold mb-4">Ready to Compress Your Images?</h2>
+          <p className="text-xl mb-6 text-emerald-100">Try our free image compressor and reduce image size to 20KB, 50KB, or any target. Fast, secure, and no sign-up required!</p>
+          <Link href="/compress-image">
             <Button size="lg" className="bg-white text-emerald-600 hover:bg-gray-100 px-8 py-3 text-lg font-semibold">
-              Start Compressing Now →
+              Compress Images Free Now →
             </Button>
           </Link>
         </Card>
 
         {/* Related Tools */}
         <div className="mt-12">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Related Tools</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">Related Image Tools</h2>
           <div className="grid md:grid-cols-3 gap-4">
-            <Link href="/png-to-webp">
-              <Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer h-full">
-                <h3 className="font-semibold text-gray-900 mb-2">PNG to WebP</h3>
-                <p className="text-gray-600 text-sm">Convert PNG to WebP for maximum compression and quality.</p>
+            <Link href="/compress-image">
+              <Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer h-full border-2 border-emerald-200">
+                <h3 className="font-semibold text-gray-900 mb-2">🎯 Image Compressor</h3>
+                <p className="text-gray-600 text-sm">Compress images to 20KB, 50KB, or any target size online free.</p>
               </Card>
             </Link>
-            <Link href="/jpg-to-webp">
+            <Link href="/resize-image">
               <Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer h-full">
-                <h3 className="font-semibold text-gray-900 mb-2">JPG to WebP</h3>
-                <p className="text-gray-600 text-sm">Optimize your JPG images by converting to modern WebP format.</p>
+                <h3 className="font-semibold text-gray-900 mb-2">Resize Image</h3>
+                <p className="text-gray-600 text-sm">Resize images by pixels, percentage, or presets for optimal dimensions.</p>
               </Card>
             </Link>
             <Link href="/png-to-jpg">

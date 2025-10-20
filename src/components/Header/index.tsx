@@ -66,6 +66,7 @@ export function Header() {
   ];
 
   const imageTools = [
+    { name: t('compressImage'), href: '/compress-image', popular: true },
     { name: t('cropImage'), href: '/crop-image', popular: true },
     { name: t('resizeImage'), href: '/resize-image', popular: true },
     { name: t('imageAnalyzer'), href: '/analyze', popular: true },

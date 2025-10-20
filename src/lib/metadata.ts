@@ -195,6 +195,27 @@ export const routeMetadata: Record<string, Partial<Metadata>> = {
       'Convert colors between HEX, RGB, RGBA, HSL, HSLA, and HSV formats instantly. Supports color names and all CSS color formats. Perfect for cross-platform development. Free online color format converter.',
     keywords: 'color converter, HEX to RGB, RGB to HSL, HSL to HEX, color format converter, convert colors, CSS colors, color transformation, color code converter',
   },
+  '/compress-image': {
+    title: 'Compress Image Online Free - Image Compressor Tool',
+    description: 'Compress image online free. Reduce image size to 20KB, 50KB, 100KB. Fast image compressor with quality control. Optimize images for web. No signup.',
+    keywords:
+      'compress image, image compressor, compress image online, compress image to 20kb, compress image to 50kb, reduce image size, image compression, compress image online free, optimize image, reduce photo size',
+  },
+  '/resize-image': {
+    title: 'Resize Image Online Free - Image Resizer Tool',
+    description: 'Resize image online free. Resize by pixels, percentage, or presets. Maintain aspect ratio and quality. Fast image resizer for photos. No signup needed.',
+    keywords: 'resize image, resize image online, image resizer, resize photo, resize image online free, scale image, image dimensions, resize by percentage, resize by pixels',
+  },
+  '/crop-image': {
+    title: 'Crop Image Online - Free Image Cropper & Rotator',
+    description: 'Crop, rotate, and resize images online for free. Professional image cropping tool with aspect ratio presets. Flip, zoom, and edit images instantly in your browser.',
+    keywords: 'crop image, image cropper, crop photo online, rotate image, flip image, resize image, aspect ratio, image editor, free image cropper',
+  },
+  '/remove-background': {
+    title: 'Remove Background from Image - Free AI Background Remover',
+    description: 'Remove image backgrounds automatically with AI. Free background remover tool. Fast, accurate, and privacy-focused. No upload to servers.',
+    keywords: 'remove background, background remover, remove image background, ai background remover, transparent background, background eraser, cut out image',
+  },
   '/texts/fonts': {
     title: 'Font Tools - Free Typography Playground, Font Pairing & Scale Generator | ImageConvertors',
     description: 'Professional font tools for designers and developers. Preview Google Fonts, discover perfect font pairings, and generate typographic scales. Free online typography utilities.',
@@ -795,6 +816,73 @@ export const generateStructuredData = (pathname: string) => {
     return conversionSchemas;
   }
 
+  // Handle image editing tools (compress, resize, crop, remove-background)
+  if (pathname === '/compress-image' || pathname === '/resize-image' || pathname === '/crop-image' || pathname === '/remove-background') {
+    const imageToolSchemas = [...baseStructuredData];
+    let toolName = '';
+    let toolDescription = '';
+    let featureList: string[] = [];
+
+    if (pathname === '/compress-image') {
+      toolName = 'Image Compressor';
+      toolDescription = 'Compress images online for free. Reduce file size to 20KB, 50KB, 100KB or custom size without losing quality.';
+      featureList = [
+        'Compress image to specific file size (20KB, 50KB, 100KB, 200KB)',
+        'Quality-based compression',
+        'Visual comparison before and after',
+        'No quality loss with smart compression',
+        'Instant compression in browser',
+        'Support for JPG, PNG, WebP formats',
+      ];
+    } else if (pathname === '/resize-image') {
+      toolName = 'Image Resizer';
+      toolDescription = 'Resize images online for free. Resize by pixels, percentage, or use preset sizes. Maintain aspect ratio and quality.';
+      featureList = ['Resize by pixels or percentage', 'Preset sizes (HD, Full HD, 4K, thumbnail)', 'Maintain aspect ratio option', 'Custom dimensions', 'Instant preview', 'No quality loss'];
+    } else if (pathname === '/crop-image') {
+      toolName = 'Image Cropper';
+      toolDescription = 'Crop images online for free. Professional image cropping with aspect ratio presets, rotate, flip, and zoom controls.';
+      featureList = ['Crop with aspect ratio presets', 'Rotate and flip images', 'Zoom controls', 'Free crop mode', 'Instant preview', 'Precision controls'];
+    } else if (pathname === '/remove-background') {
+      toolName = 'Background Remover';
+      toolDescription = 'Remove image backgrounds automatically with AI. Fast, accurate, and privacy-focused background removal tool.';
+      featureList = ['AI-powered background removal', 'Automatic background detection', 'Transparent background output', 'Client-side processing', 'No server upload', 'Privacy-focused'];
+    }
+
+    // Update the WebPage schema
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (imageToolSchemas[2] as any).name = toolName;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (imageToolSchemas[2] as any).description = toolDescription;
+
+    (imageToolSchemas[3] as WebApplicationSchema).name = toolName;
+    (imageToolSchemas[3] as WebApplicationSchema).description = toolDescription;
+    (imageToolSchemas[3] as WebApplicationSchema).featureList = featureList;
+
+    // Add specific Service schema for image editing tools
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (imageToolSchemas as any[]).push({
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      name: toolName,
+      description: toolDescription,
+      provider: {
+        '@type': 'Organization',
+        name: organizationSchema.name,
+        url: organizationSchema.url,
+      },
+      serviceType: 'Image Editing',
+      areaServed: 'Worldwide',
+      url: currentUrl,
+      availableChannel: {
+        '@type': 'ServiceChannel',
+        serviceUrl: currentUrl,
+        serviceType: 'Online',
+      },
+    });
+
+    return imageToolSchemas;
+  }
+
   // Handle text tools pages
   if (pathname.startsWith('/texts')) {
     const textSchemas = [...baseStructuredData];
@@ -999,8 +1087,11 @@ export const generateBreadcrumbStructuredData = (pathname: string) => {
 
 // Generate FAQ structured data
 export const generateFAQStructuredData = (pathname: string) => {
-  // Only add FAQ schema on homepage and main converter pages
-  if (pathname !== '/' && !pathname.includes('-to-') && !pathname.includes('pdf')) {
+  // Only add FAQ schema on homepage, converter pages, and image editing tools
+  const isConverterPage = pathname !== '/' && (pathname.includes('-to-') || pathname.includes('pdf'));
+  const isImageEditingTool = pathname === '/compress-image' || pathname === '/resize-image' || pathname === '/crop-image' || pathname === '/remove-background';
+
+  if (pathname !== '/' && !isConverterPage && !isImageEditingTool) {
     return null;
   }
 
@@ -1069,6 +1160,82 @@ export const generateFAQStructuredData = (pathname: string) => {
         acceptedAnswer: {
           '@type': 'Answer',
           text: `Yes, our ${from.toUpperCase()} to ${to.toUpperCase()} converter maintains high quality while optimizing file size. You can adjust quality settings if needed.`,
+        },
+      },
+    ];
+  } else if (pathname === '/compress-image') {
+    specificFAQs = [
+      {
+        '@type': 'Question',
+        name: 'How to compress image to 20KB?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'To compress an image to 20KB: 1) Upload your image, 2) Select "Target File Size" mode, 3) Choose 20KB preset or enter 20 manually, 4) Click "Compress Now". Our tool will automatically optimize the image to reach approximately 20KB while maintaining the best possible quality.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How to compress image without losing quality?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'To compress images without losing quality: 1) Upload your image, 2) Select "By Quality" mode, 3) Set quality to 80-90%, 4) Click "Compress Now". This provides a good balance between file size reduction and visual quality. For web use, 80% quality is usually optimal.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What is the best image compressor online?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'ImageConvertors offers a free image compressor with quality control, target file size compression (20KB, 50KB, 100KB), and instant browser-based processing. All compression happens locally in your browser, ensuring privacy and security.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How to reduce image file size?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'To reduce image file size: 1) Use our image compressor to compress the image, 2) Adjust quality settings (lower quality = smaller size), 3) Set a target file size like 50KB or 100KB, 4) Download the compressed image. You can reduce file size by 50-90% while maintaining good visual quality.',
+        },
+      },
+    ];
+  } else if (pathname === '/resize-image') {
+    specificFAQs = [
+      {
+        '@type': 'Question',
+        name: 'How to resize image online?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'To resize images online: 1) Upload your image, 2) Choose resize mode (by percentage, pixels, or preset), 3) Enter desired dimensions, 4) Enable "Maintain aspect ratio" to prevent distortion, 5) Click "Resize & Download". The resizing happens instantly in your browser.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How to resize image without losing quality?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'To resize images without losing quality: 1) Only reduce size (downscaling), never enlarge images, 2) Enable "Maintain aspect ratio" option, 3) Use high-quality output format like PNG for graphics or JPG at 90%+ quality for photos. Our tool uses advanced algorithms to preserve image quality during resizing.',
+        },
+      },
+    ];
+  } else if (pathname === '/crop-image') {
+    specificFAQs = [
+      {
+        '@type': 'Question',
+        name: 'How to crop image online?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'To crop images online: 1) Upload your image, 2) Select aspect ratio or use free crop mode, 3) Adjust the crop area by dragging corners, 4) Use rotate/flip options if needed, 5) Click "Crop & Download". All editing happens in your browser.',
+        },
+      },
+    ];
+  } else if (pathname === '/remove-background') {
+    specificFAQs = [
+      {
+        '@type': 'Question',
+        name: 'How to remove background from image?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'To remove image background: 1) Upload your image, 2) Our AI automatically detects and removes the background, 3) Preview the result with transparent background, 4) Download as PNG to maintain transparency. All processing happens in your browser for privacy.',
         },
       },
     ];
