@@ -1,25 +1,13 @@
-# ===============================
-# Standard Robots.txt for Search Engines
-# ===============================
+# *
 User-agent: *
 Allow: /
+
+# *
+User-agent: *
 Disallow: /api/
 
-# ===============================
-# AI / LLM Specific Directives
-# ===============================
-User-agent: GPTBot
-User-agent: ChatGPT-User
-User-agent: CCBot
-User-agent: anthropic-ai
-User-agent: Claude-Web
-User-agent: PerplexityBot
-User-agent: Google-Extended
-Allow: /
-Allow: /api/
+# Host
+Host: https://imageconvertors.com
 
-# ===============================
 # Sitemaps
-# ===============================
 Sitemap: https://imageconvertors.com/sitemap.xml
-Sitemap: https://imageconvertors.com/sitemap-localized.xml
