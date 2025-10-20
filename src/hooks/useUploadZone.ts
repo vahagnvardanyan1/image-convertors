@@ -106,4 +106,3 @@ export const useUploadZone = ({ onFilesSelect, accept = '*', multiple = false }:
     addFiles,
   };
 };
-

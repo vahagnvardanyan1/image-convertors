@@ -128,4 +128,3 @@ const ToastItem = ({ toast, onClose }: ToastItemProps) => {
     </div>
   );
 };
-

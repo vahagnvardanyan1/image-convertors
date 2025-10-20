@@ -196,4 +196,3 @@ const findOptimalQuality = async ({ canvas, targetBytes, maxAttempts }: { canvas
 
   return finalQuality;
 };
-

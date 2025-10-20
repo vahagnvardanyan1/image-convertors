@@ -54,4 +54,3 @@ export const useDropdowns = (): UseDropdownsReturn => {
     closeAll,
   };
 };
-

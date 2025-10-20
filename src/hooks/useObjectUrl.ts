@@ -101,4 +101,3 @@ export const useMultiObjectUrl = (): UseMultiObjectUrlReturn => {
     revokeAll,
   };
 };
-

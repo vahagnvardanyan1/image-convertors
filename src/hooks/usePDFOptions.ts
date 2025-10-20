@@ -129,4 +129,3 @@ export const useSplitPDFOptions = (): UseSplitPDFOptions => {
     updateSplitRange,
   };
 };
-

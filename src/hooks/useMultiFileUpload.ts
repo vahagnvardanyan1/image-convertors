@@ -56,4 +56,3 @@ export const useMultiFileUpload = ({ onFilesSelect, accept = '*', multiple = tru
     triggerFileInput,
   };
 };
-
