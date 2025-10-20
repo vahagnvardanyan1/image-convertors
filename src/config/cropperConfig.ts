@@ -6,4 +6,3 @@ export const ASPECT_RATIOS = [
   { label: '3:2', value: 3 / 2 },
   { label: '2:3', value: 2 / 3 },
 ] as const;
-

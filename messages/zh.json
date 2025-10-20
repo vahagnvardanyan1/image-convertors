@@ -28,6 +28,18 @@
     "uploading": "上传中...",
     "filesSelected": "已选择的文件"
   },
+  "errors": {
+    "selectExactlyOnePdf": "请选择一个PDF文件",
+    "selectValidPdf": "请选择有效的PDF文件",
+    "selectAtLeastOneImage": "请至少选择一个图像文件",
+    "allFilesMustBeImages": "所有文件必须是有效的图像文件（PNG、JPG、WebP、HEIC）",
+    "selectAtLeastTwoPdfs": "请至少选择2个PDF文件进行合并",
+    "allFilesMustBePdfs": "所有文件必须是PDF文件",
+    "invalidOperationMode": "无效的操作模式",
+    "compressionFailed": "压缩失败",
+    "processingFailed": "处理失败",
+    "loadImageFailed": "加载图像失败"
+  },
   "header": {
     "aiTools": "人工智能工具",
     "imageTools": "图像工具",

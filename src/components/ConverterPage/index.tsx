@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 
-import { ArrowLeft, Upload, FileImage, Settings, Zap, AlertCircle } from 'lucide-react';
+import { ArrowLeft, FileImage, Settings, Zap, AlertCircle } from 'lucide-react';
 
 import { Button } from '../ui/button';
 import { Card } from '@/components/Card';

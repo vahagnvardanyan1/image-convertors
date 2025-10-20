@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import QRCodeSVG from 'react-qr-code';
-import { Download, Link as LinkIcon, Type, Mail, Phone, MessageSquare, Wifi, MapPin, Calendar, Eye, ChevronUp } from 'lucide-react';
+import { Download, Eye, ChevronUp } from 'lucide-react';
 
 import { Button } from '../ui/button';
 import { Card } from '../Card';

@@ -12,4 +12,3 @@ export const QR_CODE_TYPES = [
   { type: 'location' as QRType, label: 'Location', icon: MapPin },
   { type: 'vcard' as QRType, label: 'Contact Card', icon: Calendar },
 ] as const;
-

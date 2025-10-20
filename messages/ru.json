@@ -28,6 +28,18 @@
     "uploading": "Загрузка...",
     "filesSelected": "файлов выбрано"
   },
+  "errors": {
+    "selectExactlyOnePdf": "Пожалуйста, выберите ровно один файл PDF",
+    "selectValidPdf": "Пожалуйста, выберите действительный файл PDF",
+    "selectAtLeastOneImage": "Пожалуйста, выберите хотя бы один файл изображения",
+    "allFilesMustBeImages": "Все файлы должны быть действительными файлами изображений (PNG, JPG, WebP, HEIC)",
+    "selectAtLeastTwoPdfs": "Пожалуйста, выберите как минимум 2 PDF-файла для объединения",
+    "allFilesMustBePdfs": "Все файлы должны быть PDF-файлами",
+    "invalidOperationMode": "Неверный режим операции",
+    "compressionFailed": "Сжатие не удалось",
+    "processingFailed": "Обработка не удалась",
+    "loadImageFailed": "Не удалось загрузить изображение"
+  },
   "header": {
     "aiTools": "Инструменты искусственного интеллекта",
     "imageTools": "Инструменты для изображений",

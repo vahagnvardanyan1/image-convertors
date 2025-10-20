@@ -28,6 +28,18 @@
     "uploading": "Hochladen...",
     "filesSelected": "Dateien ausgewählt"
   },
+  "errors": {
+    "selectExactlyOnePdf": "Bitte wählen Sie genau eine PDF-Datei aus",
+    "selectValidPdf": "Bitte wählen Sie eine gültige PDF-Datei aus",
+    "selectAtLeastOneImage": "Bitte wählen Sie mindestens eine Bilddatei aus",
+    "allFilesMustBeImages": "Alle Dateien müssen gültige Bilddateien sein (PNG, JPG, WebP, HEIC)",
+    "selectAtLeastTwoPdfs": "Bitte wählen Sie mindestens 2 PDF-Dateien zum Zusammenführen aus",
+    "allFilesMustBePdfs": "Alle Dateien müssen PDF-Dateien sein",
+    "invalidOperationMode": "Ungültiger Operationsmodus",
+    "compressionFailed": "Komprimierung fehlgeschlagen",
+    "processingFailed": "Verarbeitung fehlgeschlagen",
+    "loadImageFailed": "Fehler beim Laden des Bildes"
+  },
   "header": {
     "aiTools": "KI-Tools",
     "imageTools": "Bildwerkzeuge",

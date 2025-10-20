@@ -1,16 +1,16 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 
-import { Upload, FileText, Zap, AlertCircle, Settings, Image as ImageIcon, Plus, X } from 'lucide-react';
+import { Upload, FileText, Zap, Settings, Image as ImageIcon, Plus, X } from 'lucide-react';
 
 import { Button } from '../ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../Select';
 import { Card } from '../Card';
 import { PDFResultModal } from '../PDFResultModal';
-import { useDragAndDrop } from '@/hooks/useDragAndDrop';
-import { useMultiFileUpload } from '@/hooks/useMultiFileUpload';
+import { useToast } from '@/components/ui/toast';
+import { useUploadZone } from '@/hooks/useUploadZone';
 import { usePDFProcessing } from '@/hooks/usePDFProcessing';
 import { usePDFToImagesOptions, useImagesToPDFOptions, useSplitPDFOptions } from '@/hooks/usePDFOptions';
 import { validateFilesForMode, getAcceptedFileTypes, getAllowsMultiple } from '@/utils/pdfValidation';
@@ -26,7 +26,8 @@ interface PDFToolProps {
 
 export const PDFTool = ({ mode, title, description }: PDFToolProps) => {
   const t = useTranslations('pdfTool');
-  const [validationError, setValidationError] = useState<string | null>(null);
+  const tErrors = useTranslations('errors');
+  const toast = useToast();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // PDF Processing Hook
@@ -48,26 +49,17 @@ export const PDFTool = ({ mode, title, description }: PDFToolProps) => {
 
   // File validation and selection
   const handleFilesSelect = (files: File[]) => {
-    setValidationError(null);
     const validation = validateFilesForMode({ files, mode });
-    if (!validation.isValid) {
-      setValidationError(validation.error || 'Invalid files');
+    if (!validation.isValid && validation.errorKey) {
+      toast.error(tErrors(validation.errorKey));
     }
   };
 
-  // Multi-file upload hook
-  const { selectedFiles, fileInputRef, handleFileSelect, clearFiles, removeFile, triggerFileInput } = useMultiFileUpload({
+  // Unified upload hook
+  const { isDragOver, selectedFiles, fileInputRef, handleDragOver, handleDragLeave, handleDrop, handleFileSelect, triggerFileInput, clearFiles, removeFile } = useUploadZone({
     onFilesSelect: handleFilesSelect,
     accept: getAcceptedFileTypes(mode),
     multiple: getAllowsMultiple(mode),
-  });
-
-  // Drag and drop hook
-  const { isDragOver, handleDragOver, handleDragLeave, handleDrop } = useDragAndDrop({
-    onFilesDrop: files => {
-      const fileArray = Array.from(files);
-      handleFilesSelect(fileArray);
-    },
   });
 
   // Process PDF
@@ -106,14 +98,18 @@ export const PDFTool = ({ mode, title, description }: PDFToolProps) => {
     reset();
     clearFiles();
     setIsModalOpen(false);
-    setValidationError(null);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
 
-  const error = validationError || processingError;
+  // Show processing errors as toasts
+  useEffect(() => {
+    if (processingError) {
+      toast.error(processingError);
+    }
+  }, [processingError, toast]);
 
   const getUploadText = () => {
     if (isDragOver) return t('dropFilesHere');
@@ -339,20 +335,12 @@ export const PDFTool = ({ mode, title, description }: PDFToolProps) => {
             </div>
           )}
 
-          {/* Error Display */}
-          {error && (
-            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center space-x-2">
-              <AlertCircle className="text-red-500" size={20} />
-              <p className="text-red-700">{error}</p>
-            </div>
-          )}
-
           {/* Process Button */}
           {selectedFiles.length > 0 && (
             <div className="text-center">
               <Button
                 onClick={handleProcess}
-                disabled={isProcessing || !!validationError}
+                disabled={isProcessing}
                 className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 disabled:opacity-50"
               >
                 <Zap className={`mr-2 ${isProcessing ? 'animate-spin' : ''}`} size={20} />

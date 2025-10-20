@@ -3,13 +3,13 @@
 import { useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 
-import { Upload, Download, RotateCcw, Maximize2, CheckCircle, Settings, Sliders } from 'lucide-react';
+import { Maximize2, CheckCircle, Settings, Sliders } from 'lucide-react';
 
 import { Button } from '../ui/button';
-import { Card } from '@/components/Card';
 import { ToolShell, ToolGrid } from '@/components/tooling/ToolShell';
 import { ToolSection, ToolSidebar } from '@/components/tooling/ToolSection';
 import { FileUploadZone } from '@/components/FileUploadZone';
+import { useToast } from '@/components/ui/toast';
 import { useUploadZone } from '@/hooks/useUploadZone';
 import { useImageResize, presets } from '@/hooks/useImageResize';
 import { useBottomSheet } from '@/hooks/useBottomSheet';
@@ -21,6 +21,8 @@ import type { PresetSize } from '@/hooks/useImageResize';
 export const ImageResizer = () => {
   const t = useTranslations('resizer');
   const tCommon = useTranslations('common');
+  const tErrors = useTranslations('errors');
+  const toast = useToast();
 
   const {
     imageUrl,
@@ -54,7 +56,7 @@ export const ImageResizer = () => {
     if (!file) return;
 
     if (!validateImageFile(file)) {
-      alert(tCommon('selectValidImage'));
+      toast.error(tCommon('selectValidImage'));
       return;
     }
 
@@ -72,7 +74,7 @@ export const ImageResizer = () => {
       setCustomHeight(dimensions.height);
     } catch (error) {
       console.error('Error getting image dimensions:', error);
-      alert('Failed to load image dimensions');
+      toast.error(tErrors('loadImageFailed'));
     }
   };
 
@@ -187,7 +189,15 @@ export const ImageResizer = () => {
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         {t('scale')}: {percentage}%
                       </label>
-                      <input type="range" min="10" max="200" step="10" value={percentage} onChange={e => setPercentage(parseInt(e.target.value))} className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" />
+                      <input
+                        type="range"
+                        min="10"
+                        max="200"
+                        step="10"
+                        value={percentage}
+                        onChange={e => setPercentage(parseInt(e.target.value))}
+                        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                      />
                       <div className="flex justify-between text-xs text-gray-500 mt-1">
                         <span>10%</span>
                         <span>200%</span>

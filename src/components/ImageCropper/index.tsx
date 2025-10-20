@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Download, RotateCcw, RotateCw, FlipHorizontal, FlipVertical, ZoomIn, ZoomOut, Maximize, Move, Crop, CheckCircle, Upload } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
@@ -9,6 +9,7 @@ import { Card } from '@/components/Card';
 import { ToolShell, ToolGrid } from '@/components/tooling/ToolShell';
 import { ToolSection, ToolSidebar } from '@/components/tooling/ToolSection';
 import { FileUploadZone } from '@/components/FileUploadZone';
+import { useToast } from '@/components/ui/toast';
 import { useUploadZone } from '@/hooks/useUploadZone';
 import { useImageCrop } from '@/hooks/useImageCrop';
 import { useBottomSheet } from '@/hooks/useBottomSheet';
@@ -18,23 +19,9 @@ import { ASPECT_RATIOS } from '@/config/cropperConfig';
 export const ImageCropper = () => {
   const tCommon = useTranslations('common');
   const tCrop = useTranslations('cropTool');
+  const toast = useToast();
 
-  const {
-    imageUrl,
-    cropper,
-    aspectRatio,
-    isCropping,
-    imageRef,
-    setImageUrl,
-    setAspectRatio,
-    initializeCropper,
-    cropImage,
-    resetCrop,
-    rotateCrop,
-    flipCrop,
-    zoomCrop,
-    destroyCropper,
-  } = useImageCrop();
+  const { imageUrl, cropper, aspectRatio, isCropping, imageRef, setImageUrl, setAspectRatio, initializeCropper, cropImage, resetCrop, rotateCrop, flipCrop, zoomCrop, destroyCropper } = useImageCrop();
 
   const { isOpen: isBottomSheetOpen, open: openBottomSheet, close: closeBottomSheet } = useBottomSheet();
 
@@ -43,7 +30,7 @@ export const ImageCropper = () => {
     if (!file) return;
 
     if (!validateImageFile(file)) {
-      alert(tCommon('selectValidImage'));
+      toast.error(tCommon('selectValidImage'));
       return;
     }
 
@@ -259,7 +246,11 @@ export const ImageCropper = () => {
 
             {/* Floating Action Buttons */}
             <div className="fixed bottom-6 right-4 z-40 flex flex-col gap-3">
-              <Button onClick={handleCropClick} className="h-14 w-14 rounded-full shadow-2xl bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white p-0" disabled={isCropping}>
+              <Button
+                onClick={handleCropClick}
+                className="h-14 w-14 rounded-full shadow-2xl bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white p-0"
+                disabled={isCropping}
+              >
                 <Download size={24} />
               </Button>
               <Button onClick={openBottomSheet} className="h-14 w-14 rounded-full shadow-2xl bg-white hover:bg-gray-50 text-gray-900 p-0 border-2 border-gray-200">
@@ -271,7 +262,9 @@ export const ImageCropper = () => {
             {isBottomSheetOpen && <div className="fixed inset-0 bg-transparent z-50 transition-opacity" onClick={closeBottomSheet} />}
 
             {/* Bottom Sheet */}
-            <div className={`fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl shadow-2xl z-50 transition-transform duration-300 ease-out ${isBottomSheetOpen ? 'translate-y-0' : 'translate-y-full'}`}>
+            <div
+              className={`fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl shadow-2xl z-50 transition-transform duration-300 ease-out ${isBottomSheetOpen ? 'translate-y-0' : 'translate-y-full'}`}
+            >
               <div className="p-4 max-h-[80vh] overflow-y-auto">
                 {/* Handle Bar */}
                 <div className="flex justify-center mb-4">

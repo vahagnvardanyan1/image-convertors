@@ -28,6 +28,18 @@
     "uploading": "Uploading...",
     "filesSelected": "files selected"
   },
+  "errors": {
+    "selectExactlyOnePdf": "Please select exactly one PDF file",
+    "selectValidPdf": "Please select a valid PDF file",
+    "selectAtLeastOneImage": "Please select at least one image file",
+    "allFilesMustBeImages": "All files must be valid image files (PNG, JPG, WebP, HEIC)",
+    "selectAtLeastTwoPdfs": "Please select at least 2 PDF files to merge",
+    "allFilesMustBePdfs": "All files must be PDF files",
+    "invalidOperationMode": "Invalid operation mode",
+    "compressionFailed": "Compression failed",
+    "processingFailed": "Processing failed",
+    "loadImageFailed": "Failed to load image"
+  },
   "header": {
     "aiTools": "AI Tools",
     "imageTools": "Image Tools",

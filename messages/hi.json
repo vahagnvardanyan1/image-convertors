@@ -28,6 +28,18 @@
     "uploading": "अपलोड हो रहा है...",
     "filesSelected": "फ़ाइलें चयनित"
   },
+  "errors": {
+    "selectExactlyOnePdf": "कृपया बिल्कुल एक PDF फ़ाइल चुनें",
+    "selectValidPdf": "कृपया एक मान्य PDF फ़ाइल चुनें",
+    "selectAtLeastOneImage": "कृपया कम से कम एक छवि फ़ाइल चुनें",
+    "allFilesMustBeImages": "सभी फ़ाइलें मान्य छवि फ़ाइलें होनी चाहिए (PNG, JPG, WebP, HEIC)",
+    "selectAtLeastTwoPdfs": "कृपया मर्ज करने के लिए कम से कम 2 PDF फ़ाइलें चुनें",
+    "allFilesMustBePdfs": "सभी फ़ाइलें PDF फ़ाइलें होनी चाहिए",
+    "invalidOperationMode": "अमान्य ऑपरेशन मोड",
+    "compressionFailed": "संपीड़न विफल रहा",
+    "processingFailed": "प्रसंस्करण विफल रहा",
+    "loadImageFailed": "छवि लोड करने में विफल"
+  },
   "header": {
     "aiTools": "एआई उपकरण",
     "imageTools": "छवि उपकरण",

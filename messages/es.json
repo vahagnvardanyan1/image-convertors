@@ -28,6 +28,18 @@
     "uploading": "Subiendo...",
     "filesSelected": "archivos seleccionados"
   },
+  "errors": {
+    "selectExactlyOnePdf": "Por favor, seleccione exactamente un archivo PDF",
+    "selectValidPdf": "Por favor, seleccione un archivo PDF válido",
+    "selectAtLeastOneImage": "Por favor, seleccione al menos un archivo de imagen",
+    "allFilesMustBeImages": "Todos los archivos deben ser archivos de imagen válidos (PNG, JPG, WebP, HEIC)",
+    "selectAtLeastTwoPdfs": "Por favor, seleccione al menos 2 archivos PDF para fusionar",
+    "allFilesMustBePdfs": "Todos los archivos deben ser archivos PDF",
+    "invalidOperationMode": "Modo de operación inválido",
+    "compressionFailed": "Compresión fallida",
+    "processingFailed": "Procesamiento fallido",
+    "loadImageFailed": "Error al cargar la imagen"
+  },
   "header": {
     "aiTools": "Herramientas de IA",
     "imageTools": "Herramientas de imagen",

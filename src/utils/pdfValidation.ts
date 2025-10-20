@@ -9,7 +9,7 @@ interface ValidateFilesForModeParams {
 
 interface ValidationResult {
   isValid: boolean;
-  error?: string;
+  errorKey?: string; // Translation key for error message
 }
 
 export const validateFilesForMode = ({ files, mode }: ValidateFilesForModeParams): ValidationResult => {
@@ -18,35 +18,35 @@ export const validateFilesForMode = ({ files, mode }: ValidateFilesForModeParams
     case 'pdf-info':
     case 'split-pdf':
       if (files.length !== 1) {
-        return { isValid: false, error: 'Please select exactly one PDF file' };
+        return { isValid: false, errorKey: 'errors.selectExactlyOnePdf' };
       }
       if (!validatePDFFile(files[0])) {
-        return { isValid: false, error: 'Please select a valid PDF file' };
+        return { isValid: false, errorKey: 'errors.selectValidPdf' };
       }
       break;
 
     case 'images-to-pdf':
       if (files.length === 0) {
-        return { isValid: false, error: 'Please select at least one image file' };
+        return { isValid: false, errorKey: 'errors.selectAtLeastOneImage' };
       }
       const invalidImageFiles = files.filter(file => !validateImageForPDF(file));
       if (invalidImageFiles.length > 0) {
-        return { isValid: false, error: 'All files must be valid image files (PNG, JPG, WebP, HEIC)' };
+        return { isValid: false, errorKey: 'errors.allFilesMustBeImages' };
       }
       break;
 
     case 'merge-pdf':
       if (files.length < 2) {
-        return { isValid: false, error: 'Please select at least 2 PDF files to merge' };
+        return { isValid: false, errorKey: 'errors.selectAtLeastTwoPdfs' };
       }
       const invalidPdfFiles = files.filter(file => !validatePDFFile(file));
       if (invalidPdfFiles.length > 0) {
-        return { isValid: false, error: 'All files must be PDF files' };
+        return { isValid: false, errorKey: 'errors.allFilesMustBePdfs' };
       }
       break;
 
     default:
-      return { isValid: false, error: 'Invalid operation mode' };
+      return { isValid: false, errorKey: 'errors.invalidOperationMode' };
   }
 
   return { isValid: true };

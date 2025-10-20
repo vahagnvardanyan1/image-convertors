@@ -7,6 +7,7 @@ import { Button } from '../ui/button';
 import { ToolShell, ToolGrid } from '@/components/tooling/ToolShell';
 import { ToolSection, ToolSidebar } from '@/components/tooling/ToolSection';
 import { FileUploadZone } from '@/components/FileUploadZone';
+import { useToast } from '@/components/ui/toast';
 import { useUploadZone } from '@/hooks/useUploadZone';
 import { useImageCompression } from '@/hooks/useImageCompression';
 import { validateImageFile } from '@/utils/fileValidation';
@@ -15,6 +16,7 @@ import { formatFileSize, getCompressionRatio } from '@/utils/imageProcessing';
 export const ImageCompressor = () => {
   const t = useTranslations('compressor');
   const tCommon = useTranslations('common');
+  const toast = useToast();
 
   const {
     imageUrl,
@@ -39,7 +41,7 @@ export const ImageCompressor = () => {
     if (!file) return;
 
     if (!validateImageFile(file)) {
-      alert(tCommon('selectValidImage'));
+      toast.error(tCommon('selectValidImage'));
       return;
     }
     loadImageFile(file);
