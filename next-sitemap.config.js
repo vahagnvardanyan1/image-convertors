@@ -32,6 +32,7 @@ const routes = [
   '/crop-image',
   '/resize-image',
   '/qr-code-generator',
+  '/compress-image',
 
   // HEIC converter tools
   '/heic-to-jpg',
