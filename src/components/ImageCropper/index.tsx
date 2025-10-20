@@ -1,177 +1,87 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
-import Cropper from 'cropperjs';
+import { useState, useEffect } from 'react';
 import { ArrowLeft, Upload, Download, RotateCcw, RotateCw, FlipHorizontal, FlipVertical, ZoomIn, ZoomOut, Maximize, Move, Crop, CheckCircle } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import Link from 'next/link';
+
 import { Button } from '../ui/button';
 import { Card } from '@/components/Card';
-import { useTranslations } from 'next-intl';
+import { useDragAndDrop } from '@/hooks/useDragAndDrop';
+import { useFileUpload } from '@/hooks/useFileUpload';
+import { useImageCrop } from '@/hooks/useImageCrop';
+import { useBottomSheet } from '@/hooks/useBottomSheet';
+import { validateImageFile } from '@/utils/fileValidation';
 
-export function ImageCropper() {
+const ASPECT_RATIOS = [
+  { label: 'Free', value: undefined },
+  { label: '1:1', value: 1 },
+  { label: '16:9', value: 16 / 9 },
+  { label: '4:3', value: 4 / 3 },
+  { label: '3:2', value: 3 / 2 },
+  { label: '2:3', value: 2 / 3 },
+];
+
+export const ImageCropper = () => {
   const tConverter = useTranslations('converter');
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
-  const [cropper, setCropper] = useState<Cropper | null>(null);
-  const [isDragOver, setIsDragOver] = useState(false);
-  const [aspectRatio, setAspectRatio] = useState<number | undefined>(undefined);
-  const [isCropping, setIsCropping] = useState(false);
-  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
-  const imageRef = useRef<HTMLImageElement>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    if (imageRef.current && imageUrl && !cropper) {
-      const cropperInstance = new Cropper(imageRef.current, {
-        viewMode: 1,
-        dragMode: 'move',
-        aspectRatio: aspectRatio,
-        autoCropArea: 0.8,
-        restore: false,
-        guides: true,
-        center: true,
-        highlight: true,
-        cropBoxMovable: true,
-        cropBoxResizable: true,
-        toggleDragModeOnDblclick: false,
-      });
-      setCropper(cropperInstance);
-    }
+  const {
+    imageUrl,
+    cropper,
+    aspectRatio,
+    isCropping,
+    imageRef,
+    setImageUrl,
+    setAspectRatio,
+    initializeCropper,
+    cropImage,
+    resetCrop,
+    rotateCrop,
+    flipCrop,
+    zoomCrop,
+    destroyCropper,
+  } = useImageCrop();
 
-    return () => {
-      if (cropper) {
-        cropper.destroy();
-      }
-    };
-  }, [imageUrl]);
-
-  useEffect(() => {
-    if (cropper) {
-      cropper.setAspectRatio(aspectRatio || NaN);
-    }
-  }, [aspectRatio, cropper]);
-
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragOver(true);
-  };
-
-  const handleDragLeave = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
-    const x = e.clientX;
-    const y = e.clientY;
-
-    if (x < rect.left || x > rect.right || y < rect.top || y > rect.bottom) {
-      setIsDragOver(false);
-    }
-  };
-
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragOver(false);
-    const files = e.dataTransfer.files;
-    if (files.length > 0) {
-      handleFileSelection(files[0]);
-    }
-  };
-
-  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      handleFileSelection(file);
-    }
-  };
+  const { isOpen: isBottomSheetOpen, open: openBottomSheet, close: closeBottomSheet } = useBottomSheet();
 
   const handleFileSelection = (file: File) => {
-    if (!file.type.startsWith('image/')) {
+    if (!validateImageFile(file)) {
       alert(tConverter('selectValidImage'));
       return;
     }
 
-    if (imageUrl) {
-      URL.revokeObjectURL(imageUrl);
-    }
-
-    if (cropper) {
-      cropper.destroy();
-      setCropper(null);
-    }
-
-    setSelectedFile(file);
+    destroyCropper();
     const url = URL.createObjectURL(file);
     setImageUrl(url);
   };
 
-  const handleCrop = () => {
-    if (!cropper) return;
+  const {
+    selectedFile,
+    fileInputRef,
+    handleFileSelect: onFileInputChange,
+    clearFile,
+    triggerFileInput,
+  } = useFileUpload({
+    onFileSelect: handleFileSelection,
+  });
 
-    setIsCropping(true);
-    cropper.getCroppedCanvas().toBlob(blob => {
-      if (blob) {
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `cropped-${selectedFile?.name || 'image.png'}`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
+  const { isDragOver, handleDragOver, handleDragLeave, handleDrop } = useDragAndDrop({
+    onFilesDrop: files => {
+      if (files.length > 0) {
+        handleFileSelection(files[0]);
       }
-      setIsCropping(false);
-    });
-  };
+    },
+  });
 
-  const handleReset = () => {
-    if (cropper) {
-      cropper.reset();
+  // Initialize cropper when image is loaded
+  useEffect(() => {
+    if (imageRef.current && imageUrl && !cropper) {
+      initializeCropper({
+        imageElement: imageRef.current,
+        aspectRatio,
+      });
     }
-  };
-
-  const handleRotateLeft = () => {
-    if (cropper) {
-      cropper.rotate(-90);
-    }
-  };
-
-  const handleRotateRight = () => {
-    if (cropper) {
-      cropper.rotate(90);
-    }
-  };
-
-  const handleFlipHorizontal = () => {
-    if (cropper) {
-      const scaleX = cropper.getData().scaleX || 1;
-      cropper.scaleX(-scaleX);
-    }
-  };
-
-  const handleFlipVertical = () => {
-    if (cropper) {
-      const scaleY = cropper.getData().scaleY || 1;
-      cropper.scaleY(-scaleY);
-    }
-  };
-
-  const handleZoomIn = () => {
-    if (cropper) {
-      cropper.zoom(0.1);
-    }
-  };
-
-  const handleZoomOut = () => {
-    if (cropper) {
-      cropper.zoom(-0.1);
-    }
-  };
-
-  const handleSetAspectRatio = (ratio: number | undefined) => {
-    setAspectRatio(ratio);
-  };
+  }, [imageUrl]);
 
   // Prevent body scroll when bottom sheet is open
   useEffect(() => {
@@ -189,25 +99,14 @@ export function ImageCropper() {
   }, [isBottomSheetOpen]);
 
   const handleNewImage = () => {
-    if (imageUrl) {
-      URL.revokeObjectURL(imageUrl);
-    }
-    if (cropper) {
-      cropper.destroy();
-      setCropper(null);
-    }
-    setImageUrl(null);
-    setSelectedFile(null);
+    destroyCropper();
+    clearFile();
   };
 
-  const aspectRatios = [
-    { label: 'Free', value: undefined },
-    { label: '1:1', value: 1 },
-    { label: '16:9', value: 16 / 9 },
-    { label: '4:3', value: 4 / 3 },
-    { label: '3:2', value: 3 / 2 },
-    { label: '2:3', value: 2 / 3 },
-  ];
+  const handleCropClick = () => {
+    const filename = selectedFile ? `cropped-${selectedFile.name}` : 'cropped-image.png';
+    cropImage({ filename });
+  };
 
   return (
     <>
@@ -239,9 +138,9 @@ export function ImageCropper() {
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
                 onDrop={handleDrop}
-                onClick={() => fileInputRef.current?.click()}
+                onClick={triggerFileInput}
               >
-                <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileSelect} className="hidden" />
+                <input ref={fileInputRef} type="file" accept="image/*" onChange={onFileInputChange} className="hidden" />
 
                 <div className="flex flex-col items-center">
                   <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mb-6">
@@ -323,11 +222,11 @@ export function ImageCropper() {
                   {/* Actions - Always Visible */}
                   <Card className="p-4 bg-gradient-to-br from-blue-50 to-purple-50 border-2 border-blue-200">
                     <div className="flex flex-col sm:flex-row lg:flex-col gap-2">
-                      <Button onClick={handleCrop} className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white" disabled={isCropping}>
+                      <Button onClick={handleCropClick} className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white" disabled={isCropping}>
                         <Download className="mr-2" size={18} />
                         {isCropping ? 'Cropping...' : 'Crop & Download'}
                       </Button>
-                      <Button onClick={handleReset} variant="outline" className="flex-1 border-2">
+                      <Button onClick={resetCrop} variant="outline" className="flex-1 border-2">
                         <RotateCcw className="mr-2" size={16} />
                         Reset
                       </Button>
@@ -338,10 +237,10 @@ export function ImageCropper() {
                   <Card className="p-4">
                     <h3 className="font-semibold text-gray-900 mb-3 text-sm">Aspect Ratio</h3>
                     <div className="grid grid-cols-3 sm:grid-cols-6 lg:grid-cols-3 gap-2">
-                      {aspectRatios.map(ratio => (
+                      {ASPECT_RATIOS.map(ratio => (
                         <button
                           key={ratio.label}
-                          onClick={() => handleSetAspectRatio(ratio.value)}
+                          onClick={() => setAspectRatio(ratio.value)}
                           className={`px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
                             aspectRatio === ratio.value ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                           }`}
@@ -356,11 +255,11 @@ export function ImageCropper() {
                   <Card className="p-4">
                     <h3 className="font-semibold text-gray-900 mb-3 text-sm">Zoom</h3>
                     <div className="grid grid-cols-2 gap-2">
-                      <Button onClick={handleZoomIn} variant="outline" className="w-full" size="sm">
+                      <Button onClick={() => zoomCrop(0.1)} variant="outline" className="w-full" size="sm">
                         <ZoomIn className="mr-1" size={16} />
                         In
                       </Button>
-                      <Button onClick={handleZoomOut} variant="outline" className="w-full" size="sm">
+                      <Button onClick={() => zoomCrop(-0.1)} variant="outline" className="w-full" size="sm">
                         <ZoomOut className="mr-1" size={16} />
                         Out
                       </Button>
@@ -371,19 +270,19 @@ export function ImageCropper() {
                   <Card className="p-4">
                     <h3 className="font-semibold text-gray-900 mb-3 text-sm">Transform</h3>
                     <div className="grid grid-cols-2 gap-2">
-                      <Button onClick={handleRotateLeft} variant="outline" className="w-full" size="sm">
+                      <Button onClick={() => rotateCrop(-90)} variant="outline" className="w-full" size="sm">
                         <RotateCcw className="mr-1" size={16} />
                         Left
                       </Button>
-                      <Button onClick={handleRotateRight} variant="outline" className="w-full" size="sm">
+                      <Button onClick={() => rotateCrop(90)} variant="outline" className="w-full" size="sm">
                         <RotateCw className="mr-1" size={16} />
                         Right
                       </Button>
-                      <Button onClick={handleFlipHorizontal} variant="outline" className="w-full" size="sm">
+                      <Button onClick={() => flipCrop('horizontal')} variant="outline" className="w-full" size="sm">
                         <FlipHorizontal className="mr-1" size={16} />
                         H-Flip
                       </Button>
-                      <Button onClick={handleFlipVertical} variant="outline" className="w-full" size="sm">
+                      <Button onClick={() => flipCrop('vertical')} variant="outline" className="w-full" size="sm">
                         <FlipVertical className="mr-1" size={16} />
                         V-Flip
                       </Button>
@@ -404,19 +303,19 @@ export function ImageCropper() {
               {/* Floating Action Buttons */}
               <div className="fixed bottom-6 right-4 z-40 flex flex-col gap-3">
                 <Button
-                  onClick={handleCrop}
+                  onClick={handleCropClick}
                   className="h-14 w-14 rounded-full shadow-2xl bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white p-0"
                   disabled={isCropping}
                 >
                   <Download size={24} />
                 </Button>
-                <Button onClick={() => setIsBottomSheetOpen(true)} className="h-14 w-14 rounded-full shadow-2xl bg-white hover:bg-gray-50 text-gray-900 p-0 border-2 border-gray-200">
+                <Button onClick={openBottomSheet} className="h-14 w-14 rounded-full shadow-2xl bg-white hover:bg-gray-50 text-gray-900 p-0 border-2 border-gray-200">
                   <Move size={24} />
                 </Button>
               </div>
 
               {/* Bottom Sheet Overlay */}
-              {isBottomSheetOpen && <div className="fixed inset-0 bg-transparent z-50 transition-opacity" onClick={() => setIsBottomSheetOpen(false)} />}
+              {isBottomSheetOpen && <div className="fixed inset-0 bg-transparent z-50 transition-opacity" onClick={closeBottomSheet} />}
 
               {/* Bottom Sheet */}
               <div
@@ -433,7 +332,7 @@ export function ImageCropper() {
                   {/* Bottom Sheet Header */}
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="text-lg font-semibold text-gray-900">Crop Controls</h3>
-                    <button onClick={() => setIsBottomSheetOpen(false)} className="text-gray-500 hover:text-gray-700 p-2">
+                    <button onClick={closeBottomSheet} className="text-gray-500 hover:text-gray-700 p-2">
                       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                       </svg>
@@ -447,8 +346,8 @@ export function ImageCropper() {
                       <div className="flex gap-2">
                         <Button
                           onClick={() => {
-                            handleCrop();
-                            setIsBottomSheetOpen(false);
+                            handleCropClick();
+                            closeBottomSheet();
                           }}
                           className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
                           disabled={isCropping}
@@ -456,7 +355,7 @@ export function ImageCropper() {
                           <Download className="mr-2" size={18} />
                           {isCropping ? 'Cropping...' : 'Download'}
                         </Button>
-                        <Button onClick={handleReset} variant="outline" className="flex-1 border-2">
+                        <Button onClick={resetCrop} variant="outline" className="flex-1 border-2">
                           <RotateCcw className="mr-2" size={16} />
                           Reset
                         </Button>
@@ -467,12 +366,12 @@ export function ImageCropper() {
                     <Card className="p-4">
                       <h4 className="font-semibold text-gray-900 mb-3 text-sm">Aspect Ratio</h4>
                       <div className="grid grid-cols-3 gap-2">
-                        {aspectRatios.map(ratio => (
+                        {ASPECT_RATIOS.map(ratio => (
                           <button
                             key={ratio.label}
                             onClick={() => {
-                              handleSetAspectRatio(ratio.value);
-                              setTimeout(() => setIsBottomSheetOpen(false), 300);
+                              setAspectRatio(ratio.value);
+                              setTimeout(closeBottomSheet, 300);
                             }}
                             className={`px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
                               aspectRatio === ratio.value ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -488,25 +387,11 @@ export function ImageCropper() {
                     <Card className="p-4">
                       <h4 className="font-semibold text-gray-900 mb-3 text-sm">Zoom</h4>
                       <div className="grid grid-cols-2 gap-2">
-                        <Button
-                          onClick={() => {
-                            handleZoomIn();
-                          }}
-                          variant="outline"
-                          className="w-full"
-                          size="sm"
-                        >
+                        <Button onClick={() => zoomCrop(0.1)} variant="outline" className="w-full" size="sm">
                           <ZoomIn className="mr-1" size={16} />
                           Zoom In
                         </Button>
-                        <Button
-                          onClick={() => {
-                            handleZoomOut();
-                          }}
-                          variant="outline"
-                          className="w-full"
-                          size="sm"
-                        >
+                        <Button onClick={() => zoomCrop(-0.1)} variant="outline" className="w-full" size="sm">
                           <ZoomOut className="mr-1" size={16} />
                           Zoom Out
                         </Button>
@@ -519,8 +404,8 @@ export function ImageCropper() {
                       <div className="grid grid-cols-2 gap-2">
                         <Button
                           onClick={() => {
-                            handleRotateLeft();
-                            setTimeout(() => setIsBottomSheetOpen(false), 300);
+                            rotateCrop(-90);
+                            setTimeout(closeBottomSheet, 300);
                           }}
                           variant="outline"
                           className="w-full"
@@ -531,8 +416,8 @@ export function ImageCropper() {
                         </Button>
                         <Button
                           onClick={() => {
-                            handleRotateRight();
-                            setTimeout(() => setIsBottomSheetOpen(false), 300);
+                            rotateCrop(90);
+                            setTimeout(closeBottomSheet, 300);
                           }}
                           variant="outline"
                           className="w-full"
@@ -543,8 +428,8 @@ export function ImageCropper() {
                         </Button>
                         <Button
                           onClick={() => {
-                            handleFlipHorizontal();
-                            setTimeout(() => setIsBottomSheetOpen(false), 300);
+                            flipCrop('horizontal');
+                            setTimeout(closeBottomSheet, 300);
                           }}
                           variant="outline"
                           className="w-full"
@@ -555,8 +440,8 @@ export function ImageCropper() {
                         </Button>
                         <Button
                           onClick={() => {
-                            handleFlipVertical();
-                            setTimeout(() => setIsBottomSheetOpen(false), 300);
+                            flipCrop('vertical');
+                            setTimeout(closeBottomSheet, 300);
                           }}
                           variant="outline"
                           className="w-full"
@@ -569,7 +454,7 @@ export function ImageCropper() {
                     </Card>
 
                     {/* Close Button */}
-                    <Button onClick={() => setIsBottomSheetOpen(false)} variant="outline" className="w-full mt-4">
+                    <Button onClick={closeBottomSheet} variant="outline" className="w-full mt-4">
                       Close Controls
                     </Button>
                   </div>
@@ -645,4 +530,4 @@ export function ImageCropper() {
       </div>
     </>
   );
-}
+};

@@ -1,184 +1,104 @@
 'use client';
 
-import { useState, useRef } from 'react';
 import { ArrowLeft, Upload, Download, Image as ImageIcon, CheckCircle, Info, Zap, Settings } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import Link from 'next/link';
+
 import { Button } from '../ui/button';
 import { Card } from '@/components/Card';
-import { useTranslations } from 'next-intl';
+import { useDragAndDrop } from '@/hooks/useDragAndDrop';
+import { useFileUpload } from '@/hooks/useFileUpload';
+import { useImageCompression } from '@/hooks/useImageCompression';
+import { validateImageFile } from '@/utils/fileValidation';
+import { formatFileSize, getCompressionRatio } from '@/utils/imageProcessing';
 
-type CompressionTarget = 'quality' | 'filesize' | 'custom';
-
-export function ImageCompressor() {
+export const ImageCompressor = () => {
   const t = useTranslations('compressor');
   const tConverter = useTranslations('converter');
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
-  const [originalSize, setOriginalSize] = useState(0);
-  const [compressionTarget, setCompressionTarget] = useState<CompressionTarget>('quality');
-  const [quality, setQuality] = useState(80);
-  const [targetFileSize, setTargetFileSize] = useState(100); // in KB
-  const [compressedUrl, setCompressedUrl] = useState<string | null>(null);
-  const [compressedSize, setCompressedSize] = useState<number | null>(null);
-  const [isCompressing, setIsCompressing] = useState(false);
-  const [isDragOver, setIsDragOver] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragOver(true);
-  };
-
-  const handleDragLeave = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
-    const x = e.clientX;
-    const y = e.clientY;
-
-    if (x < rect.left || x > rect.right || y < rect.top || y > rect.bottom) {
-      setIsDragOver(false);
-    }
-  };
-
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragOver(false);
-    const files = e.dataTransfer.files;
-    if (files.length > 0) {
-      handleFileSelection(files[0]);
-    }
-  };
-
-  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      handleFileSelection(file);
-    }
-  };
+  const {
+    imageUrl,
+    originalSize,
+    compressedUrl,
+    compressedSize,
+    isCompressing,
+    compressionTarget,
+    quality,
+    targetFileSize,
+    setCompressionTarget,
+    setQuality,
+    setTargetFileSize,
+    loadImageFile,
+    compress,
+    downloadCompressed,
+    reset,
+  } = useImageCompression();
 
   const handleFileSelection = (file: File) => {
-    if (!file.type.startsWith('image/')) {
+    if (!validateImageFile(file)) {
       alert(tConverter('selectValidImage'));
       return;
     }
-
-    if (imageUrl) {
-      URL.revokeObjectURL(imageUrl);
-    }
-    if (compressedUrl) {
-      URL.revokeObjectURL(compressedUrl);
-    }
-
-    setSelectedFile(file);
-    setOriginalSize(file.size);
-    const url = URL.createObjectURL(file);
-    setImageUrl(url);
-    setCompressedUrl(null);
-    setCompressedSize(null);
+    loadImageFile(file);
   };
 
-  const compressImage = async () => {
+  const {
+    selectedFile,
+    fileInputRef,
+    handleFileSelect: onFileInputChange,
+    clearFile,
+    triggerFileInput,
+  } = useFileUpload({
+    onFileSelect: handleFileSelection,
+  });
+
+  const { isDragOver, handleDragOver, handleDragLeave, handleDrop } = useDragAndDrop({
+    onFilesDrop: files => {
+      if (files.length > 0) {
+        handleFileSelection(files[0]);
+      }
+    },
+  });
+
+  const handleCompress = async () => {
     if (!selectedFile) return;
 
-    setIsCompressing(true);
-
-    try {
-      const img = new Image();
-      img.src = URL.createObjectURL(selectedFile);
-
-      await new Promise(resolve => {
-        img.onload = resolve;
-      });
-
-      const canvas = document.createElement('canvas');
-      canvas.width = img.width;
-      canvas.height = img.height;
-      const ctx = canvas.getContext('2d');
-      if (!ctx) throw new Error('Failed to get canvas context');
-
-      ctx.drawImage(img, 0, 0);
-
-      let finalQuality = quality / 100;
-
-      if (compressionTarget === 'filesize') {
-        // Binary search for the right quality to achieve target file size
-        let minQuality = 0.1;
-        let maxQuality = 1.0;
-        const targetBytes = targetFileSize * 1024;
-        let attempts = 0;
-        const maxAttempts = 10;
-
-        while (attempts < maxAttempts) {
-          const testQuality = (minQuality + maxQuality) / 2;
-          const blob = await new Promise<Blob | null>(resolve => {
-            canvas.toBlob(b => resolve(b), 'image/jpeg', testQuality);
-          });
-
-          if (!blob) break;
-
-          if (Math.abs(blob.size - targetBytes) < targetBytes * 0.1) {
-            // Within 10% of target
-            finalQuality = testQuality;
-            break;
-          }
-
-          if (blob.size > targetBytes) {
-            maxQuality = testQuality;
-          } else {
-            minQuality = testQuality;
-          }
-
-          attempts++;
-        }
-      }
-
-      // Create final compressed image
-      const blob = await new Promise<Blob | null>(resolve => {
-        canvas.toBlob(b => resolve(b), 'image/jpeg', finalQuality);
-      });
-
-      if (!blob) throw new Error('Failed to create compressed image');
-
-      const url = URL.createObjectURL(blob);
-      setCompressedUrl(url);
-      setCompressedSize(blob.size);
-    } catch (error) {
-      console.error('Compression error:', error);
-      alert(t('compressionFailed'));
-    } finally {
-      setIsCompressing(false);
-    }
+    await compress({
+      file: selectedFile,
+      options: {
+        quality,
+        targetFileSize,
+        compressionTarget,
+      },
+    });
   };
 
-  const handleDownload = () => {
-    if (!compressedUrl) return;
+  const handleReset = () => {
+    reset();
+    clearFile();
+  };
 
-    const a = document.createElement('a');
-    a.href = compressedUrl;
-    const originalName = selectedFile?.name || 'image';
+  const handleDownloadClick = () => {
+    if (!selectedFile) return;
+
+    const originalName = selectedFile.name;
     const nameWithoutExt = originalName.replace(/\.[^/.]+$/, '');
-    a.download = `${nameWithoutExt}_compressed.jpg`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-  };
+    const filename = `${nameWithoutExt}_compressed.jpg`;
 
-  const resetCompressor = () => {
-    if (imageUrl) URL.revokeObjectURL(imageUrl);
-    if (compressedUrl) URL.revokeObjectURL(compressedUrl);
-    setSelectedFile(null);
-    setImageUrl(null);
-    setCompressedUrl(null);
-    setCompressedSize(null);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = '';
+    downloadCompressed();
+
+    // Update filename if possible
+    if (compressedUrl) {
+      const a = document.createElement('a');
+      a.href = compressedUrl;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
     }
   };
 
-  const compressionRatio = compressedSize ? ((1 - compressedSize / originalSize) * 100).toFixed(1) : '0';
+  const compressionRatio = compressedSize ? getCompressionRatio({ originalSize, convertedSize: compressedSize }) : 0;
 
   return (
     <>
@@ -213,9 +133,9 @@ export function ImageCompressor() {
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
                 onDrop={handleDrop}
-                onClick={() => !selectedFile && fileInputRef.current?.click()}
+                onClick={() => !selectedFile && triggerFileInput()}
               >
-                <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileSelect} className="hidden" />
+                <input ref={fileInputRef} type="file" accept="image/*" onChange={onFileInputChange} className="hidden" />
 
                 {!selectedFile ? (
                   <div>
@@ -231,7 +151,7 @@ export function ImageCompressor() {
                         variant="outline"
                         onClick={e => {
                           e.stopPropagation();
-                          fileInputRef.current?.click();
+                          triggerFileInput();
                         }}
                         className="mt-4 rounded-lg"
                       >
@@ -245,13 +165,13 @@ export function ImageCompressor() {
                       <ImageIcon className="text-green-600" size={48} />
                       <div className="text-left">
                         <p className="font-medium text-gray-900">{selectedFile.name}</p>
-                        <p className="text-sm text-gray-500">{(originalSize / 1024).toFixed(2)} KB</p>
+                        <p className="text-sm text-gray-500">{formatFileSize(originalSize)}</p>
                       </div>
                       <Button
                         variant="outline"
                         onClick={e => {
                           e.stopPropagation();
-                          resetCompressor();
+                          handleReset();
                         }}
                         className="text-red-600 hover:text-red-700"
                       >
@@ -387,7 +307,7 @@ export function ImageCompressor() {
                 <h2 className="text-xl font-bold text-gray-900 mb-4">3. {t('compressImage')}</h2>
 
                 <Button
-                  onClick={compressImage}
+                  onClick={handleCompress}
                   disabled={isCompressing}
                   className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 disabled:opacity-50"
                 >
@@ -417,11 +337,11 @@ export function ImageCompressor() {
                 <div className="grid grid-cols-3 gap-4 mb-4">
                   <div className="text-center p-3 bg-white rounded-lg">
                     <p className="text-sm text-gray-600">{t('originalSize')}</p>
-                    <p className="text-lg font-bold text-gray-900">{(originalSize / 1024).toFixed(2)} KB</p>
+                    <p className="text-lg font-bold text-gray-900">{formatFileSize(originalSize)}</p>
                   </div>
                   <div className="text-center p-3 bg-white rounded-lg">
                     <p className="text-sm text-gray-600">{t('compressedSize')}</p>
-                    <p className="text-lg font-bold text-green-600">{(compressedSize / 1024).toFixed(2)} KB</p>
+                    <p className="text-lg font-bold text-green-600">{formatFileSize(compressedSize)}</p>
                   </div>
                   <div className="text-center p-3 bg-white rounded-lg">
                     <p className="text-sm text-gray-600">{t('savedSpace')}</p>
@@ -432,11 +352,11 @@ export function ImageCompressor() {
                 <img src={compressedUrl} alt="Compressed" className="max-w-full max-h-96 mx-auto rounded-lg mb-4" />
 
                 <div className="grid grid-cols-2 gap-3">
-                  <Button onClick={handleDownload} className="w-full bg-green-600 hover:bg-green-700 text-white">
+                  <Button onClick={handleDownloadClick} className="w-full bg-green-600 hover:bg-green-700 text-white">
                     <Download className="mr-2" size={20} />
                     {t('downloadCompressed')}
                   </Button>
-                  <Button onClick={resetCompressor} variant="outline" className="w-full">
+                  <Button onClick={handleReset} variant="outline" className="w-full">
                     {t('compressAnother')}
                   </Button>
                 </div>
@@ -490,4 +410,4 @@ export function ImageCompressor() {
       </div>
     </>
   );
-}
+};

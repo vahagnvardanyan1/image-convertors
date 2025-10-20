@@ -1,102 +1,33 @@
 'use client';
+
 import { useState, useEffect, useRef } from 'react';
 import QRCodeSVG from 'react-qr-code';
 import { Download, Link as LinkIcon, Type, Mail, Phone, MessageSquare, Wifi, MapPin, Calendar, Eye, ChevronUp } from 'lucide-react';
+
 import { Button } from '../ui/button';
 import { Card } from '../Card';
+import { useQRCode } from '@/hooks/useQRCode';
+import { downloadQRCode } from '@/utils/qrDownload';
 
-type QRType = 'url' | 'text' | 'email' | 'phone' | 'sms' | 'wifi' | 'location' | 'vcard';
+import type { QRType } from '@/hooks/useQRCode';
 
-interface QRData {
-  url?: string;
-  text?: string;
-  email?: string;
-  phone?: string;
-  sms?: { phone: string; message: string };
-  wifi?: { ssid: string; password: string; encryption: string };
-  location?: { lat: string; lng: string };
-  vcard?: { name: string; phone: string; email: string; organization: string };
-}
+const QR_TYPES = [
+  { type: 'url' as QRType, label: 'Website URL', icon: LinkIcon },
+  { type: 'text' as QRType, label: 'Plain Text', icon: Type },
+  { type: 'email' as QRType, label: 'Email', icon: Mail },
+  { type: 'phone' as QRType, label: 'Phone', icon: Phone },
+  { type: 'sms' as QRType, label: 'SMS', icon: MessageSquare },
+  { type: 'wifi' as QRType, label: 'WiFi', icon: Wifi },
+  { type: 'location' as QRType, label: 'Location', icon: MapPin },
+  { type: 'vcard' as QRType, label: 'Contact Card', icon: Calendar },
+];
 
-export function QRCodeGenerator() {
-  const [qrType, setQrType] = useState<QRType>('url');
-  const [qrValue, setQrValue] = useState('https://imageconvertors.com');
-  const [qrData, setQrData] = useState<QRData>({ url: 'https://imageconvertors.com' });
-  const [qrSize, setQrSize] = useState(256);
-  const [fgColor, setFgColor] = useState('#000000');
-  const [bgColor, setBgColor] = useState('#ffffff');
+export const QRCodeGenerator = () => {
+  const { qrType, qrValue, qrData, qrSize, fgColor, bgColor, setQrSize, setFgColor, setBgColor, handleTypeChange, updateQRData } = useQRCode();
+
   const [showScrollButton, setShowScrollButton] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
   const controlsRef = useRef<HTMLDivElement>(null);
-
-  const generateQRValue = (type: QRType, data: QRData): string => {
-    switch (type) {
-      case 'url':
-        return data.url || '';
-      case 'text':
-        return data.text || '';
-      case 'email':
-        return `mailto:${data.email || ''}`;
-      case 'phone':
-        return `tel:${data.phone || ''}`;
-      case 'sms':
-        return `sms:${data.sms?.phone || ''}${data.sms?.message ? `?body=${encodeURIComponent(data.sms.message)}` : ''}`;
-      case 'wifi':
-        return `WIFI:T:${data.wifi?.encryption || 'WPA'};S:${data.wifi?.ssid || ''};P:${data.wifi?.password || ''};;`;
-      case 'location':
-        return `geo:${data.location?.lat || '0'},${data.location?.lng || '0'}`;
-      case 'vcard':
-        return `BEGIN:VCARD\nVERSION:3.0\nFN:${data.vcard?.name || ''}\nTEL:${data.vcard?.phone || ''}\nEMAIL:${data.vcard?.email || ''}\nORG:${data.vcard?.organization || ''}\nEND:VCARD`;
-      default:
-        return '';
-    }
-  };
-
-  const handleTypeChange = (type: QRType) => {
-    setQrType(type);
-    const newData: QRData = {};
-
-    switch (type) {
-      case 'url':
-        newData.url = 'https://imageconvertors.com';
-        break;
-      case 'text':
-        newData.text = 'Hello World!';
-        break;
-      case 'email':
-        newData.email = 'example@email.com';
-        break;
-      case 'phone':
-        newData.phone = '+1234567890';
-        break;
-      case 'sms':
-        newData.sms = { phone: '+1234567890', message: 'Hello!' };
-        break;
-      case 'wifi':
-        newData.wifi = { ssid: 'MyNetwork', password: 'password123', encryption: 'WPA' };
-        break;
-      case 'location':
-        newData.location = { lat: '40.7128', lng: '-74.0060' };
-        break;
-      case 'vcard':
-        newData.vcard = { name: 'John Doe', phone: '+1234567890', email: 'john@example.com', organization: 'Company Inc.' };
-        break;
-    }
-
-    setQrData(newData);
-    setQrValue(generateQRValue(type, newData));
-  };
-
-  const updateQRData = (field: string, value: string | { [key: string]: string }) => {
-    const newData = { ...qrData, [field]: value };
-    setQrData(newData);
-    setQrValue(generateQRValue(qrType, newData));
-
-    // Auto-scroll to preview on mobile after content change
-    if (window.innerWidth < 1024) {
-      setTimeout(() => scrollToPreview(), 300);
-    }
-  };
 
   const scrollToPreview = () => {
     if (previewRef.current) {
@@ -108,6 +39,15 @@ export function QRCodeGenerator() {
   const scrollToControls = () => {
     if (controlsRef.current) {
       controlsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  const handleUpdateQRData = (field: string, value: string | { [key: string]: string }) => {
+    updateQRData(field, value);
+
+    // Auto-scroll to preview on mobile after content change
+    if (window.innerWidth < 1024) {
+      setTimeout(() => scrollToPreview(), 300);
     }
   };
 
@@ -138,83 +78,9 @@ export function QRCodeGenerator() {
     };
   }, []);
 
-  const downloadQR = (format: 'svg' | 'png') => {
-    const svgElement = document.querySelector('#qr-code-svg svg');
-    if (!svgElement) return;
-
-    if (format === 'svg') {
-      const svgData = new XMLSerializer().serializeToString(svgElement);
-      const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
-      const url = URL.createObjectURL(svgBlob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = 'qr-code.svg';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-    } else {
-      // Create canvas with higher resolution for better quality
-      const scale = 2;
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      if (!ctx) return;
-
-      canvas.width = qrSize * scale;
-      canvas.height = qrSize * scale;
-
-      // Fill background
-      ctx.fillStyle = bgColor;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      // Convert SVG to data URL
-      const svgData = new XMLSerializer().serializeToString(svgElement);
-      const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
-      const url = URL.createObjectURL(svgBlob);
-
-      const img = new Image();
-      img.onload = () => {
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-
-        // Convert to PNG and download
-        canvas.toBlob(
-          blob => {
-            if (blob) {
-              const pngUrl = URL.createObjectURL(blob);
-              const link = document.createElement('a');
-              link.href = pngUrl;
-              link.download = 'qr-code.png';
-              document.body.appendChild(link);
-              link.click();
-              document.body.removeChild(link);
-              URL.revokeObjectURL(pngUrl);
-            }
-          },
-          'image/png',
-          1.0,
-        );
-        URL.revokeObjectURL(url);
-      };
-
-      img.onerror = () => {
-        console.error('Failed to load QR code image');
-        URL.revokeObjectURL(url);
-      };
-
-      img.src = url;
-    }
+  const handleDownloadQR = (format: 'svg' | 'png') => {
+    downloadQRCode({ format, qrSize, bgColor });
   };
-
-  const qrTypes = [
-    { type: 'url' as QRType, label: 'Website URL', icon: LinkIcon },
-    { type: 'text' as QRType, label: 'Plain Text', icon: Type },
-    { type: 'email' as QRType, label: 'Email', icon: Mail },
-    { type: 'phone' as QRType, label: 'Phone', icon: Phone },
-    { type: 'sms' as QRType, label: 'SMS', icon: MessageSquare },
-    { type: 'wifi' as QRType, label: 'WiFi', icon: Wifi },
-    { type: 'location' as QRType, label: 'Location', icon: MapPin },
-    { type: 'vcard' as QRType, label: 'Contact Card', icon: Calendar },
-  ];
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -230,7 +96,7 @@ export function QRCodeGenerator() {
           <Card className="p-6">
             <h2 className="text-xl font-bold text-gray-900 mb-4">Select QR Code Type</h2>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {qrTypes.map(({ type, label, icon: Icon }) => (
+              {QR_TYPES.map(({ type, label, icon: Icon }) => (
                 <button
                   key={type}
                   onClick={() => handleTypeChange(type)}
@@ -253,7 +119,7 @@ export function QRCodeGenerator() {
                 <input
                   type="url"
                   value={qrData.url || ''}
-                  onChange={e => updateQRData('url', e.target.value)}
+                  onChange={e => handleUpdateQRData('url', e.target.value)}
                   placeholder="https://example.com"
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
@@ -265,7 +131,7 @@ export function QRCodeGenerator() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">Text Content</label>
                 <textarea
                   value={qrData.text || ''}
-                  onChange={e => updateQRData('text', e.target.value)}
+                  onChange={e => handleUpdateQRData('text', e.target.value)}
                   placeholder="Enter your text here..."
                   rows={4}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -279,7 +145,7 @@ export function QRCodeGenerator() {
                 <input
                   type="email"
                   value={qrData.email || ''}
-                  onChange={e => updateQRData('email', e.target.value)}
+                  onChange={e => handleUpdateQRData('email', e.target.value)}
                   placeholder="example@email.com"
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
@@ -292,7 +158,7 @@ export function QRCodeGenerator() {
                 <input
                   type="tel"
                   value={qrData.phone || ''}
-                  onChange={e => updateQRData('phone', e.target.value)}
+                  onChange={e => handleUpdateQRData('phone', e.target.value)}
                   placeholder="+1234567890"
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
@@ -306,7 +172,7 @@ export function QRCodeGenerator() {
                   <input
                     type="tel"
                     value={qrData.sms?.phone || ''}
-                    onChange={e => updateQRData('sms', { ...qrData.sms, phone: e.target.value })}
+                    onChange={e => handleUpdateQRData('sms', { ...qrData.sms, phone: e.target.value })}
                     placeholder="+1234567890"
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
@@ -315,7 +181,7 @@ export function QRCodeGenerator() {
                   <label className="block text-sm font-medium text-gray-700 mb-2">Message (Optional)</label>
                   <textarea
                     value={qrData.sms?.message || ''}
-                    onChange={e => updateQRData('sms', { ...qrData.sms, message: e.target.value })}
+                    onChange={e => handleUpdateQRData('sms', { ...qrData.sms, message: e.target.value })}
                     placeholder="Pre-filled message..."
                     rows={3}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -331,7 +197,7 @@ export function QRCodeGenerator() {
                   <input
                     type="text"
                     value={qrData.wifi?.ssid || ''}
-                    onChange={e => updateQRData('wifi', { ...qrData.wifi, ssid: e.target.value })}
+                    onChange={e => handleUpdateQRData('wifi', { ...qrData.wifi, ssid: e.target.value })}
                     placeholder="MyNetwork"
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
@@ -341,7 +207,7 @@ export function QRCodeGenerator() {
                   <input
                     type="text"
                     value={qrData.wifi?.password || ''}
-                    onChange={e => updateQRData('wifi', { ...qrData.wifi, password: e.target.value })}
+                    onChange={e => handleUpdateQRData('wifi', { ...qrData.wifi, password: e.target.value })}
                     placeholder="password123"
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
@@ -350,7 +216,7 @@ export function QRCodeGenerator() {
                   <label className="block text-sm font-medium text-gray-700 mb-2">Encryption</label>
                   <select
                     value={qrData.wifi?.encryption || 'WPA'}
-                    onChange={e => updateQRData('wifi', { ...qrData.wifi, encryption: e.target.value })}
+                    onChange={e => handleUpdateQRData('wifi', { ...qrData.wifi, encryption: e.target.value })}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   >
                     <option value="WPA">WPA/WPA2</option>
@@ -368,7 +234,7 @@ export function QRCodeGenerator() {
                   <input
                     type="text"
                     value={qrData.location?.lat || ''}
-                    onChange={e => updateQRData('location', { ...qrData.location, lat: e.target.value })}
+                    onChange={e => handleUpdateQRData('location', { ...qrData.location, lat: e.target.value })}
                     placeholder="40.7128"
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
@@ -378,7 +244,7 @@ export function QRCodeGenerator() {
                   <input
                     type="text"
                     value={qrData.location?.lng || ''}
-                    onChange={e => updateQRData('location', { ...qrData.location, lng: e.target.value })}
+                    onChange={e => handleUpdateQRData('location', { ...qrData.location, lng: e.target.value })}
                     placeholder="-74.0060"
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
@@ -393,7 +259,7 @@ export function QRCodeGenerator() {
                   <input
                     type="text"
                     value={qrData.vcard?.name || ''}
-                    onChange={e => updateQRData('vcard', { ...qrData.vcard, name: e.target.value })}
+                    onChange={e => handleUpdateQRData('vcard', { ...qrData.vcard, name: e.target.value })}
                     placeholder="John Doe"
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
@@ -403,7 +269,7 @@ export function QRCodeGenerator() {
                   <input
                     type="tel"
                     value={qrData.vcard?.phone || ''}
-                    onChange={e => updateQRData('vcard', { ...qrData.vcard, phone: e.target.value })}
+                    onChange={e => handleUpdateQRData('vcard', { ...qrData.vcard, phone: e.target.value })}
                     placeholder="+1234567890"
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
@@ -413,7 +279,7 @@ export function QRCodeGenerator() {
                   <input
                     type="email"
                     value={qrData.vcard?.email || ''}
-                    onChange={e => updateQRData('vcard', { ...qrData.vcard, email: e.target.value })}
+                    onChange={e => handleUpdateQRData('vcard', { ...qrData.vcard, email: e.target.value })}
                     placeholder="john@example.com"
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
@@ -423,7 +289,7 @@ export function QRCodeGenerator() {
                   <input
                     type="text"
                     value={qrData.vcard?.organization || ''}
-                    onChange={e => updateQRData('vcard', { ...qrData.vcard, organization: e.target.value })}
+                    onChange={e => handleUpdateQRData('vcard', { ...qrData.vcard, organization: e.target.value })}
                     placeholder="Company Inc."
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
@@ -486,11 +352,11 @@ export function QRCodeGenerator() {
           <Card className="p-6">
             <h2 className="text-xl font-bold text-gray-900 mb-4">Download QR Code</h2>
             <div className="space-y-3">
-              <Button onClick={() => downloadQR('png')} className="w-full bg-blue-600 hover:bg-blue-700 text-white" size="lg">
+              <Button onClick={() => handleDownloadQR('png')} className="w-full bg-blue-600 hover:bg-blue-700 text-white" size="lg">
                 <Download className="mr-2" size={20} />
                 Download PNG
               </Button>
-              <Button onClick={() => downloadQR('svg')} variant="outline" className="w-full" size="lg">
+              <Button onClick={() => handleDownloadQR('svg')} variant="outline" className="w-full" size="lg">
                 <Download className="mr-2" size={20} />
                 Download SVG
               </Button>
@@ -513,4 +379,4 @@ export function QRCodeGenerator() {
       )}
     </div>
   );
-}
+};
