@@ -13,7 +13,20 @@
     "startConverting": "Начать конвертацию",
     "uploadYourImage": "Загрузите свое изображение",
     "learnHow": "Узнайте, как",
-    "contactSupport": "Обратиться в службу поддержки"
+    "contactSupport": "Обратиться в службу поддержки",
+    "backToHome": "Вернуться на главную",
+    "dragDropHere": "Перетащите файл сюда",
+    "dropFileHere": "Отпустите файл здесь",
+    "orClickBrowse": "или нажмите для выбора",
+    "releaseToUpload": "Отпустите для загрузки",
+    "chooseFile": "Выбрать файл",
+    "remove": "Удалить",
+    "reset": "Сбросить",
+    "download": "Скачать",
+    "selectValidImage": "Пожалуйста, выберите допустимый файл изображения",
+    "processing": "Обработка...",
+    "uploading": "Загрузка...",
+    "filesSelected": "файлов выбрано"
   },
   "header": {
     "aiTools": "Инструменты искусственного интеллекта",

@@ -13,7 +13,20 @@
     "startConverting": "Comience a convertir",
     "uploadYourImage": "Sube tu imagen",
     "learnHow": "Aprende cómo",
-    "contactSupport": "Contactar con soporte"
+    "contactSupport": "Contactar con soporte",
+    "backToHome": "Volver al inicio",
+    "dragDropHere": "Arrastra y suelta tu archivo aquí",
+    "dropFileHere": "Suelta el archivo aquí",
+    "orClickBrowse": "o haz clic para explorar",
+    "releaseToUpload": "Suelta para subir",
+    "chooseFile": "Elegir archivo",
+    "remove": "Eliminar",
+    "reset": "Restablecer",
+    "download": "Descargar",
+    "selectValidImage": "Por favor, seleccione un archivo de imagen válido",
+    "processing": "Procesando...",
+    "uploading": "Subiendo...",
+    "filesSelected": "archivos seleccionados"
   },
   "header": {
     "aiTools": "Herramientas de IA",

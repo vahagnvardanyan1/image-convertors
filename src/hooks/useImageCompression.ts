@@ -121,11 +121,11 @@ export const useImageCompression = ({ onSuccess, onError }: UseImageCompressionO
     }
   };
 
-  const downloadCompressed = () => {
+  const downloadCompressed = (filename?: string) => {
     if (compressedBlob) {
       downloadBlob({
         blob: compressedBlob,
-        filename: 'compressed-image.jpg',
+        filename: filename || 'compressed-image.jpg',
       });
     }
   };

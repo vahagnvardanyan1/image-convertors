@@ -9,18 +9,7 @@ import { Card } from '../Card';
 import { useQRCode } from '@/hooks/useQRCode';
 import { downloadQRCode } from '@/utils/qrDownload';
 
-import type { QRType } from '@/hooks/useQRCode';
-
-const QR_TYPES = [
-  { type: 'url' as QRType, label: 'Website URL', icon: LinkIcon },
-  { type: 'text' as QRType, label: 'Plain Text', icon: Type },
-  { type: 'email' as QRType, label: 'Email', icon: Mail },
-  { type: 'phone' as QRType, label: 'Phone', icon: Phone },
-  { type: 'sms' as QRType, label: 'SMS', icon: MessageSquare },
-  { type: 'wifi' as QRType, label: 'WiFi', icon: Wifi },
-  { type: 'location' as QRType, label: 'Location', icon: MapPin },
-  { type: 'vcard' as QRType, label: 'Contact Card', icon: Calendar },
-];
+import { QR_CODE_TYPES } from '@/config/qrCodeConfig';
 
 export const QRCodeGenerator = () => {
   const { qrType, qrValue, qrData, qrSize, fgColor, bgColor, setQrSize, setFgColor, setBgColor, handleTypeChange, updateQRData } = useQRCode();
@@ -96,7 +85,7 @@ export const QRCodeGenerator = () => {
           <Card className="p-6">
             <h2 className="text-xl font-bold text-gray-900 mb-4">Select QR Code Type</h2>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {QR_TYPES.map(({ type, label, icon: Icon }) => (
+              {QR_CODE_TYPES.map(({ type, label, icon: Icon }) => (
                 <button
                   key={type}
                   onClick={() => handleTypeChange(type)}

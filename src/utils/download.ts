@@ -5,6 +5,11 @@ interface DownloadFileOptions {
   filename: string;
 }
 
+interface DownloadBlobOptions {
+  blob: Blob;
+  filename: string;
+}
+
 export const downloadFile = ({ url, filename }: DownloadFileOptions): void => {
   const link = document.createElement('a');
   link.href = url;
@@ -14,14 +19,14 @@ export const downloadFile = ({ url, filename }: DownloadFileOptions): void => {
   document.body.removeChild(link);
 };
 
-export const downloadImage = (result: ConversionResult): void => {
+export const downloadImage = (result: ConversionResult, filenameOverride?: string): void => {
   downloadFile({
     url: result.url,
-    filename: result.fileName,
+    filename: filenameOverride || result.fileName,
   });
 };
 
-export const downloadBlob = ({ blob, filename }: { blob: Blob; filename: string }): void => {
+export const downloadBlob = ({ blob, filename }: DownloadBlobOptions): void => {
   const url = URL.createObjectURL(blob);
   downloadFile({ url, filename });
   URL.revokeObjectURL(url);

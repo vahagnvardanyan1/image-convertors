@@ -13,7 +13,20 @@
     "startConverting": "Beginnen Sie mit der Konvertierung",
     "uploadYourImage": "Laden Sie Ihr Bild hoch",
     "learnHow": "Erfahren Sie, wie",
-    "contactSupport": "Kontaktieren Sie den Support"
+    "contactSupport": "Kontaktieren Sie den Support",
+    "backToHome": "Zurück zur Startseite",
+    "dragDropHere": "Ziehen Sie Ihre Datei hierher",
+    "dropFileHere": "Datei hier ablegen",
+    "orClickBrowse": "oder klicken Sie zum Durchsuchen",
+    "releaseToUpload": "Zum Hochladen loslassen",
+    "chooseFile": "Datei auswählen",
+    "remove": "Entfernen",
+    "reset": "Zurücksetzen",
+    "download": "Herunterladen",
+    "selectValidImage": "Bitte wählen Sie eine gültige Bilddatei aus",
+    "processing": "Verarbeitung...",
+    "uploading": "Hochladen...",
+    "filesSelected": "Dateien ausgewählt"
   },
   "header": {
     "aiTools": "KI-Tools",

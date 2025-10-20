@@ -13,7 +13,20 @@
     "startConverting": "परिवर्तन शुरू करें",
     "uploadYourImage": "अपनी छवि अपलोड करें",
     "learnHow": "कैसे सीखें",
-    "contactSupport": "सहायता से संपर्क करें"
+    "contactSupport": "सहायता से संपर्क करें",
+    "backToHome": "होम पर वापस जाएं",
+    "dragDropHere": "अपनी फ़ाइल यहाँ खींचें और छोड़ें",
+    "dropFileHere": "फ़ाइल यहाँ छोड़ें",
+    "orClickBrowse": "या ब्राउज़ करने के लिए क्लिक करें",
+    "releaseToUpload": "अपलोड करने के लिए छोड़ें",
+    "chooseFile": "फ़ाइल चुनें",
+    "remove": "हटाएं",
+    "reset": "रीसेट करें",
+    "download": "डाउनलोड करें",
+    "selectValidImage": "कृपया एक मान्य छवि फ़ाइल चुनें",
+    "processing": "प्रसंस्करण...",
+    "uploading": "अपलोड हो रहा है...",
+    "filesSelected": "फ़ाइलें चयनित"
   },
   "header": {
     "aiTools": "एआई उपकरण",
