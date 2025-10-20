@@ -108,7 +108,8 @@ export function generateOrganizationSchema() {
     name: geoConfig.name,
     alternateName: geoConfig.name,
     url: geoConfig.url,
-    logo: {
+    logo: `${geoConfig.url}/logo.png`,
+    image: {
       '@type': 'ImageObject',
       url: `${geoConfig.url}/logo.png`,
       width: 512,
