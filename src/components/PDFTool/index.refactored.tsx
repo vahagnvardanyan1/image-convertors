@@ -370,3 +370,4 @@ export const PDFTool = ({ mode, title, description }: PDFToolProps) => {
     </section>
   );
 };
+
