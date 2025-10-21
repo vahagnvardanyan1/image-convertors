@@ -1,10 +1,15 @@
 import { Wand2, Sparkles } from 'lucide-react';
+import Image from 'next/image';
 
 import { BlogSection } from '@/components/blog/BlogSection';
 
 export const WhatIsAI = () => {
   return (
     <BlogSection title="What is AI Image Generation?" icon={Wand2} iconBgClass="bg-violet-100" borderClass="border-l-4 border-violet-500">
+      <div className="mb-6 rounded-xl overflow-hidden shadow-lg">
+        <Image src="/t2i.webp" alt="AI Image Generation - Text to Image" width={1200} height={600} className="w-full h-auto" priority />
+      </div>
+
       <p className="text-gray-700 leading-relaxed mb-6">
         <strong>AI image generation</strong> uses artificial intelligence and machine learning to create original images from text descriptions (prompts). Modern AI models like DALL-E, Midjourney, and
         Stable Diffusion can generate photorealistic images, artistic illustrations, logos, and more based on your written instructions.

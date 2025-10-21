@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import { ChevronDown, HelpCircle } from 'lucide-react';
 
@@ -20,7 +22,7 @@ export const BlogFAQ = ({ title = 'Frequently Asked Questions', faqs }: BlogFAQP
     <Card className="p-8 mb-8">
       <div className="flex items-center mb-6">
         <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mr-4">
-          <HelpCircle className="text-blue-600" size={24} />
+          <HelpCircle className="text-blue-600" aaa={24} />
         </div>
         <h2 className="text-2xl font-bold text-gray-900">{title}</h2>
       </div>
