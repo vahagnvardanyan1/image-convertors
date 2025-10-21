@@ -6,19 +6,21 @@ import { ConverterPage } from '@/components/ConverterPage';
 import { generateToolMetadata } from '@/lib/metadata/toolMetadata';
 
 type Props = {
-  params: { locale: Locale };
+  params: Promise<{ locale: Locale }>;
 };
 
 export const generateMetadata = async ({ params }: Props): Promise<Metadata> => {
+  const { locale } = await params;
   return generateToolMetadata({
-    locale: params.locale,
+    locale,
     path: 'png-to-jpg',
     namespace: 'metadata.pngToJpg',
   });
 };
 
 const PngToJpgPage = async ({ params }: Props) => {
-  const t = await getTranslations({ locale: params.locale, namespace: 'converterHeaders' });
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'converterHeaders' });
   return <ConverterPage from="PNG" to="JPG" title={t('pngToJpg.title')} description={t('pngToJpg.description')} />;
 };
 

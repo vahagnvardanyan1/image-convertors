@@ -5,12 +5,13 @@ import { ImageCropper } from '@/components/ImageCropper';
 import { generateToolMetadata } from '@/lib/metadata/toolMetadata';
 
 type Props = {
-  params: { locale: Locale };
+  params: Promise<{ locale: Locale }>;
 };
 
 export const generateMetadata = async ({ params }: Props): Promise<Metadata> => {
+  const { locale } = await params;
   return generateToolMetadata({
-    locale: params.locale,
+    locale,
     path: 'crop-image',
     namespace: 'metadata.cropImage',
   });

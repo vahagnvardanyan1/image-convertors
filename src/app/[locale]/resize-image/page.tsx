@@ -5,12 +5,13 @@ import { ImageResizer } from '@/components/ImageResizer';
 import { generateToolMetadata } from '@/lib/metadata/toolMetadata';
 
 type Props = {
-  params: { locale: Locale };
+  params: Promise<{ locale: Locale }>;
 };
 
 export const generateMetadata = async ({ params }: Props): Promise<Metadata> => {
+  const { locale } = await params;
   return generateToolMetadata({
-    locale: params.locale,
+    locale,
     path: 'resize-image',
     namespace: 'metadata.resizeImage',
   });

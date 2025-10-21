@@ -6,19 +6,21 @@ import { ConverterPage } from '@/components/ConverterPage';
 import { generateToolMetadata } from '@/lib/metadata/toolMetadata';
 
 type Props = {
-  params: { locale: Locale };
+  params: Promise<{ locale: Locale }>;
 };
 
 export const generateMetadata = async ({ params }: Props): Promise<Metadata> => {
+  const { locale } = await params;
   return generateToolMetadata({
-    locale: params.locale,
+    locale,
     path: 'jpg-to-webp',
     namespace: 'metadata.jpgToWebp',
   });
 };
 
 const JpgToWebpPage = async ({ params }: Props) => {
-  const t = await getTranslations({ locale: params.locale, namespace: 'converterHeaders' });
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'converterHeaders' });
   return <ConverterPage from="JPG" to="WEBP" title={t('jpgToWebp.title')} description={t('jpgToWebp.description')} />;
 };
 

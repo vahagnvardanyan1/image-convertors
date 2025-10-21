@@ -7,19 +7,21 @@ import { PDFErrorBoundary } from '@/components/PDFErrorBoundary';
 import { generateToolMetadata } from '@/lib/metadata/toolMetadata';
 
 type Props = {
-  params: { locale: Locale };
+  params: Promise<{ locale: Locale }>;
 };
 
 export const generateMetadata = async ({ params }: Props): Promise<Metadata> => {
+  const { locale } = await params;
   return generateToolMetadata({
-    locale: params.locale,
+    locale,
     path: 'merge-pdf',
     namespace: 'metadata.mergePdf',
   });
 };
 
 const MergePDFPage = async ({ params }: Props) => {
-  const headers = await getTranslations({ locale: params.locale, namespace: 'pdfToolHeaders' });
+  const { locale } = await params;
+  const headers = await getTranslations({ locale, namespace: 'pdfToolHeaders' });
 
   return (
     <PDFErrorBoundary>
