@@ -9,4 +9,4 @@
 
 import { SITE_URL as SITE_URL_JS } from './constants.js';
 
-export const SITE_URL = SITE_URL_JS;
+export const SITE_URL: string = SITE_URL_JS;
