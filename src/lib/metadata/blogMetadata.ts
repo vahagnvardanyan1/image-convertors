@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 
+import { SITE_URL } from '@/config/constants';
+
 interface BlogMetadataOptions {
   title: string;
   description: string;
@@ -10,7 +12,7 @@ interface BlogMetadataOptions {
 }
 
 export const generateBlogMetadata = ({ title, description, keywords, publishDate, path, ogImage = '/og-image.webp' }: BlogMetadataOptions): Metadata => {
-  const url = `https://imageconvertors.com/blog/${path}`;
+  const url = `${SITE_URL}/blog/${path}`;
 
   return {
     title,

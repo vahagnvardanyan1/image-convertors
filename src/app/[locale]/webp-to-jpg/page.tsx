@@ -1,6 +1,8 @@
 import { Metadata } from 'next';
 import { ConverterPage } from '@/components/ConverterPage';
 import { getTranslations } from 'next-intl/server';
+
+import { SITE_URL } from '@/config/constants';
 import { localeMap, type Locale } from '@/i18n/config';
 
 type Props = {
@@ -16,12 +18,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: t('description'),
     keywords: t('keywords'),
     alternates: {
-      canonical: `https://imageconvertors.com/${locale}/webp-to-jpg`,
+      canonical: `${SITE_URL}/${locale}/webp-to-jpg`,
     },
     openGraph: {
       title: t('ogTitle'),
       description: t('ogDescription'),
-      url: `https://imageconvertors.com/${locale}/webp-to-jpg`,
+      url: `${SITE_URL}/${locale}/webp-to-jpg`,
       siteName: 'ImageConvertors',
       type: 'website',
       locale: localeMap[locale] || 'en_US',

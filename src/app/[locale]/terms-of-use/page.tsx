@@ -4,6 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/Card';
 import { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
+
+import { SITE_URL } from '@/config/constants';
 import { type Locale } from '@/i18n/config';
 
 type Props = {
@@ -23,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       follow: true,
     },
     alternates: {
-      canonical: `https://imageconvertors.com/${locale}/terms-of-use`,
+      canonical: `${SITE_URL}/${locale}/terms-of-use`,
     },
   };
 }

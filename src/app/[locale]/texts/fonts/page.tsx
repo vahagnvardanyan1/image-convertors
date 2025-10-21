@@ -2,6 +2,8 @@ import Link from 'next/link';
 import { Type, Sparkles, Ruler } from 'lucide-react';
 import { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
+
+import { SITE_URL } from '@/config/constants';
 import { localeMap, type Locale } from '@/i18n/config';
 
 type Props = {
@@ -17,12 +19,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: t('description'),
     keywords: t('keywords'),
     alternates: {
-      canonical: `https://imageconvertors.com/${locale}/texts/fonts`,
+      canonical: `${SITE_URL}/${locale}/texts/fonts`,
     },
     openGraph: {
       title: t('ogTitle'),
       description: t('ogDescription'),
-      url: `https://imageconvertors.com/${locale}/texts/fonts`,
+      url: `${SITE_URL}/${locale}/texts/fonts`,
       siteName: 'ImageConvertors',
       type: 'website',
       locale: localeMap[locale] || 'en_US',

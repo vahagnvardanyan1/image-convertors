@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
+import { SITE_URL } from '@/config/constants';
 import { locales } from '@/i18n/config';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -19,7 +20,7 @@ export const viewport = {
 
 // Global metadata including favicon configuration
 export const metadata: Metadata = {
-  metadataBase: new URL('https://imageconvertors.com'),
+  metadataBase: new URL(SITE_URL),
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },

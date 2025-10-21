@@ -1,5 +1,7 @@
 import { Metadata } from 'next';
 
+import { SITE_URL } from '@/config/constants';
+
 // Type definitions for structured data
 interface WebApplicationSchema {
   '@type': 'WebApplication';
@@ -32,7 +34,7 @@ export const siteConfig = {
   name: 'ImageConvertors',
   title: 'Free Online Tools: Image, Fonts & Colors | ImageConvertors',
   description: 'Free online image converter & font generator. Convert PNG/JPG/WebP images, create fancy text, and design color schemes—all without installing any software.',
-  url: 'https://imageconvertors.com',
+  url: SITE_URL,
   ogImage: '/og-image.webp',
   twitterImage: '/og-image.webp',
   keywords: [
@@ -79,7 +81,7 @@ export const siteConfig = {
   ],
   author: {
     name: 'ImageConvertors',
-    url: 'https://imageconvertors.com',
+    url: SITE_URL,
     twitter: '@imageconverter',
   },
   verification: {
@@ -266,7 +268,7 @@ export const generateStructuredData = (pathname: string) => {
     '@type': 'Organization',
     name: siteConfig.author.name,
     url: siteConfig.url,
-    logo: 'https://imageconvertors.com/logo.png',
+    logo: `${SITE_URL}/logo.png`,
     image: {
       '@type': 'ImageObject',
       url: `${siteConfig.url}/logo.png`,
@@ -1036,7 +1038,7 @@ export const getOrganizationSchema = () => ({
   name: 'ImageConvertors',
   alternateName: 'ImageConvertors',
   url: siteConfig.url,
-  logo: 'https://imageconvertors.com/logo.png',
+  logo: `${SITE_URL}/logo.png`,
   description: siteConfig.description,
   foundingDate: '2024',
   contactPoint: {

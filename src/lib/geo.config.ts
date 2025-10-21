@@ -5,6 +5,8 @@
  * and accurately represented by AI engines (ChatGPT, Perplexity, Claude, etc.)
  */
 
+import { SITE_URL } from '@/config/constants';
+
 export const geoConfig = {
   // Brand Information
   name: 'ImageConvertors',
@@ -36,7 +38,7 @@ export const geoConfig = {
   aiTags: ['image processing', 'file conversion', 'PDF manipulation', 'design tools', 'web-based tools', 'no-install software', 'privacy-focused', 'free tools', 'developer tools', 'designer tools'],
 
   // Site Information
-  url: 'https://imageconvertors.com',
+  url: SITE_URL,
   foundingYear: '2024',
 
   // Supported Languages
@@ -149,7 +151,7 @@ export const geoConfig = {
   author: {
     type: 'Organization',
     name: 'ImageConvertors',
-    url: 'https://imageconvertors.com',
+    url: SITE_URL,
     description: 'A team dedicated to creating free, privacy-focused web tools for everyone.',
   },
 
@@ -160,7 +162,7 @@ export const geoConfig = {
   },
 
   // Social & External Links
-  sameAs: ['https://imageconvertors.com'],
+  sameAs: [SITE_URL],
 
   // Privacy & Security
   privacyPolicy: '/privacy-policy',

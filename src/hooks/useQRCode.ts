@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { SITE_URL } from '@/config/constants';
+
 export type QRType = 'url' | 'text' | 'email' | 'phone' | 'sms' | 'wifi' | 'location' | 'vcard';
 
 export interface QRData {
@@ -31,8 +33,8 @@ interface UseQRCodeReturn {
 
 export const useQRCode = (): UseQRCodeReturn => {
   const [qrType, setQrType] = useState<QRType>('url');
-  const [qrValue, setQrValue] = useState('https://imageconvertors.com');
-  const [qrData, setQrData] = useState<QRData>({ url: 'https://imageconvertors.com' });
+  const [qrValue, setQrValue] = useState(SITE_URL);
+  const [qrData, setQrData] = useState<QRData>({ url: SITE_URL });
   const [qrSize, setQrSize] = useState(256);
   const [fgColor, setFgColor] = useState('#000000');
   const [bgColor, setBgColor] = useState('#ffffff');
@@ -66,7 +68,7 @@ export const useQRCode = (): UseQRCodeReturn => {
 
     switch (type) {
       case 'url':
-        newData.url = 'https://imageconvertors.com';
+        newData.url = SITE_URL;
         break;
       case 'text':
         newData.text = 'Hello World!';
