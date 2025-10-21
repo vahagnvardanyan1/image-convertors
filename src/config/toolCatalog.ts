@@ -10,7 +10,7 @@ export interface Tool {
   to?: string; // For converters (display name)
 }
 
-export interface ToolCategory {
+export interface ToolCategoryItem {
   key: ToolCategory;
   translationKey: string;
   icon: string;
