@@ -15,11 +15,11 @@ export default function ColorsLayout({ children }: { children: React.ReactNode }
   const locale = pathSegments[1];
 
   const navigation = [
-    { name: t('dashboard'), href: `/${locale}/colors`, icon: Home },
-    { name: t('picker'), href: `/${locale}/colors/picker`, icon: Droplet },
-    { name: t('palettes'), href: `/${locale}/colors/palettes`, icon: Palette },
-    { name: t('gradients'), href: `/${locale}/colors/gradients`, icon: Blend },
-    { name: t('converter'), href: `/${locale}/colors/converter`, icon: ArrowLeftRight },
+    { name: t('dashboard'), href: `/colors`, icon: Home },
+    { name: t('picker'), href: `/colors/picker`, icon: Droplet },
+    { name: t('palettes'), href: `/colors/palettes`, icon: Palette },
+    { name: t('gradients'), href: `/colors/gradients`, icon: Blend },
+    { name: t('converter'), href: `/colors/converter`, icon: ArrowLeftRight },
   ];
 
   return (
