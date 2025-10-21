@@ -4,10 +4,10 @@ import { locales, type Locale } from './config';
 
 export default getRequestConfig(async ({ requestLocale }) => {
   // Wait for the requestLocale to be available
-  const locale = await requestLocale;
+  const locale = (await requestLocale) as Locale;
 
   // Validate that the incoming `locale` parameter is valid
-  if (!locale || !locales.includes(locale as Locale)) {
+  if (!locale || !locales.includes(locale)) {
     notFound();
   }
 

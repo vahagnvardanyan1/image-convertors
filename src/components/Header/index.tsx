@@ -2,7 +2,6 @@
 
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { useState } from 'react';
-import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 
@@ -14,24 +13,12 @@ import { getIcon } from '@/utils/iconLookup';
 
 export const Header = () => {
   const t = useTranslations('header');
-  const tCommon = useTranslations('common');
-  const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isOpen, toggle, closeAll } = useDropdowns();
 
   const handleMenuClose = () => {
     setIsMenuOpen(false);
     closeAll();
-  };
-
-  const scrollToSection = (sectionId: string) => {
-    setIsMenuOpen(false);
-    if (pathname !== '/') {
-      window.location.href = `/#${sectionId}`;
-    } else {
-      const element = document.getElementById(sectionId);
-      if (element) element.scrollIntoView({ behavior: 'smooth' });
-    }
   };
 
   const categories = [
@@ -48,7 +35,7 @@ export const Header = () => {
     const dropdownKey = `${categoryName}Dropdown`;
 
     return (
-      <div className="relative group dropdown-container" onMouseEnter={() => toggle(dropdownKey)} onMouseLeave={() => toggle(dropdownKey)}>
+      <div className="relative group dropdown-container pb-2" onMouseEnter={() => toggle(dropdownKey)} onMouseLeave={() => toggle(dropdownKey)}>
         <button className="flex min-w-0 items-center space-x-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors py-2" onClick={() => toggle(dropdownKey)}>
           <Icon size={16} />
           <span className="truncate max-w-[9rem]">{label}</span>
@@ -56,38 +43,40 @@ export const Header = () => {
         </button>
 
         {isOpen(dropdownKey) && (
-          <div className="absolute left-0 top-full mt-2 w-64 bg-white border border-gray-200 rounded-lg shadow-xl z-50">
-            <div className="p-4 space-y-2">
-              <h3 className="text-sm font-bold text-gray-900 mb-3">{t('popularTools')}</h3>
-              {tools
-                .filter(tool => tool.popular)
-                .map(tool => {
-                  const ToolIcon = getIcon(tool.icon);
-                  return (
-                    <Link key={tool.path} href={tool.path} onClick={handleMenuClose} className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-lg transition-colors">
-                      <ToolIcon className="text-blue-600" size={18} />
-                      <span className="text-sm text-gray-700 hover:text-gray-900">{t(tool.translationKey)}</span>
-                    </Link>
-                  );
-                })}
+          <div className="absolute left-0 top-full pt-2 w-64 z-50">
+            <div className="bg-white border border-gray-200 rounded-lg shadow-xl max-h-[70vh] overflow-y-auto">
+              <div className="p-4 space-y-2">
+                <h3 className="text-sm font-bold text-gray-900 mb-3">{t('popularTools')}</h3>
+                {tools
+                  .filter(tool => tool.popular)
+                  .map(tool => {
+                    const ToolIcon = getIcon(tool.icon);
+                    return (
+                      <Link key={tool.path} href={tool.path} onClick={handleMenuClose} className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-lg transition-colors">
+                        <ToolIcon className="text-blue-600" size={18} />
+                        <span className="text-sm text-gray-700 hover:text-gray-900">{t(tool.translationKey)}</span>
+                      </Link>
+                    );
+                  })}
 
-              {tools.filter(tool => !tool.popular).length > 0 && (
-                <>
-                  <div className="border-t border-gray-100 my-2"></div>
-                  <h3 className="text-sm font-bold text-gray-900 mb-2">{t('moreTools')}</h3>
-                  {tools
-                    .filter(tool => !tool.popular)
-                    .map(tool => {
-                      const ToolIcon = getIcon(tool.icon);
-                      return (
-                        <Link key={tool.path} href={tool.path} onClick={handleMenuClose} className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-lg transition-colors">
-                          <ToolIcon className="text-gray-500" size={18} />
-                          <span className="text-sm text-gray-700 hover:text-gray-900">{t(tool.translationKey)}</span>
-                        </Link>
-                      );
-                    })}
-                </>
-              )}
+                {tools.filter(tool => !tool.popular).length > 0 && (
+                  <>
+                    <div className="border-t border-gray-100 my-2"></div>
+                    <h3 className="text-sm font-bold text-gray-900 mb-2">{t('moreTools')}</h3>
+                    {tools
+                      .filter(tool => !tool.popular)
+                      .map(tool => {
+                        const ToolIcon = getIcon(tool.icon);
+                        return (
+                          <Link key={tool.path} href={tool.path} onClick={handleMenuClose} className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-lg transition-colors">
+                            <ToolIcon className="text-gray-500" size={18} />
+                            <span className="text-sm text-gray-700 hover:text-gray-900">{t(tool.translationKey)}</span>
+                          </Link>
+                        );
+                      })}
+                  </>
+                )}
+              </div>
             </div>
           </div>
         )}
@@ -106,7 +95,11 @@ export const Header = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-8">{categories.map(cat => renderDropdown(cat.name, cat.label, cat.icon, cat.tools))}</nav>
+          <nav className="hidden lg:flex items-center space-x-8">
+            {categories.map(cat => (
+              <div key={cat.name}>{renderDropdown(cat.name, cat.label, cat.icon, cat.tools)}</div>
+            ))}
+          </nav>
 
           {/* Mobile Menu Button */}
           <Button variant="outline" className="lg:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
@@ -116,12 +109,12 @@ export const Header = () => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="lg:hidden border-t border-gray-100 py-4">
+          <div className="lg:hidden border-t border-gray-100 py-4 max-h-[80vh] overflow-y-auto">
             <div className="space-y-4">
               {categories.map(cat => {
                 const Icon = getIcon(cat.icon);
                 return (
-                  <div key={cat.name}>
+                  <div key={cat.name} className="dropdown-container">
                     <button onClick={() => toggle(`mobile-${cat.name}`)} className="flex items-center justify-between w-full text-left p-2 hover:bg-gray-50 rounded-lg">
                       <div className="flex items-center space-x-2">
                         <Icon size={20} className="text-gray-600" />
@@ -131,7 +124,7 @@ export const Header = () => {
                     </button>
 
                     {isOpen(`mobile-${cat.name}`) && (
-                      <div className="ml-8 mt-2 space-y-2">
+                      <div className="ml-8 mt-2 space-y-2 max-h-[50vh] overflow-y-auto">
                         {cat.tools.map(tool => {
                           const ToolIcon = getIcon(tool.icon);
                           return (

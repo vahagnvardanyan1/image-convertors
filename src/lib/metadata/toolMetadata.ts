@@ -1,28 +1,40 @@
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 
-import { localeMap } from '@/i18n/config';
+import { localeMap, type Locale } from '@/i18n/config';
 import { generateAIMeta } from '@/lib/geoHelpers';
 import { geoConfig } from '@/lib/geo.config';
 
+// Common metadata keys that exist in all metadata namespaces
+type MetadataKey = 'title' | 'description' | 'keywords' | 'ogTitle' | 'ogDescription' | 'ogImageAlt';
+
+// Type for nested metadata namespaces (e.g., 'metadata.compressImage')
+type MetadataNamespace = keyof IntlMessages['metadata'] extends infer K ? (K extends string ? `metadata.${K}` : never) : never;
+
 interface ToolMetadataOptions {
-  locale: string;
+  locale: Locale;
   path: string;
-  namespace: string;
+  namespace: MetadataNamespace | keyof IntlMessages;
   ogImage?: string;
 }
 
 export const generateToolMetadata = async ({ locale, path, namespace, ogImage = '/convert.webp' }: ToolMetadataOptions): Promise<Metadata> => {
-  const t = await getTranslations({ locale, namespace });
+  const t = await getTranslations(namespace);
 
   const pathname = `/${locale}/${path}`;
   const aiMeta = generateAIMeta(pathname);
   const canonicalUrl = `https://imageconvertors.com/${locale}/${path}`;
 
+  // Helper to safely get metadata value
+  // All metadata.* namespaces have these standard keys
+  const getMeta = (key: MetadataKey): string => {
+    return t(key);
+  };
+
   return {
-    title: t('title'),
-    description: t('description'),
-    keywords: t('keywords'),
+    title: getMeta('title'),
+    description: getMeta('description'),
+    keywords: getMeta('keywords'),
     authors: [{ name: geoConfig.author.name, url: geoConfig.author.url }],
     creator: geoConfig.author.name,
     publisher: geoConfig.author.name,
@@ -31,8 +43,8 @@ export const generateToolMetadata = async ({ locale, path, namespace, ogImage = 
       languages: Object.fromEntries(geoConfig.languages.map(lang => [lang, `https://imageconvertors.com/${lang}/${path}`])),
     },
     openGraph: {
-      title: t('ogTitle'),
-      description: t('ogDescription'),
+      title: getMeta('ogTitle'),
+      description: getMeta('ogDescription'),
       url: canonicalUrl,
       siteName: 'ImageConvertors',
       type: 'website',
@@ -43,14 +55,14 @@ export const generateToolMetadata = async ({ locale, path, namespace, ogImage = 
           url: ogImage,
           width: 1200,
           height: 630,
-          alt: t('ogImageAlt'),
+          alt: getMeta('ogImageAlt'),
         },
       ],
     },
     twitter: {
       card: 'summary_large_image',
-      title: t('ogTitle'),
-      description: t('ogDescription'),
+      title: getMeta('ogTitle'),
+      description: getMeta('ogDescription'),
       images: [ogImage],
       site: '@imageconverter',
       creator: '@imageconverter',

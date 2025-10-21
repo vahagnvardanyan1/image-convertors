@@ -2,7 +2,6 @@ import { useTranslations } from 'next-intl';
 
 import { Card } from '../Card';
 import { QR_CODE_TYPES } from '@/config/qrCodeConfig';
-import { getIcon } from '@/utils/iconLookup';
 
 import type { QRType } from '@/hooks/useQRCode';
 
@@ -12,14 +11,14 @@ interface QRTypeSelectorProps {
 }
 
 export const QRTypeSelector = ({ selectedType, onTypeChange }: QRTypeSelectorProps) => {
-  const t = useTranslations('qrGenerator');
+  const t = useTranslations('qrcode');
 
   return (
     <Card className="p-6">
       <h2 className="text-xl font-bold text-gray-900 mb-4">{t('selectType')}</h2>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        {QR_CODE_TYPES.map(({ type, label, icon: iconName }) => {
-          const Icon = getIcon(iconName);
+        {QR_CODE_TYPES.map(({ type, label, icon }) => {
+          const Icon = icon;
           return (
             <button
               key={type}

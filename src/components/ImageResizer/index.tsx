@@ -64,7 +64,7 @@ export const ImageResizer = () => {
       setOriginalDimensions(dimensions);
       setCustomWidth(dimensions.width);
       setCustomHeight(dimensions.height);
-    } catch (error) {
+    } catch {
       toast.error(tErrors('loadImageFailed'));
     }
   };
@@ -140,7 +140,7 @@ export const ImageResizer = () => {
 
               <ToolSection title={`3. ${t('resizeImage')}`}>
                 <Button
-                  onClick={handleResize}
+                  onClick={() => imageUrl && handleResize({ imageUrl })}
                   disabled={isResizing}
                   className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 disabled:opacity-50"
                 >

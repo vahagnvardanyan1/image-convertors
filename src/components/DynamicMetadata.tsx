@@ -115,7 +115,7 @@ export function DynamicMetadata({ title: customTitle, description, keywords, ope
             if (img?.parentNode) {
               img.remove();
             }
-          } catch (e) {
+          } catch {
             // Ignore
           }
         });
@@ -134,7 +134,7 @@ export function DynamicMetadata({ title: customTitle, description, keywords, ope
                 document.head.appendChild(ogImage);
                 createdImagesRef.current.add(ogImage);
               }
-            } catch (e) {
+            } catch {
               // Ignore creation errors
             }
           }

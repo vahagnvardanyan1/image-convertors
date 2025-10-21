@@ -50,7 +50,7 @@ export const FileUploadZone = ({
   removeText = 'Remove',
   className = '',
 }: FileUploadZoneProps) => {
-  const hasFiles = selectedFiles.length > 0;
+  const hasFiles = selectedFiles?.length > 0;
 
   return (
     <div
@@ -64,7 +64,7 @@ export const FileUploadZone = ({
     >
       {hasFiles && showFileList ? (
         <div className="space-y-3">
-          {selectedFiles.map((file, index) => (
+          {selectedFiles?.map((file, index) => (
             <div key={index} className="flex items-center justify-between p-3 bg-white rounded-lg">
               <div className="flex items-center space-x-4 min-w-0 flex-1">
                 {showPreview && file.type.startsWith('image/') ? (

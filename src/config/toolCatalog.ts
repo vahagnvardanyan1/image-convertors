@@ -1,7 +1,10 @@
 export type ToolCategory = 'ai' | 'image' | 'pdf' | 'color' | 'text' | 'font' | 'json' | 'blog';
 
+// Type-safe translation keys for header namespace
+export type HeaderTranslationKey = keyof IntlMessages['header'];
+
 export interface Tool {
-  translationKey: string;
+  translationKey: HeaderTranslationKey;
   path: string;
   icon: string; // Icon name from lucide-react
   popular?: boolean;
@@ -12,7 +15,7 @@ export interface Tool {
 
 export interface ToolCategoryItem {
   key: ToolCategory;
-  translationKey: string;
+  translationKey: HeaderTranslationKey;
   icon: string;
   tools: Tool[];
 }

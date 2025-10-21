@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
+import { type Locale } from '@/i18n/config';
 
 import { ImageResizer } from '@/components/ImageResizer';
 import { generateToolMetadata } from '@/lib/metadata/toolMetadata';
 
 type Props = {
-  params: { locale: string };
+  params: { locale: Locale };
 };
 
 export const generateMetadata = async ({ params }: Props): Promise<Metadata> => {

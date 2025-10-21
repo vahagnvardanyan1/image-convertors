@@ -19,7 +19,7 @@ import { validateImageFile } from '@/utils/fileValidation';
 
 export const ImageCropper = () => {
   const tCommon = useTranslations('common');
-  const tCrop = useTranslations('cropTool');
+  const tCrop = useTranslations('cropper');
   const toast = useToast();
 
   const { imageUrl, cropper, aspectRatio, isCropping, imageRef, setImageUrl, setAspectRatio, initializeCropper, cropImage, resetCrop, rotateCrop, flipCrop, zoomCrop, destroyCropper } = useImageCrop();

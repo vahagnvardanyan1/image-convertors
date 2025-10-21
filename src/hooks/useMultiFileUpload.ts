@@ -17,7 +17,7 @@ interface UseMultiFileUploadReturn {
   triggerFileInput: () => void;
 }
 
-export const useMultiFileUpload = ({ onFilesSelect, accept = '*', multiple = true }: UseMultiFileUploadOptions): UseMultiFileUploadReturn => {
+export const useMultiFileUpload = ({ onFilesSelect }: UseMultiFileUploadOptions): UseMultiFileUploadReturn => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -49,7 +49,7 @@ export const useMultiFileUpload = ({ onFilesSelect, accept = '*', multiple = tru
 
   return {
     selectedFiles,
-    fileInputRef,
+    fileInputRef: fileInputRef as React.RefObject<HTMLInputElement>,
     handleFileSelect,
     clearFiles,
     removeFile,

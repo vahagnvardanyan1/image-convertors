@@ -1,5 +1,3 @@
-import Link from 'next/link';
-
 import { BlogFAQ } from '@/components/blog/BlogFAQ';
 
 export const FAQSection = () => {

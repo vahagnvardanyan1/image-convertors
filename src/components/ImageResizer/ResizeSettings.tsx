@@ -1,7 +1,6 @@
 import { Settings, Sliders, Maximize2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
-import { Button } from '../ui/button';
 import { ToolSection } from '@/components/tooling/ToolSection';
 import { presets } from '@/hooks/useImageResize';
 
@@ -112,13 +111,13 @@ export const ResizeSettings = ({
 
         {resizeMode === 'preset' && (
           <div className="grid grid-cols-2 gap-3">
-            {presets.map(preset => (
+            {Object.entries(presets).map(([key, preset]) => (
               <button
-                key={preset.name}
-                onClick={() => onPresetSelect(preset)}
-                className={`p-3 rounded-lg border-2 text-left transition-all ${selectedPreset?.name === preset.name ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}
+                key={key}
+                onClick={() => onPresetSelect(key as PresetSize)}
+                className={`p-3 rounded-lg border-2 text-left transition-all ${selectedPreset === key ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}
               >
-                <p className="font-medium text-gray-900">{preset.name}</p>
+                <p className="font-medium text-gray-900">{preset.label}</p>
                 <p className="text-xs text-gray-500">
                   {preset.width} × {preset.height}
                 </p>

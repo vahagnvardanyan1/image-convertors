@@ -1,4 +1,4 @@
-import { Shuffle, CheckCircle } from 'lucide-react';
+import { Shuffle } from 'lucide-react';
 
 import { BlogSection } from '@/components/blog/BlogSection';
 

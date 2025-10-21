@@ -1,4 +1,4 @@
-import { Smile, Heart, Sparkles } from 'lucide-react';
+import { Smile } from 'lucide-react';
 
 import { BlogSection } from '@/components/blog/BlogSection';
 

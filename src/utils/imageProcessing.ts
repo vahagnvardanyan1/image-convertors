@@ -36,36 +36,10 @@ export const getCompressionRatio = ({ originalSize, convertedSize }: { originalS
   return Math.round(((originalSize - convertedSize) / originalSize) * 100);
 };
 
-interface CalculateDimensionsParams {
-  width: number;
-  height: number;
-  maxWidthOrHeight?: number;
-  maintainAspectRatio?: boolean;
-}
-
 export interface Dimensions {
   width: number;
   height: number;
 }
-
-export const calculateDimensions = ({ width, height, maxWidthOrHeight, maintainAspectRatio = true }: CalculateDimensionsParams): Dimensions => {
-  if (!maxWidthOrHeight || (width <= maxWidthOrHeight && height <= maxWidthOrHeight)) {
-    return { width, height };
-  }
-
-  if (maintainAspectRatio) {
-    const ratio = Math.min(maxWidthOrHeight / width, maxWidthOrHeight / height);
-    return {
-      width: width * ratio,
-      height: height * ratio,
-    };
-  }
-
-  return {
-    width: Math.min(width, maxWidthOrHeight),
-    height: Math.min(height, maxWidthOrHeight),
-  };
-};
 
 export const loadImage = (url: string): Promise<HTMLImageElement> => {
   return new Promise((resolve, reject) => {

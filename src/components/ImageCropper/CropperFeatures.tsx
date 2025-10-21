@@ -5,14 +5,14 @@ import { Card } from '@/components/Card';
 import { ToolGrid } from '@/components/tooling/ToolShell';
 
 export const CropperFeatures = () => {
-  const tCrop = useTranslations('cropTool');
+  const tCrop = useTranslations('cropper');
 
   const features = [
-    { icon: Crop, colorClass: 'bg-blue-100', iconColor: 'text-blue-600', titleKey: 'feature1Title', descKey: 'feature1Desc' },
-    { icon: Maximize, colorClass: 'bg-purple-100', iconColor: 'text-purple-600', titleKey: 'feature2Title', descKey: 'feature2Desc' },
-    { icon: Move, colorClass: 'bg-green-100', iconColor: 'text-green-600', titleKey: 'feature3Title', descKey: 'feature3Desc' },
-    { icon: CheckCircle, colorClass: 'bg-orange-100', iconColor: 'text-orange-600', titleKey: 'feature4Title', descKey: 'feature4Desc' },
-  ];
+    { icon: Crop, colorClass: 'bg-blue-100', iconColor: 'text-blue-600', titleKey: 'feature1Title' as const, descKey: 'feature1Desc' as const },
+    { icon: Maximize, colorClass: 'bg-purple-100', iconColor: 'text-purple-600', titleKey: 'feature2Title' as const, descKey: 'feature2Desc' as const },
+    { icon: Move, colorClass: 'bg-green-100', iconColor: 'text-green-600', titleKey: 'feature3Title' as const, descKey: 'feature3Desc' as const },
+    { icon: CheckCircle, colorClass: 'bg-orange-100', iconColor: 'text-orange-600', titleKey: 'feature4Title' as const, descKey: 'feature4Desc' as const },
+  ] as const;
 
   return (
     <ToolGrid columns={2} className="lg:grid-cols-4 mb-12">

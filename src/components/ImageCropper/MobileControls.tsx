@@ -20,7 +20,7 @@ interface MobileControlsProps {
 }
 
 export const MobileControls = ({ isBottomSheetOpen, aspectRatio, isCropping, onOpenSheet, onCloseSheet, onAspectRatioChange, onCrop, onReset, onRotate, onFlip, onZoom }: MobileControlsProps) => {
-  const tCrop = useTranslations('cropTool');
+  const tCrop = useTranslations('cropper');
   const tCommon = useTranslations('common');
 
   return (

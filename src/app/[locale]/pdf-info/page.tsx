@@ -2,10 +2,10 @@ import { Metadata } from 'next';
 import { PDFTool } from '@/components/PDFTool';
 import { PDFErrorBoundary } from '@/components/PDFErrorBoundary';
 import { getTranslations } from 'next-intl/server';
-import { localeMap } from '@/i18n/config';
+import { localeMap, type Locale } from '@/i18n/config';
 
 type Props = {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

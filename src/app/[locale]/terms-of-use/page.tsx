@@ -4,9 +4,10 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/Card';
 import { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
+import { type Locale } from '@/i18n/config';
 
 type Props = {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

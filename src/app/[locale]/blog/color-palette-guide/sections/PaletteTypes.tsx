@@ -1,4 +1,4 @@
-import { Droplet, Palette } from 'lucide-react';
+import { Droplet } from 'lucide-react';
 
 import { BlogSection } from '@/components/blog/BlogSection';
 

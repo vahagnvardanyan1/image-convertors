@@ -86,13 +86,13 @@ export const usePDFProcessing = ({ mode, onSuccess, onError }: UsePDFProcessingO
   };
 
   const reset = () => {
-    if (result && 'images' in result) {
-      const urls = result.images.map(img => img.url);
+    if (result && typeof result === 'object' && 'images' in result) {
+      const urls = (result.images as Array<{ url: string }>).map(img => img.url);
       cleanupUrls(urls);
-    } else if (result && 'url' in result) {
-      cleanupUrls([result.url]);
-    } else if (result && 'pdfs' in result) {
-      const urls = result.pdfs.map(pdf => pdf.url);
+    } else if (result && typeof result === 'object' && 'url' in result) {
+      cleanupUrls([result.url as string]);
+    } else if (result && typeof result === 'object' && 'pdfs' in result) {
+      const urls = (result.pdfs as Array<{ url: string }>).map(pdf => pdf.url);
       cleanupUrls(urls);
     }
     setResult(null);

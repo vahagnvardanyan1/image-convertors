@@ -37,7 +37,7 @@ interface UseImageCompressionReturn {
   setTargetFileSize: (size: number) => void;
   loadImageFile: (file: File) => void;
   compress: (params: { file: File; options: CompressionOptions }) => Promise<void>;
-  downloadCompressed: () => void;
+  downloadCompressed: (filename?: string) => void;
   reset: () => void;
 }
 

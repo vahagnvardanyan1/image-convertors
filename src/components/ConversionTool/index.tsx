@@ -111,7 +111,7 @@ export const ConversionTool = () => {
           {/* Drag and Drop Area */}
           <FileUploadZone
             isDragOver={isDragOver}
-            selectedFile={selectedFile}
+            selectedFiles={selectedFile ? [selectedFile] : []}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
             onDrop={handleDrop}

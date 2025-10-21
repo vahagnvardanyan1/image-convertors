@@ -189,7 +189,7 @@ export const ConverterPage = ({ from, to, title, description }: ConverterPagePro
 
               <FileUploadZone
                 isDragOver={isDragOver}
-                selectedFile={selectedFile}
+                selectedFiles={selectedFile ? [selectedFile] : []}
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
                 onDrop={handleDrop}
@@ -273,7 +273,7 @@ export const ConverterPage = ({ from, to, title, description }: ConverterPagePro
 
             {/* Convert Button */}
             <Card className="p-6">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">3. {t('step3Convert')}</h2>
+              <h2 className="text-xl font-bold text-gray-900 mb-4">3. {t('step3Title')}</h2>
 
               <Button
                 onClick={handleConvert}

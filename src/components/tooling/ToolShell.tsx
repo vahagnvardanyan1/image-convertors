@@ -52,3 +52,6 @@ export const ToolShell = ({ header, children, className = '' }: ToolShellProps) 
     </>
   );
 };
+
+// Re-export ToolGrid from ToolSection for convenience
+export { ToolGrid } from './ToolSection';

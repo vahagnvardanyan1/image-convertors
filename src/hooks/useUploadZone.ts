@@ -95,7 +95,7 @@ export const useUploadZone = ({ onFilesSelect, multiple = false }: UseUploadZone
   return {
     isDragOver,
     selectedFiles,
-    fileInputRef,
+    fileInputRef: fileInputRef as React.RefObject<HTMLInputElement>,
     handleDragOver,
     handleDragLeave,
     handleDrop,

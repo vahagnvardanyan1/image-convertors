@@ -18,7 +18,7 @@ interface CropperControlsProps {
 }
 
 export const CropperControls = ({ aspectRatio, isCropping, onAspectRatioChange, onCrop, onReset, onRotate, onFlip, onZoom }: CropperControlsProps) => {
-  const tCrop = useTranslations('cropTool');
+  const tCrop = useTranslations('cropper');
   const tCommon = useTranslations('common');
 
   return (

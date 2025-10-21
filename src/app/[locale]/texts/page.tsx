@@ -2,10 +2,10 @@ import Link from 'next/link';
 import { Type, Smile, Hash, FileJson, GitCompare, FileSearch } from 'lucide-react';
 import { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
-import { localeMap } from '@/i18n/config';
+import { localeMap, type Locale } from '@/i18n/config';
 
 type Props = {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

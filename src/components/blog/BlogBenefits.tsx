@@ -1,5 +1,3 @@
-import { CheckCircle } from 'lucide-react';
-
 import { Card } from '@/components/Card';
 
 import type { LucideIcon } from 'lucide-react';

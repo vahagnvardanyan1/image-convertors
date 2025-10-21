@@ -25,8 +25,10 @@ import {
   BarChart3,
 } from 'lucide-react';
 import Link from 'next/link';
-import { Card } from '../Card';
+
 import { useTranslations } from 'next-intl';
+
+import { Card } from '../Card';
 
 export function FormatGrid() {
   const t = useTranslations('formatGrid');

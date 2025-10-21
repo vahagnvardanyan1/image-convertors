@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { loadImage, calculateDimensions } from '@/utils/imageProcessing';
+import { loadImage } from '@/utils/imageProcessing';
 import { downloadBlob } from '@/utils/download';
 
 import type { Dimensions } from '@/utils/imageProcessing';

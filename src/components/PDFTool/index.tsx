@@ -51,7 +51,7 @@ export const PDFTool = ({ mode, title, description }: PDFToolProps) => {
   const handleFilesSelect = (files: File[]) => {
     const validation = validateFilesForMode({ files, mode });
     if (!validation.isValid && validation.errorKey) {
-      toast.error(tErrors(validation.errorKey));
+      toast.error(tErrors(validation.errorKey as keyof IntlMessages['errors']));
     }
   };
 

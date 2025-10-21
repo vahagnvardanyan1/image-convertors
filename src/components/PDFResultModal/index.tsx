@@ -11,12 +11,14 @@ interface PDFResultModalProps {
   onClose: () => void;
   result: unknown;
   mode: string;
-  onReset: () => void;
+  onReset?: () => void;
+  onProcessAnother?: () => void;
 }
 
-export function PDFResultModal({ isOpen, onClose, result, mode, onReset }: PDFResultModalProps) {
+export function PDFResultModal({ isOpen, onClose, result, mode, onReset, onProcessAnother }: PDFResultModalProps) {
   const t = useTranslations('pdfResult');
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const handleReset = onProcessAnother || onReset || onClose;
 
   if (!result) return null;
 
@@ -97,7 +99,7 @@ export function PDFResultModal({ isOpen, onClose, result, mode, onReset }: PDFRe
           <Download className="mr-2" size={16} />
           {t('downloadAllImages')}
         </Button>
-        <Button onClick={onReset} variant="outline">
+        <Button onClick={handleReset} variant="outline">
           {t('convertAnotherPdf')}
         </Button>
       </div>
@@ -152,7 +154,7 @@ export function PDFResultModal({ isOpen, onClose, result, mode, onReset }: PDFRe
           <Download className="mr-2" size={16} />
           {t('downloadPdf')}
         </Button>
-        <Button onClick={onReset} variant="outline">
+        <Button onClick={handleReset} variant="outline">
           {t('createAnotherPdf')}
         </Button>
       </div>
@@ -207,7 +209,7 @@ export function PDFResultModal({ isOpen, onClose, result, mode, onReset }: PDFRe
           <Download className="mr-2" size={16} />
           {t('downloadMergedPdf')}
         </Button>
-        <Button onClick={onReset} variant="outline">
+        <Button onClick={handleReset} variant="outline">
           {t('mergeMorePdfs')}
         </Button>
       </div>
@@ -263,7 +265,7 @@ export function PDFResultModal({ isOpen, onClose, result, mode, onReset }: PDFRe
           <Download className="mr-2" size={16} />
           {t('downloadAllPdfs')}
         </Button>
-        <Button onClick={onReset} variant="outline">
+        <Button onClick={handleReset} variant="outline">
           {t('splitAnotherPdf')}
         </Button>
       </div>
@@ -386,7 +388,7 @@ export function PDFResultModal({ isOpen, onClose, result, mode, onReset }: PDFRe
       </div>
 
       <div className="flex justify-center">
-        <Button onClick={onReset} variant="outline">
+        <Button onClick={handleReset} variant="outline">
           {t('analyzeAnotherPdf')}
         </Button>
       </div>
