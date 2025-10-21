@@ -18,35 +18,35 @@ export const validateFilesForMode = ({ files, mode }: ValidateFilesForModeParams
     case 'pdf-info':
     case 'split-pdf':
       if (files.length !== 1) {
-        return { isValid: false, errorKey: 'errors.selectExactlyOnePdf' };
+        return { isValid: false, errorKey: 'selectExactlyOnePdf' };
       }
       if (!validatePDFFile(files[0])) {
-        return { isValid: false, errorKey: 'errors.selectValidPdf' };
+        return { isValid: false, errorKey: 'selectValidPdf' };
       }
       break;
 
     case 'images-to-pdf':
       if (files.length === 0) {
-        return { isValid: false, errorKey: 'errors.selectAtLeastOneImage' };
+        return { isValid: false, errorKey: 'selectAtLeastOneImage' };
       }
       const invalidImageFiles = files.filter(file => !validateImageForPDF(file));
       if (invalidImageFiles.length > 0) {
-        return { isValid: false, errorKey: 'errors.allFilesMustBeImages' };
+        return { isValid: false, errorKey: 'allFilesMustBeImages' };
       }
       break;
 
     case 'merge-pdf':
       if (files.length < 2) {
-        return { isValid: false, errorKey: 'errors.selectAtLeastTwoPdfs' };
+        return { isValid: false, errorKey: 'selectAtLeastTwoPdfs' };
       }
       const invalidPdfFiles = files.filter(file => !validatePDFFile(file));
       if (invalidPdfFiles.length > 0) {
-        return { isValid: false, errorKey: 'errors.allFilesMustBePdfs' };
+        return { isValid: false, errorKey: 'allFilesMustBePdfs' };
       }
       break;
 
     default:
-      return { isValid: false, errorKey: 'errors.invalidOperationMode' };
+      return { isValid: false, errorKey: 'invalidOperationMode' };
   }
 
   return { isValid: true };
