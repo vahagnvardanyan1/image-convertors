@@ -1,6 +1,8 @@
 import { fileTypeFromBuffer } from 'file-type';
 import imageCompression from 'browser-image-compression';
 
+import { validateImageFile as validateImageFileUtil } from '@/utils/fileValidation';
+
 export type SupportedFormat = 'png' | 'jpg' | 'jpeg' | 'webp' | 'gif' | 'heic' | 'heif';
 
 export interface ConversionOptions {
@@ -35,14 +37,9 @@ export const detectImageFormat = async (file: File): Promise<string | null> => {
 
 /**
  * Validates if the file is a supported image format
+ * @deprecated Use validateImageFile from @/utils/fileValidation instead
  */
-export const validateImageFile = (file: File): boolean => {
-  const supportedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/gif', 'image/heic', 'image/heif'];
-  // Check both file.type and file name extension for HEIC files (sometimes HEIC files don't have the correct MIME type)
-  const hasValidType = supportedTypes.includes(file.type);
-  const hasHeicExtension = file.name.toLowerCase().endsWith('.heic') || file.name.toLowerCase().endsWith('.heif');
-  return hasValidType || hasHeicExtension;
-};
+export const validateImageFile = validateImageFileUtil;
 
 /**
  * Converts an image file to the specified format

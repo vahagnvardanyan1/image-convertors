@@ -1,3 +1,7 @@
+import type { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
+
+import { SITE_URL } from '@/config/constants';
 import { Hero } from '@/components/Hero';
 import { FormatGrid } from '@/components/FormatGrid';
 import { HowTo } from '@/components/HowTo';
@@ -5,14 +9,12 @@ import { Features } from '@/components/Features';
 import { BannerBlocks } from '@/components/BannerBlock';
 import { FAQ } from '@/components/FAQ';
 import ToolsPreview from '@/components/ToolsPreview';
-import { Metadata } from 'next';
-import { getTranslations } from 'next-intl/server';
-import { localeMap } from '@/i18n/config';
-import { generateGeoMetadata, generateAIMeta } from '@/lib/geoHelpers';
+import { localeMap, type Locale } from '@/i18n/config';
+import { generateAIMeta } from '@/lib/geoHelpers';
 import { geoConfig } from '@/lib/geo.config';
 
 type Props = {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -25,10 +27,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: t('title'),
     description: t('description'),
-    metadataBase: new URL('https://imageconvertors.com'),
+    metadataBase: new URL(SITE_URL),
     alternates: {
-      canonical: `https://imageconvertors.com/${locale}`,
-      languages: Object.fromEntries(geoConfig.languages.map(lang => [lang, `https://imageconvertors.com/${lang}`])),
+      canonical: `${SITE_URL}/${locale}`,
+      languages: Object.fromEntries(geoConfig.languages.map(lang => [lang, `${SITE_URL}/${lang}`])),
     },
     keywords: t('keywords'),
     authors: [{ name: geoConfig.author.name, url: geoConfig.author.url }],
@@ -41,7 +43,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: 'website',
       locale: localeMap[locale] || 'en_US',
       alternateLocale: geoConfig.languages.filter(lang => lang !== locale),
-      url: `https://imageconvertors.com/${locale}`,
+      url: `${SITE_URL}/${locale}`,
       siteName: 'ImageConvertors',
       title: t('ogTitle'),
       description: t('ogDescription'),

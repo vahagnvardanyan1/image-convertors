@@ -15,7 +15,7 @@ export async function GET() {
       name: 'ImageConvertors Tools',
       description: 'Complete list of available tools on ImageConvertors',
       numberOfItems: getAllToolNames().length,
-      itemListElement: Object.entries(geoConfig.categories).flatMap(([key, category], categoryIndex) =>
+      itemListElement: Object.entries(geoConfig.categories).flatMap(([_key, category], categoryIndex) =>
         category.tools.map((tool, toolIndex) => {
           // Generate URL-friendly slug
           const slug = tool.toLowerCase().replace(/\s+/g, '-');
@@ -38,7 +38,7 @@ export async function GET() {
           };
         }),
       ),
-      categories: Object.entries(geoConfig.categories).map(([key, category]) => ({
+      categories: Object.entries(geoConfig.categories).map(([_key, category]) => ({
         name: category.name,
         description: category.description,
         toolCount: category.tools.length,

@@ -15,7 +15,7 @@ interface UseFileUploadReturn {
   triggerFileInput: () => void;
 }
 
-export const useFileUpload = ({ onFileSelect, accept = 'image/*' }: UseFileUploadOptions): UseFileUploadReturn => {
+export const useFileUpload = ({ onFileSelect }: UseFileUploadOptions): UseFileUploadReturn => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -40,7 +40,7 @@ export const useFileUpload = ({ onFileSelect, accept = 'image/*' }: UseFileUploa
 
   return {
     selectedFile,
-    fileInputRef,
+    fileInputRef: fileInputRef as React.RefObject<HTMLInputElement>,
     handleFileSelect,
     clearFile,
     triggerFileInput,

@@ -1,10 +1,12 @@
 import { Metadata } from 'next';
 import { ChartGenerator } from '@/components/ChartGenerator';
 import { getTranslations } from 'next-intl/server';
-import { localeMap } from '@/i18n/config';
+
+import { SITE_URL } from '@/config/constants';
+import { localeMap, type Locale } from '@/i18n/config';
 
 type Props = {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -16,12 +18,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: t('description'),
     keywords: t('keywords'),
     alternates: {
-      canonical: `https://imageconvertors.com/${locale}/chart-generator`,
+      canonical: `${SITE_URL}/${locale}/chart-generator`,
     },
     openGraph: {
       title: t('ogTitle'),
       description: t('ogDescription'),
-      url: `https://imageconvertors.com/${locale}/chart-generator`,
+      url: `${SITE_URL}/${locale}/chart-generator`,
       siteName: 'ImageConvertors',
       type: 'website',
       locale: localeMap[locale] || 'en_US',

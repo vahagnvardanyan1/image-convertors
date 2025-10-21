@@ -8,7 +8,8 @@
     "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "next lint",
-    "lint:fix": "next lint --fix"
+    "lint:fix": "next lint --fix",
+    "type-check": "tsc --noEmit --project tsconfig.lint.json"
   },
   "dependencies": {
     "@imgly/background-removal": "^1.7.0",
@@ -26,7 +27,6 @@
     "cropperjs": "^1.6.2",
     "file-type": "^21.0.0",
     "heic2any": "^0.0.4",
-    "html2canvas": "^1.4.1",
     "jspdf": "^3.0.3",
     "lucide-react": "^0.544.0",
     "next": "15.5.4",
@@ -39,7 +39,6 @@
     "react-colorful": "^5.6.1",
     "react-dom": "19.1.0",
     "react-qr-code": "^2.0.18",
-    "resize-img": "^2.0.0",
     "tailwind-merge": "^3.3.1",
     "zustand": "^5.0.8"
   },
@@ -49,7 +48,6 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@types/resize-img": "^2.0.3",
     "eslint": "^9",
     "eslint-config-next": "15.5.4",
     "eslint-config-prettier": "^10.1.8",

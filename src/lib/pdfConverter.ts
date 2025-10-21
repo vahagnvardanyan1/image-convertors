@@ -211,7 +211,7 @@ export const convertPDFToImages = async (file: File, options: PDFConversionOptio
   } catch (error) {
     throw new Error(`PDF conversion failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
-}
+};
 
 /**
  * Convert images to a single PDF
@@ -443,7 +443,9 @@ export const splitPDF = async (file: File, splitRanges: { start: number; end: nu
 /**
  * Get PDF information
  */
-export const getPDFInfo = async (file: File): Promise<{
+export const getPDFInfo = async (
+  file: File,
+): Promise<{
   pageCount: number;
   fileSize: number;
   title?: string;

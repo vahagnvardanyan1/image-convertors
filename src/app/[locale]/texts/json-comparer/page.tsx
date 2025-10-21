@@ -304,7 +304,7 @@ export default function JsonComparerPage() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [comparisonResult, currentDiffIndex]);
+  }, [comparisonResult, currentDiffIndex, goToFirstDiff, goToLastDiff, goToNextDiff, goToPrevDiff]);
 
   const formatValue = (value: any): string => {
     if (value === null) return 'null';

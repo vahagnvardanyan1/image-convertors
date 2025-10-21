@@ -1,45 +1,25 @@
-import { Metadata } from 'next';
-import { ConverterPage } from '@/components/ConverterPage';
+import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
-import { localeMap } from '@/i18n/config';
+import { type Locale } from '@/i18n/config';
+
+import { ConverterPage } from '@/components/ConverterPage';
+import { generateToolMetadata } from '@/lib/metadata/toolMetadata';
 
 type Props = {
-  params: Promise<{ locale: string }>;
+  params: { locale: Locale };
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'metadata.jpgToPng' });
+export const generateMetadata = async ({ params }: Props): Promise<Metadata> => {
+  return generateToolMetadata({
+    locale: params.locale,
+    path: 'jpg-to-png',
+    namespace: 'metadata.jpgToPng',
+  });
+};
 
-  return {
-    title: t('title'),
-    description: t('description'),
-    keywords: t('keywords'),
-    alternates: {
-      canonical: `https://imageconvertors.com/${locale}/jpg-to-png`,
-    },
-    openGraph: {
-      title: t('ogTitle'),
-      description: t('ogDescription'),
-      url: `https://imageconvertors.com/${locale}/jpg-to-png`,
-      siteName: 'ImageConvertors',
-      type: 'website',
-      locale: localeMap[locale] || 'en_US',
-      images: [
-        {
-          url: '/convert.webp',
-          width: 1200,
-          height: 630,
-          alt: t('ogImageAlt'),
-        },
-      ],
-    },
-  };
-}
-
-export default async function JpgToPngPage({ params }: Props) {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'converterHeaders' });
-
+const JpgToPngPage = async ({ params }: Props) => {
+  const t = await getTranslations({ locale: params.locale, namespace: 'converterHeaders' });
   return <ConverterPage from="JPG" to="PNG" title={t('jpgToPng.title')} description={t('jpgToPng.description')} />;
-}
+};
+
+export default JpgToPngPage;

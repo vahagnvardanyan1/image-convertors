@@ -25,6 +25,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/Card';
 import type { Metadata } from 'next';
 
+import { SITE_URL } from '@/config/constants';
 export const metadata: Metadata = {
   title: 'Blog - Image Conversion, Color & Font Tools Guides | ImageConvertors',
   description: 'Learn everything about image conversion, color tools, typography, and best practices. Guides for PNG, JPG, WebP, HEIC, PDF conversions, Google Fonts, color pickers, and design tools.',
@@ -41,12 +42,12 @@ export const metadata: Metadata = {
     'color picker tool',
   ],
   alternates: {
-    canonical: 'https://imageconvertors.com/blog',
+    canonical: '${SITE_URL}/blog',
   },
   openGraph: {
     title: 'Blog - Image Conversion, Color & Font Tools Guides | ImageConvertors',
     description: 'Learn everything about image conversion, color tools, typography, and best practices. Comprehensive guides for designers and developers.',
-    url: 'https://imageconvertors.com/blog',
+    url: '${SITE_URL}/blog',
     siteName: 'ImageConvertors',
     type: 'website',
     images: [

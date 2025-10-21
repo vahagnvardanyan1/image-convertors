@@ -1,10 +1,12 @@
 import { Metadata } from 'next';
-import { AnalyzePage } from '@/components/AnalyzePage';
 import { getTranslations } from 'next-intl/server';
-import { localeMap } from '@/i18n/config';
+
+import { SITE_URL } from '@/config/constants';
+import { AnalyzePage } from '@/components/AnalyzePage';
+import { localeMap, type Locale } from '@/i18n/config';
 
 type Props = {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -16,12 +18,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: t('description'),
     keywords: t('keywords'),
     alternates: {
-      canonical: `https://imageconvertors.com/${locale}/analyze`,
+      canonical: `${SITE_URL}/${locale}/analyze`,
     },
     openGraph: {
       title: t('ogTitle'),
       description: t('ogDescription'),
-      url: `https://imageconvertors.com/${locale}/analyze`,
+      url: `${SITE_URL}/${locale}/analyze`,
       siteName: 'ImageConvertors',
       type: 'website',
       locale: localeMap[locale] || 'en_US',

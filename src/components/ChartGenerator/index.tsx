@@ -241,7 +241,6 @@ export function ChartGenerator() {
       }, 'image/png');
     } else if (format === 'svg') {
       // For SVG export, we'll create an SVG from the canvas
-      const ctx = canvas.getContext('2d');
       const imageData = canvas.toDataURL('image/png');
 
       const svg = `<?xml version="1.0" encoding="UTF-8"?>

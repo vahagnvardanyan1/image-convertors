@@ -1,50 +1,31 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
+import { type Locale } from '@/i18n/config';
+
 import { PDFTool } from '@/components/PDFTool';
 import { PDFErrorBoundary } from '@/components/PDFErrorBoundary';
-import { getTranslations } from 'next-intl/server';
-import { localeMap } from '@/i18n/config';
+import { generateToolMetadata } from '@/lib/metadata/toolMetadata';
 
 type Props = {
-  params: Promise<{ locale: string }>;
+  params: { locale: Locale };
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'metadata.mergePdf' });
+export const generateMetadata = async ({ params }: Props): Promise<Metadata> => {
+  return generateToolMetadata({
+    locale: params.locale,
+    path: 'merge-pdf',
+    namespace: 'metadata.mergePdf',
+  });
+};
 
-  return {
-    title: t('title'),
-    description: t('description'),
-    keywords: t('keywords'),
-    alternates: {
-      canonical: `https://imageconvertors.com/${locale}/merge-pdf`,
-    },
-    openGraph: {
-      title: t('ogTitle'),
-      description: t('ogDescription'),
-      url: `https://imageconvertors.com/${locale}/merge-pdf`,
-      siteName: 'ImageConvertors',
-      type: 'website',
-      locale: localeMap[locale] || 'en_US',
-      images: [
-        {
-          url: '/convert.webp',
-          width: 1200,
-          height: 630,
-          alt: t('ogImageAlt'),
-        },
-      ],
-    },
-  };
-}
-
-export default async function MergePDFPage({ params }: Props) {
-  const { locale } = await params;
-  const headers = await getTranslations({ locale, namespace: 'pdfToolHeaders' });
+const MergePDFPage = async ({ params }: Props) => {
+  const headers = await getTranslations({ locale: params.locale, namespace: 'pdfToolHeaders' });
 
   return (
     <PDFErrorBoundary>
       <PDFTool mode="merge-pdf" title={headers('mergePdf.title')} description={headers('mergePdf.description')} />
     </PDFErrorBoundary>
   );
-}
+};
+
+export default MergePDFPage;

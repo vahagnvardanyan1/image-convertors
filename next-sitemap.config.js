@@ -1,5 +1,8 @@
 /** @type {import('next-sitemap').IConfig} */
 
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const { SITE_URL } = require('./src/config/constants.js');
+
 const locales = ['en', 'hi', 'de', 'ru', 'es', 'zh'];
 const defaultLocale = 'en';
 
@@ -111,7 +114,7 @@ const routes = [
 ];
 
 module.exports = {
-  siteUrl: 'https://imageconvertors.com',
+  siteUrl: SITE_URL,
   generateRobotsTxt: true,
   exclude: ['/api/*', '/404', '/500', '/hi/server-sitemap.xml', '/en/server-sitemap.xml', '/manifest.webmanifest'],
   robotsTxtOptions: {

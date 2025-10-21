@@ -1,12 +1,13 @@
-import { Metadata } from 'next';
-import { getTranslations } from 'next-intl/server';
+import type { Metadata } from 'next';
+
+import { SITE_URL } from '@/config/constants';
 import { geoConfig } from '@/lib/geo.config';
 import { generateAIMeta, generateGeoTitle, generateFAQPageSchema } from '@/lib/geoHelpers';
-import { localeMap } from '@/i18n/config';
+import { localeMap, type Locale } from '@/i18n/config';
 import { Accordion } from '@/components/Accordion';
 
 type Props = {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 };
 
 // FAQ data structured for both UI and schema.org
@@ -157,13 +158,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     creator: geoConfig.author.name,
     publisher: geoConfig.author.name,
     alternates: {
-      canonical: `https://imageconvertors.com${pathname}`,
-      languages: Object.fromEntries(geoConfig.languages.map(lang => [lang, `https://imageconvertors.com/${lang}/faq`])),
+      canonical: `${SITE_URL}${pathname}`,
+      languages: Object.fromEntries(geoConfig.languages.map(lang => [lang, `${SITE_URL}/${lang}/faq`])),
     },
     openGraph: {
       title: title,
       description: description,
-      url: `https://imageconvertors.com${pathname}`,
+      url: `${SITE_URL}${pathname}`,
       siteName: 'ImageConvertors',
       type: 'website',
       locale: localeMap[locale] || 'en_US',
