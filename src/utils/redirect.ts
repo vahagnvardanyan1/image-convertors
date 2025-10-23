@@ -1,3 +1,5 @@
+import { redirect } from 'next/navigation';
+
 import { FREE_CONVERT_URL } from '@/config/constants';
 
 /**
@@ -18,7 +20,6 @@ export const redirectToFreeConvert = (pathname: string): void => {
   // During CSR, this will use window.location
   if (typeof window === 'undefined') {
     // Server-side: use Next.js redirect
-    const { redirect } = eval('require')('next/navigation');
     redirect(url);
   } else {
     // Client-side: use window.location
