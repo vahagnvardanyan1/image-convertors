@@ -1,7 +1,5 @@
-import { redirect } from 'next/navigation';
+import { redirectToFreeConvert } from '@/utils/redirect';
 
-const Page = () => {
-  redirect('/texts/fonts');
-};
-
-export default Page;
+export default function FontsPage() {
+  redirectToFreeConvert('/fonts');
+}

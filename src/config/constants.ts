@@ -7,6 +7,7 @@
  * To change the domain, update constants.js
  */
 
-import { SITE_URL as SITE_URL_JS } from './constants.js';
+import { SITE_URL as SITE_URL_JS, FREE_CONVERT_URL as FREE_CONVERT_URL_JS } from './constants.js';
 
 export const SITE_URL: string = SITE_URL_JS;
+export const FREE_CONVERT_URL: string = FREE_CONVERT_URL_JS;

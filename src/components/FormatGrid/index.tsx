@@ -29,6 +29,7 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 
 import { Card } from '../Card';
+import { FREE_CONVERT_URL } from '@/config/constants';
 
 export function FormatGrid() {
   const t = useTranslations('formatGrid');
@@ -39,7 +40,7 @@ export function FormatGrid() {
     {
       from: 'Compress',
       to: 'Image',
-      route: '/compress-image',
+      route: `${FREE_CONVERT_URL}/compress-image`,
       icon: Maximize2,
       description: tTools('compressImageDesc'),
       popular: true,
@@ -48,7 +49,7 @@ export function FormatGrid() {
     {
       from: 'AI Image',
       to: 'Generator',
-      route: '/ai-image-generator',
+      route: `${FREE_CONVERT_URL}/ai-image-generator`,
       icon: Wand2,
       description: tTools('aiImageGeneratorDesc'),
       popular: true,
@@ -57,7 +58,7 @@ export function FormatGrid() {
     {
       from: 'Remove',
       to: 'Background',
-      route: '/remove-background',
+      route: `${FREE_CONVERT_URL}/remove-background`,
       icon: Eraser,
       description: tTools('removeBackgroundDesc'),
       popular: true,
@@ -66,7 +67,7 @@ export function FormatGrid() {
     {
       from: 'PNG',
       to: 'WebP',
-      route: '/png-to-webp',
+      route: `${FREE_CONVERT_URL}/png-to-webp`,
       icon: Globe,
       description: tTools('pngToWebpDesc'),
       popular: true,
@@ -75,7 +76,7 @@ export function FormatGrid() {
     {
       from: 'JPG',
       to: 'PNG',
-      route: '/jpg-to-png',
+      route: `${FREE_CONVERT_URL}/jpg-to-png`,
       icon: ImageIcon,
       description: tTools('jpgToPngDesc'),
       popular: true,
@@ -84,7 +85,7 @@ export function FormatGrid() {
     {
       from: 'WebP',
       to: 'PNG',
-      route: '/webp-to-png',
+      route: `${FREE_CONVERT_URL}/webp-to-png`,
       icon: FileImage,
       description: tTools('webpToPngDesc'),
       popular: false,
@@ -93,7 +94,7 @@ export function FormatGrid() {
     {
       from: 'JPG',
       to: 'WebP',
-      route: '/jpg-to-webp',
+      route: `${FREE_CONVERT_URL}/jpg-to-webp`,
       icon: Globe,
       description: tTools('jpgToWebpDesc'),
       popular: true,
@@ -102,7 +103,7 @@ export function FormatGrid() {
     {
       from: 'PNG',
       to: 'JPG',
-      route: '/png-to-jpg',
+      route: `${FREE_CONVERT_URL}/png-to-jpg`,
       icon: Camera,
       description: tTools('pngToJpgDesc'),
       popular: false,
@@ -111,7 +112,7 @@ export function FormatGrid() {
     {
       from: 'WebP',
       to: 'JPG',
-      route: '/webp-to-jpg',
+      route: `${FREE_CONVERT_URL}/webp-to-jpg`,
       icon: Camera,
       description: tTools('webpToJpgDesc'),
       popular: false,
@@ -120,7 +121,7 @@ export function FormatGrid() {
     {
       from: 'HEIC',
       to: 'JPG',
-      route: '/heic-to-jpg',
+      route: `${FREE_CONVERT_URL}/heic-to-jpg`,
       icon: Camera,
       description: tTools('heicToJpgDesc'),
       popular: true,
@@ -129,7 +130,7 @@ export function FormatGrid() {
     {
       from: 'HEIC',
       to: 'PNG',
-      route: '/heic-to-png',
+      route: `${FREE_CONVERT_URL}/heic-to-png`,
       icon: ImageIcon,
       description: tTools('heicToPngDesc'),
       popular: false,
@@ -138,7 +139,7 @@ export function FormatGrid() {
     {
       from: 'HEIC',
       to: 'WebP',
-      route: '/heic-to-webp',
+      route: `${FREE_CONVERT_URL}/heic-to-webp`,
       icon: Globe,
       description: tTools('heicToWebpDesc'),
       popular: false,
@@ -147,7 +148,7 @@ export function FormatGrid() {
     {
       from: 'HEIC',
       to: 'PDF',
-      route: '/heic-to-pdf',
+      route: `${FREE_CONVERT_URL}/heic-to-pdf`,
       icon: FileText,
       description: tTools('heicToPdfDesc'),
       popular: false,
@@ -156,7 +157,7 @@ export function FormatGrid() {
     {
       from: 'PDF',
       to: 'JPG',
-      route: '/pdf-to-jpg',
+      route: `${FREE_CONVERT_URL}/pdf-to-jpg`,
       icon: FileText,
       description: tTools('pdfToJpgDesc'),
       popular: true,
@@ -165,7 +166,7 @@ export function FormatGrid() {
     {
       from: 'PDF',
       to: 'PNG',
-      route: '/pdf-to-png',
+      route: `${FREE_CONVERT_URL}/pdf-to-png`,
       icon: FileText,
       description: tTools('pdfToPngDesc'),
       popular: true,
@@ -174,7 +175,7 @@ export function FormatGrid() {
     {
       from: 'Images',
       to: 'PDF',
-      route: '/images-to-pdf',
+      route: `${FREE_CONVERT_URL}/images-to-pdf`,
       icon: FileImage,
       description: tTools('imagesToPdfDesc'),
       popular: true,
@@ -183,7 +184,7 @@ export function FormatGrid() {
     {
       from: 'PNG',
       to: 'PDF',
-      route: '/png-to-pdf',
+      route: `${FREE_CONVERT_URL}/png-to-pdf`,
       icon: FileImage,
       description: tTools('pngToPdfDesc'),
       popular: true,
@@ -192,7 +193,7 @@ export function FormatGrid() {
     {
       from: 'JPG',
       to: 'PDF',
-      route: '/jpg-to-pdf',
+      route: `${FREE_CONVERT_URL}/jpg-to-pdf`,
       icon: FileImage,
       description: tTools('jpgToPdfDesc'),
       popular: true,
@@ -201,7 +202,7 @@ export function FormatGrid() {
     {
       from: 'WebP',
       to: 'PDF',
-      route: '/webp-to-pdf',
+      route: `${FREE_CONVERT_URL}/webp-to-pdf`,
       icon: FileImage,
       description: tTools('webpToPdfDesc'),
       popular: false,
@@ -210,7 +211,7 @@ export function FormatGrid() {
     {
       from: 'Merge',
       to: 'PDF',
-      route: '/merge-pdf',
+      route: `${FREE_CONVERT_URL}/merge-pdf`,
       icon: Merge,
       description: tTools('mergePdfDesc'),
       popular: false,
@@ -219,7 +220,7 @@ export function FormatGrid() {
     {
       from: 'Split',
       to: 'PDF',
-      route: '/split-pdf',
+      route: `${FREE_CONVERT_URL}/split-pdf`,
       icon: Split,
       description: tTools('splitPdfDesc'),
       popular: false,
@@ -228,7 +229,7 @@ export function FormatGrid() {
     {
       from: 'Crop',
       to: 'Image',
-      route: '/crop-image',
+      route: `${FREE_CONVERT_URL}/crop-image`,
       icon: ImageIcon,
       description: tTools('cropImageDesc'),
       popular: true,
@@ -237,7 +238,7 @@ export function FormatGrid() {
     {
       from: 'Resize',
       to: 'Image',
-      route: '/resize-image',
+      route: `${FREE_CONVERT_URL}/resize-image`,
       icon: Maximize2,
       description: tTools('resizeImageDesc'),
       popular: true,
@@ -246,7 +247,7 @@ export function FormatGrid() {
     {
       from: 'QR Code',
       to: 'Generator',
-      route: '/qr-code-generator',
+      route: `${FREE_CONVERT_URL}/qr-code-generator`,
       icon: QrCode,
       description: tTools('qrCodeGeneratorDesc'),
       popular: true,
@@ -255,7 +256,7 @@ export function FormatGrid() {
     {
       from: 'Chart',
       to: 'Generator',
-      route: '/chart-generator',
+      route: `${FREE_CONVERT_URL}/chart-generator`,
       icon: BarChart3,
       description: tTools('chartGeneratorDesc'),
       popular: true,
@@ -264,7 +265,7 @@ export function FormatGrid() {
     {
       from: 'Analyze',
       to: 'PDF',
-      route: '/pdf-info',
+      route: `${FREE_CONVERT_URL}/pdf-info`,
       icon: Info,
       description: tTools('analyzePdfDesc'),
       popular: false,
@@ -273,7 +274,7 @@ export function FormatGrid() {
     {
       from: 'Color',
       to: 'Picker',
-      route: '/colors/picker',
+      route: `${FREE_CONVERT_URL}/colors/picker`,
       icon: Droplet,
       description: tTools('colorPickerDesc'),
       popular: true,
@@ -282,7 +283,7 @@ export function FormatGrid() {
     {
       from: 'Color',
       to: 'Palettes',
-      route: '/colors/palettes',
+      route: `${FREE_CONVERT_URL}/colors/palettes`,
       icon: Palette,
       description: tTools('colorPalettesDesc'),
       popular: true,
@@ -291,7 +292,7 @@ export function FormatGrid() {
     {
       from: 'Gradient',
       to: 'Generator',
-      route: '/colors/gradients',
+      route: `${FREE_CONVERT_URL}/colors/gradients`,
       icon: Blend,
       description: tTools('gradientGeneratorDesc'),
       popular: true,
@@ -300,7 +301,7 @@ export function FormatGrid() {
     {
       from: 'Color',
       to: 'Converter',
-      route: '/colors/converter',
+      route: `${FREE_CONVERT_URL}/colors/converter`,
       icon: Shuffle,
       description: tTools('colorConverterDesc'),
       popular: false,
@@ -309,7 +310,7 @@ export function FormatGrid() {
     {
       from: 'Font',
       to: 'Preview',
-      route: '/texts/fonts/preview',
+      route: `${FREE_CONVERT_URL}/texts/fonts/preview`,
       icon: Type,
       description: tTools('fontPreviewDesc'),
       popular: true,
@@ -318,7 +319,7 @@ export function FormatGrid() {
     {
       from: 'Font',
       to: 'Pairings',
-      route: '/texts/fonts/pairings',
+      route: `${FREE_CONVERT_URL}/texts/fonts/pairings`,
       icon: Sparkles,
       description: tTools('fontPairingsDesc'),
       popular: true,
@@ -327,7 +328,7 @@ export function FormatGrid() {
     {
       from: 'Typographic',
       to: 'Scale',
-      route: '/texts/fonts/scales',
+      route: `${FREE_CONVERT_URL}/texts/fonts/scales`,
       icon: Ruler,
       description: tTools('typographicScaleDesc'),
       popular: true,
@@ -336,7 +337,7 @@ export function FormatGrid() {
     {
       from: 'Emoji',
       to: 'Browser',
-      route: '/texts/emojis',
+      route: `${FREE_CONVERT_URL}/texts/emojis`,
       icon: Smile,
       description: tTools('emojiBrowserDesc'),
       popular: true,
@@ -345,7 +346,7 @@ export function FormatGrid() {
     {
       from: 'Symbol',
       to: 'Browser',
-      route: '/texts/symbols',
+      route: `${FREE_CONVERT_URL}/texts/symbols`,
       icon: Hash,
       description: tTools('symbolBrowserDesc'),
       popular: true,
