@@ -1,11 +1,11 @@
-import { permanentRedirect } from 'next/navigation';
+import { redirect } from 'next/navigation';
 
 import { FREE_CONVERT_URL } from '@/config/constants';
 
 /**
  * Redirects to the corresponding page on freeconvert.tools
  * Strips the locale prefix and redirects to the external domain
- * Uses 308 (Permanent Redirect) status code for server-side redirects
+ * Uses 301 (Moved Permanently) status code for server-side redirects
  *
  * @param pathname - The path to redirect to (without locale prefix)
  *
@@ -16,12 +16,10 @@ import { FREE_CONVERT_URL } from '@/config/constants';
 export const redirectToFreeConvert = (pathname: string): void => {
   const url = `${FREE_CONVERT_URL}${pathname}`;
 
-  // Redirect using Next.js permanentRedirect function (308 status code)
-  // During SSR, this will use Next.js permanent redirect
-  // During CSR, this will use window.location
   if (typeof window === 'undefined') {
-    // Server-side: use Next.js permanent redirect (308)
-    permanentRedirect(url);
+    // Server-side: throw redirect error which Next.js will catch and handle as 301
+    // Note: Next.js redirect() uses 307 by default, but we can configure in next.config.ts
+    redirect(url);
   } else {
     // Client-side: use window.location
     window.location.href = url;
