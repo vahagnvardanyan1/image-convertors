@@ -17,7 +17,7 @@ export const redirectToFreeConvert = (pathname: string): void => {
   // During SSR, this will use Next.js redirect
   // During CSR, this will use window.location
   if (window) {
-        // Client-side: use window.location
+    // Client-side: use window.location
     window.location.href = url;
   }
 };
