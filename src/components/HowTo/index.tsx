@@ -1,5 +1,5 @@
 'use client';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../Accordion';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/Accordion/index';
 import { useTranslations } from 'next-intl';
 
 export function HowTo() {
