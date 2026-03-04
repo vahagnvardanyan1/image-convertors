@@ -12,6 +12,7 @@ Welcome to the Type-Safe Translation System documentation! This system ensures t
 ### 1. Using Translations in Components
 
 **Client Component:**
+
 ```tsx
 'use client';
 import { useTranslations } from '@/lib/translations';
@@ -23,6 +24,7 @@ const MyComponent = () => {
 ```
 
 **Server Component:**
+
 ```tsx
 import { getTranslations } from '@/lib/translations';
 
@@ -64,7 +66,7 @@ Now, these errors are caught at compile time:
 ```tsx
 const t = useTranslations('converterPage');
 t('step3Convert'); // ❌ TypeScript error: Property 'step3Convert' does not exist
-t('step3Title');   // ✅ Correct!
+t('step3Title'); // ✅ Correct!
 ```
 
 ## 🌍 Supported Locales
@@ -121,6 +123,3 @@ npm run validate:translations  # Check for structural issues
 ---
 
 **Last Updated:** October 2025
-
-
-

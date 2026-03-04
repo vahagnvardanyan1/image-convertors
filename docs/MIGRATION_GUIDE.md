@@ -14,12 +14,14 @@ This guide helps you migrate existing code to use the new type-safe translation 
 ### Step 1: Update Imports
 
 **Before:**
+
 ```tsx
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 ```
 
 **After:**
+
 ```tsx
 import { useTranslations } from '@/lib/translations';
 import { getTranslations } from '@/lib/translations';
@@ -60,27 +62,31 @@ npm run validate:translations
 ### Issue 1: Translation Key Doesn't Exist
 
 **Error:**
+
 ```
 Property 'step3Convert' does not exist on type...
 ```
 
 **Solution:**
+
 1. Check `messages/en.json` for the correct key name
 2. Update your code to use the correct key
 3. If the key should exist, add it to all locale files
 
 **Example Fix:**
+
 ```tsx
 // ❌ Wrong key
-t('step3Convert')
+t('step3Convert');
 
 // ✅ Correct key (found in en.json)
-t('step3Title')
+t('step3Title');
 ```
 
 ### Issue 2: Namespace Doesn't Exist
 
 **Error:**
+
 ```
 Argument of type '"wrongNamespace"' is not assignable to parameter of type 'TranslationNamespace'
 ```
@@ -89,6 +95,7 @@ Argument of type '"wrongNamespace"' is not assignable to parameter of type 'Tran
 Check available namespaces in `src/types/translations.generated.ts` or `messages/en.json`
 
 **Example Fix:**
+
 ```tsx
 // ❌ Wrong namespace
 const t = useTranslations('converterPages');
@@ -100,6 +107,7 @@ const t = useTranslations('converterPage');
 ### Issue 3: MISSING_MESSAGE Runtime Error
 
 **Error:**
+
 ```
 IntlError: MISSING_MESSAGE: Could not resolve `converterPage.step3Convert` in messages for locale `ru`.
 ```
@@ -110,6 +118,7 @@ This error means the translation key exists in some locales but not others, or d
 **Solution:**
 
 1. **Check if the key exists in `en.json`:**
+
 ```bash
 grep -r "step3Convert" messages/
 ```
@@ -120,12 +129,15 @@ grep -r "step3Convert" messages/
    - Update your code
 
 3. **If the key exists in `en.json` but not in other locales:**
+
    ```bash
    npm run validate:translations
    ```
+
    This will show which locales are missing the key. Add it to those files.
 
 4. **Example of the fix applied in this project:**
+
 ```tsx
 // ❌ Before (caused the error)
 <h2>3. {t('step3Convert')}</h2>
@@ -139,6 +151,7 @@ grep -r "step3Convert" messages/
 ### Example 1: Simple Component
 
 **Before:**
+
 ```tsx
 'use client';
 import { useTranslations } from 'next-intl';
@@ -150,6 +163,7 @@ export const MyComponent = () => {
 ```
 
 **After:**
+
 ```tsx
 'use client';
 import { useTranslations } from '@/lib/translations';
@@ -163,6 +177,7 @@ export const MyComponent = () => {
 ### Example 2: Multiple Namespaces
 
 **Before:**
+
 ```tsx
 import { useTranslations } from 'next-intl';
 
@@ -182,6 +197,7 @@ export const ConverterPage = () => {
 ```
 
 **After:**
+
 ```tsx
 import { useTranslations } from '@/lib/translations';
 
@@ -203,25 +219,25 @@ export const ConverterPage = () => {
 ### Example 3: Server Component with Interpolation
 
 **Before:**
+
 ```tsx
 import { getTranslations } from 'next-intl/server';
 
 export const ServerComponent = async () => {
   const t = await getTranslations('converterPage');
-  
-  return (
-    <p>{t('step1Description', { format: 'PNG' })}</p>
-  );
+
+  return <p>{t('step1Description', { format: 'PNG' })}</p>;
 };
 ```
 
 **After:**
+
 ```tsx
 import { getTranslations } from '@/lib/translations';
 
 export const ServerComponent = async () => {
   const t = await getTranslations('converterPage');
-  
+
   return (
     <p>{t('step1Description', { format: 'PNG' })}</p> {/* ✅ Type-safe */}
   );
@@ -231,11 +247,12 @@ export const ServerComponent = async () => {
 ### Example 4: The Bug That Was Fixed
 
 **Before (caused 500 error):**
+
 ```tsx
 // src/components/ConverterPage/index.tsx
 export const ConverterPage = ({ from, to, title, description }) => {
   const t = useTranslations('converterPage');
-  
+
   return (
     <Card>
       <h2>3. {t('step3Convert')}</h2> {/* ❌ This key doesn't exist! */}
@@ -245,11 +262,12 @@ export const ConverterPage = ({ from, to, title, description }) => {
 ```
 
 **After (fixed):**
+
 ```tsx
 // src/components/ConverterPage/index.tsx
 export const ConverterPage = ({ from, to, title, description }) => {
   const t = useTranslations('converterPage');
-  
+
   return (
     <Card>
       <h2>3. {t('step3Title')}</h2> {/* ✅ Correct key! */}
@@ -259,6 +277,7 @@ export const ConverterPage = ({ from, to, title, description }) => {
 ```
 
 **Result:**
+
 - No more 500 errors
 - TypeScript would have caught this error at compile time
 - IDE autocomplete suggests correct keys
@@ -282,6 +301,7 @@ npm run validate:translations
 ```
 
 Expected output:
+
 ```
 ✓ en (source)
 ✓ de - All 1528 keys present
@@ -371,6 +391,3 @@ Once you've completed the migration:
 ---
 
 **Last Updated:** October 2025
-
-
-
