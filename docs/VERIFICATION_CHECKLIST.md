@@ -13,6 +13,7 @@ npm run validate:translations # Should pass validation
 ```
 
 **Expected Output:**
+
 ```
 ✅ Type definitions generated successfully!
 ✅ All translations are valid!
@@ -42,18 +43,19 @@ import { useTranslations } from '@/lib/translations';
 
 const TestComponent = () => {
   const t = useTranslations('converterPage');
-  
+
   // ✅ Should work (key exists)
   const valid = t('step1Title');
-  
+
   // ❌ Should show TypeScript error (key doesn't exist)
   // const invalid = t('nonExistentKey');
-  
+
   return <div>{valid}</div>;
 };
 ```
 
-**Expected:** 
+**Expected:**
+
 - Valid keys work
 - Invalid keys show TypeScript error
 - IDE provides autocomplete
@@ -75,7 +77,8 @@ npm run dev
 # Visit: http://localhost:3000/ru/png-to-webp
 ```
 
-**Expected:** 
+**Expected:**
+
 - Page loads without errors
 - No "MISSING_MESSAGE" errors in console
 - Translation displays correctly
@@ -152,6 +155,7 @@ ls -la docs/
 ### Scenario 1: Add a New Translation
 
 1. **Add key to `messages/en.json`:**
+
 ```json
 {
   "common": {
@@ -161,29 +165,34 @@ ls -la docs/
 ```
 
 2. **Generate types:**
+
 ```bash
 npm run generate:types
 ```
 
 3. **Use in component:**
+
 ```tsx
 const t = useTranslations('common');
 const value = t('testKey'); // Should autocomplete and work
 ```
 
 4. **Validate:**
+
 ```bash
 npm run validate:translations
 # Should report missing key in other locales
 ```
 
 5. **Add to other locales and validate again:**
+
 ```bash
 npm run validate:translations
 # Should pass
 ```
 
-**Expected:** 
+**Expected:**
+
 - ✅ Type generation works
 - ✅ Autocomplete includes new key
 - ✅ Validation catches missing translations
@@ -194,16 +203,19 @@ npm run validate:translations
 2. **Rename the key in all usages**
 3. **Update all locale files**
 4. **Regenerate types:**
+
 ```bash
 npm run generate:types
 ```
 
 5. **Validate:**
+
 ```bash
 npm run validate:translations
 ```
 
 **Expected:**
+
 - ✅ TypeScript finds all usages
 - ✅ Old key shows errors after rename
 - ✅ New key works everywhere
@@ -211,17 +223,20 @@ npm run validate:translations
 ### Scenario 3: Catch Missing Translations at Build Time
 
 1. **Create a component using a non-existent key:**
+
 ```tsx
 const t = useTranslations('common');
 return <div>{t('thisKeyDoesNotExist')}</div>;
 ```
 
 2. **Try to build:**
+
 ```bash
 npm run build
 ```
 
 **Expected:**
+
 - ❌ TypeScript error prevents build
 - Error message clearly indicates the problem
 
@@ -263,6 +278,3 @@ If all items above are checked, the type-safe translation system is working corr
 ---
 
 **Last Updated:** October 2025
-
-
-

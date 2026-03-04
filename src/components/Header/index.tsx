@@ -31,7 +31,7 @@ export const Header = () => {
   ];
 
   const renderDropdown = (categoryName: string, label: string, iconName: string, tools: typeof AI_TOOLS) => {
-    const Icon = getIcon(iconName);
+    const Icon = getIcon(iconName) || (() => <span className="text-red-500">Icon not found</span>);
     const dropdownKey = `${categoryName}Dropdown`;
 
     return (
@@ -50,7 +50,7 @@ export const Header = () => {
                 {tools
                   .filter(tool => tool.popular)
                   .map(tool => {
-                    const ToolIcon = getIcon(tool.icon);
+                    const ToolIcon = getIcon(tool.icon) || (() => <span className="text-red-500">Icon not found</span>);
                     return (
                       <Link key={tool.path} href={tool.path} onClick={handleMenuClose} className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-lg transition-colors">
                         <ToolIcon className="text-blue-600" size={18} />
@@ -66,7 +66,7 @@ export const Header = () => {
                     {tools
                       .filter(tool => !tool.popular)
                       .map(tool => {
-                        const ToolIcon = getIcon(tool.icon);
+                        const ToolIcon = getIcon(tool.icon) || (() => <span className="text-red-500">Icon not found</span>);
                         return (
                           <Link key={tool.path} href={tool.path} onClick={handleMenuClose} className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-lg transition-colors">
                             <ToolIcon className="text-gray-500" size={18} />
@@ -85,13 +85,16 @@ export const Header = () => {
   };
 
   return (
-    <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
+    <header className="bg-gradient-to-r from-blue-500 to-purple-500 text-white sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 gap-2">
           {/* Logo */}
           <Link href="/" className="flex items-center cursor-pointer min-w-0">
             <ImageWithFallback src="/logo.png" alt="ImageConverter Logo" className="rounded-lg" height={50} width={50} />
-            <span className="ml-2 text-xl font-bold text-gray-900 truncate max-w-[10rem] sm:max-w-none">ImageConverter</span>
+            <div className="ml-2">
+              <span className="text-xl font-bold truncate max-w-[10rem] sm:max-w-none">ImageConverter</span>
+              <span className="block text-sm font-medium">Your Ultimate Tool Hub</span>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
@@ -112,7 +115,7 @@ export const Header = () => {
           <div className="lg:hidden border-t border-gray-100 py-4 max-h-[80vh] overflow-y-auto">
             <div className="space-y-4">
               {categories.map(cat => {
-                const Icon = getIcon(cat.icon);
+                const Icon = getIcon(cat.icon) || (() => <span className="text-red-500">Icon not found</span>);
                 return (
                   <div key={cat.name} className="dropdown-container">
                     <button onClick={() => toggle(`mobile-${cat.name}`)} className="flex items-center justify-between w-full text-left p-2 hover:bg-gray-50 rounded-lg">
@@ -126,7 +129,7 @@ export const Header = () => {
                     {isOpen(`mobile-${cat.name}`) && (
                       <div className="ml-8 mt-2 space-y-2 max-h-[50vh] overflow-y-auto">
                         {cat.tools.map(tool => {
-                          const ToolIcon = getIcon(tool.icon);
+                          const ToolIcon = getIcon(tool.icon) || (() => <span className="text-red-500">Icon not found</span>);
                           return (
                             <Link key={tool.path} href={tool.path} onClick={handleMenuClose} className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-lg">
                               <ToolIcon size={16} className="text-gray-500" />
