@@ -5,8 +5,8 @@ import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 
-import { Button } from '../ui/button';
-import { ImageWithFallback } from '../ImageWithFallback';
+import { Button } from '@/components/ui/button';
+import ImageWithFallback from '@/components/ImageWithFallback';
 import { useDropdowns } from '@/hooks/useDropdowns';
 import { AI_TOOLS, IMAGE_TOOLS, IMAGE_CONVERTERS, PDF_TOOLS, COLOR_TOOLS, TEXT_TOOLS, JSON_TOOLS, FONT_TOOLS, BLOG_GUIDES } from '@/config/toolCatalog';
 import { getIcon } from '@/utils/iconLookup';
@@ -36,14 +36,19 @@ export const Header = () => {
 
     return (
       <div className="relative group dropdown-container pb-2" onMouseEnter={() => toggle(dropdownKey)} onMouseLeave={() => toggle(dropdownKey)}>
-        <button className="flex min-w-0 items-center space-x-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors py-2" onClick={() => toggle(dropdownKey)}>
+        <button
+          aria-haspopup="true"
+          aria-expanded={isOpen(dropdownKey)}
+          className="flex min-w-0 items-center space-x-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors py-2"
+          onClick={() => toggle(dropdownKey)}
+        >
           <Icon size={16} />
           <span className="truncate max-w-[9rem]">{label}</span>
           <ChevronDown size={16} className={`transition-transform ${isOpen(dropdownKey) ? 'rotate-180' : ''}`} />
         </button>
 
         {isOpen(dropdownKey) && (
-          <div className="absolute left-0 top-full pt-2 w-64 z-50">
+          <div role="menu" className="absolute left-0 top-full pt-2 w-64 z-50">
             <div className="bg-white border border-gray-200 rounded-lg shadow-xl max-h-[70vh] overflow-y-auto">
               <div className="p-4 space-y-2">
                 <h3 className="text-sm font-bold text-gray-900 mb-3">{t('popularTools')}</h3>
@@ -52,7 +57,7 @@ export const Header = () => {
                   .map(tool => {
                     const ToolIcon = getIcon(tool.icon);
                     return (
-                      <Link key={tool.path} href={tool.path} onClick={handleMenuClose} className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-lg transition-colors">
+                      <Link key={tool.path} href={tool.path} onClick={handleMenuClose} className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-lg transition-colors" role="menuitem">
                         <ToolIcon className="text-blue-600" size={18} />
                         <span className="text-sm text-gray-700 hover:text-gray-900">{t(tool.translationKey)}</span>
                       </Link>
@@ -68,7 +73,7 @@ export const Header = () => {
                       .map(tool => {
                         const ToolIcon = getIcon(tool.icon);
                         return (
-                          <Link key={tool.path} href={tool.path} onClick={handleMenuClose} className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-lg transition-colors">
+                          <Link key={tool.path} href={tool.path} onClick={handleMenuClose} className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-lg transition-colors" role="menuitem">
                             <ToolIcon className="text-gray-500" size={18} />
                             <span className="text-sm text-gray-700 hover:text-gray-900">{t(tool.translationKey)}</span>
                           </Link>
@@ -95,27 +100,32 @@ export const Header = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-8">
+          <nav className="hidden lg:flex items-center space-x-8" aria-label="Main Navigation">
             {categories.map(cat => (
               <div key={cat.name}>{renderDropdown(cat.name, cat.label, cat.icon, cat.tools)}</div>
             ))}
           </nav>
 
           {/* Mobile Menu Button */}
-          <Button variant="outline" className="lg:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          <Button variant="outline" className="lg:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Toggle menu">
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </Button>
         </div>
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="lg:hidden border-t border-gray-100 py-4 max-h-[80vh] overflow-y-auto">
+          <div className="lg:hidden border-t border-gray-100 py-4 max-h-[80vh] overflow-y-auto" role="menu">
             <div className="space-y-4">
               {categories.map(cat => {
                 const Icon = getIcon(cat.icon);
                 return (
                   <div key={cat.name} className="dropdown-container">
-                    <button onClick={() => toggle(`mobile-${cat.name}`)} className="flex items-center justify-between w-full text-left p-2 hover:bg-gray-50 rounded-lg">
+                    <button
+                      onClick={() => toggle(`mobile-${cat.name}`)}
+                      className="flex items-center justify-between w-full text-left p-2 hover:bg-gray-50 rounded-lg"
+                      aria-haspopup="true"
+                      aria-expanded={isOpen(`mobile-${cat.name}`)}
+                    >
                       <div className="flex items-center space-x-2">
                         <Icon size={20} className="text-gray-600" />
                         <span className="font-medium text-gray-900">{cat.label}</span>
@@ -124,11 +134,11 @@ export const Header = () => {
                     </button>
 
                     {isOpen(`mobile-${cat.name}`) && (
-                      <div className="ml-8 mt-2 space-y-2 max-h-[50vh] overflow-y-auto">
+                      <div className="ml-8 mt-2 space-y-2 max-h-[50vh] overflow-y-auto" role="menu">
                         {cat.tools.map(tool => {
                           const ToolIcon = getIcon(tool.icon);
                           return (
-                            <Link key={tool.path} href={tool.path} onClick={handleMenuClose} className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-lg">
+                            <Link key={tool.path} href={tool.path} onClick={handleMenuClose} className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-lg" role="menuitem">
                               <ToolIcon size={16} className="text-gray-500" />
                               <span className="text-sm text-gray-700">{t(tool.translationKey)}</span>
                             </Link>
@@ -146,3 +156,5 @@ export const Header = () => {
     </header>
   );
 };
+
+export default Header;
