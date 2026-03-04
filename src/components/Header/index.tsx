@@ -30,13 +30,38 @@ export const Header = () => {
     { name: 'blog', label: t('blog'), icon: 'BookOpen', tools: BLOG_GUIDES },
   ];
 
-  const renderDropdown = (categoryName: string, label: string, iconName: string, tools: typeof AI_TOOLS) => {
-    const Icon = getIcon(iconName);
+  const renderToolLinks = (tools, handleMenuClose) => {
+    return tools.map(tool => {
+      const ToolIcon = getIcon(tool.icon) || (() => <span className="text-red-600">Icon not found</span>);
+      return (
+        <Link key={tool.path} href={tool.path} onClick={handleMenuClose} className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-lg transition-colors">
+          <ToolIcon className="text-blue-600" size={18} />
+          <span className="text-sm text-gray-700 hover:text-gray-900">{t(tool.translationKey)}</span>
+        </Link>
+      );
+    });
+  };
+
+  const renderDropdown = (categoryName, label, iconName, tools) => {
+    const Icon = getIcon(iconName) || (() => <span className="text-red-600">Icon not found</span>);
     const dropdownKey = `${categoryName}Dropdown`;
+
+    const handleKeyDown = event => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        toggle(dropdownKey);
+      }
+    };
 
     return (
       <div className="relative group dropdown-container pb-2" onMouseEnter={() => toggle(dropdownKey)} onMouseLeave={() => toggle(dropdownKey)}>
-        <button className="flex min-w-0 items-center space-x-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors py-2" onClick={() => toggle(dropdownKey)}>
+        <button 
+          className="flex min-w-0 items-center space-x-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors py-2" 
+          onClick={() => toggle(dropdownKey)}
+          onKeyDown={handleKeyDown}
+          aria-expanded={isOpen(dropdownKey)}
+          aria-haspopup="true"
+        >
           <Icon size={16} />
           <span className="truncate max-w-[9rem]">{label}</span>
           <ChevronDown size={16} className={`transition-transform ${isOpen(dropdownKey) ? 'rotate-180' : ''}`} />
@@ -47,33 +72,13 @@ export const Header = () => {
             <div className="bg-white border border-gray-200 rounded-lg shadow-xl max-h-[70vh] overflow-y-auto">
               <div className="p-4 space-y-2">
                 <h3 className="text-sm font-bold text-gray-900 mb-3">{t('popularTools')}</h3>
-                {tools
-                  .filter(tool => tool.popular)
-                  .map(tool => {
-                    const ToolIcon = getIcon(tool.icon);
-                    return (
-                      <Link key={tool.path} href={tool.path} onClick={handleMenuClose} className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-lg transition-colors">
-                        <ToolIcon className="text-blue-600" size={18} />
-                        <span className="text-sm text-gray-700 hover:text-gray-900">{t(tool.translationKey)}</span>
-                      </Link>
-                    );
-                  })}
+                {renderToolLinks(tools.filter(tool => tool.popular), handleMenuClose)}
 
                 {tools.filter(tool => !tool.popular).length > 0 && (
                   <>
                     <div className="border-t border-gray-100 my-2"></div>
                     <h3 className="text-sm font-bold text-gray-900 mb-2">{t('moreTools')}</h3>
-                    {tools
-                      .filter(tool => !tool.popular)
-                      .map(tool => {
-                        const ToolIcon = getIcon(tool.icon);
-                        return (
-                          <Link key={tool.path} href={tool.path} onClick={handleMenuClose} className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-lg transition-colors">
-                            <ToolIcon className="text-gray-500" size={18} />
-                            <span className="text-sm text-gray-700 hover:text-gray-900">{t(tool.translationKey)}</span>
-                          </Link>
-                        );
-                      })}
+                    {renderToolLinks(tools.filter(tool => !tool.popular), handleMenuClose)}
                   </>
                 )}
               </div>
@@ -112,10 +117,21 @@ export const Header = () => {
           <div className="lg:hidden border-t border-gray-100 py-4 max-h-[80vh] overflow-y-auto">
             <div className="space-y-4">
               {categories.map(cat => {
-                const Icon = getIcon(cat.icon);
+                const Icon = getIcon(cat.icon) || (() => <span className="text-red-600">Icon not found</span>);
                 return (
                   <div key={cat.name} className="dropdown-container">
-                    <button onClick={() => toggle(`mobile-${cat.name}`)} className="flex items-center justify-between w-full text-left p-2 hover:bg-gray-50 rounded-lg">
+                    <button 
+                      onClick={() => toggle(`mobile-${cat.name}`)} 
+                      className="flex items-center justify-between w-full text-left p-2 hover:bg-gray-50 rounded-lg"
+                      onKeyDown={event => {
+                        if (event.key === 'Enter' || event.key === ' ') {
+                          event.preventDefault();
+                          toggle(`mobile-${cat.name}`);
+                        }
+                      }}
+                      aria-expanded={isOpen(`mobile-${cat.name}`)}
+                      aria-haspopup="true"
+                    >
                       <div className="flex items-center space-x-2">
                         <Icon size={20} className="text-gray-600" />
                         <span className="font-medium text-gray-900">{cat.label}</span>
@@ -125,15 +141,7 @@ export const Header = () => {
 
                     {isOpen(`mobile-${cat.name}`) && (
                       <div className="ml-8 mt-2 space-y-2 max-h-[50vh] overflow-y-auto">
-                        {cat.tools.map(tool => {
-                          const ToolIcon = getIcon(tool.icon);
-                          return (
-                            <Link key={tool.path} href={tool.path} onClick={handleMenuClose} className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-lg">
-                              <ToolIcon size={16} className="text-gray-500" />
-                              <span className="text-sm text-gray-700">{t(tool.translationKey)}</span>
-                            </Link>
-                          );
-                        })}
+                        {renderToolLinks(cat.tools, handleMenuClose)}
                       </div>
                     )}
                   </div>
