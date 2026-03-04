@@ -1,7 +1,6 @@
-'use client';
 import Image from 'next/image';
 import { Upload, ArrowRight } from 'lucide-react';
-import { Button } from '../ui/button';
+import { Button } from '@/components/ui/button';
 import { useTranslations } from 'next-intl';
 
 export function Hero() {
@@ -9,7 +8,7 @@ export function Hero() {
   const tCommon = useTranslations('common');
 
   const scrollToConverter = () => {
-    const element = document.getElementById('format-grid');
+    const element = document.getElementById('converter-section');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
