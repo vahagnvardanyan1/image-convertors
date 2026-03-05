@@ -1,7 +1,7 @@
 'use client';
 
-import { Menu, X, ChevronDown } from 'lucide-react';
-import { useState } from 'react';
+import { Menu, X, ChevronDown, Sun, Moon } from 'lucide-react';
+import { useState, useContext, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 
@@ -10,11 +10,13 @@ import { ImageWithFallback } from '../ImageWithFallback';
 import { useDropdowns } from '@/hooks/useDropdowns';
 import { AI_TOOLS, IMAGE_TOOLS, IMAGE_CONVERTERS, PDF_TOOLS, COLOR_TOOLS, TEXT_TOOLS, JSON_TOOLS, FONT_TOOLS, BLOG_GUIDES } from '@/config/toolCatalog';
 import { getIcon } from '@/utils/iconLookup';
+import { ThemeContext } from '@/context/ThemeContext';
 
 export const Header = () => {
   const t = useTranslations('header');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isOpen, toggle, closeAll } = useDropdowns();
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   const handleMenuClose = () => {
     setIsMenuOpen(false);
@@ -100,6 +102,11 @@ export const Header = () => {
               <div key={cat.name}>{renderDropdown(cat.name, cat.label, cat.icon, cat.tools)}</div>
             ))}
           </nav>
+
+          {/* Theme Toggle Button */}
+          <Button variant="outline" onClick={toggleTheme} className="hidden lg:flex">
+            {theme === 'dark' ? <Sun size={24} /> : <Moon size={24} />}
+          </Button>
 
           {/* Mobile Menu Button */}
           <Button variant="outline" className="lg:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
