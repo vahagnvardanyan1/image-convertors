@@ -28,6 +28,7 @@ declare module 'next-intl' {
 ```
 
 This approach:
+
 - ✅ Uses the official next-intl API (no custom wrappers)
 - ✅ Provides full TypeScript autocomplete and type checking
 - ✅ Works with both `useTranslations` and `getTranslations`
@@ -44,7 +45,7 @@ import { useTranslations } from 'next-intl';
 
 const MyComponent = () => {
   const t = useTranslations('converterPage');
-  
+
   // ✅ TypeScript autocomplete and validation
   return (
     <div>
@@ -62,7 +63,7 @@ import { getTranslations } from 'next-intl/server';
 
 const MyServerComponent = async () => {
   const t = await getTranslations('converterPage');
-  
+
   // ✅ TypeScript autocomplete and validation
   return <h1>{t('step1Title')}</h1>;
 };
@@ -113,7 +114,7 @@ Your IDE provides autocomplete for all translation keys:
 
 ```tsx
 const t = useTranslations('converterPage');
-t('step') // IDE suggests: step1Title, step2Title, step3Title, step4Title
+t('step'); // IDE suggests: step1Title, step2Title, step3Title, step4Title
 ```
 
 ### 3. Refactoring Support
@@ -186,6 +187,7 @@ npm run validate:translations
 ```
 
 This ensures:
+
 - ✅ All locales have the same keys as `en.json`
 - ✅ No missing translations
 - ✅ No extra keys
@@ -196,7 +198,7 @@ This ensures:
 ```
 ✓ en (source)
 ✓ de - All 1528 keys present
-✓ es - All 1528 keys present  
+✓ es - All 1528 keys present
 ✓ ru - All 1528 keys present
 ✓ hi - All 1528 keys present
 ✓ zh - All 1528 keys present
@@ -209,6 +211,7 @@ This ensures:
 ### Issue: "Property doesn't exist"
 
 **Error:**
+
 ```
 Property 'step3Convert' does not exist on type...
 ```
@@ -219,11 +222,13 @@ Check `messages/en.json` for the correct key name and update your code.
 ### Issue: MISSING_MESSAGE Runtime Error
 
 **Error:**
+
 ```
 IntlError: MISSING_MESSAGE: Could not resolve `converterPage.step3Convert` in messages for locale `ru`.
 ```
 
 **Solution:**
+
 1. Check if the key exists in `messages/en.json`
 2. If it exists, add it to the missing locale file
 3. Run `npm run validate:translations`
@@ -231,6 +236,7 @@ IntlError: MISSING_MESSAGE: Could not resolve `converterPage.step3Convert` in me
 ### Issue: TypeScript Not Recognizing New Keys
 
 **Solution:**
+
 1. Ensure the key is added to `messages/en.json`
 2. Restart your TypeScript server (in VS Code: Cmd+Shift+P → "TypeScript: Restart TS Server")
 3. The `src/types/next-intl.d.ts` file imports `en.json` directly, so changes are reflected immediately
@@ -275,12 +281,12 @@ Add new keys to `messages/en.json` first, then propagate to other locales.
 
 ```tsx
 // ✅ Good
-t('step1Title')
-t('uploadImageDescription')
+t('step1Title');
+t('uploadImageDescription');
 
 // ❌ Bad
-t('title1')
-t('desc')
+t('title1');
+t('desc');
 ```
 
 ### 3. Group Related Translations
@@ -305,7 +311,7 @@ t('desc')
 ```
 
 ```tsx
-t('greeting', { name: 'John' })
+t('greeting', { name: 'John' });
 ```
 
 ### 5. Validate Before Committing
@@ -330,6 +336,3 @@ If you encounter issues:
 **Last Updated:** October 2025  
 **Method:** Module Augmentation (Official next-intl Best Practice)  
 **Status:** ✅ Production Ready
-
-
-
