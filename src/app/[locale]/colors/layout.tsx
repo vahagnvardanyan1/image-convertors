@@ -28,8 +28,8 @@ export default function ColorsLayout({ children }: { children: React.ReactNode }
         {/* Header */}
         <div className="mb-8">
           <div className="mb-6">
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{t('title')}</h1>
-            <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">{t('subtitle')}</p>
+            <h1 className="text-3xl font-bold text-blue-700 dark:text-blue-300">{t('title')}</h1>
+            <p className="mt-1 text-sm text-blue-500 dark:text-blue-400">{t('subtitle')}</p>
           </div>
 
           {/* Responsive Navigation */}
@@ -43,7 +43,7 @@ export default function ColorsLayout({ children }: { children: React.ReactNode }
                   href={item.href}
                   className={cn(
                     'flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap',
-                    isActive ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/50' : 'text-gray-700 hover:bg-white hover:shadow-md dark:text-gray-300 dark:hover:bg-gray-800',
+                    isActive ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/50' : 'text-blue-700 hover:bg-blue-100 hover:shadow-md dark:text-blue-300 dark:hover:bg-blue-800',
                   )}
                 >
                   <Icon className="w-4 h-4" />
