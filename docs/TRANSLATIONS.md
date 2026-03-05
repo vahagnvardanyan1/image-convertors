@@ -5,6 +5,7 @@ This project uses a comprehensive type-safe translation system to prevent missin
 ## 🎯 Overview
 
 The system consists of:
+
 1. **Translation JSON files** - Located in `/messages/` directory
 2. **Auto-generated TypeScript types** - Generated from `en.json` (source of truth)
 3. **Type-safe wrapper functions** - Provide compile-time checking for translation keys
@@ -53,16 +54,16 @@ import { useTranslations } from '@/lib/translations';
 
 const MyComponent = () => {
   const t = useTranslations('converterPage');
-  
+
   // ✅ Type-safe - TypeScript knows this key exists
   const title = t('step1Title');
-  
+
   // ✅ With interpolation
   const description = t('step1Description', { format: 'PNG' });
-  
+
   // ❌ TypeScript error - key doesn't exist
   // const invalid = t('nonExistentKey');
-  
+
   return <h1>{title}</h1>;
 };
 ```
@@ -76,10 +77,10 @@ import { getTranslations } from '@/lib/translations';
 
 const MyServerComponent = async () => {
   const t = await getTranslations('converterPage');
-  
+
   // ✅ Type-safe
   const title = t('step1Title');
-  
+
   return <h1>{title}</h1>;
 };
 ```
@@ -94,7 +95,7 @@ const MyComponent = () => {
   const t = useTranslations('converterPage');
   const tCommon = useTranslations('common');
   const tErrors = useTranslations('errors');
-  
+
   return (
     <div>
       <h1>{t('step1Title')}</h1>
@@ -116,12 +117,14 @@ npm run generate:types
 ```
 
 This script:
+
 - Reads `messages/en.json`
 - Generates TypeScript interfaces for all translation keys
 - Outputs to `src/types/translations.generated.ts`
 - Creates union types for type-safe namespace access
 
 **When to run:**
+
 - After adding new translation keys to `en.json`
 - After modifying the structure of translation files
 - Before committing changes to translations
@@ -135,12 +138,14 @@ npm run validate:translations
 ```
 
 This script:
+
 - Compares all locale files against `en.json`
 - Reports missing keys
 - Reports extra keys
 - Fails the build if inconsistencies are found
 
 **When to run:**
+
 - After updating any translation file
 - Before committing changes
 - Automatically runs in `prebuild`
@@ -211,7 +216,7 @@ TypeScript catches missing translation keys at compile time, not runtime:
 ```tsx
 const t = useTranslations('converterPage');
 t('step3Convert'); // ❌ TypeScript error: Key doesn't exist
-t('step3Title');   // ✅ Correct key
+t('step3Title'); // ✅ Correct key
 ```
 
 ### 2. **Auto-Complete**
@@ -220,7 +225,7 @@ Your IDE provides autocomplete for all translation keys:
 
 ```tsx
 const t = useTranslations('converterPage');
-t('step') // IDE suggests: step1Title, step2Title, step3Title, etc.
+t('step'); // IDE suggests: step1Title, step2Title, step3Title, etc.
 ```
 
 ### 3. **Refactoring Safety**
@@ -234,6 +239,7 @@ The system shown in your error (`MISSING_MESSAGE: Could not resolve 'converterPa
 ### 5. **Consistent Structure**
 
 Validation ensures all locales have identical structure, preventing:
+
 - Missing translations
 - Typos in keys
 - Structural mismatches
@@ -274,6 +280,7 @@ The `validate-translations.js` script:
 ### Development Mode
 
 In development, the wrapper functions will:
+
 - Log errors to the console when a key is missing
 - Return a visible fallback like `[Missing: namespace.key]`
 - Not crash the application
@@ -281,6 +288,7 @@ In development, the wrapper functions will:
 ### Production Mode
 
 In production, the wrapper functions will:
+
 - Silently fail (no console errors)
 - Return the fallback text
 - Allow the application to continue running
@@ -290,6 +298,7 @@ In production, the wrapper functions will:
 #### Issue: "MISSING_MESSAGE: Could not resolve 'namespace.key'"
 
 **Solution:**
+
 1. Check if the key exists in `messages/en.json`
 2. Run `npm run generate:types` to update TypeScript types
 3. Run `npm run validate:translations` to check all locales
@@ -297,6 +306,7 @@ In production, the wrapper functions will:
 #### Issue: TypeScript error "Key doesn't exist"
 
 **Solution:**
+
 1. The key is genuinely missing from the translation files
 2. Add the key to `messages/en.json`
 3. Run `npm run generate:types`
@@ -305,6 +315,7 @@ In production, the wrapper functions will:
 #### Issue: Build fails with validation errors
 
 **Solution:**
+
 1. Review the validation output to see which keys are missing
 2. Add the missing keys to the appropriate locale files
 3. Ensure all locale files have the same structure
@@ -323,12 +334,12 @@ Run `npm run generate:types` and `npm run validate:translations` frequently duri
 
 ```tsx
 // ✅ Good
-t('step1Title')
-t('uploadImageDescription')
+t('step1Title');
+t('uploadImageDescription');
 
 // ❌ Bad
-t('title1')
-t('desc')
+t('title1');
+t('desc');
 ```
 
 ### 4. **Group Related Translations**
@@ -353,7 +364,7 @@ t('desc')
 ```
 
 ```tsx
-t('greeting', { name: 'John' })
+t('greeting', { name: 'John' });
 ```
 
 ### 6. **Commit Generated Types**
@@ -383,6 +394,7 @@ npm run generate:types
 3. **Fix TypeScript errors:**
 
 TypeScript will now show errors for invalid keys. Fix them by:
+
 - Using the correct key name
 - Adding missing keys to translation files
 
@@ -409,6 +421,3 @@ If you encounter issues:
 
 **Last Updated:** October 2025  
 **Generated by:** Translation Type System v1.0
-
-
-
