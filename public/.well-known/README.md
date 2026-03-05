@@ -20,4 +20,3 @@ These files cannot dynamically reference the `SITE_URL` constant because they ar
 
 - `ai-plugin.json` - Configuration for AI assistant plugins (ChatGPT, Claude, etc.)
 - `openapi.json` - OpenAPI specification for the public API
-

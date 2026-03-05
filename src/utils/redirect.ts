@@ -14,14 +14,17 @@ import { FREE_CONVERT_URL } from '@/config/constants';
  * redirectToFreeConvert('/about') // Redirects to https://freeconvert.tools/about
  */
 export const redirectToFreeConvert = (pathname: string): void => {
-  const url = `${FREE_CONVERT_URL}${pathname}`;
+  const targetUrl = `${FREE_CONVERT_URL}${pathname}`;
 
   if (typeof window === 'undefined') {
     // Server-side: throw redirect error which Next.js will catch and handle as 301
     // Note: Next.js redirect() uses 307 by default, but we can configure in next.config.ts
-    redirect(url);
+    redirect(targetUrl);
   } else {
-    // Client-side: use window.location
-    window.location.href = url;
+    // Client-side: check if the current URL is different from the target URL
+    if (window.location.href !== targetUrl) {
+      // Use window.location to redirect
+      window.location.href = targetUrl;
+    }
   }
 };
