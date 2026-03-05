@@ -41,6 +41,7 @@ npm run prebuild
 ## ✅ Adding New Translation
 
 1. **Add to `messages/en.json`:**
+
 ```json
 {
   "myNamespace": {
@@ -50,6 +51,7 @@ npm run prebuild
 ```
 
 2. **Generate types:**
+
 ```bash
 npm run generate:types
 ```
@@ -57,11 +59,13 @@ npm run generate:types
 3. **Add to all other locale files** (`de.json`, `es.json`, `ru.json`, `hi.json`, `zh.json`)
 
 4. **Validate:**
+
 ```bash
 npm run validate:translations
 ```
 
 5. **Use in code:**
+
 ```tsx
 const t = useTranslations('myNamespace');
 const text = t('myNewKey'); // Type-safe!
@@ -131,6 +135,3 @@ Some locale files are missing keys. Check the error output and add missing trans
 ---
 
 For complete documentation, see [TRANSLATIONS.md](./TRANSLATIONS.md)
-
-
-
