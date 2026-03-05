@@ -85,13 +85,13 @@ export const Header = () => {
   };
 
   return (
-    <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
+    <header className="bg-gradient-to-r from-blue-500 to-purple-500 border-b border-gray-100 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 gap-2">
           {/* Logo */}
           <Link href="/" className="flex items-center cursor-pointer min-w-0">
             <ImageWithFallback src="/logo.png" alt="ImageConverter Logo" className="rounded-lg" height={50} width={50} />
-            <span className="ml-2 text-xl font-bold text-gray-900 truncate max-w-[10rem] sm:max-w-none">ImageConverter</span>
+            <span className="ml-2 text-xl font-bold text-white truncate max-w-[10rem] sm:max-w-none">ImageConverter</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -118,7 +118,7 @@ export const Header = () => {
                     <button onClick={() => toggle(`mobile-${cat.name}`)} className="flex items-center justify-between w-full text-left p-2 hover:bg-gray-50 rounded-lg">
                       <div className="flex items-center space-x-2">
                         <Icon size={20} className="text-gray-600" />
-                        <span className="font-medium text-gray-900">{cat.label}</span>
+                        <span className="font-medium text-white">{cat.label}</span>
                       </div>
                       <ChevronDown size={18} className={`transition-transform ${isOpen(`mobile-${cat.name}`) ? 'rotate-180' : ''}`} />
                     </button>
