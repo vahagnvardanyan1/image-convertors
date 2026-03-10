@@ -10,11 +10,14 @@ import { ImageWithFallback } from '../ImageWithFallback';
 import { useDropdowns } from '@/hooks/useDropdowns';
 import { AI_TOOLS, IMAGE_TOOLS, IMAGE_CONVERTERS, PDF_TOOLS, COLOR_TOOLS, TEXT_TOOLS, JSON_TOOLS, FONT_TOOLS, BLOG_GUIDES } from '@/config/toolCatalog';
 import { getIcon } from '@/utils/iconLookup';
+import { useModal } from '@/hooks/useModal';
+import { AuthenticationModal } from '@/components/AuthenticationModal';
 
 export const Header = () => {
   const t = useTranslations('header');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isOpen, toggle, closeAll } = useDropdowns();
+  const { isModalOpen, openModal, closeModal } = useModal();
 
   const handleMenuClose = () => {
     setIsMenuOpen(false);
@@ -101,6 +104,11 @@ export const Header = () => {
             ))}
           </nav>
 
+          {/* Login Button */}
+          <Button variant="primary" onClick={openModal} className="hidden lg:block">
+            {t('login')}
+          </Button>
+
           {/* Mobile Menu Button */}
           <Button variant="outline" className="lg:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -143,6 +151,9 @@ export const Header = () => {
           </div>
         )}
       </div>
+
+      {/* Authentication Modal */}
+      {isModalOpen && <AuthenticationModal onClose={closeModal} />}
     </header>
   );
 };
