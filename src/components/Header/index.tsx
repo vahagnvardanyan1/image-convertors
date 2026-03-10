@@ -91,7 +91,7 @@ export const Header = () => {
           {/* Logo */}
           <Link href="/" className="flex items-center cursor-pointer min-w-0">
             <ImageWithFallback src="/logo.png" alt="ImageConverter Logo" className="rounded-lg" height={50} width={50} />
-            <span className="ml-2 text-xl font-bold text-gray-900 truncate max-w-[10rem] sm:max-w-none">ImageConverter</span>
+            <span className="ml-2 text-xl font-bold text-red-500 truncate max-w-[10rem] sm:max-w-none">ImageConverter</span>
           </Link>
 
           {/* Desktop Navigation */}
