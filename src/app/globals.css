@@ -132,4 +132,9 @@
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
   }
+
+  /* Footer background color change */
+  footer {
+    background-color: red;
+  }
 }
