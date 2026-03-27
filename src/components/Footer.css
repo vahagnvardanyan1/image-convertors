@@ -1,0 +1,34 @@
+.footer {
+  background-color: #f8f9fa; /* Example color, should match header background */
+  padding: 20px 0; /* Consistent spacing */
+  border-top: 1px solid #eaeaea; /* Similar border style as header bottom */
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-text {
+  font-family: 'Roboto', sans-serif; /* Match header font family */
+  color: #212529; /* Match header text color */
+}
+
+.footer-nav {
+  display: flex;
+  gap: 15px; /* Consistent spacing between links */
+}
+
+.footer-link {
+  color: #007bff; /* Link color consistent with header */
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+  color: #0056b3; /* Changed on hover for consistent behavior */
+}
