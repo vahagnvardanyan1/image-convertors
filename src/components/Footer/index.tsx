@@ -16,6 +16,24 @@ export function Footer() {
     setOpenSection(openSection === section ? null : section);
   };
 
+  const renderSection = (title: string, sectionKey: string, links: { href: string; label: string }[]) => (
+    <div className="border-b border-gray-800 pb-4 sm:border-b-0 sm:pb-0">
+      <button onClick={() => toggleSection(sectionKey)} className="flex items-center justify-between w-full sm:cursor-default sm:pointer-events-none">
+        <h3 className="font-semibold mb-4 sm:mb-4">{title}</h3>
+        <ChevronDown className={`sm:hidden transition-transform ${openSection === sectionKey ? 'rotate-180' : ''}`} size={20} />
+      </button>
+      <ul className={`space-y-2 ${openSection === sectionKey ? 'block' : 'hidden sm:block'}`}>
+        {links.map((link, index) => (
+          <li key={index}>
+            <Link href={link.href} className="text-gray-400 hover:text-white transition-colors text-sm">
+              {link.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+
   return (
     <footer className="bg-gray-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -38,389 +56,93 @@ export function Footer() {
           </div>
 
           {/* AI Tools */}
-          <div className="border-b border-gray-800 pb-4 sm:border-b-0 sm:pb-0">
-            <button onClick={() => toggleSection('ai')} className="flex items-center justify-between w-full sm:cursor-default sm:pointer-events-none">
-              <h3 className="font-semibold mb-4 sm:mb-4">{t('aiTools')}</h3>
-              <ChevronDown className={`sm:hidden transition-transform ${openSection === 'ai' ? 'rotate-180' : ''}`} size={20} />
-            </button>
-            <ul className={`space-y-2 ${openSection === 'ai' ? 'block' : 'hidden sm:block'}`}>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/ai-image-generator`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {t('aiImageGenerator')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/remove-background`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {t('removeBackground')}
-                </Link>
-              </li>
-            </ul>
-          </div>
+          {renderSection(t('aiTools'), 'ai', [
+            { href: `${FREE_CONVERT_URL}/ai-image-generator`, label: t('aiImageGenerator') },
+            { href: `${FREE_CONVERT_URL}/remove-background`, label: t('removeBackground') },
+          ])}
 
           {/* Image Converters */}
-          <div className="border-b border-gray-800 pb-4 sm:border-b-0 sm:pb-0">
-            <button onClick={() => toggleSection('image')} className="flex items-center justify-between w-full sm:cursor-default sm:pointer-events-none">
-              <h3 className="font-semibold mb-4 sm:mb-4">{t('imageConverters')}</h3>
-              <ChevronDown className={`sm:hidden transition-transform ${openSection === 'image' ? 'rotate-180' : ''}`} size={20} />
-            </button>
-            <ul className={`space-y-2 ${openSection === 'image' ? 'block' : 'hidden sm:block'}`}>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/crop-image`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {t('cropImage')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/resize-image`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {t('resizeImage')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/png-to-webp`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {t('pngToWebp')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/jpg-to-png`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {t('jpgToPng')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/webp-to-png`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {t('webpToPng')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/jpg-to-webp`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {t('jpgToWebp')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/png-to-jpg`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {t('pngToJpg')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/webp-to-jpg`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {t('webpToJpg')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/heic-to-jpg`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {t('heicToJpg')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/heic-to-png`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {t('heicToPng')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/heic-to-webp`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {t('heicToWebp')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/analyze`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {t('imageAnalyzer')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/qr-code-generator`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {t('qrCodeGenerator')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/chart-generator`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {t('chartGenerator')}
-                </Link>
-              </li>
-            </ul>
-          </div>
+          {renderSection(t('imageConverters'), 'image', [
+            { href: `${FREE_CONVERT_URL}/crop-image`, label: t('cropImage') },
+            { href: `${FREE_CONVERT_URL}/resize-image`, label: t('resizeImage') },
+            { href: `${FREE_CONVERT_URL}/png-to-webp`, label: t('pngToWebp') },
+            { href: `${FREE_CONVERT_URL}/jpg-to-png`, label: t('jpgToPng') },
+            { href: `${FREE_CONVERT_URL}/webp-to-png`, label: t('webpToPng') },
+            { href: `${FREE_CONVERT_URL}/jpg-to-webp`, label: t('jpgToWebp') },
+            { href: `${FREE_CONVERT_URL}/png-to-jpg`, label: t('pngToJpg') },
+            { href: `${FREE_CONVERT_URL}/webp-to-jpg`, label: t('webpToJpg') },
+            { href: `${FREE_CONVERT_URL}/heic-to-jpg`, label: t('heicToJpg') },
+            { href: `${FREE_CONVERT_URL}/heic-to-png`, label: t('heicToPng') },
+            { href: `${FREE_CONVERT_URL}/heic-to-webp`, label: t('heicToWebp') },
+            { href: `${FREE_CONVERT_URL}/analyze`, label: t('imageAnalyzer') },
+            { href: `${FREE_CONVERT_URL}/qr-code-generator`, label: t('qrCodeGenerator') },
+            { href: `${FREE_CONVERT_URL}/chart-generator`, label: t('chartGenerator') },
+          ])}
 
           {/* PDF Tools */}
-          <div className="border-b border-gray-800 pb-4 sm:border-b-0 sm:pb-0">
-            <button onClick={() => toggleSection('pdf')} className="flex items-center justify-between w-full sm:cursor-default sm:pointer-events-none">
-              <h3 className="font-semibold mb-4 sm:mb-4">{t('pdfTools')}</h3>
-              <ChevronDown className={`sm:hidden transition-transform ${openSection === 'pdf' ? 'rotate-180' : ''}`} size={20} />
-            </button>
-            <ul className={`space-y-2 ${openSection === 'pdf' ? 'block' : 'hidden sm:block'}`}>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/pdf-to-jpg`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {t('pdfToJpg')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/pdf-to-png`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {t('pdfToPng')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/images-to-pdf`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {t('imagesToPdf')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/png-to-pdf`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {t('pngToPdf')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/jpg-to-pdf`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {t('jpgToPdf')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/heic-to-pdf`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {t('heicToPdf')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/webp-to-pdf`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {t('webpToPdf')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/merge-pdf`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {t('mergePdfFiles')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/split-pdf`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {t('splitPdfFiles')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/pdf-info`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {t('pdfInformation')}
-                </Link>
-              </li>
-            </ul>
-          </div>
+          {renderSection(t('pdfTools'), 'pdf', [
+            { href: `${FREE_CONVERT_URL}/pdf-to-jpg`, label: t('pdfToJpg') },
+            { href: `${FREE_CONVERT_URL}/pdf-to-png`, label: t('pdfToPng') },
+            { href: `${FREE_CONVERT_URL}/images-to-pdf`, label: t('imagesToPdf') },
+            { href: `${FREE_CONVERT_URL}/png-to-pdf`, label: t('pngToPdf') },
+            { href: `${FREE_CONVERT_URL}/jpg-to-pdf`, label: t('jpgToPdf') },
+            { href: `${FREE_CONVERT_URL}/heic-to-pdf`, label: t('heicToPdf') },
+            { href: `${FREE_CONVERT_URL}/webp-to-pdf`, label: t('webpToPdf') },
+            { href: `${FREE_CONVERT_URL}/merge-pdf`, label: t('mergePdfFiles') },
+            { href: `${FREE_CONVERT_URL}/split-pdf`, label: t('splitPdfFiles') },
+            { href: `${FREE_CONVERT_URL}/pdf-info`, label: t('pdfInformation') },
+          ])}
 
           {/* Color Tools */}
-          <div className="border-b border-gray-800 pb-4 sm:border-b-0 sm:pb-0">
-            <button onClick={() => toggleSection('color')} className="flex items-center justify-between w-full sm:cursor-default sm:pointer-events-none">
-              <h3 className="font-semibold mb-4 sm:mb-4">{t('colorTools')}</h3>
-              <ChevronDown className={`sm:hidden transition-transform ${openSection === 'color' ? 'rotate-180' : ''}`} size={20} />
-            </button>
-            <ul className={`space-y-2 ${openSection === 'color' ? 'block' : 'hidden sm:block'}`}>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/colors`} className="text-gray-400 hover:text-white transition-colors text-sm font-medium">
-                  {t('allColorTools')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/colors/picker`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {t('colorPicker')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/colors/palettes`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {t('colorPalettes')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/colors/gradients`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {t('gradientGenerator')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/colors/converter`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {t('colorConverter')}
-                </Link>
-              </li>
-            </ul>
-          </div>
+          {renderSection(t('colorTools'), 'color', [
+            { href: `${FREE_CONVERT_URL}/colors`, label: t('allColorTools') },
+            { href: `${FREE_CONVERT_URL}/colors/picker`, label: t('colorPicker') },
+            { href: `${FREE_CONVERT_URL}/colors/palettes`, label: t('colorPalettes') },
+            { href: `${FREE_CONVERT_URL}/colors/gradients`, label: t('gradientGenerator') },
+            { href: `${FREE_CONVERT_URL}/colors/converter`, label: t('colorConverter') },
+          ])}
 
           {/* Text Tools */}
-          <div className="border-b border-gray-800 pb-4 sm:border-b-0 sm:pb-0">
-            <button onClick={() => toggleSection('text')} className="flex items-center justify-between w-full sm:cursor-default sm:pointer-events-none">
-              <h3 className="font-semibold mb-4 sm:mb-4">{t('textTools')}</h3>
-              <ChevronDown className={`sm:hidden transition-transform ${openSection === 'text' ? 'rotate-180' : ''}`} size={20} />
-            </button>
-            <ul className={`space-y-2 ${openSection === 'text' ? 'block' : 'hidden sm:block'}`}>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/texts`} className="text-gray-400 hover:text-white transition-colors text-sm font-medium">
-                  {t('allTextTools')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/texts/json-validator`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {t('jsonValidator')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/texts/json-comparer`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {t('jsonComparer')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/texts/json-parser`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {t('jsonParser')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/texts/emojis`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {t('emojiPicker')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/texts/symbols`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {t('symbolLibrary')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/texts/fonts/preview`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {t('fontPreview')}
-                </Link>
-              </li>
-            </ul>
-          </div>
+          {renderSection(t('textTools'), 'text', [
+            { href: `${FREE_CONVERT_URL}/texts`, label: t('allTextTools') },
+            { href: `${FREE_CONVERT_URL}/texts/json-validator`, label: t('jsonValidator') },
+            { href: `${FREE_CONVERT_URL}/texts/json-comparer`, label: t('jsonComparer') },
+            { href: `${FREE_CONVERT_URL}/texts/json-parser`, label: t('jsonParser') },
+            { href: `${FREE_CONVERT_URL}/texts/emojis`, label: t('emojiPicker') },
+            { href: `${FREE_CONVERT_URL}/texts/symbols`, label: t('symbolLibrary') },
+            { href: `${FREE_CONVERT_URL}/texts/fonts/preview`, label: t('fontPreview') },
+          ])}
 
           {/* Blog & Resources */}
-          <div className="border-b border-gray-800 pb-4 sm:border-b-0 sm:pb-0">
-            <button onClick={() => toggleSection('blog')} className="flex items-center justify-between w-full sm:cursor-default sm:pointer-events-none">
-              <h3 className="font-semibold mb-4 sm:mb-4">{t('blogResources')}</h3>
-              <ChevronDown className={`sm:hidden transition-transform ${openSection === 'blog' ? 'rotate-180' : ''}`} size={20} />
-            </button>
-            <ul className={`space-y-2 max-h-[400px] overflow-y-auto ${openSection === 'blog' ? 'block' : 'hidden sm:block'}`}>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/blog`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {t('blogHome')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/blog/qr-code-generator-guide`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {tHeader('qrCodeGeneratorGuide')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/blog/crop-image-guide`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {tHeader('cropImageGuide')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/blog/resize-image-guide`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {tHeader('resizeImageGuide')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/blog/remove-background-guide`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {tHeader('removeBackgroundGuide')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/blog/png-to-webp-guide`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {tHeader('pngToWebpGuide')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/blog/png-to-jpg-guide`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {tHeader('pngToJpgGuide')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/blog/webp-to-png-guide`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {tHeader('webpToPngGuide')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/blog/png-to-pdf-guide`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {tHeader('pngToPdfGuide')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/blog/jpg-to-webp-guide`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {tHeader('jpgToWebpGuide')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/blog/jpg-to-pdf-guide`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {tHeader('jpgToPdfGuide')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/blog/pdf-to-jpg-guide`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {tHeader('pdfToJpgGuide')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/blog/heic-to-jpg-guide`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {tHeader('heicToJpgGuide')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/blog/heic-to-webp-guide`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {tHeader('heicToWebpGuide')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/blog/compress-images-guide`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {tHeader('compressImagesGuide')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/blog/color-picker-guide`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {tHeader('colorPickerGuide')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/blog/color-palette-guide`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {tHeader('colorPaletteGuide')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/blog/gradient-generator-guide`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {tHeader('gradientGeneratorGuide')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/blog/color-converter-guide`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {tHeader('colorConverterGuide')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/blog/font-preview-guide`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {tHeader('fontPreviewGuide')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/blog/font-pairing-guide`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {tHeader('fontPairingGuide')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/blog/typographic-scale-guide`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {tHeader('typographicScaleGuide')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/blog/emoji-guide`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {tHeader('emojiGuide')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/blog/symbol-guide`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {tHeader('symbolGuide')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/blog/json-validator-guide`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {tHeader('jsonValidatorGuide')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/blog/json-comparer-guide`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {tHeader('jsonComparerGuide')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`${FREE_CONVERT_URL}/blog/json-parser-guide`} className="text-gray-400 hover:text-white transition-colors text-sm">
-                  {tHeader('jsonParserGuide')}
-                </Link>
-              </li>
-            </ul>
-          </div>
+          {renderSection(t('blogResources'), 'blog', [
+            { href: `${FREE_CONVERT_URL}/blog`, label: t('blogHome') },
+            { href: `${FREE_CONVERT_URL}/blog/qr-code-generator-guide`, label: tHeader('qrCodeGeneratorGuide') },
+            { href: `${FREE_CONVERT_URL}/blog/crop-image-guide`, label: tHeader('cropImageGuide') },
+            { href: `${FREE_CONVERT_URL}/blog/resize-image-guide`, label: tHeader('resizeImageGuide') },
+            { href: `${FREE_CONVERT_URL}/blog/remove-background-guide`, label: tHeader('removeBackgroundGuide') },
+            { href: `${FREE_CONVERT_URL}/blog/png-to-webp-guide`, label: tHeader('pngToWebpGuide') },
+            { href: `${FREE_CONVERT_URL}/blog/png-to-jpg-guide`, label: tHeader('pngToJpgGuide') },
+            { href: `${FREE_CONVERT_URL}/blog/webp-to-png-guide`, label: tHeader('webpToPngGuide') },
+            { href: `${FREE_CONVERT_URL}/blog/png-to-pdf-guide`, label: tHeader('pngToPdfGuide') },
+            { href: `${FREE_CONVERT_URL}/blog/jpg-to-webp-guide`, label: tHeader('jpgToWebpGuide') },
+            { href: `${FREE_CONVERT_URL}/blog/jpg-to-pdf-guide`, label: tHeader('jpgToPdfGuide') },
+            { href: `${FREE_CONVERT_URL}/blog/pdf-to-jpg-guide`, label: tHeader('pdfToJpgGuide') },
+            { href: `${FREE_CONVERT_URL}/blog/heic-to-jpg-guide`, label: tHeader('heicToJpgGuide') },
+            { href: `${FREE_CONVERT_URL}/blog/heic-to-webp-guide`, label: tHeader('heicToWebpGuide') },
+            { href: `${FREE_CONVERT_URL}/blog/compress-images-guide`, label: tHeader('compressImagesGuide') },
+            { href: `${FREE_CONVERT_URL}/blog/color-picker-guide`, label: tHeader('colorPickerGuide') },
+            { href: `${FREE_CONVERT_URL}/blog/color-palette-guide`, label: tHeader('colorPaletteGuide') },
+            { href: `${FREE_CONVERT_URL}/blog/gradient-generator-guide`, label: tHeader('gradientGeneratorGuide') },
+            { href: `${FREE_CONVERT_URL}/blog/color-converter-guide`, label: tHeader('colorConverterGuide') },
+            { href: `${FREE_CONVERT_URL}/blog/font-preview-guide`, label: tHeader('fontPreviewGuide') },
+            { href: `${FREE_CONVERT_URL}/blog/font-pairing-guide`, label: tHeader('fontPairingGuide') },
+            { href: `${FREE_CONVERT_URL}/blog/typographic-scale-guide`, label: tHeader('typographicScaleGuide') },
+            { href: `${FREE_CONVERT_URL}/blog/emoji-guide`, label: tHeader('emojiGuide') },
+            { href: `${FREE_CONVERT_URL}/blog/symbol-guide`, label: tHeader('symbolGuide') },
+            { href: `${FREE_CONVERT_URL}/blog/json-validator-guide`, label: tHeader('jsonValidatorGuide') },
+            { href: `${FREE_CONVERT_URL}/blog/json-comparer-guide`, label: tHeader('jsonComparerGuide') },
+            { href: `${FREE_CONVERT_URL}/blog/json-parser-guide`, label: tHeader('jsonParserGuide') },
+          ])}
         </div>
 
         {/* Legal Links - Centered */}
